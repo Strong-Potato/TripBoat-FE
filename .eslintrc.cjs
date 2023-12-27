@@ -12,11 +12,36 @@ module.exports = {
   plugins: [
     "react-refresh",
     "simple-import-sort",
+    "eslint-plugin-unused-imports",
     "@typescript-eslint",
     "@tanstack/eslint-plugin-query",
   ],
   rules: {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": [
+      "warn",
+      {
+        additionalHooks: "useRecoilCallback",
+      },
+    ],
     "simple-import-sort/exports": "warn",
+
+    // #region  //*=========== Unused Import ===========
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "warn",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        vars: "all",
+        varsIgnorePattern: "^_",
+        args: "after-used",
+        argsIgnorePattern: "^_",
+      },
+    ],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    // #endregion  //*======== Unused Import ===========
+
     "simple-import-sort/imports": [
       "warn",
       {
