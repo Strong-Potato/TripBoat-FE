@@ -1,7 +1,6 @@
+import Home from "@pages/Home/Home";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-
-import Home from "../pages/Home/Home";
 
 function MainRouter() {
   return (
