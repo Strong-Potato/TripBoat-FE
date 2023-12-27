@@ -1,11 +1,14 @@
+import { BrowserRouter } from "react-router-dom";
+
 import "./App.scss";
+
+import MainRouter from "./routes/MainRouter";
 
 function App() {
   return (
-    <div>
-      <div>테스트</div>
-      <button>눌러주세요</button>
-    </div>
+    <BrowserRouter>
+      <MainRouter />
+    </BrowserRouter>
   );
 }
 
