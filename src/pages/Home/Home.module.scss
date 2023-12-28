@@ -1,0 +1,10 @@
+@use "../../sass/base" as *;
+@use "../../sass/abstracts" as *;
+
+.header {
+  @include typography(headline);
+}
+
+.ex {
+  @include a11y-hidden;
+}
