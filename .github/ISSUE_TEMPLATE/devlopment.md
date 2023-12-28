@@ -1,10 +1,9 @@
 ---
 name: Devlopment
 about: 개발하기
-title: ''
-labels: ''
-assignees: ''
-
+title: "ex ) Feat : create gnb"
+labels: ""
+assignees: ""
 ---
 
 ## Description

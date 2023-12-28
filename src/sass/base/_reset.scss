@@ -1,3 +1,4 @@
+//브라우저 스타일 초기화 또는 재설정을 정의합니다.
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -13,8 +14,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  margin: 0;
+#root {
   display: flex;
-  place-items: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f7fafc;
 }

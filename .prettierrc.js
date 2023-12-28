@@ -1,8 +1,6 @@
 exports = {
   arrowParens: "always",
 
-  trailingComma: "es5",
-
   /**
    *  tabWidth: <int>
    *  들여쓰기 너비 수(탭을 사용할 경우 몇칸을 띄워줄지)
