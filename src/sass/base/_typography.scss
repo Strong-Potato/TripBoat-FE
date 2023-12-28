@@ -1,1 +1,61 @@
 //기본 텍스트 스타일을 정의합니다.
+
+@mixin headline {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 32px;
+}
+
+@mixin titleLarge {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 28px;
+}
+
+@mixin titleMedium {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 26px;
+}
+
+@mixin titleSmall {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 24px;
+}
+
+@mixin bodyLarge {
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 24px;
+}
+
+@mixin bodySmall {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 22px;
+}
+
+@mixin bottom {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 22px;
+}
+
+@mixin tabLabel {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 22px;
+}
+
+@mixin captionLarge {
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 22px;
+}
+
+@mixin captionSmall {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 16px;
+}
