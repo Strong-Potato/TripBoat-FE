@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 
-import "./MainRouter.scss";
+import styles from "./MainRouter.module.scss";
 
 import Home from "../../pages/Home/Home";
 
 function MainRouter() {
   return (
-    <div className="innerContainer">
+    <div className={styles.innerContainer}>
       <Routes>
         <Route index element={<Home />} />
       </Routes>
