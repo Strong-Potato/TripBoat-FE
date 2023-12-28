@@ -1,3 +1,5 @@
+@use "sass:map";
+
 //색상, 폰트 크기 등과 같은 변수를 정의합니다.
 
 // color
@@ -43,3 +45,43 @@ $shadow200:
   0px 1px 8px 2px rgba(20, 20, 20, 0.1),
   0px 0px 1px 0px rgba(20, 20, 20, 0.04);
 $shadow300: 0px 1px 24px 8px rgba(20, 20, 20, 0.08);
+
+// typography-map
+$typography-font-size-map: (
+  "headline": 24px,
+  "titleLarge": 24px,
+  "titleMedium": 18px,
+  "titleSmall": 16px,
+  "bodyLarge": 16px,
+  "bodySmall": 14px,
+  "bottom": 14px,
+  "tabLabel": 14px,
+  "captionLarge": 13px,
+  "captionSmall": 12px,
+);
+
+$typography-font-weight-map: (
+  "headline": bold,
+  "titleLarge": bold,
+  "titleMedium": bold,
+  "titleSmall": bold,
+  "bodyLarge": normal,
+  "bodySmall": normal,
+  "bottom": bold,
+  "tabLabel": bold,
+  "captionLarge": bold,
+  "captionSmall": bold,
+);
+
+$typography-line-height-map: (
+  "headline": 32px,
+  "titleLarge": 28px,
+  "titleMedium": 26px,
+  "titleSmall": 24px,
+  "bodyLarge": 24px,
+  "bodySmall": 22px,
+  "bottom": 22px,
+  "tabLabel": 22px,
+  "captionLarge": 22px,
+  "captionSmall": 16px,
+);
