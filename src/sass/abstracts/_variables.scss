@@ -1,1 +1,45 @@
 //색상, 폰트 크기 등과 같은 변수를 정의합니다.
+
+// color
+$primary100: #d4ebff;
+$primary200: #39a1ff;
+$primary300: #0086ff;
+$primary400: #006aca;
+
+$secondary100: #ffe2ed;
+$secondary300: #ff659c;
+$secondary400: #e23774;
+
+$success100: #71d07b;
+$success300: #19c43e;
+$success400: #04724d;
+
+$danger100: #fef1f2;
+$danger300: #e02d3c;
+$danger400: #ba2532;
+
+$neutral0: #fff;
+$neutral100: #f2f4f5;
+$neutral200: #e3e5e5;
+$neutral300: #cdcfd0;
+$neutral400: #979c9e;
+$neutral700: #3f444d;
+$neutral800: #23272f;
+$neutral1000: #0a0d14;
+// background로 사용 (background-color x)
+$neutral900: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.2) 100%
+  ),
+  linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
+  linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%), #1b1f27;
+
+//shadow
+$shadow100:
+  0px 0px 8px 0px rgba(20, 20, 20, 0.08),
+  0px 0px 1px 0px rgba(20, 20, 20, 0.04);
+$shadow200:
+  0px 1px 8px 2px rgba(20, 20, 20, 0.1),
+  0px 0px 1px 0px rgba(20, 20, 20, 0.04);
+$shadow300: 0px 1px 24px 8px rgba(20, 20, 20, 0.08);
