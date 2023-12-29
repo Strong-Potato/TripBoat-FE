@@ -14,6 +14,7 @@ export default defineConfig({
       { find: "@routes", replacement: "src/routes" },
       { find: "@types", replacement: "src/types" },
       { find: "@utils", replacement: "src/utils" },
+      { find: "@sass", replacement: "src/sass" },
     ],
   },
   server: {
