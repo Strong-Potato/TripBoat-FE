@@ -29,18 +29,18 @@
   .lists_box {
     display: flex;
     flex-direction: column;
-    gap: 4.8rem;
+    gap: 48px;
   }
 
   .column_4px {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 4px;
   }
 
   .column_8px {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 8px;
   }
 }
