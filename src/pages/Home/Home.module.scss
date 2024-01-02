@@ -1,10 +1,7 @@
-@use "../../sass/base" as *;
-@use "../../sass/abstracts" as *;
+@use "@/sass";
 
-.header {
-  @include typography(headline);
-}
+.container {
+  width: 100%;
 
-.ex {
-  @include a11y-hidden;
+  padding: 0 20px;
 }
