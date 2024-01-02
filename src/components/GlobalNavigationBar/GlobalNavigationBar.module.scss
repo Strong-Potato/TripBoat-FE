@@ -1,4 +1,4 @@
-@use "../../sass/abstracts/variables";
+@use "@/sass/abstracts/variables";
 
 .container {
   position: absolute;
@@ -12,12 +12,11 @@
   box-shadow:
     0px -2px 8px 0px rgba(20, 20, 20, 0.04),
     0px -1px 1px 0px rgba(20, 20, 20, 0.02);
-}
+  a {
+    flex-grow: 1;
 
-.box {
-  flex-grow: 1;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
