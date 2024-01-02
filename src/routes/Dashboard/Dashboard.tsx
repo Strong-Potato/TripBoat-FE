@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-import GlobalNavigationBar from "../../components/GlobalNavigationBar/GlobalNavigationBar";
+import GlobalNavigationBar from "@/components/GlobalNavigationBar/GlobalNavigationBar";
 
 function Dashboard() {
   return (
