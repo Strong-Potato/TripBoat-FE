@@ -1,0 +1,192 @@
+@use "@/sass";
+
+.container {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  color: sass.$neutral0;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  .title {
+    @include sass.typography(titleLarge);
+    color: #1d2433;
+
+    padding: 16px 0;
+  }
+
+  .voteBox {
+    height: 175px;
+
+    background: linear-gradient(
+      119deg,
+      #62aaff 35.27%,
+      rgba(98, 170, 255, 0.3) 142.38%
+    );
+
+    border-radius: 16px;
+
+    .contents {
+      height: 100%;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 33px 24px;
+
+      .left {
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .text {
+          @include sass.typography(titleSmall);
+        }
+      }
+      .right {
+        width: 98px;
+        height: 98px;
+        padding: 5px 13px;
+      }
+    }
+    .contents {
+      height: 100%;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 33px 24px;
+
+      .left {
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .text {
+          @include sass.typography(titleSmall);
+          color: sass.$neutral0;
+        }
+      }
+      .right {
+        width: 98px;
+        height: 98px;
+        padding: 5px 13px;
+      }
+    }
+  }
+  .cardHaveVote {
+    display: flex;
+    gap: 8px;
+
+    overflow-x: scroll;
+
+    .voteBox {
+      min-width: 308px;
+      max-height: 164px;
+
+      background: linear-gradient(
+        119deg,
+        #62aaff 35.27%,
+        rgba(98, 170, 255, 0.3) 142.38%
+      );
+
+      border-radius: 16px;
+
+      box-sizing: border-box;
+
+      .contents {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        padding: 24px;
+
+        .textArea {
+          width: 100%;
+
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+
+          .voteTitle {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            @include sass.typography(titleMedium);
+            .date {
+              @include sass.typography(captionSmall);
+            }
+          }
+          .discussion {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            @include sass.typography(titleSmall);
+
+            .profile {
+              width: 32px;
+              height: 32px;
+
+              border: 1px solid sass.$neutral0;
+              border-radius: 32px;
+            }
+          }
+        }
+        .buttonBox {
+          width: 100%;
+
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+
+  button {
+    width: 136px;
+    height: 38px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 12px 8px;
+    border-radius: 48px;
+
+    background-color: sass.$neutral0;
+    color: sass.$primary300;
+
+    flex-shrink: 0;
+
+    @include sass.typography(button);
+
+    .arrow {
+      width: 20px;
+      height: 20px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 12px;
+    }
+  }
+}
