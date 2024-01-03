@@ -3,5 +3,36 @@
 .container {
   width: 100%;
 
-  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  padding: 0 20px 96px 20px;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  .title {
+    @include sass.typography(titleLarge);
+    color: #1d2433;
+
+    padding: 16px 0;
+  }
+
+  .recommended_location {
+    display: flex;
+    gap: 8px;
+
+    overflow-x: scroll;
+  }
+
+  .recommended_list {
+    display: flex;
+    gap: 16px;
+
+    overflow-x: scroll;
+  }
 }
