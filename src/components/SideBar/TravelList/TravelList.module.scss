@@ -1,0 +1,62 @@
+@use "@/sass";
+
+.travelSpaceList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__addButton {
+    display: flex;
+    gap: 8px;
+    width: 239px;
+    height: 72px;
+    padding: 24px 52px 24px 16px;
+    margin: 16px 0;
+    align-items: flex-start;
+    border-radius: 16px;
+    border: 1px solid sass.$primary100;
+    background: sass.$neutral0;
+
+    &__text {
+      color: sass.$neutral900;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 22px;
+    }
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 239px;
+      height: 72px;
+      padding-left: 16px;
+      background-color: sass.$primary200;
+      border-radius: 16px;
+
+      &__name {
+        color: sass.$neutral0;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 22px;
+      }
+
+      &__date {
+        color: sass.$neutral100;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: -0.12px;
+      }
+    }
+  }
+}
