@@ -1,0 +1,43 @@
+@use "@/sass";
+
+.container {
+  min-width: 144px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .item_img {
+    width: 100%;
+    height: 144px;
+
+    border-radius: 16px;
+
+    background: sass.$primary200;
+  }
+
+  .text_box {
+    display: flex;
+    flex-direction: column;
+
+    @include sass.typography(captionSmall);
+
+    .gray {
+      color: sass.$neutral400;
+    }
+
+    .item_title {
+      @include sass.typography(titleSmall);
+    }
+
+    .item_score {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+
+      .star {
+        color: #fed600;
+      }
+    }
+  }
+}
