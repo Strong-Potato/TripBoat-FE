@@ -1,0 +1,33 @@
+@use "@/sass";
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  &__profile {
+    display: flex;
+    flex-direction: row;
+    display: flex;
+    padding: 0px 20px;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+
+    &__nickName {
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 28px;
+      letter-spacing: -0.2px;
+    }
+
+    &__editProfile {
+      color: sass.$neutral400;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+      letter-spacing: -0.12px;
+    }
+  }
+}
