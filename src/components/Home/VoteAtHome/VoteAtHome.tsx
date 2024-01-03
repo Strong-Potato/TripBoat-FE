@@ -1,5 +1,5 @@
-import CardNull from "./CardNull";
-import CardHaveVote from "./CardHaveVote";
+import CardNull from "./VoteCard/CardNull/CardNull";
+import CardHaveVote from "./VoteCard/CardHaveVote/CardHaveVote";
 import styles from "./VoteAtHome.module.scss";
 
 function VoteAtHome() {
