@@ -7,7 +7,7 @@ export default defineConfig({
   resolve: {
     alias: [
       { find: "@", replacement: "./src" },
-      { find: "@components", replacement: "src/components" },
+      { find: "@components", replacement: "/src/components" },
       { find: "@assets", replacement: "src/assets" },
       { find: "@hooks", replacement: "src/hooks" },
       { find: "@pages", replacement: "src/pages" },
@@ -20,5 +20,6 @@ export default defineConfig({
     watch: {
       usePolling: true,
     },
+    // host: "192.168.200.117",
   },
 });
