@@ -8,12 +8,6 @@
 
   color: sass.$neutral0;
 
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-
   .title {
     @include sass.typography(titleLarge);
     color: #1d2433;
@@ -22,7 +16,7 @@
   }
 
   button {
-    width: 136px;
+    width: 132px;
     height: 38px;
 
     display: flex;
