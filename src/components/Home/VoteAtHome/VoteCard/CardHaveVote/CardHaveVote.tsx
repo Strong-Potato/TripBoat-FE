@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { MdArrowForwardIos } from "react-icons/md";
 
-import styles from "./VoteAtHome.module.scss";
+import styles from "./CardHaveVote.module.scss";
 
 function CardHaveVote() {
   const scrollRef = useRef<HTMLDivElement>(null);
