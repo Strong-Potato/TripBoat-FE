@@ -1,6 +1,6 @@
 import { MdArrowForwardIos } from "react-icons/md";
 
-import styles from "./VoteAtHome.module.scss";
+import styles from "./CardNull.module.scss";
 
 function CardNull() {
   return (
