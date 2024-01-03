@@ -1,0 +1,77 @@
+@use "@/sass";
+
+.cardHaveVote {
+  display: flex;
+  gap: 8px;
+
+  overflow-x: scroll;
+
+  .voteBox {
+    min-width: 308px;
+    min-height: 164px;
+
+    background: linear-gradient(
+      119deg,
+      #62aaff 35.27%,
+      rgba(98, 170, 255, 0.3) 142.38%
+    );
+
+    border-radius: 16px;
+
+    box-sizing: border-box;
+
+    .contents {
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      padding: 24px;
+
+      .textArea {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .voteTitle {
+          width: 100%;
+
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          @include sass.typography(titleMedium);
+          .date {
+            @include sass.typography(captionSmall);
+          }
+        }
+        .discussion {
+          width: 100%;
+
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          @include sass.typography(titleSmall);
+
+          .profile {
+            width: 32px;
+            height: 32px;
+
+            border: 1px solid sass.$neutral0;
+            border-radius: 32px;
+          }
+        }
+      }
+      .buttonBox {
+        width: 100%;
+
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+}
