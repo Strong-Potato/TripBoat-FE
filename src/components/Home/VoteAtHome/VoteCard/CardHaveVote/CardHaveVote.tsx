@@ -1,13 +1,8 @@
-import { useRef, useState } from "react";
 import { MdArrowForwardIos } from "react-icons/md";
 
 import styles from "./CardHaveVote.module.scss";
 
 function CardHaveVote() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isDrag, setIsDrag] = useState(false);
-  const [scrollX, setScrollX] = useState(0);
-
   const data = [
     {
       title: "부산, 여수 여행",
@@ -29,45 +24,14 @@ function CardHaveVote() {
     },
   ];
 
-  function onDragStart(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    e.preventDefault();
-    setIsDrag(true);
-    if (scrollRef.current) {
-      setScrollX(e.pageX + scrollRef.current.scrollLeft);
-    }
-  }
-
-  function onDragMove(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    if (isDrag && scrollRef.current) {
-      scrollRef.current.scrollLeft = scrollX - e.pageX;
-    }
-  }
-
-  function onDragEnd() {
-    setIsDrag(false);
-  }
-
   return (
-    <div
-      className={styles.cardHaveVote}
-      ref={scrollRef}
-      onMouseMove={
-        isDrag
-          ? (e) => {
-              onDragMove(e);
-            }
-          : undefined
-      }
-      onMouseDown={onDragStart}
-      onMouseUp={onDragEnd}
-      onMouseLeave={onDragEnd}
-    >
+    <div className={styles.cardHaveVote}>
       {data.map((e) => {
         return (
-          <div className={styles.voteBox} key={e.profile + e.discussion}>
+          <div className={styles.vote_box} key={e.profile + e.discussion}>
             <div className={styles.contents}>
-              <div className={styles.textArea}>
-                <p className={styles.voteTitle}>
+              <div className={styles.text_box}>
+                <p className={styles.vote_title}>
                   <span>{e.title}</span>
                   <span className={styles.date}>{e.date}</span>
                 </p>
@@ -76,7 +40,7 @@ function CardHaveVote() {
                   <span>{e.discussion}</span>
                 </p>
               </div>
-              <div className={styles.buttonBox}>
+              <div className={styles.button_box}>
                 <button>
                   투표하기
                   <p className={styles.arrow}>

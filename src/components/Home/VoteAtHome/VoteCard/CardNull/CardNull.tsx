@@ -4,7 +4,7 @@ import styles from "./CardNull.module.scss";
 
 function CardNull() {
   return (
-    <div className={styles.voteBox}>
+    <div className={styles.vote_box}>
       <div className={styles.contents}>
         <div className={styles.left}>
           <p className={styles.text}>
