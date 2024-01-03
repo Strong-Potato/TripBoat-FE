@@ -4,7 +4,7 @@
 
 // color
 $primary100: #d4ebff;
-$primary200: #39a1ff;
+$primary200: #62aaff;
 $primary300: #0086ff;
 $primary400: #006aca;
 
@@ -27,16 +27,8 @@ $neutral300: #cdcfd0;
 $neutral400: #979c9e;
 $neutral700: #3f444d;
 $neutral800: #23272f;
+$neutral900: #1d2433;
 $neutral1000: #0a0d14;
-// background로 사용 (background-color x)
-$neutral900: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.2) 0%,
-    rgba(0, 0, 0, 0.2) 100%
-  ),
-  linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-  linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%), #1b1f27;
-
 //shadow
 $shadow100:
   0px 0px 8px 0px rgba(20, 20, 20, 0.08),
