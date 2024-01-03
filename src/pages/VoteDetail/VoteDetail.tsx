@@ -1,4 +1,4 @@
-import CreatVoteTitleModal from "@components/vote/CreatVoteTitleModal";
+import CreatVoteTitleModal from "@/components/vote/CreatVoteTitleModal";
 
 const VoteDetail = () => {
   return (
