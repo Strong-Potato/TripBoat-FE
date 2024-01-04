@@ -1,0 +1,18 @@
+@use "@/sass" as *;
+
+.container {
+  min-width: 12.2rem;
+  height: 12.2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 12.2rem;
+
+  color: $neutral0;
+
+  background: $primary200;
+
+  @include typography(titleMedium);
+}

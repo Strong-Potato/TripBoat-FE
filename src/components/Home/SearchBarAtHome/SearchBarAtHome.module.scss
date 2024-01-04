@@ -1,0 +1,26 @@
+@use "@/sass" as *;
+
+.container {
+  width: 100%;
+
+  padding: 0 20px;
+
+  .search_bar {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+
+    padding: 12px 24px;
+
+    border: 1px solid $primary300;
+    border-radius: 10rem;
+    color: $neutral300;
+
+    @include typography(subTitle);
+
+    .search_icon {
+      font-size: 2.4rem;
+    }
+  }
+}

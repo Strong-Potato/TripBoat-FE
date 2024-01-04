@@ -20,13 +20,15 @@ function RecomendedItem(data: PropsType) {
       <div className={styles.text_box}>
         <span className={styles.item_title}>{data.data.title}</span>
         <span className={styles.gray}>{data.data.location}</span>
-        <p className={styles.item_score}>
-          <span className={styles.star}>
-            <FaStar />
-          </span>
-          <span>{data.data.score}</span>
+        <div className={styles.item_score}>
+          <p className={styles.score}>
+            <span className={styles.star}>
+              <FaStar />
+            </span>
+            <span>{data.data.score}</span>
+          </p>
           <span className={styles.gray}>({data.data.reviewNum})</span>
-        </p>
+        </div>
       </div>
     </div>
   );
