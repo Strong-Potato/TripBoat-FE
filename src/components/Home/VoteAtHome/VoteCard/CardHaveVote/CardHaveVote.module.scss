@@ -1,4 +1,4 @@
-@use "@/sass";
+@use "@/sass" as *;
 
 .card_have_vote {
   width: 100%;
@@ -8,11 +8,11 @@
 
   overflow-x: scroll;
 
-  padding-left: 20px;
+  padding: 0 20px;
 
   .vote_box {
-    min-width: 308px;
-    min-height: 164px;
+    min-width: 30.8rem;
+    min-height: 16.4rem;
 
     background: linear-gradient(
       119deg,
@@ -20,7 +20,7 @@
       rgba(98, 170, 255, 0.3) 142.38%
     );
 
-    border-radius: 16px;
+    border-radius: 1.6rem;
 
     box-sizing: border-box;
 
@@ -47,9 +47,9 @@
           align-items: center;
           gap: 8px;
 
-          @include sass.typography(titleMedium);
+          @include typography(titleMedium);
           .date {
-            @include sass.typography(captionSmall);
+            @include typography(captionSmall);
           }
         }
         .discussion {
@@ -59,14 +59,14 @@
           align-items: center;
           gap: 8px;
 
-          @include sass.typography(titleSmall);
+          @include typography(titleSmall);
 
           .profile {
-            width: 32px;
-            height: 32px;
+            width: 3.2rem;
+            height: 3.2rem;
 
-            border: 1px solid sass.$neutral0;
-            border-radius: 32px;
+            border: 1px solid $neutral0;
+            border-radius: 3.2rem;
           }
         }
       }

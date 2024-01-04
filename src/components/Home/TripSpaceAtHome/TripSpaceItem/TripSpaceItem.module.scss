@@ -1,0 +1,35 @@
+@use "@/sass" as *;
+
+.container {
+  width: calc(100% - 2rem);
+  min-width: 33.5rem;
+  height: 9rem;
+
+  display: flex;
+  gap: 8px;
+
+  border: 1px solid $neutral200;
+  border-radius: 1.6rem;
+
+  .trip_img {
+    width: 6.6rem;
+    height: 100%;
+
+    border-radius: 1.6rem 0 0 1.6rem;
+  }
+  .text_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+
+    .trip_title {
+      @include typography(titleSmall);
+      color: $neutral900;
+    }
+    .trip_day {
+      @include typography(bodySmall);
+      color: $neutral700;
+    }
+  }
+}
