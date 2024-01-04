@@ -1,10 +1,14 @@
 @use "@/sass";
 
-.cardHaveVote {
+.card_have_vote {
+  width: 100%;
+
   display: flex;
   gap: 8px;
 
   overflow-x: scroll;
+
+  padding-left: 20px;
 
   .vote_box {
     min-width: 308px;

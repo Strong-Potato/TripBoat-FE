@@ -5,9 +5,9 @@
 
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 32px;
 
-  padding: 0 20px 96px 20px;
+  padding-bottom: 56px;
 
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -16,20 +16,32 @@
   }
 
   .title {
-    @include sass.typography(titleLarge);
+    @include sass.typography(titleMedium);
     color: #1d2433;
 
-    padding: 16px 0;
+    padding: 8px 0;
   }
 
-  .recommended_location {
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .lists_box {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .item_list_8px {
     display: flex;
     gap: 8px;
 
     overflow-x: scroll;
   }
 
-  .recommended_list {
+  .item_list_16px {
     display: flex;
     gap: 16px;
 
