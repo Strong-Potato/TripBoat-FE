@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 
-import "./sass/main.scss";
+import "./sass/index.scss";
 
 import App from "./App.tsx";
 
