@@ -1,4 +1,4 @@
-@use "@/sass";
+@use "@/sass" as *;
 
 .container {
   display: flex;
@@ -22,7 +22,7 @@
     }
 
     &__editProfile {
-      color: sass.$neutral400;
+      color: $neutral400;
       font-size: 12px;
       font-style: normal;
       font-weight: 500;
