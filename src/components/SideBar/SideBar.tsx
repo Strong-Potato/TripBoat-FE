@@ -34,7 +34,7 @@ const travelList = [
   { name: "여행 리스트 15 (여행지 미정)", date: "날짜 미정" },
 ];
 
-function SideBar({ onClose, isOpen }: SideBarProps) {
+function SideBar({ onClose, isOpen, sidebarRef }: SideBarProps) {
   return (
     <Drawer
       isOpen={isOpen}
@@ -42,6 +42,7 @@ function SideBar({ onClose, isOpen }: SideBarProps) {
       onClose={onClose}
       onEsc={onClose}
       size={"sm"}
+      finalFocusRef={sidebarRef}
     >
       <DrawerOverlay />
       <DrawerContent>
