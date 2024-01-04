@@ -36,11 +36,17 @@ const travelList = [
 
 function SideBar({ onClose, isOpen }: SideBarProps) {
   return (
-    <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+    <Drawer
+      isOpen={isOpen}
+      placement="right"
+      onClose={onClose}
+      onEsc={onClose}
+      size={"md"}
+    >
       <DrawerOverlay />
       <DrawerContent>
         <DrawerHeader display="flex" justifyContent="flex-end">
-          <CloseButton onClick={onClose} size="sm" />
+          <CloseButton onClick={onClose} size="lg" />
         </DrawerHeader>
         <DrawerBody padding={0}>
           <div className={styles.container}>

@@ -1,5 +1,9 @@
 @use "@/sass" as *;
 
+#drawer {
+  width: 29.7rem;
+}
+
 .container {
   display: flex;
   flex-direction: column;
