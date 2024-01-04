@@ -5,14 +5,15 @@
 
   display: flex;
   flex-direction: column;
+  gap: 12px;
 
   color: sass.$neutral0;
 
   .title {
-    @include sass.typography(titleLarge);
+    @include sass.typography(headline);
     color: #1d2433;
 
-    padding: 16px 0;
+    padding: 8px 20px;
   }
 
   button {
