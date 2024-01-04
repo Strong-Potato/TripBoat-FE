@@ -1,16 +1,18 @@
 import { Route, Routes } from "react-router-dom";
 
-import styles from "./MainRouter.module.scss";
-
+import Dashboard from "../Dashboard/Dashboard";
 import Home from "../../pages/Home/Home";
 
 function MainRouter() {
   return (
-    <div className={styles.innerContainer}>
-      <Routes>
+    <Routes>
+      <Route element={<Dashboard />}>
         <Route index element={<Home />} />
-      </Routes>
-    </div>
+        <Route path="/carryout" element={<Home />} />
+        <Route path="/heart" element={<Home />} />
+        <Route path="/user" element={<Home />} />
+      </Route>
+    </Routes>
   );
 }
 
