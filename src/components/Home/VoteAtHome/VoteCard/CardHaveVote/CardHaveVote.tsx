@@ -25,7 +25,7 @@ function CardHaveVote() {
   ];
 
   return (
-    <div className={styles.cardHaveVote}>
+    <div className={styles.card_have_vote}>
       {data.map((e) => {
         return (
           <div className={styles.vote_box} key={e.profile + e.discussion}>
