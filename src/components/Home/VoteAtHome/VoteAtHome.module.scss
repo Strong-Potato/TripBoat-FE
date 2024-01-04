@@ -34,15 +34,14 @@
 
     @include sass.typography(button);
 
-    .arrow {
-      width: 20px;
-      height: 20px;
+    p {
+      width: 2rem;
 
       display: flex;
       justify-content: center;
       align-items: center;
 
-      font-size: 12px;
+      font-size: 1.3rem;
     }
   }
 }
