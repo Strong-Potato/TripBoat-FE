@@ -41,7 +41,7 @@ function SideBar({ onClose, isOpen }: SideBarProps) {
       placement="right"
       onClose={onClose}
       onEsc={onClose}
-      size={"md"}
+      size={"sm"}
     >
       <DrawerOverlay />
       <DrawerContent>
