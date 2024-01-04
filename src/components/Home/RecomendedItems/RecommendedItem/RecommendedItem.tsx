@@ -1,6 +1,6 @@
 import { FaStar } from "react-icons/fa";
 
-import styles from "./RecomendedItem.module.scss";
+import styles from "./RecommendedItem.module.scss";
 
 interface Data {
   title: string;
