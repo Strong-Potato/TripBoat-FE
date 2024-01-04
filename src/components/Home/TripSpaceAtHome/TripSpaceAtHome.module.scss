@@ -1,0 +1,34 @@
+@use "@/sass";
+.container {
+  width: calc(100% - 20px);
+  min-width: 335px;
+  height: 90px;
+
+  display: flex;
+  gap: 8px;
+
+  border: 1px solid sass.$neutral200;
+  border-radius: 16px;
+
+  .trip_img {
+    width: 66px;
+    height: 100%;
+
+    border-radius: 16px 0 0 16px;
+  }
+  .text_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+
+    .trip_title {
+      @include sass.typography(titleSmall);
+      color: #1d2433;
+    }
+    .trip_day {
+      @include sass.typography(bodySmall);
+      color: sass.$neutral700;
+    }
+  }
+}
