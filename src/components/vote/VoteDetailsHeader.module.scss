@@ -1,0 +1,29 @@
+@use "@/sass";
+
+.container {
+  position: fixed;
+  height: 3rem;
+  width: 31.25rem;
+  min-width: 22.5rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // background-color: palevioletred;
+  border-bottom: 2px solid black;
+
+  padding: 0 16px;
+  // margin-bottom: 3rem;
+}
+
+.iconBox {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font-weight: bold;
+  font-size: 20px;
+
+  & > p {
+    font-size: 14px;
+  }
+}
