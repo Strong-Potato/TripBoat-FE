@@ -1,32 +1,30 @@
 import styles from "./TripSpaceAtHome.module.scss";
-import defaultImg from "/tripVoteLogoHome.png";
+import TripSpaceItem from "./TripSpaceItem/TripSpaceItem";
 
-interface Data {
-  tripTitle: string;
-  tripImg: string;
-  tripDay: string;
-}
-
-interface PropsData {
-  data: Data;
-}
-
-function TripSpaceAtHome(data: PropsData) {
-  const onErrorImg = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    e.currentTarget.src = defaultImg;
-  };
+function TripSpaceAtHome() {
+  const tripSpaceData = [
+    {
+      tripTitle: "아직 여행 일정이 없어요",
+      tripDay: "새로운 여행 일정을 만들어보세요!",
+      tripImg: "",
+    },
+    {
+      tripTitle: "아직 여행 일정이 없어요",
+      tripDay: "새로운 여행 일정을 만들어보세요!",
+      tripImg: "",
+    },
+    {
+      tripTitle: "아직 여행 일정이 없어요",
+      tripDay: "새로운 여행 일정을 만들어보세요!",
+      tripImg: "",
+    },
+  ];
 
   return (
     <div className={styles.container}>
-      <img
-        className={styles.trip_img}
-        src={data.data.tripImg}
-        onError={onErrorImg}
-      />
-      <p className={styles.text_box}>
-        <span className={styles.trip_title}>{data.data.tripTitle}</span>
-        <span className={styles.trip_day}>{data.data.tripDay}</span>
-      </p>
+      {tripSpaceData.map((data, i) => (
+        <TripSpaceItem data={data} key={data.tripTitle + i} />
+      ))}
     </div>
   );
 }
