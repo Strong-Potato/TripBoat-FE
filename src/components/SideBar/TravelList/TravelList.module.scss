@@ -1,4 +1,4 @@
-@use "@/sass";
+@use "@/sass" as *;
 
 .travelSpaceList {
   display: flex;
@@ -14,11 +14,11 @@
     margin: 16px 0;
     align-items: flex-start;
     border-radius: 16px;
-    border: 1px solid sass.$primary100;
-    background: sass.$neutral0;
+    border: 1px solid $primary100;
+    background: $neutral0;
 
     &__text {
-      color: sass.$neutral900;
+      color: $neutral900;
       font-size: 14px;
       font-style: normal;
       font-weight: 500;
@@ -38,11 +38,11 @@
       width: 239px;
       height: 72px;
       padding-left: 16px;
-      background-color: sass.$primary200;
+      background-color: $primary200;
       border-radius: 16px;
 
       &__name {
-        color: sass.$neutral0;
+        color: $neutral0;
         font-size: 14px;
         font-style: normal;
         font-weight: 700;
@@ -50,7 +50,7 @@
       }
 
       &__date {
-        color: sass.$neutral100;
+        color: $neutral100;
         font-size: 12px;
         font-style: normal;
         font-weight: 500;
