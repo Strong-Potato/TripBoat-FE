@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   FormControl,
   FormLabel,
@@ -13,7 +12,7 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import styles from "./CreatVoteTitleModal.module.scss";
 
@@ -24,14 +23,16 @@ const CreatVoteTitleModal = () => {
   return (
     <div className={styles.container}>
       <Button
+        colorScheme="blue"
         onClick={onOpen}
         mt="30px"
         w="11.25rem"
         h="3.125rem"
         borderRadius="50px"
-        bg="#2388FF"
-        color="#fff"
-        colorScheme="blue"
+        color="neutral.0"
+        bg="primary.300"
+        fontSize="button"
+        fontWeight="button"
       >
         투표 시작하기
       </Button>
@@ -39,7 +40,7 @@ const CreatVoteTitleModal = () => {
       <Modal isOpen={isOpen} onClose={onClose} size={"sm"}>
         <ModalOverlay />
         <ModalContent borderRadius="20px" alignSelf="center">
-          <ModalHeader fontSize="1rem" mt="16px" textAlign="center">
+          <ModalHeader fontSize="headline" mt="16px" textAlign="center">
             투표 제목을 정해주세요
           </ModalHeader>
           <ModalCloseButton />
@@ -49,15 +50,15 @@ const CreatVoteTitleModal = () => {
               <Input
                 onChange={(e) => setInputCount(e.target.value.length)}
                 maxLength={15}
-                borderColor="#23272F"
-                focusBorderColor="#2388FF"
+                borderColor="neutral.800"
+                focusBorderColor="primary.300"
                 variant="flushed"
                 placeholder=" 숙소 정하자, 카페 정하자"
               />
               <FormLabel
                 display="flex"
                 justifyContent="flex-end"
-                fontSize="0.75rem"
+                fontSize="captionSmall"
                 mt="5px"
                 mr="-1px"
               >
@@ -77,13 +78,13 @@ const CreatVoteTitleModal = () => {
               colorScheme="blue"
               isDisabled={inputCount === 0}
               _disabled={{
-                bg: "#E3E5E5",
-                color: "#979C9E",
+                bg: "neutral.200",
+                color: "neutral.400",
                 pointerEvents: "none",
               }}
               borderRadius="30px"
-              bg="#2388FF"
-              color="#fff"
+              bg="primary.300"
+              color="neutral.0"
             >
               완료
             </Button>

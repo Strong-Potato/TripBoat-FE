@@ -6,6 +6,7 @@ import { RecoilRoot } from "recoil";
 import "./sass/index.scss";
 
 import App from "./App.tsx";
+import { customTheme } from "./sass/chakraCustomTheme.tsx";
 
 async function enableMocking() {
   if (import.meta.env.MODE !== "development") {
@@ -20,7 +21,7 @@ enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
       <RecoilRoot>
-        <ChakraProvider>
+        <ChakraProvider theme={customTheme}>
           <App />
         </ChakraProvider>
       </RecoilRoot>
