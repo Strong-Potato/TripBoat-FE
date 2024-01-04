@@ -3,13 +3,13 @@
 //색상, 폰트 크기 등과 같은 변수를 정의합니다.
 
 // color
-$primary100: #d4ebff;
-$primary200: #39a1ff;
-$primary300: #0086ff;
-$primary400: #006aca;
+$primary100: #d4e8ff;
+$primary200: #62aaff;
+$primary300: #0088ff;
+$primary400: #0172d8;
 
 $secondary100: #ffe2ed;
-$secondary300: #ff659c;
+$secondary300: #ff85b1;
 $secondary400: #e23774;
 
 $success100: #71d07b;
@@ -27,16 +27,10 @@ $neutral300: #cdcfd0;
 $neutral400: #979c9e;
 $neutral700: #3f444d;
 $neutral800: #23272f;
+$neutral900: #1d2433;
 $neutral1000: #0a0d14;
-// background로 사용 (background-color x)
-$neutral900: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.2) 0%,
-    rgba(0, 0, 0, 0.2) 100%
-  ),
-  linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-  linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%), #1b1f27;
 
+$etc0: #fed600;
 //shadow
 $shadow100:
   0px 0px 8px 0px rgba(20, 20, 20, 0.08),
@@ -48,16 +42,30 @@ $shadow300: 0px 1px 24px 8px rgba(20, 20, 20, 0.08);
 
 // typography-map
 $typography-font-size-map: (
-  "headline": 22px,
-  "titleLarge": 20px,
-  "titleMedium": 18px,
-  "titleSmall": 16px,
-  "bodyLarge": 16px,
-  "bodySmall": 14px,
-  "button": 14px,
-  "tabLabel": 14px,
-  "captionLarge": 13px,
-  "captionSmall": 12px,
+  "headline": 2.2rem,
+  // 22px
+  "titleLarge": 2rem,
+  // 20px
+  "titleMedium": 1.8rem,
+  // 18px
+  "titleSmall": 1.6rem,
+  // 16px
+  "subTitle": 1.6rem,
+  // 16px
+  "bodyLarge": 1.6rem,
+  // 16px
+  "bodySmall": 1.4rem,
+  // 14px
+  "button": 1.4rem,
+  // 14px
+  "tabLabel": 1.4rem,
+  // 14px
+  "captionLarge": 1.3rem,
+  // 13px
+  "captionMidium": 1.2rem,
+  // 12px
+  "captionSmall": 1.2rem,
+  // 12px
 );
 
 $typography-font-weight-map: (
@@ -65,23 +73,39 @@ $typography-font-weight-map: (
   "titleLarge": bold,
   "titleMedium": bold,
   "titleSmall": bold,
+  "subTitle": medium,
   "bodyLarge": normal,
   "bodySmall": normal,
   "button": bold,
-  "tabLabel": bold,
-  "captionLarge": bold,
-  "captionSmall": normal,
+  "tabLabel": medium,
+  "captionLarge": medium,
+  "captionMidium": bold,
+  "captionSmall": medium,
 );
 
 $typography-line-height-map: (
-  "headline": 32px,
-  "titleLarge": 28px,
-  "titleMedium": 26px,
-  "titleSmall": 24px,
-  "bodyLarge": 24px,
-  "bodySmall": 22px,
-  "button": 22px,
-  "tabLabel": 22px,
-  "captionLarge": 22px,
-  "captionSmall": 16px,
+  "headline": 3rem,
+  // 30px
+  "titleLarge": 2.8rem,
+  // 28px
+  "titleMedium": 2.6rem,
+  // 26px
+  "titleSmall": 2.4rem,
+  // 24px
+  "subTitle": 2.4rem,
+  // 24px
+  "bodyLarge": 2.4rem,
+  // 24px
+  "bodySmall": 2.2rem,
+  // 22px
+  "button": 2.2rem,
+  // 22px
+  "tabLabel": 2.2rem,
+  // 22px
+  "captionLarge": 2.2rem,
+  // 22px
+  "captionMidium": 2rem,
+  // 20px
+  "captionSmall": 2rem,
+  // 20px
 );
