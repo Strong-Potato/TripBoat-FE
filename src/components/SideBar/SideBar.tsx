@@ -66,7 +66,7 @@ function SideBar({ onClose, isOpen, sidebarRef }: SideBarProps) {
                   onClick={onClose}
                   className={styles.container__profile__editProfile}
                 >
-                  {"프로필 수정 >"}
+                  {"프로필 보기 >"}
                 </Link>
               </div>
             </section>
