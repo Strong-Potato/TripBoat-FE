@@ -8,20 +8,19 @@
   &__addButton {
     display: flex;
     gap: 8px;
-    width: 239px;
+    width: 243px;
     height: 72px;
-    padding: 24px 52px 24px 16px;
-    margin: 16px 0;
-    align-items: flex-start;
+    padding: 24px 16px;
+    align-items: center;
     border-radius: 16px;
-    border: 1px solid $primary100;
-    background: $neutral0;
+    border: 1px solid $primary200;
+    background: $primary200;
 
     &__text {
-      color: $neutral900;
+      color: $neutral0;
       font-size: 14px;
       font-style: normal;
-      font-weight: 500;
+      font-weight: 700;
       line-height: 22px;
     }
   }
@@ -34,15 +33,15 @@
     &__item {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      width: 239px;
-      height: 72px;
-      padding-left: 16px;
-      background-color: $primary200;
+      width: 243px;
+      height: 78px;
+      padding: 16px 0px 16px 16px;
       border-radius: 16px;
+      border: 1px solid $primary200;
+      background: $neutral0;
 
       &__name {
-        color: $neutral0;
+        color: $neutral900;
         font-size: 14px;
         font-style: normal;
         font-weight: 700;
@@ -50,7 +49,7 @@
       }
 
       &__date {
-        color: $neutral100;
+        color: $neutral400;
         font-size: 12px;
         font-style: normal;
         font-weight: 500;
