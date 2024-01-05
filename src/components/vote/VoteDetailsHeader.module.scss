@@ -1,19 +1,17 @@
 @use "@/sass";
 
 .container {
-  position: fixed;
   height: 3rem;
-  width: 31.25rem;
-  min-width: 22.5rem;
+  width: 500px;
+  min-width: 360px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // background-color: palevioletred;
   border-bottom: 2px solid black;
-
   padding: 0 16px;
-  // margin-bottom: 3rem;
+
+  z-index: 999;
 }
 
 .iconBox {
