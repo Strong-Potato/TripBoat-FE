@@ -7,6 +7,7 @@
 
   width: 100%;
   max-width: 45rem;
+  z-index: 5;
 
   &__wrapper {
     display: flex;
@@ -17,8 +18,6 @@
     height: 4.8rem;
 
     border-radius: 1.6rem;
-
-    z-index: 5;
 
     cursor: pointer;
 
