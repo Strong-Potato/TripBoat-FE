@@ -1,36 +1,26 @@
 import { useEffect, useState } from "react";
-import RecomendedItem from "./RecommendedItem/RecommendedItem";
+
 import styles from "./RecommendedItemList.module.scss";
-import axios from "axios";
+
+import { getData } from "@/mocks/handlers/home";
+
+import RecomendedItem from "./RecommendedItem/RecommendedItem";
+
+import { RecommendedItemDataType } from "@/types/home";
 
 interface PropsType {
   apiNum: number;
 }
 
-interface DataType {
-  title: string;
-  location: string;
-  score: string;
-  reviewNumber: string;
-}
-
 function RecommendedItemList(apiNum: PropsType) {
-  const [data, setData] = useState<DataType[]>();
-
-  async function getData() {
-    try {
-      const fetchData = await axios.get(
-        `/api/home/recommendedItem/${apiNum.apiNum}`,
-      );
-      setData(fetchData.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const [data, setData] = useState<RecommendedItemDataType[]>();
 
   useEffect(() => {
-    getData();
-  }, []);
+    getData<RecommendedItemDataType[] | undefined>(
+      `home/recommendedItem/${apiNum.apiNum}`,
+      setData,
+    );
+  }, [apiNum]);
 
   return (
     <div className={styles.container}>
