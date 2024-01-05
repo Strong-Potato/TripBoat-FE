@@ -34,20 +34,19 @@ const travelList = [
   { name: "여행 리스트 15 (여행지 미정)", date: "날짜 미정" },
 ];
 
-function SideBar({ onClose, isOpen, sidebarRef }: SideBarProps) {
+function SideBar({ isSideOpen, sideClose }: SideBarProps) {
   return (
     <Drawer
-      isOpen={isOpen}
+      isOpen={isSideOpen}
       placement="right"
-      onClose={onClose}
-      onEsc={onClose}
+      onClose={sideClose}
+      onEsc={sideClose}
       size={"sm"}
-      finalFocusRef={sidebarRef}
     >
       <DrawerOverlay />
       <DrawerContent>
         <DrawerHeader display="flex" justifyContent="flex-end">
-          <CloseButton onClick={onClose} size="lg" />
+          <CloseButton onClick={sideClose} size="lg" />
         </DrawerHeader>
         <DrawerBody padding={0}>
           <div className={styles.container}>
@@ -63,7 +62,7 @@ function SideBar({ onClose, isOpen, sidebarRef }: SideBarProps) {
                 <p className={styles.container__profile__nickName}>닉네임</p>
                 <Link
                   to="/user"
-                  onClick={onClose}
+                  onClick={sideClose}
                   className={styles.container__profile__editProfile}
                 >
                   {"프로필 보기 >"}
