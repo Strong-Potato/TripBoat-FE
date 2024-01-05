@@ -1,0 +1,173 @@
+@use "@/sass" as *;
+
+.container {
+  padding: 0 20px;
+
+  h1 {
+    margin: 48px 0 64px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .loginForm {
+    position: relative;
+
+    label {
+      display: block;
+
+      @include typography(tabLabel);
+      color: $neutral900;
+    }
+
+    input {
+      width: 100%;
+      margin-top: 6px;
+      padding: 16px;
+      border: 1px solid $neutral200;
+      border-radius: 8px;
+
+      @include typography(bodyLarge);
+      color: $neutral900;
+
+      &::placeholder {
+        color: $neutral400;
+      }
+      &:focus {
+        outline: none;
+        border-width: 1px;
+        border-color: $primary300;
+
+        + .removeBtn {
+          cursor: pointer;
+
+          .svg {
+            visibility: visible;
+          }
+        }
+      }
+    }
+
+    small {
+      width: 100%;
+      position: absolute;
+      bottom: 65px;
+      left: 0;
+      text-align: center;
+
+      @include typography(captionSmall);
+      color: $danger300;
+    }
+
+    &__email,
+    &__password {
+      position: relative;
+
+      .removeBtn {
+        position: absolute;
+        top: 47px;
+        right: 14px;
+        cursor: default;
+
+        .svg {
+          visibility: hidden;
+        }
+      }
+    }
+
+    &__password {
+      margin-top: 24px;
+    }
+
+    &__submitBtn {
+      width: 100%;
+      padding: 13px 0;
+      background: $primary300;
+      margin-top: 56px;
+      border-radius: 16px;
+
+      @include typography(button);
+      color: $neutral0;
+
+      &:hover {
+        background: $primary400;
+      }
+    }
+  }
+
+  .aboutAuth {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    margin-top: 24px;
+
+    @include typography(captionSmall);
+    color: $neutral400;
+
+    a:hover {
+      font-weight: bold;
+    }
+  }
+
+  .snsLogin {
+    margin: 128px 0 24px 0;
+
+    &__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+
+      @include typography(captionSmall);
+      color: $neutral400;
+    }
+
+    &__btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 11.5px 28px;
+      margin-top: 16px;
+      background: $etc1;
+      width: 100%;
+      border-radius: 6px;
+
+      @include typography(button);
+
+      .kakao_text {
+        flex-grow: 1;
+      }
+
+      .kakao_space {
+        width: 18px;
+      }
+    }
+  }
+
+  .bottom {
+    text-align: center;
+    margin-bottom: 55px;
+
+    &__toHome {
+      @include typography(tabLabel);
+      color: $neutral800;
+      text-decoration-line: underline;
+      text-underline-position: under;
+
+      &:hover {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .col_bar {
+    border-left: 1px solid $neutral300;
+    margin: 4px 0;
+  }
+  .row_bar {
+    flex-grow: 1;
+    background: $neutral200;
+    height: 1px;
+  }
+}
