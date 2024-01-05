@@ -5,7 +5,7 @@
   padding: 0 24px;
 
   width: 100%;
-  max-width: 450px;
+  max-width: 4.5rem;
 
   &__wrapper {
     display: flex;
@@ -15,7 +15,7 @@
     width: 100%;
     height: 48px;
 
-    border-radius: 16px;
+    border-radius: 1.6rem;
 
     z-index: 5;
 
@@ -23,10 +23,7 @@
 
     span {
       color: sass.$neutral0;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 22px;
+      @include sass.typography(button);
     }
   }
 }

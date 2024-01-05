@@ -40,7 +40,7 @@ function ShortReviews() {
       <div className={styles.container__title}>
         <h3>리뷰</h3>
         <div className={styles.container__title__rightBox} onClick={() => {}}>
-          <CiEdit fontSize="24px" />
+          <CiEdit fontSize="2.4rem" />
           <span>리뷰쓰기</span>
         </div>
       </div>
