@@ -1,10 +1,9 @@
-@use "@/sass";
+@use "@/sass" as *;
 
 .container {
   height: 100vh;
   width: 100%;
-
-  background-color: aqua;
+  margin-top: 4rem;
 
   display: flex;
   flex-direction: column;
