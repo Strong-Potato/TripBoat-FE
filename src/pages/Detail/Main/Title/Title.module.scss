@@ -1,4 +1,4 @@
-@use "@/sass";
+@use "@/sass" as *;
 
 .container {
   width: 100%;
@@ -6,11 +6,11 @@
   position: relative;
 
   &__header {
-    @include sass.typography(titleLarge);
+    @include typography(titleLarge);
   }
   &__category {
-    color: sass.$neutral400;
-    @include sass.typography(captionSmall);
+    color: $neutral400;
+    @include typography(captionSmall);
     margin: 4px 0;
   }
 
@@ -22,17 +22,17 @@
     &__star {
       display: inline;
       font-size: 1.6rem;
-      color: sass.$etc0;
+      color: $etc0;
     }
 
     &__point {
       color: #1d2433;
-      @include sass.typography(captionMedium);
+      @include typography(captionMedium);
     }
 
     &__reviewsCount {
-      color: sass.$neutral400;
-      @include sass.typography(captionSmall);
+      color: $neutral400;
+      @include typography(captionSmall);
     }
   }
 

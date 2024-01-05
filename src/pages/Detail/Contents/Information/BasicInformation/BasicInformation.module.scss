@@ -1,16 +1,16 @@
-@use "@/sass";
+@use "@/sass" as *;
 
 .container {
   margin: 20px 0;
   padding-bottom: 40px;
 
-  border-bottom: 12px solid sass.$neutral100;
+  border-bottom: 12px solid $neutral100;
 
   &__title {
     padding: 8px 20px;
     margin-bottom: 16px;
 
-    @include sass.typography(titleMedium);
+    @include typography(titleMedium);
   }
 
   &__contents {
@@ -26,7 +26,7 @@
       align-items: center;
       gap: 12px;
 
-      @include sass.typography(tabLabel);
+      @include typography(tabLabel);
 
       a {
         text-decoration-line: underline;

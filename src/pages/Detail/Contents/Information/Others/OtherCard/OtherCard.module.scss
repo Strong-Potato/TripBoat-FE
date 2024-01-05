@@ -1,4 +1,4 @@
-@use "@/sass";
+@use "@/sass" as *;
 
 .container {
   display: flex;
@@ -15,12 +15,12 @@
 
   &__contents {
     h4 {
-      @include sass.typography(titleSmall);
+      @include typography(titleSmall);
     }
 
     p {
-      color: sass.$neutral400;
-      @include sass.typography(captionSmall);
+      color: $neutral400;
+      @include typography(captionSmall);
     }
 
     &__reviews {
@@ -30,18 +30,18 @@
       &__star {
         display: inline;
         font-size: 1.6rem;
-        color: sass.$etc0;
+        color: $etc0;
       }
 
       &__point {
         color: #1d2433;
-        @include sass.typography(captionSmall);
+        @include typography(captionSmall);
         margin-right: 4px;
       }
 
       &__reviewsCount {
-        color: sass.$neutral400;
-        @include sass.typography(captionSmall);
+        color: $neutral400;
+        @include typography(captionSmall);
       }
     }
   }
