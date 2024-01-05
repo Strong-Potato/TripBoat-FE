@@ -95,7 +95,6 @@ function Reviews() {
         "아주 좋아요. 자주 다니고 있어요. 친구들이랑 저녁에 운동하기 좋아요 다음에 또 가고 싶네요",
       images: [
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-        "https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg",
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
         "https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg",
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
