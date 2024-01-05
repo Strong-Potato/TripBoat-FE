@@ -3,7 +3,9 @@
 .container {
   display: flex;
   flex-direction: column;
-
+  ::-webkit-scrollbar {
+    display: none;
+  }
   &__profile {
     display: flex;
     flex-direction: row;
