@@ -12,8 +12,6 @@
     height: 14.4rem;
 
     border-radius: 1.6rem;
-
-    background-color: $primary200;
   }
 
   .text_box {
@@ -43,7 +41,7 @@
       }
       .star {
         padding: 2px;
-        color: #fed600;
+        color: $etc0;
       }
     }
   }

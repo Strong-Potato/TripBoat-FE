@@ -1,7 +1,8 @@
-import styles from "./TabBar.module.scss";
-import { IoSearchSharp } from "react-icons/io5";
 import { AiOutlineBell } from "react-icons/ai";
+import { IoSearchSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
+
+import styles from "./TabBar.module.scss";
 
 function TabBar() {
   return (

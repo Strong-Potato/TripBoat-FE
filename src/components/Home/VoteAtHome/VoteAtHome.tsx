@@ -1,13 +1,24 @@
-import CardNull from "./VoteCard/CardNull/CardNull";
-import CardHaveVote from "./VoteCard/CardHaveVote/CardHaveVote";
+import { useEffect, useState } from "react";
+
 import styles from "./VoteAtHome.module.scss";
 
+import { getData } from "@/mocks/handlers/home";
+
+import CardHaveVote from "./VoteCard/CardHaveVote/CardHaveVote";
+import CardNull from "./VoteCard/CardNull/CardNull";
+
+import { VoteDataType } from "@/types/home";
+
 function VoteAtHome() {
-  const login = true;
+  const [data, setData] = useState<VoteDataType[]>();
+
+  useEffect(() => {
+    getData<VoteDataType[] | undefined>(`home/vote`, setData);
+  }, []);
 
   return (
     <div className={styles.container}>
-      {login ? (
+      {data ? (
         <p className={styles.title}>
           길동님,
           <br />
@@ -21,7 +32,7 @@ function VoteAtHome() {
         </p>
       )}
 
-      {login ? <CardHaveVote /> : <CardNull />}
+      {data ? <CardHaveVote data={data} /> : <CardNull />}
     </div>
   );
 }
