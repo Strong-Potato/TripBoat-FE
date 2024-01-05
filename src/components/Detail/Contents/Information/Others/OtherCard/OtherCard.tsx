@@ -2,15 +2,15 @@ import { GoStarFill } from "react-icons/go";
 
 import styles from "./OtherCard.module.scss";
 
-interface OtherCardProps {
-  image: string;
-  name: string;
-  location: string;
-  point: string;
-  count: number;
-}
+import { OtherCardPropsType } from "@/types/Detail";
 
-function OtherCard({ image, name, location, point, count }: OtherCardProps) {
+function OtherCard({
+  image,
+  name,
+  location,
+  point,
+  count,
+}: OtherCardPropsType) {
   return (
     <div className={styles.container}>
       <div className={styles.container__image}>
