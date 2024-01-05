@@ -1,0 +1,55 @@
+@use "@/sass";
+
+.container {
+  display: flex;
+  gap: 8px;
+  padding: 24px 20px;
+  border-bottom: 1px solid sass.$neutral100;
+
+  &__contentsBox {
+    width: 100%;
+
+    &__name {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 22px;
+    }
+
+    &__secondItems {
+      display: flex;
+      align-items: center;
+
+      &__star {
+        display: inline;
+        font-size: 16px;
+        color: #fed600;
+      }
+
+      &__point {
+        margin-left: 2px;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+      }
+
+      &__visitedAt {
+        margin-left: 9px;
+        color: sass.$primary300;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+      }
+    }
+
+    &__content {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 22px;
+      text-overflow: ellipsis;
+    }
+  }
+}
