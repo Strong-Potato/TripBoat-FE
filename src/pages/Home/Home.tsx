@@ -23,11 +23,11 @@ function Home() {
         </div>
         <div className={styles.column_8px}>
           <p className={styles.title}>겨울에 어울리는 포근한 숙소</p>
-          <RecommendedItemList />
+          <RecommendedItemList apiNum={1} />
         </div>
         <div className={styles.column_8px}>
           <p className={styles.title}>겨울을 신나게 즐기는 쌈박한 방법!</p>
-          <RecommendedItemList />
+          <RecommendedItemList apiNum={2} />
         </div>
       </div>
     </div>
