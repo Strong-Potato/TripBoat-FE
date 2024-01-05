@@ -1,6 +1,10 @@
 import { extendTheme } from "@chakra-ui/react";
 
 export const customTheme = extendTheme({
+  fonts: {
+    heading: `'suit', sans-serif`,
+    body: `'suit', sans-serif`,
+  },
   colors: {
     primary: {
       100: "#d4e8ff",
@@ -77,18 +81,18 @@ export const customTheme = extendTheme({
 
   //$typography-font-weight-map
   fontWeights: {
-    headline: "bold",
-    titleLarge: "bold",
-    titleMedium: "bold",
-    titleSmall: "bold",
-    subTitle: "medium",
-    bodyLarge: "normal",
-    bodySmall: "normal",
-    button: "bold",
-    tabLabel: "medium",
-    captionLarge: "medium",
-    captionMedium: "bold",
-    captionSmall: "medium",
+    headline: "700",
+    titleLarge: "700",
+    titleMedium: "700",
+    titleSmall: "700",
+    subTitle: "500",
+    bodyLarge: "400",
+    bodySmall: "400",
+    button: "700",
+    tabLabel: "500",
+    captionLarge: "500",
+    captionMedium: "700",
+    captionSmall: "500",
   },
 
   //$typography-line-height-map
