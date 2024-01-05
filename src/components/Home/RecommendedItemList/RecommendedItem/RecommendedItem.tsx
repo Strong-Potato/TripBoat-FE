@@ -6,7 +6,7 @@ interface Data {
   title: string;
   location: string;
   score: string;
-  reviewNum: string;
+  reviewNumber: string;
 }
 
 interface PropsType {
@@ -27,7 +27,7 @@ function RecomendedItem(data: PropsType) {
             </span>
             <span>{data.data.score}</span>
           </p>
-          <span className={styles.gray}>({data.data.reviewNum})</span>
+          <span className={styles.gray}>({data.data.reviewNumber})</span>
         </div>
       </div>
     </div>
