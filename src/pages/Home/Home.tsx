@@ -1,10 +1,11 @@
-import VoteAtHome from "@/components/Home/VoteAtHome/VoteAtHome";
 import styles from "./Home.module.scss";
-import TripSpaceAtHome from "@/components/Home/TripSpaceAtHome/TripSpaceAtHome";
+
 import RecommendedItemList from "@/components/Home/RecommendedItemList/RecommendedItemList";
 import RecommendedLocationList from "@/components/Home/RecommendedLocationList/RecommendedLocationList";
 import SearchBarAtHome from "@/components/Home/SearchBarAtHome/SearchBarAtHome";
 import TabBar from "@/components/Home/TabBar/TabBar";
+import TripSpaceAtHome from "@/components/Home/TripSpaceAtHome/TripSpaceAtHome";
+import VoteAtHome from "@/components/Home/VoteAtHome/VoteAtHome";
 
 function Home() {
   return (
