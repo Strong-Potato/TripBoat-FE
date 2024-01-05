@@ -1,39 +1,43 @@
+import { useEffect, useState } from "react";
 import RecomendedItem from "./RecommendedItem/RecommendedItem";
 import styles from "./RecommendedItemList.module.scss";
+import axios from "axios";
 
-function RecommendedItemList() {
-  const recommendedData = [
-    {
-      title: "호텔 loft",
-      location: "제주",
-      score: "4.4",
-      reviewNum: "484",
-    },
-    {
-      title: "호텔 loft",
-      location: "제주",
-      score: "4.4",
-      reviewNum: "484",
-    },
-    {
-      title: "호텔 loft",
-      location: "제주",
-      score: "4.4",
-      reviewNum: "484",
-    },
-    {
-      title: "호텔 loft",
-      location: "제주",
-      score: "4.4",
-      reviewNum: "484",
-    },
-  ];
+interface PropsType {
+  apiNum: number;
+}
+
+interface DataType {
+  title: string;
+  location: string;
+  score: string;
+  reviewNumber: string;
+}
+
+function RecommendedItemList(apiNum: PropsType) {
+  const [data, setData] = useState<DataType[]>();
+
+  async function getData() {
+    try {
+      const fetchData = await axios.get(
+        `/api/home/recommendedItem/${apiNum.apiNum}`,
+      );
+      setData(fetchData.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div className={styles.container}>
-      {recommendedData.map((data, i) => (
-        <RecomendedItem data={data} key={data.title + i} />
-      ))}
+      {data &&
+        data.map((data, i) => (
+          <RecomendedItem data={data} key={data.title + i} />
+        ))}
     </div>
   );
 }
