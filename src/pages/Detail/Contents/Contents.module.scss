@@ -1,0 +1,16 @@
+@use "@/sass";
+
+.container {
+  margin-top: 12px;
+  padding-bottom: 40px;
+}
+
+.tab {
+  color: sass.$neutral300;
+  border-color: #fff;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
+  border: none;
+}

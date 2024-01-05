@@ -1,0 +1,59 @@
+@use "@/sass";
+
+.container {
+  width: 100%;
+  padding: 24px 20px;
+  position: relative;
+
+  &__header {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+  }
+  &__category {
+    color: sass.$neutral400;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    margin: 4px 0;
+  }
+
+  &__alignCenter {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    &__star {
+      display: inline;
+      font-size: 16px;
+      color: #fed600;
+    }
+
+    &__point {
+      color: #1d2433;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+    }
+
+    &__reviewsCount {
+      color: sass.$neutral400;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+    }
+  }
+
+  &__positionAbsoluteIcons {
+    position: absolute;
+    right: 20px;
+    bottom: 32px;
+
+    display: flex;
+    gap: 12px;
+  }
+}
