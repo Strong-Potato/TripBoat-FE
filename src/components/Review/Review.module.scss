@@ -1,10 +1,10 @@
-@use "@/sass";
+@use "@/sass" as *;
 
 .container {
   display: flex;
   gap: 8px;
   padding: 24px 20px;
-  border-bottom: 1px solid sass.$neutral100;
+  border-bottom: 1px solid $neutral100;
 
   &__contentsBox {
     width: 100%;
@@ -14,7 +14,7 @@
     gap: 4px;
 
     &__name {
-      @include sass.typography(button);
+      @include typography(button);
     }
 
     &__secondItems {
@@ -24,23 +24,23 @@
       &__star {
         display: inline;
         font-size: 1.6rem;
-        color: sass.$etc0;
+        color: $etc0;
       }
 
       &__point {
         margin-left: 2px;
-        @include sass.typography(captionSmall);
+        @include typography(captionSmall);
       }
 
       &__visitedAt {
         margin-left: 9px;
-        color: sass.$primary300;
-        @include sass.typography(captionSmall);
+        color: $primary300;
+        @include typography(captionSmall);
       }
     }
 
     &__content {
-      @include sass.typography(bodySmall);
+      @include typography(bodySmall);
       text-overflow: ellipsis;
     }
   }

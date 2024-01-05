@@ -1,8 +1,8 @@
-@use "@/sass";
+@use "@/sass" as *;
 
 .container {
   padding: 40px 0;
-  border-bottom: 12px solid sass.$neutral100;
+  border-bottom: 12px solid $neutral100;
 
   &__title {
     padding: 8px 20px;
@@ -12,7 +12,7 @@
     justify-content: space-between;
 
     h3 {
-      @include sass.typography(titleMedium);
+      @include typography(titleMedium);
     }
 
     &__rightBox {
@@ -20,7 +20,7 @@
       cursor: pointer;
 
       span {
-        @include sass.typography(tabLabel);
+        @include typography(tabLabel);
       }
     }
   }
@@ -36,17 +36,17 @@
     &__star {
       display: inline;
       font-size: 3.2rem;
-      color: sass.$etc0;
+      color: $etc0;
     }
 
     &__point {
       color: #1d2433;
-      @include sass.typography(headline);
+      @include typography(headline);
     }
 
     &__reviewsCount {
-      color: sass.$neutral400;
-      @include sass.typography(tabLabel);
+      color: $neutral400;
+      @include typography(tabLabel);
     }
   }
 
@@ -59,7 +59,7 @@
 
     margin: 0 20px;
 
-    border: 1px solid sass.$neutral300;
+    border: 1px solid $neutral300;
     border-radius: 8px;
 
     display: flex;
@@ -69,7 +69,7 @@
     cursor: pointer;
 
     span {
-      @include sass.typography(button);
+      @include typography(button);
     }
   }
 }
