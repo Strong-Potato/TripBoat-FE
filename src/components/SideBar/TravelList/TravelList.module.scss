@@ -19,10 +19,8 @@
 
     &__text {
       color: $neutral0;
-      font-size: 1.4rem;
       font-style: normal;
-      font-weight: 700;
-      line-height: 2.2rem;
+      @include typography(button);
     }
   }
 
@@ -43,19 +41,15 @@
 
       &__name {
         color: $neutral900;
-        font-size: 1.4rem;
         font-style: normal;
-        font-weight: 700;
-        line-height: 2.2rem;
+        @include typography(button);
       }
 
       &__date {
         color: $neutral400;
-        font-size: 1.2rem;
         font-style: normal;
-        font-weight: 500;
-        line-height: 2rem;
         letter-spacing: -0.012rem;
+        @include typography(captionSmall);
       }
     }
   }
