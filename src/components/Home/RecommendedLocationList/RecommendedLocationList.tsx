@@ -1,14 +1,29 @@
-import RecommendedLocation from "./RecommendedLocation/RecommendedLocation";
+import { useEffect, useState } from "react";
+
 import styles from "./RecommendedLocationList.module.scss";
 
+import { getData } from "@/mocks/handlers/home";
+
+import RecommendedLocation from "./RecommendedLocation/RecommendedLocation";
+
+import { LocationDataType } from "@/types/home";
+
 function RecommendedLocationList() {
-  const recommendedLocation = ["제주", "부산", "강릉", "서울"];
+  const [data, setData] = useState<LocationDataType[]>();
+
+  useEffect(() => {
+    getData<LocationDataType[] | undefined>(
+      `home/recommendedLocation`,
+      setData,
+    );
+  }, []);
 
   return (
     <div className={styles.container}>
-      {recommendedLocation.map((data, i) => (
-        <RecommendedLocation location={data} key={data + i} />
-      ))}
+      {data &&
+        data.map((data, i) => (
+          <RecommendedLocation data={data} key={data.location + i} />
+        ))}
     </div>
   );
 }

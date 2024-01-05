@@ -1,4 +1,5 @@
 import { MdArrowForwardIos } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 import styles from "./CardNull.module.scss";
 
@@ -12,12 +13,14 @@ function CardNull() {
             <br />
             여행 장소를 정해보세요
           </p>
-          <button>
-            <span>투표 만들기</span>
-            <p className={styles.arrow}>
-              <MdArrowForwardIos />
-            </p>
-          </button>
+          <Link to="/vote">
+            <button>
+              <span>투표 만들기</span>
+              <p>
+                <MdArrowForwardIos />
+              </p>
+            </button>
+          </Link>
         </div>
         <img className={styles.right} src="/mapIconHome.png"></img>
       </div>

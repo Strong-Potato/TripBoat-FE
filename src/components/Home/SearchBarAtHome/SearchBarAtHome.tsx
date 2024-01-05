@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
 import { IoSearchSharp } from "react-icons/io5";
+import { Link } from "react-router-dom";
+
 import styles from "./SearchBarAtHome.module.scss";
 
 function SearchBarAtHome() {
