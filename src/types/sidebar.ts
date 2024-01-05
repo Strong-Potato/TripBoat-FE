@@ -1,7 +1,6 @@
 export type SideBarProps = {
-  onClose: () => void;
-  isOpen: boolean;
-  sidebarRef: React.RefObject<HTMLButtonElement>;
+  sideClose: () => void;
+  isSideOpen: boolean;
 };
 
 type TravelListItem = {

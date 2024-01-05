@@ -1,20 +1,20 @@
 import { useDisclosure } from "@chakra-ui/react";
-import React from "react";
 import { Outlet } from "react-router-dom";
 
 import GlobalNavigationBar from "@/components/GlobalNavigationBar/GlobalNavigationBar";
 import SideBar from "@/components/SideBar/SideBar";
 
 function Dashboard() {
-  const { onOpen, isOpen, onClose } = useDisclosure();
-  const sidebarRef = React.useRef<HTMLButtonElement>(null);
+  const {
+    onOpen: sideOpen,
+    isOpen: isSideOpen,
+    onClose: sideClose,
+  } = useDisclosure();
 
   return (
     <>
-      <button onClick={onOpen} ref={sidebarRef}>
-        Open
-      </button>
-      <SideBar isOpen={isOpen} onClose={onClose} sidebarRef={sidebarRef} />
+      <button onClick={sideOpen}>Open</button>
+      <SideBar isSideOpen={isSideOpen} sideClose={sideClose} />
       <Outlet />
       <GlobalNavigationBar />
     </>
