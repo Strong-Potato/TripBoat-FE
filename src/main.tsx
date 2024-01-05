@@ -3,10 +3,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 
-import "./sass/index.scss";
-import { customTheme } from "./sass/chakraCustomTheme.tsx";
-
 import App from "./App.tsx";
+import { customTheme } from "./sass/chakraCustomTheme.tsx";
 
 async function enableMocking() {
   if (import.meta.env.MODE !== "development") {
