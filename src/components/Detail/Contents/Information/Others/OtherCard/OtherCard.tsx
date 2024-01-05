@@ -2,7 +2,7 @@ import { GoStarFill } from "react-icons/go";
 
 import styles from "./OtherCard.module.scss";
 
-import { OtherCardPropsType } from "@/types/Detail";
+import { OtherCardPropsType } from "@/types/detail";
 
 function OtherCard({
   image,
