@@ -5,14 +5,7 @@ import styles from "./Review.module.scss";
 
 import ReviewImageSlider from "./ReviewImageSlider/ReviewImageSlider";
 
-interface ReviewProps {
-  name: string;
-  isGoogle: boolean;
-  point: string;
-  visitedAt: string;
-  content: string;
-  images: string[] | undefined;
-}
+import { ReviewPropsTypes } from "@/types/detail";
 
 function Review({
   name,
@@ -21,7 +14,7 @@ function Review({
   visitedAt,
   content,
   images,
-}: ReviewProps) {
+}: ReviewPropsTypes) {
   return (
     <div className={styles.container}>
       <div>
