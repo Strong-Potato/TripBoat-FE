@@ -8,9 +8,9 @@
   cursor: pointer;
 
   &__image {
-    width: 144px;
-    height: 144px;
-    border-radius: 16px;
+    width: 14.4rem;
+    height: 14.4rem;
+    border-radius: 1.6rem;
   }
 
   &__contents {
@@ -29,7 +29,7 @@
 
       &__star {
         display: inline;
-        font-size: 16px;
+        font-size: 1.6rem;
         color: sass.$etc0;
       }
 

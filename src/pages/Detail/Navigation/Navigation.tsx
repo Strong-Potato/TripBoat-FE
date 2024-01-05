@@ -10,11 +10,15 @@ function Navigation() {
   return (
     <div className={styles.container}>
       <AiOutlineLeft
-        fontSize="24px"
+        fontSize="2.4rem"
         onClick={() => navigate(-1)}
         cursor="pointer"
       />
-      <GoKebabHorizontal fontSize="24px" onClick={() => {}} cursor="pointer" />
+      <GoKebabHorizontal
+        fontSize="2.4rem"
+        onClick={() => {}}
+        cursor="pointer"
+      />
     </div>
   );
 }
