@@ -35,7 +35,13 @@ const travelList = [
 ];
 
 function SideBar({ isSideOpen, sideClose }: SideBarProps) {
+  // const {
+  //   onOpen: sideOpen,
+  //   isOpen: isSideOpen,
+  //   onClose: sideClose,
+  // } = useDisclosure();
   return (
+    // <button onClick={sideOpen}>Open</button>
     <Drawer
       isOpen={isSideOpen}
       placement="right"
