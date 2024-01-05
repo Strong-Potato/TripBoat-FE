@@ -1,9 +1,9 @@
-@use "@/sass";
+@use "@/sass" as *;
 
 .container {
   margin-top: 12px;
   padding-bottom: 40px;
   &__tab {
-    @include sass.typography(button);
+    @include typography(button);
   }
 }
