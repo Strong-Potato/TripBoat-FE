@@ -9,8 +9,12 @@ function Navigation() {
 
   return (
     <div className={styles.container}>
-      <AiOutlineLeft fontSize="24px" onClick={() => navigate(-1)} />
-      <GoKebabHorizontal fontSize="24px" />
+      <AiOutlineLeft
+        fontSize="24px"
+        onClick={() => navigate(-1)}
+        cursor="pointer"
+      />
+      <GoKebabHorizontal fontSize="24px" onClick={() => {}} cursor="pointer" />
     </div>
   );
 }

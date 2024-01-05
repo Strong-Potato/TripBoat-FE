@@ -9,11 +9,12 @@
   &__contentsBox {
     width: 100%;
 
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
     &__name {
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 22px;
+      @include sass.typography(button);
     }
 
     &__secondItems {
@@ -23,32 +24,23 @@
       &__star {
         display: inline;
         font-size: 16px;
-        color: #fed600;
+        color: sass.$etc0;
       }
 
       &__point {
         margin-left: 2px;
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 20px;
+        @include sass.typography(captionSmall);
       }
 
       &__visitedAt {
         margin-left: 9px;
         color: sass.$primary300;
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 20px;
+        @include sass.typography(captionSmall);
       }
     }
 
     &__content {
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 22px;
+      @include sass.typography(bodySmall);
       text-overflow: ellipsis;
     }
   }

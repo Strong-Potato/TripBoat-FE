@@ -15,41 +15,33 @@
 
   &__contents {
     h4 {
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 24px;
+      @include sass.typography(titleSmall);
     }
 
     p {
       color: sass.$neutral400;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 20px;
+      @include sass.typography(captionSmall);
     }
 
     &__reviews {
+      display: flex;
+      align-items: center;
+
       &__star {
         display: inline;
         font-size: 16px;
-        color: #fed600;
+        color: sass.$etc0;
       }
 
       &__point {
         color: #1d2433;
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 20px;
+        @include sass.typography(captionSmall);
+        margin-right: 4px;
       }
 
       &__reviewsCount {
         color: sass.$neutral400;
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 20px;
+        @include sass.typography(captionSmall);
       }
     }
   }

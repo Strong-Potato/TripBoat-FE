@@ -9,8 +9,11 @@
   background-color: #fff;
 
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   height: 32px;
 
   padding: 16px;
+  &__pointer {
+    cursor: pointer;
+  }
 }

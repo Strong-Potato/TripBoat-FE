@@ -2,7 +2,6 @@
 
 .container {
   padding: 40px 0;
-  border-bottom: 12px solid sass.$neutral100;
 
   &__title {
     padding: 8px 20px;
@@ -12,10 +11,7 @@
     justify-content: space-between;
 
     h3 {
-      font-size: 18px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 26px;
+      @include sass.typography(titleMedium);
     }
 
     &__rightBox {
@@ -23,10 +19,7 @@
       cursor: pointer;
 
       span {
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 22px;
+        @include sass.typography(tabLabel);
       }
     }
   }
@@ -42,23 +35,17 @@
     &__star {
       display: inline;
       font-size: 32px;
-      color: #fed600;
+      color: sass.$etc0;
     }
 
     &__point {
       color: #1d2433;
-      font-size: 24px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 32px;
+      @include sass.typography(headline);
     }
 
     &__reviewsCount {
       color: sass.$neutral400;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 22px;
+      @include sass.typography(tabLabel);
     }
   }
 
@@ -81,10 +68,7 @@
     cursor: pointer;
 
     span {
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 22px;
+      @include sass.typography(tabLabel);
     }
   }
 }
