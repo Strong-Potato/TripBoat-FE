@@ -10,10 +10,7 @@
     padding: 8px 20px;
     margin-bottom: 16px;
 
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 26px;
+    @include sass.typography(titleMedium);
   }
 
   &__contents {
@@ -29,10 +26,7 @@
       align-items: center;
       gap: 12px;
 
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 22px;
+      @include sass.typography(tabLabel);
 
       a {
         text-decoration-line: underline;

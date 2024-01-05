@@ -1,3 +1,5 @@
+@use "@/sass";
+
 .container {
   padding: 40px 0;
 
@@ -5,10 +7,7 @@
     padding: 8px 20px;
 
     h3 {
-      font-size: 18px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 26px;
+      @include sass.typography(titleMedium);
     }
   }
 

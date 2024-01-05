@@ -49,7 +49,7 @@ function Review({
             {visitedAt}
           </span>
         </div>
-        <div className={styles.container__content}>{content}</div>
+        <div className={styles.container__contentsBox__content}>{content}</div>
         {images && <ReviewImageSlider images={images} />}
       </div>
     </div>

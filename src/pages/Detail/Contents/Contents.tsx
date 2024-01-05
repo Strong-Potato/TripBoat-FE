@@ -10,6 +10,9 @@ function Contents() {
     <Tabs isFitted className={styles.container}>
       <TabList>
         <Tab
+          fontSize="14px"
+          fontWeight="700"
+          lineHeight="22px"
           color="#CDCFD0"
           borderColor="#fff"
           _selected={{ color: "#1D2433", borderColor: "#2388FF" }}
@@ -17,6 +20,9 @@ function Contents() {
           상품정보
         </Tab>
         <Tab
+          fontSize="14px"
+          fontWeight="700"
+          lineHeight="22px"
           color="#CDCFD0"
           borderColor="#fff"
           _selected={{ color: "#1D2433", borderColor: "#2388FF" }}

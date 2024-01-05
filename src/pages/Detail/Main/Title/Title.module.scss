@@ -6,17 +6,11 @@
   position: relative;
 
   &__header {
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 28px;
+    @include sass.typography(titleLarge);
   }
   &__category {
     color: sass.$neutral400;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
+    @include sass.typography(captionSmall);
     margin: 4px 0;
   }
 
@@ -28,23 +22,17 @@
     &__star {
       display: inline;
       font-size: 16px;
-      color: #fed600;
+      color: sass.$etc0;
     }
 
     &__point {
       color: #1d2433;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 20px;
+      @include sass.typography(captionMedium);
     }
 
     &__reviewsCount {
       color: sass.$neutral400;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 20px;
+      @include sass.typography(captionSmall);
     }
   }
 
