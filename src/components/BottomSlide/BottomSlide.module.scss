@@ -1,0 +1,31 @@
+@use "@/sass" as *;
+
+.slideContainer {
+  position: absolute;
+  top: 0;
+  width: 450px;
+  height: 100vh;
+  background-color: rgba(20, 20, 20, 0.8);
+  z-index: 3;
+
+  .slide {
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+
+    &__content {
+      width: 450px;
+      border-radius: 16px 16px 0px 0px;
+      background-color: $neutral0;
+      padding: 24px 24px 40px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 2.4rem;
+
+      .closeButtonContainer {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+}
