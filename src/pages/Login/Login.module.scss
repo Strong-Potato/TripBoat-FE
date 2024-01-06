@@ -33,19 +33,6 @@
       &::placeholder {
         color: $neutral400;
       }
-      &:focus {
-        outline: none;
-        border-width: 1px;
-        border-color: $primary300;
-
-        + .removeBtn {
-          cursor: pointer;
-
-          .svg {
-            visibility: visible;
-          }
-        }
-      }
     }
 
     small {
@@ -64,13 +51,22 @@
       position: relative;
 
       .removeBtn {
+        display: none;
         position: absolute;
         top: 47px;
         right: 14px;
         cursor: default;
+      }
 
-        .svg {
-          visibility: hidden;
+      &:focus-within {
+        input {
+          outline: none;
+          border-width: 1px;
+          border-color: $primary300;
+        }
+
+        .removeBtn {
+          display: block;
         }
       }
     }
@@ -145,11 +141,11 @@
     }
   }
 
-  .bottom {
+  .toHome {
     text-align: center;
     margin-bottom: 55px;
 
-    &__toHome {
+    &__link {
       @include typography(tabLabel);
       color: $neutral800;
       text-decoration-line: underline;

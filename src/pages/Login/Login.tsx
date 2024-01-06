@@ -21,8 +21,7 @@ interface SubmitResult {
 function Login() {
   const {
     register,
-    getValues,
-    reset,
+    resetField,
     formState: { errors, dirtyFields },
   } = useForm<Form>({
     mode: "onChange",
@@ -52,11 +51,11 @@ function Login() {
   };
 
   const resetEmail = () => {
-    reset({ ...getValues(), email: "" });
+    resetField("email");
   };
 
   const resetPassword = () => {
-    reset({ ...getValues(), password: "" });
+    resetField("password");
   };
   return (
     <div className={styles.container}>
@@ -65,7 +64,7 @@ function Login() {
       </h1>
 
       <form className={styles.loginForm}>
-        <div className={styles.loginForm__email}>
+        <section className={styles.loginForm__email}>
           <label htmlFor="email">이메일</label>
 
           <input
@@ -91,9 +90,9 @@ function Login() {
               <RemoveBtn className={styles.svg} />
             </button>
           )}
-        </div>
+        </section>
 
-        <div className={styles.loginForm__password}>
+        <section className={styles.loginForm__password}>
           <label htmlFor="password">비밀번호</label>
 
           <input
@@ -118,7 +117,7 @@ function Login() {
               <RemoveBtn className={styles.svg} />
             </button>
           )}
-        </div>
+        </section>
 
         {submitResult.try && !submitResult.isPassed ? (
           <small>이메일 또는 비밀번호를 확인해주세요.</small>
@@ -153,11 +152,11 @@ function Login() {
         </button>
       </section>
 
-      <div className={styles.bottom}>
-        <Link to={""} className={styles.bottom__toHome}>
+      <section className={styles.toHome}>
+        <Link to={""} className={styles.toHome__link}>
           로그인 전 둘러보기
         </Link>
-      </div>
+      </section>
     </div>
   );
 }
