@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/react";
 
-import styles from "./VoteDetailsBottomButton.module.scss";
+//import styles from "./VoteDetailsBottomButton.module.scss";
 
 const VoteDetailsBottomButton = () => {
   return (
