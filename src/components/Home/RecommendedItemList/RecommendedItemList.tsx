@@ -4,7 +4,7 @@ import styles from "./RecommendedItemList.module.scss";
 
 import { getData } from "@/mocks/handlers/home";
 
-import RecomendedItem from "./RecommendedItem/RecommendedItem";
+import RecommendedItem from "./RecommendedItem/RecommendedItem";
 
 import { RecommendedItemDataType } from "@/types/home";
 
@@ -26,7 +26,7 @@ function RecommendedItemList(apiNum: PropsType) {
     <div className={styles.container}>
       {data &&
         data.map((data, i) => (
-          <RecomendedItem data={data} key={data.title + i} />
+          <RecommendedItem data={data} key={data.title + i} />
         ))}
     </div>
   );
