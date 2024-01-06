@@ -1,4 +1,5 @@
 import { Avatar } from "@chakra-ui/react";
+
 import styles from "./VoteCandidateItem.module.scss";
 
 const VoteCandidateItem = () => {

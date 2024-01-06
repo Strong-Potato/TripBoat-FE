@@ -1,8 +1,9 @@
 import { Icon } from "@chakra-ui/react";
-import VoteCandidateItem from "../VoteCandidateItem/VoteCandidateItem";
+import { GoDotFill } from "react-icons/go";
+
 import styles from "./VoteDetailsField.module.scss";
 
-import { GoDotFill } from "react-icons/go";
+import VoteCandidateItem from "../VoteCandidateItem/VoteCandidateItem";
 
 // import VoteDetailsFieldZero from "../VoteDetailsFieldZero/VoteDetailsFieldZero";
 
