@@ -9,7 +9,7 @@ interface PropsType {
   data: RecommendedItemDataType;
 }
 
-function RecomendedItem(data: PropsType) {
+function RecommendedItem(data: PropsType) {
   const linkURL = `/detail/${data.data.id}`;
   const imageAlt = `${data.data.title}의 사진`;
 
@@ -39,4 +39,4 @@ function RecomendedItem(data: PropsType) {
   );
 }
 
-export default RecomendedItem;
+export default RecommendedItem;
