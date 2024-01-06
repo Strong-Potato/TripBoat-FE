@@ -1,0 +1,75 @@
+@use "@/sass" as *;
+
+.container {
+  padding: 40px 0;
+  border-bottom: 12px solid $neutral100;
+
+  &__title {
+    padding: 8px 20px;
+    margin-bottom: 16px;
+
+    display: flex;
+    justify-content: space-between;
+
+    h3 {
+      @include typography(titleMedium);
+    }
+
+    &__rightBox {
+      display: flex;
+      cursor: pointer;
+
+      span {
+        @include typography(tabLabel);
+      }
+    }
+  }
+
+  &__pointBox {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    padding: 0 20px;
+    margin-bottom: 16px;
+
+    &__star {
+      display: inline;
+      font-size: 3.2rem;
+      color: $etc0;
+    }
+
+    &__point {
+      color: #1d2433;
+      @include typography(headline);
+    }
+
+    &__reviewsCount {
+      color: $neutral400;
+      @include typography(tabLabel);
+    }
+  }
+
+  &__reviewsBox {
+    margin-bottom: 16px;
+  }
+
+  &__allBtn {
+    padding: 8px;
+
+    margin: 0 20px;
+
+    border: 1px solid $neutral300;
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    span {
+      @include typography(button);
+    }
+  }
+}
