@@ -1,0 +1,69 @@
+@use "@/sass" as *;
+
+.container {
+  padding: 40px 0;
+
+  &__title {
+    padding: 8px 20px;
+
+    h3 {
+      @include typography(titleMedium);
+    }
+  }
+
+  &__slideContainer {
+    padding: 0 20px;
+    position: relative;
+
+    overflow: hidden;
+
+    &__leftBtn {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translate(10px, -50%);
+
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 1.2rem;
+
+      background-color: #ffffff;
+      z-index: 2;
+      &__icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    &__rightBtn {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translate(-10px, -50%);
+
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 1.2rem;
+
+      background-color: #ffffff;
+      z-index: 2;
+
+      &__icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    &__slide {
+      position: relative;
+      display: flex;
+      gap: 16px;
+
+      transition: all 1s;
+    }
+  }
+}

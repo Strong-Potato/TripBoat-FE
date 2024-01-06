@@ -1,0 +1,74 @@
+@use "@/sass";
+
+.container {
+  padding: 40px 0;
+
+  &__title {
+    padding: 8px 20px;
+    margin-bottom: 16px;
+
+    display: flex;
+    justify-content: space-between;
+
+    h3 {
+      @include sass.typography(titleMedium);
+    }
+
+    &__rightBox {
+      display: flex;
+      cursor: pointer;
+
+      span {
+        @include sass.typography(tabLabel);
+      }
+    }
+  }
+
+  &__pointBox {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    padding: 0 20px;
+    margin-bottom: 16px;
+
+    &__star {
+      display: inline;
+      font-size: 32px;
+      color: sass.$etc0;
+    }
+
+    &__point {
+      color: #1d2433;
+      @include sass.typography(headline);
+    }
+
+    &__reviewsCount {
+      color: sass.$neutral400;
+      @include sass.typography(tabLabel);
+    }
+  }
+
+  &__reviewsBox {
+    margin-bottom: 16px;
+  }
+
+  &__allBtn {
+    padding: 8px;
+
+    margin: 0 20px;
+
+    border: 1px solid sass.$neutral300;
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    span {
+      @include sass.typography(tabLabel);
+    }
+  }
+}
