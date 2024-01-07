@@ -1,6 +1,10 @@
 @use "@/sass" as *;
 
 .container {
+  @include typography(bodyLarge);
+  color: $neutral1000;
+  line-height: 3rem;
+
   .body {
     padding: 17px 20px;
 
@@ -13,9 +17,16 @@
       margin-bottom: 20px;
     }
 
-    h3 {
+    h3,
+    h4,
+    p {
       margin-top: 20px;
       margin-bottom: 20px;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-inline-start: 20px;
     }
 
     &__depth1 {
