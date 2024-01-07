@@ -1,0 +1,124 @@
+@use "@/sass" as *;
+
+.container {
+  max-width: 45rem;
+  height: 24rem;
+  background-color: $primary200;
+
+  .header {
+    color: $neutral0;
+    position: fixed;
+    width: 100%;
+    max-width: 45rem;
+    top: 0;
+    z-index: 2;
+
+    .iconTab {
+      display: flex;
+      width: 100%;
+      max-width: 45rem;
+      padding: 16px;
+      justify-content: flex-end;
+      align-items: center;
+      flex-shrink: 0;
+      gap: 1.2rem;
+    }
+
+    .titleContainer {
+      display: flex;
+      padding: 8px 20px;
+      flex-direction: column;
+      align-items: flex-start;
+
+      &__dDayTitle {
+        @include typography(titleLarge);
+      }
+
+      &__placeTitle {
+        @include typography(titleLarge);
+        line-height: 3.2rem;
+        text-decoration-line: underline;
+        text-decoration-thickness: 1px;
+      }
+
+      .dateContainer {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+
+        &__dateTitle {
+          @include typography(bodySmall);
+          letter-spacing: -0.14px;
+          text-decoration-line: underline;
+        }
+
+        &__editButton {
+          @include typography(captionSmall);
+          color: $neutral100;
+        }
+      }
+    }
+
+    .userContainer {
+      display: flex;
+      width: 100%;
+      padding: 4px 20px;
+      justify-content: space-between;
+      align-items: center;
+      margin: 8px 0 14px 0;
+
+      .avatarContainer {
+        @include typography(captionSmall);
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+
+        &__group {
+          span {
+            border: 1px solid $neutral0;
+          }
+
+          span:nth-child(1) {
+            display: none
+          }
+        }
+      }
+
+      .addPersonButton {
+        @include typography(captionLarge);
+        display: flex;
+        padding: 8px 12px 8px 8px;
+        align-items: center;
+        border-radius: 100px;
+        border: 1px solid $neutral0;
+        backdrop-filter: blur(2px);
+      }
+    }
+  }
+
+  .contents {
+    z-index: 2;
+    margin-top: 22.5rem;
+    background-color: $neutral0;
+    border-radius: 16px 16px 0px 0px;
+    width: 100%;
+    border: 1px solid white;
+
+    &__tabList {
+      @include typography(tabLabel);
+      color: $neutral300;
+      padding: 12px 0;
+    }
+
+    &__tabIndicator {
+      background-color: $primary200;
+      height: 2px;
+      border-radius: 2px;
+    }
+
+    &__tabContent {
+      overflow-y: auto;
+      max-height: calc(100vh - 34rem);
+    }
+  }
+}
