@@ -5,7 +5,7 @@ import styles from "./Vote.module.scss";
 import BottomSlide from "@/components/BottomSlide/BottomSlide";
 import VoteBottomButton from "@/components/Vote/VoteBottomButton/VoteBottomButton";
 import AddCandidate from "@/components/Vote/VoteBottomSlideContent/AddCandidate/AddCandidate";
-import VoteContent from "@/components/Vote/VoteDetailsField/VoteContent";
+import VoteContent from "@/components/Vote/VoteContent/VoteContent";
 import VoteHeader from "@/components/Vote/VoteHeader/VoteHeader";
 import { ReactNode, useState } from "react";
 import VoteMeatball from "@/components/Vote/VoteBottomSlideContent/VoteMeatball/VoteMeatball";
