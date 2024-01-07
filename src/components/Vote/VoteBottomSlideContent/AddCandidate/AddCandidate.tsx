@@ -1,9 +1,9 @@
-import VoteSearchIcon from "@/assets/vote_search.svg?react";
+import styles from "./AddCandidate.module.scss";
+
 import VoteHeartIcon from "@/assets/vote_heart.svg?react";
+import VoteSearchIcon from "@/assets/vote_search.svg?react";
 
-import styles from "./AddCandidateSlideContent.module.scss";
-
-const AddCandidateSlideContent = () => {
+const AddCandidate = () => {
   const title = "후보 추가하기";
 
   return (
@@ -23,4 +23,4 @@ const AddCandidateSlideContent = () => {
   );
 };
 
-export default AddCandidateSlideContent;
+export default AddCandidate;

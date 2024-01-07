@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 
 import { VoteBottomButtonProps } from "@/types/vote";
 
-const VoteDetailsBottomButton = ({ onClick, title }: VoteBottomButtonProps) => {
+const VoteBottomButton = ({ onClick, title }: VoteBottomButtonProps) => {
   return (
     <div>
       <Button variant="CTAButton" onClick={onClick}>
@@ -12,4 +12,4 @@ const VoteDetailsBottomButton = ({ onClick, title }: VoteBottomButtonProps) => {
   );
 };
 
-export default VoteDetailsBottomButton;
+export default VoteBottomButton;
