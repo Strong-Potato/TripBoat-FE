@@ -3,10 +3,16 @@ import { Link } from "react-router-dom";
 
 import styles from "./CardNull.module.scss";
 
+import useComponentSize from "@/hooks/useComponetSize";
+
 function CardNull() {
+  const [componentRef, size] = useComponentSize();
+  const responsivePadding = size.width - 360 <= 0 ? 0 : size.width - 360;
+  const contentsPadding = `32.5px ${responsivePadding / 5 + 24}px`;
+
   return (
-    <div className={styles.vote_box}>
-      <div className={styles.contents}>
+    <div className={styles.vote_box} ref={componentRef}>
+      <div className={styles.contents} style={{ padding: contentsPadding }}>
         <div className={styles.left}>
           <p className={styles.text}>
             친구들과 함께
