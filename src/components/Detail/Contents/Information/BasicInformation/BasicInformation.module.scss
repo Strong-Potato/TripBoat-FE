@@ -1,0 +1,36 @@
+@use "@/sass" as *;
+
+.container {
+  margin: 20px 0;
+  padding-bottom: 40px;
+
+  border-bottom: 12px solid $neutral100;
+
+  &__title {
+    padding: 8px 20px;
+    margin-bottom: 16px;
+
+    @include typography(titleMedium);
+  }
+
+  &__contents {
+    margin-top: 16px;
+    padding: 0 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &__item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      @include typography(tabLabel);
+
+      a {
+        text-decoration-line: underline;
+      }
+    }
+  }
+}
