@@ -26,3 +26,20 @@ export interface TripSpaceDataType {
   tripImg: string;
   dDay: string | undefined;
 }
+
+export interface LeftButtonPropsType {
+  slideLocation: number;
+  setSlideLocation: React.Dispatch<React.SetStateAction<number>>;
+  itemWidth: number;
+  flexGap: number;
+}
+
+interface ComponentSize {
+  width: number;
+  height: number;
+}
+
+export interface SlideButtonPropsType extends LeftButtonPropsType {
+  slideSize: ComponentSize;
+  itemNumber: number;
+}
