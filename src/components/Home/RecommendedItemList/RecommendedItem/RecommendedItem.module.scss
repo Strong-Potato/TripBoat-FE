@@ -1,0 +1,48 @@
+@use "@/sass" as *;
+
+.container {
+  min-width: 14.4rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .item_img {
+    width: 100%;
+    height: 14.4rem;
+
+    border-radius: 1.6rem;
+  }
+
+  .text_box {
+    display: flex;
+    flex-direction: column;
+
+    @include typography(captionSmall);
+
+    .gray {
+      color: $neutral400;
+    }
+
+    .item_title {
+      @include typography(titleSmall);
+    }
+
+    .item_score {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      .score {
+        display: flex;
+        align-items: center;
+
+        @include typography(captionMidium);
+      }
+      .star {
+        padding: 2px;
+        color: $etc0;
+      }
+    }
+  }
+}
