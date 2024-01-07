@@ -40,8 +40,80 @@ const recommendedItem = [
       reviewNumber: "484",
       id: "1",
     },
+    {
+      title: "호텔 loft",
+      imageURL:
+        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+      location: "제주",
+      score: "4.4",
+      reviewNumber: "484",
+      id: "1",
+    },
+    {
+      title: "호텔 loft",
+      imageURL:
+        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+      location: "제주",
+      score: "4.4",
+      reviewNumber: "484",
+      id: "1",
+    },
+    {
+      title: "호텔 loft",
+      imageURL:
+        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+      location: "제주",
+      score: "4.4",
+      reviewNumber: "484",
+      id: "1",
+    },
+    {
+      title: "호텔 loft",
+      imageURL:
+        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+      location: "제주",
+      score: "4.4",
+      reviewNumber: "484",
+      id: "1",
+    },
+    {
+      title: "호텔 loft",
+      imageURL:
+        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+      location: "제주",
+      score: "4.4",
+      reviewNumber: "484",
+      id: "1",
+    },
   ],
   [
+    {
+      title: "호텔 lee",
+      imageURL:
+        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+      location: "서울",
+      score: "4.8",
+      reviewNumber: "184",
+      id: "1",
+    },
+    {
+      title: "호텔 lee",
+      imageURL:
+        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+      location: "서울",
+      score: "4.8",
+      reviewNumber: "184",
+      id: "1",
+    },
+    {
+      title: "호텔 lee",
+      imageURL:
+        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+      location: "서울",
+      score: "4.8",
+      reviewNumber: "184",
+      id: "1",
+    },
     {
       title: "호텔 lee",
       imageURL:
@@ -168,7 +240,7 @@ export const home = [
     });
   }),
   http.get("/api/home/vote", () => {
-    return HttpResponse.json(userVoteData, {
+    return HttpResponse.json(undefined, {
       status: 200,
     });
   }),
