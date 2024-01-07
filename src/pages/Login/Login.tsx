@@ -70,7 +70,7 @@ function Login() {
           <input
             id="email"
             type="text"
-            placeholder="abc@gmail.com"
+            placeholder="이메일 주소를 입력해주세요"
             {...register("email", {
               pattern: {
                 value:
@@ -98,7 +98,7 @@ function Login() {
           <input
             id="password"
             type="password"
-            placeholder="영문, 숫자, 특수문자 포함 8자 이상"
+            placeholder="비밀번호를 입력해주세요"
             {...register("password", {
               pattern: {
                 value: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/,
@@ -153,7 +153,7 @@ function Login() {
       </section>
 
       <section className={styles.toHome}>
-        <Link to={""} className={styles.toHome__link}>
+        <Link to={"/"} className={styles.toHome__link}>
           로그인 전 둘러보기
         </Link>
       </section>
