@@ -64,9 +64,7 @@ function Trip() {
             </span>
             <button
               className={styles.dateContainer__editButton}
-              onClick={
-                isBottomSlideOpen ? onBottomSlideClose : onBottomSlideOpen
-              }
+              onClick={onBottomSlideOpen}
             >
               편집
             </button>
