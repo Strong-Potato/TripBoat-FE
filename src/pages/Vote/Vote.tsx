@@ -3,32 +3,38 @@ import { useDisclosure } from "@chakra-ui/react";
 import styles from "./Vote.module.scss";
 
 import BottomSlide from "@/components/BottomSlide/BottomSlide";
-// import CreatVoteTitleModal from "@/components/Vote/CreatVoteTitleModal/CreatVoteTitleModal";
 import VoteBottomButton from "@/components/Vote/VoteBottomButton/VoteBottomButton";
-import VoteHeader from "@/components/Vote/VoteHeader/VoteHeader";
 import AddCandidate from "@/components/Vote/VoteBottomSlideContent/AddCandidate/AddCandidate";
 import VoteContent from "@/components/Vote/VoteDetailsField/VoteContent";
+import VoteHeader from "@/components/Vote/VoteHeader/VoteHeader";
+import { ReactNode, useState } from "react";
+import VoteMeatball from "@/components/Vote/VoteBottomSlideContent/VoteMeatball/VoteMeatball";
 
 const Vote = () => {
-  const {
-    isOpen: isBottomSlideOpen,
-    onOpen: onBottomSlideOpen,
-    onClose: onBottomSlideClose,
-  } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [bottomSlideContent, setBottomSlideContent] =
+    useState<ReactNode | null>(null);
+  //보트ID로 진입, 검색할때 투표갯수 X는거 확인
+  //X -> 메인문구, 헤더에서미트볼 바꾸기
+  //투표 확정 상태일때 바텀 시트 변경
+
+  const onBottomSlideOpen = (content: ReactNode) => {
+    setBottomSlideContent(content);
+    onOpen();
+  };
 
   return (
     <div className={styles.container}>
-      <VoteHeader />
-      <VoteContent onClick={onBottomSlideOpen} />
-
-      {/* 나중에 여행스페이스 메인에 옮겨야함 */}
-      {/* <CreatVoteTitleModal /> */}
-      <VoteBottomButton onClick={onBottomSlideOpen} title={"후보 추가하기"} />
-
+      <VoteHeader onOpen={() => onBottomSlideOpen(<VoteMeatball />)} />
+      <VoteContent onClick={() => onBottomSlideOpen(<AddCandidate />)} />
+      <VoteBottomButton
+        onClick={() => onBottomSlideOpen(<AddCandidate />)}
+        title={"후보 추가하기"}
+      />
       <BottomSlide
-        isOpen={isBottomSlideOpen}
-        onClose={onBottomSlideClose}
-        children={<AddCandidate />}
+        isOpen={isOpen}
+        onClose={onClose}
+        children={bottomSlideContent}
       />
     </div>
   );
