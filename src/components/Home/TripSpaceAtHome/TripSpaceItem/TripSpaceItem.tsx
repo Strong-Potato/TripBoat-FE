@@ -1,4 +1,5 @@
 import { MdArrowForwardIos } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 import styles from "./TripSpaceItem.module.scss";
 
@@ -11,7 +12,7 @@ interface PropsData {
 function TripSpaceItem(data: PropsData) {
   const imageAlt = `${data.data.tripTitle}의 사진`;
   return (
-    <div className={styles.container}>
+    <Link to="/carryout" className={styles.container}>
       <div className={styles.img_box}>
         <img
           className={styles.trip_img}
@@ -30,7 +31,7 @@ function TripSpaceItem(data: PropsData) {
           <MdArrowForwardIos />
         </div>
       )}
-    </div>
+    </Link>
   );
 }
 

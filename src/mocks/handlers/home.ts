@@ -182,21 +182,21 @@ const userVoteData = [
     date: "1.17-1.19",
     profile: "https://avatars.githubusercontent.com/u/154430298?s=48&v=4",
     discussion: "첫째 날 카페 어디갈래?",
-    voteURL: "/vote",
+    voteURL: "/voteDetail",
   },
   {
     title: "부산, 여수 여행",
     date: "1.17-1.19",
     profile: "https://avatars.githubusercontent.com/u/154430298?s=48&v=4",
     discussion: "둘째 날 카페 어디갈래?",
-    voteURL: "/vote",
+    voteURL: "/voteDetail",
   },
   {
     title: "부산, 여수 여행",
     date: "1.17-1.19",
     profile: "https://avatars.githubusercontent.com/u/154430298?s=48&v=4",
     discussion: "셋째 날 카페 어디갈래?",
-    voteURL: "/vote",
+    voteURL: "/voteDetail",
   },
 ];
 const tripSpaceData = [
@@ -240,7 +240,7 @@ export const home = [
     });
   }),
   http.get("/api/home/vote", () => {
-    return HttpResponse.json(undefined, {
+    return HttpResponse.json(userVoteData, {
       status: 200,
     });
   }),
