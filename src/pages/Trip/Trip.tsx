@@ -14,9 +14,13 @@ import {
   TabIndicator,
 } from "@chakra-ui/react";
 import EditBottomSlideContent from "@/components/TripSpace/EditBottomSlideContent/EditBottomSlideContent";
+import SlideBar from "@/components/SideBar/SideBar";
 import BottomSlide from "@/components/BottomSlide/BottomSlide";
+import { useNavigate } from "react-router-dom";
 
 function Trip() {
+  const navigate = useNavigate();
+
   // 임시 데이터
   const users = [
     { name: "김철수", src: "" },
@@ -26,16 +30,26 @@ function Trip() {
     { name: "마철수", src: "https://bit.ly/code-beast" },
   ];
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isBottomSlideOpen,
+    onOpen: onBottomSlideOpen,
+    onClose: onBottomSlideClose,
+  } = useDisclosure();
+  
+  const {
+    isOpen: isSlideBarOpen,
+    onOpen: onSlideBarOpen,
+    onClose: onSlideBarClose,
+  } = useDisclosure();
 
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.iconTab}>
-          <button>
+          <button onClick={() => navigate('/alarm')}>
             <AlarmIcon size="24px" color="white" />
           </button>
-          <button>
+          <button onClick={onSlideBarOpen}>
             <MenuIcon size="24px" color="white" />
           </button>
         </div>
@@ -50,7 +64,9 @@ function Trip() {
             </span>
             <button
               className={styles.dateContainer__editButton}
-              onClick={isOpen ? onClose : onOpen}
+              onClick={
+                isBottomSlideOpen ? onBottomSlideClose : onBottomSlideOpen
+              }
             >
               편집
             </button>
@@ -105,9 +121,10 @@ function Trip() {
           </TabPanels>
         </Tabs>
       </div>
+      <SlideBar isSideOpen={isSlideBarOpen} sideClose={onSlideBarClose} />
       <BottomSlide
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={isBottomSlideOpen}
+        onClose={onBottomSlideClose}
         children={<EditBottomSlideContent />}
       />
     </div>
