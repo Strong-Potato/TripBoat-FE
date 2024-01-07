@@ -1,0 +1,20 @@
+@use "@/sass" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  &__zeroTextBox {
+    text-align: center;
+    margin-top: 25vh;
+    &__title {
+      @include typography(titleSmall);
+      color: $neutral400;
+    }
+    &__text {
+      @include typography(captionSmall);
+      color: $neutral300;
+    }
+  }
+}
