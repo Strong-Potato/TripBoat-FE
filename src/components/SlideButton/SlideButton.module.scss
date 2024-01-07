@@ -1,0 +1,34 @@
+@use "@/sass" as *;
+
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  color: $neutral900;
+
+  button {
+    position: absolute;
+    top: 50%;
+
+    max-width: 4rem;
+    width: 4rem;
+    max-height: 4rem;
+    height: 4rem;
+    border-radius: 2rem;
+
+    background-color: $neutral0;
+    box-shadow: $shadow200;
+
+    @include typography(button);
+
+    transition: 0.3s all;
+
+    z-index: 10;
+
+    opacity: 0;
+  }
+}
