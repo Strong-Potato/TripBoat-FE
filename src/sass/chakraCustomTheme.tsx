@@ -1,6 +1,54 @@
 import { extendTheme } from "@chakra-ui/react";
 
 export const customTheme = extendTheme({
+  components: {
+    Button: {
+      baseStyle: {
+        _disabled: {
+          backgroundColor: "neutral.200",
+          color: "neutral.400",
+          PointerEvent: "none",
+        },
+      },
+      //ex) Button 컴포넌트 내부에 variant="CTAButton"
+      variants: {
+        blueButton: {
+          backgroundColor: "primary.300",
+          borderRadius: "16px",
+
+          color: "neutral.0",
+          fontSize: "button",
+          fontWeight: "button",
+          lineHeight: "button",
+
+          _hover: {
+            backgroundColor: "primary.400",
+          },
+        },
+        CTAButton: {
+          position: "fixed",
+          bottom: "2.4rem",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "32.7rem",
+          height: "4.6rem",
+
+          backgroundColor: "primary.300",
+          borderRadius: "16px",
+
+          color: "neutral.0",
+          fontSize: "button",
+          fontWeight: "button",
+          lineHeight: "button",
+
+          _hover: {
+            backgroundColor: "primary.400",
+          },
+        },
+      },
+    },
+  },
+
   fonts: {
     heading: `'suit', sans-serif`,
     body: `'suit', sans-serif`,

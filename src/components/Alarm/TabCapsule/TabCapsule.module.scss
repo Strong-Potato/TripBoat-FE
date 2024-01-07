@@ -1,0 +1,10 @@
+@use "@/sass" as *;
+
+.title {
+  color: $neutral300;
+  @include typography(button);
+
+  &[aria-selected="true"] {
+    color: $neutral900;
+  }
+}
