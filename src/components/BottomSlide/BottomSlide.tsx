@@ -3,7 +3,7 @@ import styles from "./BottomSlide.module.scss";
 import { Slide } from "@chakra-ui/react";
 import { useRef } from "react";
 import CloseIcon from "@/assets/close.svg?react";
-import { BottomSlideProps } from "../../types/BottomSlide.types";
+import { BottomSlideProps } from "../../types/bottomSlide";
 
 function BottomSlide({ isOpen, onClose, children }: BottomSlideProps) {
   const containerStyle = {
