@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
+import Alarm from "@/pages/Alarm/Alarm";
 import Detail from "@/pages/Detail/Detail";
 import Home from "@/pages/Home/Home";
 import Dashboard from "@/routes/Dashboard/Dashboard";
@@ -16,6 +17,7 @@ function MainRouter() {
       </Route>
       <Route path="voteDetail" element={<VoteDetail />} />
       <Route path="/detail/:id" element={<Detail />} />
+      <Route path="/alarm" element={<Alarm />} />
     </Routes>
   );
 }
