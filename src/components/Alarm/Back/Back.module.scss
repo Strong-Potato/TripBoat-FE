@@ -1,0 +1,14 @@
+@use "@/sass" as *;
+
+.container {
+  width: 100%;
+  padding: 16px 20px;
+
+  &__button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    @include typography(button);
+  }
+}
