@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 
-import Dashboard from "../Dashboard/Dashboard";
-import Home from "../../pages/Home/Home";
+import Detail from "@/pages/Detail/Detail";
+import Home from "@/pages/Home/Home";
+import Dashboard from "@/routes/Dashboard/Dashboard";
+import VoteDetail from "../../pages/VoteDetail/VoteDetail";
 
 function MainRouter() {
   return (
@@ -12,6 +14,8 @@ function MainRouter() {
         <Route path="/heart" element={<Home />} />
         <Route path="/user" element={<Home />} />
       </Route>
+      <Route path="voteDetail" element={<VoteDetail />} />
+      <Route path="/detail/:id" element={<Detail />} />
     </Routes>
   );
 }
