@@ -2,11 +2,11 @@ import { BsThreeDots } from "react-icons/bs";
 import { FaRegMap } from "react-icons/fa";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 
-import styles from "./VoteDetailsHeader.module.scss";
+import styles from "./VoteHeader.module.scss";
 
 import useGoBack from "@/hooks/useGoBack";
 
-const VoteDetailsHeader = () => {
+const VoteHeader = () => {
   const goBack = useGoBack();
   const voteTitle = "카페 어디로 갈래?";
 
@@ -33,4 +33,4 @@ const VoteDetailsHeader = () => {
   );
 };
 
-export default VoteDetailsHeader;
+export default VoteHeader;

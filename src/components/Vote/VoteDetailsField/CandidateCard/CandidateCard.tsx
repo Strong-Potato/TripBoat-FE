@@ -1,8 +1,8 @@
 import { Avatar } from "@chakra-ui/react";
 
-import styles from "./VoteCandidateItem.module.scss";
+import styles from "./CandidateCard.module.scss";
 
-const VoteCandidateItem = () => {
+const CandidateCard = () => {
   return (
     <div className={styles.container}>
       <div className={styles.main}>
@@ -23,4 +23,4 @@ const VoteCandidateItem = () => {
   );
 };
 
-export default VoteCandidateItem;
+export default CandidateCard;
