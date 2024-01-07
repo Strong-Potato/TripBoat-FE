@@ -1,0 +1,31 @@
+@use "@/sass" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  &__profile {
+    display: flex;
+    flex-direction: row;
+    display: flex;
+    padding: 0px 20px;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+
+    &__nickName {
+      font-style: normal;
+      letter-spacing: -0.02rem;
+      @include typography(titleLarge);
+    }
+
+    &__editProfile {
+      color: $neutral400;
+      font-style: normal;
+      letter-spacing: -0.012rem;
+      @include typography(captionSmall);
+    }
+  }
+}

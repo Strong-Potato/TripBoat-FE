@@ -1,0 +1,48 @@
+@use "@/sass";
+
+.container {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  color: sass.$neutral0;
+
+  .title {
+    @include sass.typography(headline);
+    color: #1d2433;
+
+    padding: 8px 20px;
+  }
+
+  button {
+    width: 132px;
+    height: 38px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 12px 8px 12px 16px;
+    border-radius: 48px;
+
+    background-color: sass.$neutral0;
+    color: sass.$primary300;
+
+    flex-shrink: 0;
+
+    @include sass.typography(button);
+
+    p {
+      width: 2rem;
+      height: 2rem;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 1.3rem;
+    }
+  }
+}
