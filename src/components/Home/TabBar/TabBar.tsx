@@ -11,7 +11,9 @@ function TabBar() {
         <Link to="/search">
           <IoSearchSharp />
         </Link>
-        <AiOutlineBell />
+        <Link to="/alarm">
+          <AiOutlineBell />
+        </Link>
       </div>
     </div>
   );
