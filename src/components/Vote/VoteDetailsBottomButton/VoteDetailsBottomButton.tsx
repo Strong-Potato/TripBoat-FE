@@ -1,11 +1,13 @@
 import { Button } from "@chakra-ui/react";
 
-//import styles from "./VoteDetailsBottomButton.module.scss";
+import { VoteBottomButtonProps } from "@/types/vote";
 
-const VoteDetailsBottomButton = () => {
+const VoteDetailsBottomButton = ({ onClick, title }: VoteBottomButtonProps) => {
   return (
     <div>
-      <Button variant="CTAButton">후보 추가하기</Button>
+      <Button variant="CTAButton" onClick={onClick}>
+        {title}
+      </Button>
     </div>
   );
 };

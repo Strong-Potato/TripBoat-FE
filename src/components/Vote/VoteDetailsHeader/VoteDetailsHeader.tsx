@@ -4,7 +4,10 @@ import { MdOutlineArrowBackIosNew } from "react-icons/md";
 
 import styles from "./VoteDetailsHeader.module.scss";
 
+import useGoBack from "@/hooks/useGoBack";
+
 const VoteDetailsHeader = () => {
+  const goBack = useGoBack();
   const voteTitle = "카페 어디로 갈래?";
 
   //상태에 따른 아이콘 disabled
@@ -12,14 +15,19 @@ const VoteDetailsHeader = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.leftBackIcon}>
+      <button onClick={goBack} className={styles.leftBackIcon}>
         <MdOutlineArrowBackIosNew />
-      </div>
+      </button>
       <p className={styles.title}>{voteTitle}</p>
 
       <div className={styles.iconBox}>
-        <FaRegMap />
-        <BsThreeDots />
+        <button>
+          <FaRegMap />
+        </button>
+
+        <button>
+          <BsThreeDots />
+        </button>
       </div>
     </div>
   );
