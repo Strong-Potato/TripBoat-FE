@@ -1,0 +1,56 @@
+@use "@/sass" as *;
+
+.travelSpaceList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__addButton {
+    display: flex;
+    gap: 8px;
+    width: 24.3rem;
+    height: 7.2rem;
+    margin: 16px 0;
+    padding: 24px 16px;
+    align-items: center;
+    border-radius: 16px;
+    border: 1px solid $primary200;
+    background: $primary200;
+
+    &__text {
+      color: $neutral0;
+      font-style: normal;
+      @include typography(button);
+    }
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+      width: 24.3rem;
+      height: 7.8rem;
+      padding: 16px 0px 16px 16px;
+      border-radius: 16px;
+      border: 1px solid $primary200;
+      background: $neutral0;
+
+      &__name {
+        color: $neutral900;
+        font-style: normal;
+        @include typography(button);
+      }
+
+      &__date {
+        color: $neutral400;
+        font-style: normal;
+        letter-spacing: -0.012rem;
+        @include typography(captionSmall);
+      }
+    }
+  }
+}
