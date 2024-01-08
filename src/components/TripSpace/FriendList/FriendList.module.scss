@@ -1,0 +1,28 @@
+@use "@/sass" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  &__title {
+    @include typography(subTitle);
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &__user {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+
+      &__name {
+        @include typography(tabLabel);
+      }
+    }
+  }
+}
