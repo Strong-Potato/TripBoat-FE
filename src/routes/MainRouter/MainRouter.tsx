@@ -1,15 +1,16 @@
 import { Route, Routes } from "react-router-dom";
 
-
-import Login from "@/pages/Login/Login";
 import Alarm from "@/pages/Alarm/Alarm";
 import Detail from "@/pages/Detail/Detail";
 import Home from "@/pages/Home/Home";
+import Login from "@/pages/Login/Login";
 import AgreePrivacy from "@/pages/Signup/Agree/AgreePrivacy";
 import AgreeService from "@/pages/Signup/Agree/AgreeService";
-import Dashboard from "@/routes/Dashboard/Dashboard";
-import VoteDetail from "../../pages/VoteDetail/VoteDetail";
+import Signup from "@/pages/Signup/Signup";
 import Trip from "@/pages/Trip/Trip";
+import Dashboard from "@/routes/Dashboard/Dashboard";
+
+import VoteDetail from "../../pages/VoteDetail/VoteDetail";
 
 function MainRouter() {
   return (
@@ -23,6 +24,7 @@ function MainRouter() {
       <Route path="/login" element={<Login />} />
       <Route path="voteDetail" element={<VoteDetail />} />
       <Route path="/detail/:id" element={<Detail />} />
+      <Route path="/signup" element={<Signup />} />
       <Route path="/signup/agreePrivacy" element={<AgreePrivacy />} />
       <Route path="/signup/agreeService" element={<AgreeService />} />
       <Route path="/alarm" element={<Alarm />} />

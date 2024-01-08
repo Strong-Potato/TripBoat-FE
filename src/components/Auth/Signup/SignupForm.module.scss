@@ -1,0 +1,40 @@
+@use "@/sass" as *;
+
+.container {
+  position: relative;
+
+  .bar {
+    position: absolute;
+    top: -24px;
+
+    width: 100%;
+    height: 3px;
+    background: $neutral200;
+    transition: all 0.5s;
+  }
+
+  .step_email {
+    width: 25%;
+    background: $primary300;
+  }
+
+  .step_emailSert {
+    width: 50%;
+    background: $primary300;
+  }
+
+  .step_password {
+    width: 75%;
+    background: $primary300;
+  }
+
+  .step_profile {
+    width: 100%;
+    background: $primary300;
+  }
+
+  button {
+    display: block;
+    border: 1px solid black;
+  }
+}

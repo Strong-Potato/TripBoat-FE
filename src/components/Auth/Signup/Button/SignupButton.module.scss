@@ -1,0 +1,21 @@
+@use "@/sass" as *;
+
+.container {
+  width: 100%;
+  padding: 13px 0;
+  background: $primary300;
+  margin-top: 32px;
+  border-radius: 16px;
+
+  @include typography(button);
+  color: $neutral0;
+
+  &:hover {
+    background: $primary400;
+  }
+
+  &:disabled {
+    background: $neutral200;
+    color: $neutral400;
+  }
+}
