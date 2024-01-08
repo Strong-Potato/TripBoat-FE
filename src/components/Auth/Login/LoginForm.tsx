@@ -6,22 +6,14 @@ import styles from "./LoginForm.module.scss";
 import InputEmail from "../Input/InputEmail";
 import InputPassword from "../Input/InputPassword";
 
-interface Form {
-  email: string;
-  password: string;
-}
-
-interface SubmitResult {
-  try: boolean;
-  isPassed: boolean;
-}
+import { LoginForm, SubmitResult } from "@/types/auth";
 
 function LoginForm() {
   const {
     register,
     resetField,
     formState: { errors, dirtyFields },
-  } = useForm<Form>({
+  } = useForm<LoginForm>({
     mode: "onChange",
     defaultValues: {
       email: "",

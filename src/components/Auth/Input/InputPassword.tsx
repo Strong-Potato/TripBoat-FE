@@ -1,27 +1,15 @@
-import { UseFormRegister, UseFormResetField } from "react-hook-form";
-
 import styles from "./Input.module.scss";
 
 import RemoveBtn from "@/assets/icons/removeBtn.svg?react";
 
-interface LoginForm {
-  email: string;
-  password: string;
-}
+import { LoginInput } from "@/types/auth";
 
-interface LoginDirtyFields {
-  email?: boolean;
-  password?: boolean;
-}
-
-interface Props {
-  label: string;
-  dirtyFields: LoginDirtyFields;
-  register: UseFormRegister<LoginForm>;
-  resetField: UseFormResetField<LoginForm>;
-}
-
-function InputPassword({ label, register, dirtyFields, resetField }: Props) {
+function InputPassword({
+  label,
+  register,
+  dirtyFields,
+  resetField,
+}: LoginInput) {
   const resetPassword = () => {
     resetField("password");
   };
