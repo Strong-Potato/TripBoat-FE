@@ -47,3 +47,9 @@ export interface SlideButtonPropsType extends LeftButtonPropsType {
 }
 
 // 홈 검색 타입
+export interface SearchHotItemType {
+  title: string;
+  imageURL: string;
+  location: string;
+  id: number;
+}

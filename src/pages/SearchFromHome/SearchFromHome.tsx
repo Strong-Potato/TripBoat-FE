@@ -1,6 +1,6 @@
 import styles from "./SearchFromHome.module.scss";
 
-import RecommendedItemList from "@/components/Home/RecommendedItemList/RecommendedItemList";
+import HotItems from "@/components/SearchFromHome/HotItems/HotItems";
 import SearchBar from "@/components/SearchFromHome/SearchBar/SearchBar/SearchBar";
 import SearchKeyword from "@/components/SearchFromHome/SearchKeyword/SearchKeyword";
 
@@ -14,12 +14,12 @@ function SearchFromHome() {
           <SearchKeyword />
         </div>
         <div className={styles.column_8px}>
-          <p className={styles.title}>겨울에 어울리는 포근한 숙소</p>
-          <RecommendedItemList apiNum={1} />
+          <p className={styles.title}>최근 30일간 인기 장소</p>
+          <HotItems type="place" />
         </div>
         <div className={styles.column_8px}>
-          <p className={styles.title}>겨울을 신나게 즐기는 쌈박한 방법!</p>
-          <RecommendedItemList apiNum={2} />
+          <p className={styles.title}>최근 30일간 인기 장소</p>
+          <HotItems type="hotel" />
         </div>
       </div>
     </div>

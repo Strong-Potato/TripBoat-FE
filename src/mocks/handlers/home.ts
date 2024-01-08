@@ -1,4 +1,3 @@
-import SearchKeyword from "@/components/SearchFromHome/SearchKeyword/SearchKeyword";
 import axios from "axios";
 import { http, HttpResponse } from "msw";
 import { Dispatch } from "react";
@@ -232,6 +231,94 @@ const searchKeywordData = [
   "울산 맛집",
   "해운대 카페",
 ];
+const hotPlaces = [
+  {
+    title: "대전 성심당",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "맛집 · 대전",
+    id: "1",
+  },
+  {
+    title: "대전 성심당",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "맛집 · 대전",
+    id: "1",
+  },
+  {
+    title: "대전 성심당",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "맛집 · 대전",
+    id: "1",
+  },
+  {
+    title: "대전 성심당",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "맛집 · 대전",
+    id: "1",
+  },
+  {
+    title: "대전 성심당",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "맛집 · 대전",
+    id: "1",
+  },
+  {
+    title: "대전 성심당",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "맛집 · 대전",
+    id: "1",
+  },
+];
+const hotHotels = [
+  {
+    title: "호텔 loft",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "호텔 · 제주",
+    id: "1",
+  },
+  {
+    title: "호텔 loft",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "호텔 · 제주",
+    id: "1",
+  },
+  {
+    title: "호텔 loft",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "호텔 · 제주",
+    id: "1",
+  },
+  {
+    title: "호텔 loft",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "호텔 · 제주",
+    id: "1",
+  },
+  {
+    title: "호텔 loft",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "호텔 · 제주",
+    id: "1",
+  },
+  {
+    title: "호텔 loft",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "호텔 · 제주",
+    id: "1",
+  },
+];
 
 export const home = [
   // 홈
@@ -263,6 +350,16 @@ export const home = [
   // 홈 검색
   http.get("/api/home/search/keyword", () => {
     return HttpResponse.json(searchKeywordData, {
+      status: 200,
+    });
+  }),
+  http.get("/api/home/search/hotplace", () => {
+    return HttpResponse.json(hotPlaces, {
+      status: 200,
+    });
+  }),
+  http.get("/api/home/search/hothotel", () => {
+    return HttpResponse.json(hotHotels, {
       status: 200,
     });
   }),

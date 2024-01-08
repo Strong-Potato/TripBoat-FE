@@ -1,0 +1,25 @@
+@use "@/sass" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  img {
+    max-width: 10.6rem;
+    max-height: 10.6rem;
+
+    border-radius: 1.6rem;
+  }
+  .text_box {
+    display: flex;
+    flex-direction: column;
+  }
+  .title {
+    @include typography(button);
+  }
+  .location {
+    color: $neutral400;
+    @include typography(captionSmall);
+  }
+}
