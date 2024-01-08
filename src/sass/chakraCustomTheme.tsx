@@ -1,6 +1,47 @@
 import { extendTheme } from "@chakra-ui/react";
 
 export const customTheme = extendTheme({
+  styles: {
+    global: {
+      ".swiper": {
+        _hover: {
+          ".swiper-button-next": {
+            opacity: "1",
+          },
+          ".swiper-button-prev": {
+            opacity: "1",
+          },
+        },
+      },
+      ".swiper-button-next": {
+        height: "5.2rem",
+        width: "5.2rem",
+        backgroundSize: "50% auto",
+        backgroundPosition: "center",
+        background: "url(src/assets/swiper-next-btn.svg) no-repeat",
+        opacity: "0",
+        transition: "opacity 0.3s ease",
+        _after: {
+          display: "none",
+        },
+      },
+      ".swiper-button-prev": {
+        height: "5.2rem",
+        width: "5.2rem",
+        backgroundSize: "50% auto",
+        backgroundPosition: "center",
+        background: "url(src/assets/swiper-prev-btn.svg) no-repeat",
+        opacity: "0",
+        transition: "opacity 0.3s ease",
+        _after: {
+          display: "none",
+        },
+      },
+      ".swiper-button-disabled": {
+        display: "none",
+      },
+    },
+  },
   components: {
     Button: {
       baseStyle: {
@@ -41,6 +82,8 @@ export const customTheme = extendTheme({
           fontWeight: "button",
           lineHeight: "button",
 
+          zIndex: "2",
+
           _hover: {
             backgroundColor: "primary.400",
           },
@@ -57,7 +100,7 @@ export const customTheme = extendTheme({
     primary: {
       100: "#d4e8ff",
       200: "#62aaff",
-      300: "#0088ff",
+      300: "#2388ff",
       400: "#0172d8",
     },
     secondary: {
