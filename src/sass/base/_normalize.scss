@@ -1,0 +1,57 @@
+//브라우저 스타일 초기화 또는 재설정을 정의합니다.
+@font-face {
+  font-family: "suit"; // 이름 선언
+  src: url("../../assets/fonts/SUIT-Variable.ttf"); // 내가 저장한 경로!
+}
+
+:root {
+  font-family: "suit", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: "suit", sans-serif;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f7fafc;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  width: 45rem;
+  min-width: 36rem;
+  min-height: 100vh;
+  background: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+html {
+  font-size: 62.5%;
+}

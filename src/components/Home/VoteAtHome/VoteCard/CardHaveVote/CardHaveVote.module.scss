@@ -1,0 +1,78 @@
+@use "@/sass" as *;
+
+.container {
+  @include slide_button_container;
+  .slide_box {
+    @include slide_list_container;
+    gap: 8px;
+
+    .vote_box {
+      min-width: 30.8rem;
+      min-height: 16.4rem;
+
+      background: linear-gradient(
+        119deg,
+        #62aaff 35.27%,
+        rgba(98, 170, 255, 0.3) 142.38%
+      );
+
+      border-radius: 1.6rem;
+
+      box-sizing: border-box;
+
+      .contents {
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        padding: 24px;
+
+        .text_box {
+          width: 100%;
+
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+
+          .vote_title {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            @include typography(titleMedium);
+            .date {
+              @include typography(captionSmall);
+            }
+          }
+          .discussion {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            @include typography(titleSmall);
+
+            .profile {
+              width: 3.2rem;
+              height: 3.2rem;
+
+              border: 1px solid $neutral0;
+              border-radius: 3.2rem;
+            }
+          }
+        }
+        .button_box {
+          width: 100%;
+
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+}
