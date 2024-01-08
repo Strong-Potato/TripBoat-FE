@@ -3,7 +3,7 @@ import { GoStarFill } from "react-icons/go";
 
 import styles from "./ShortReviews.module.scss";
 
-import Review from "@/components/Review/Review";
+import Review from "@/components/Detail/Contents/Review/Review";
 
 function ShortReviews() {
   const reviewData = [

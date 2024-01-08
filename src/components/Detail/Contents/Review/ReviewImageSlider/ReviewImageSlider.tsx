@@ -11,7 +11,7 @@ function ReviewImageSlider({ images }: { images: string[] }) {
 
   return (
     <div className={styles.container}>
-      <div
+      <button
         className={styles.container__leftBtn}
         style={{ display: slideLocation === 0 ? "none" : "block" }}
         onClick={() => {
@@ -19,8 +19,8 @@ function ReviewImageSlider({ images }: { images: string[] }) {
         }}
       >
         <AiOutlineLeft className={styles.container__leftBtn__icon} />
-      </div>
-      <div
+      </button>
+      <button
         className={styles.container__rightBtn}
         style={{
           display:
@@ -33,7 +33,7 @@ function ReviewImageSlider({ images }: { images: string[] }) {
         }}
       >
         <AiOutlineRight className={styles.container__rightBtn__icon} />
-      </div>
+      </button>
       <div
         className={styles.container__imgWrapper}
         style={{ left: slideLocation + "px" }}

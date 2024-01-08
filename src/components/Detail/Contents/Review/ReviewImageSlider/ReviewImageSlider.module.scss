@@ -2,6 +2,12 @@
   overflow: hidden;
   position: relative;
 
+  &:hover {
+    button {
+      visibility: visible;
+    }
+  }
+
   &__imgWrapper {
     position: relative;
     display: flex;
@@ -15,6 +21,8 @@
   }
 
   &__leftBtn {
+    visibility: hidden;
+
     position: absolute;
     top: 50%;
     left: 10px;
@@ -26,6 +34,7 @@
 
     background-color: #ffffff;
     z-index: 2;
+
     &__icon {
       position: absolute;
       top: 50%;
@@ -35,6 +44,8 @@
   }
 
   &__rightBtn {
+    visibility: hidden;
+
     position: absolute;
     top: 50%;
     right: 10px;
@@ -46,6 +57,7 @@
 
     background-color: #ffffff;
     z-index: 2;
+
     &__icon {
       position: absolute;
       top: 50%;
