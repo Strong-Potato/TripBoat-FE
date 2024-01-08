@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  background-color: #fff;
+
+  width: 100%;
+  max-width: 45rem;
+  height: 3.2rem;
+
+  padding: 16px;
+  &__pointer {
+    cursor: pointer;
+  }
+}

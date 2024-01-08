@@ -1,0 +1,48 @@
+@use "@/sass" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  cursor: pointer;
+
+  &__image {
+    width: 14.4rem;
+    height: 14.4rem;
+    border-radius: 1.6rem;
+  }
+
+  &__contents {
+    h4 {
+      @include typography(titleSmall);
+    }
+
+    p {
+      color: $neutral400;
+      @include typography(captionSmall);
+    }
+
+    &__reviews {
+      display: flex;
+      align-items: center;
+
+      &__star {
+        display: inline;
+        font-size: 1.6rem;
+        color: $etc0;
+      }
+
+      &__point {
+        color: #1d2433;
+        @include typography(captionSmall);
+        margin-right: 4px;
+      }
+
+      &__reviewsCount {
+        color: $neutral400;
+        @include typography(captionSmall);
+      }
+    }
+  }
+}

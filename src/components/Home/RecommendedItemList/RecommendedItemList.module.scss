@@ -1,0 +1,10 @@
+@use "@/sass" as *;
+
+.container {
+  @include slide_button_container;
+
+  .slide_box {
+    @include slide_list_container;
+    gap: 16px;
+  }
+}

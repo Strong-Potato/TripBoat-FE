@@ -1,0 +1,14 @@
+@use "@/sass" as *;
+
+.container {
+  right: 10px;
+
+  transform: translate(-10px, -50%);
+
+  &__icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

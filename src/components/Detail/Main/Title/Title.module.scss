@@ -1,0 +1,47 @@
+@use "@/sass" as *;
+
+.container {
+  width: 100%;
+  padding: 24px 20px;
+  position: relative;
+
+  &__header {
+    @include typography(titleLarge);
+  }
+  &__category {
+    color: $neutral400;
+    @include typography(captionSmall);
+    margin: 4px 0;
+  }
+
+  &__alignCenter {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    &__star {
+      display: inline;
+      font-size: 1.6rem;
+      color: $etc0;
+    }
+
+    &__point {
+      color: #1d2433;
+      @include typography(captionMedium);
+    }
+
+    &__reviewsCount {
+      color: $neutral400;
+      @include typography(captionSmall);
+    }
+  }
+
+  &__positionAbsoluteIcons {
+    position: absolute;
+    right: 20px;
+    bottom: 32px;
+
+    display: flex;
+    gap: 12px;
+  }
+}
