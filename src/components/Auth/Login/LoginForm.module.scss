@@ -1,0 +1,31 @@
+@use "@/sass" as *;
+
+.container {
+  position: relative;
+
+  small {
+    width: 100%;
+    position: absolute;
+    bottom: 65px;
+    left: 0;
+    text-align: center;
+
+    @include typography(captionSmall);
+    color: $danger300;
+  }
+
+  .submitBtn {
+    width: 100%;
+    padding: 13px 0;
+    background: $primary300;
+    margin-top: 32px;
+    border-radius: 16px;
+
+    @include typography(button);
+    color: $neutral0;
+
+    &:hover {
+      background: $primary400;
+    }
+  }
+}
