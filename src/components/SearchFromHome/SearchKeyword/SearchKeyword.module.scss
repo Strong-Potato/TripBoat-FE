@@ -1,0 +1,25 @@
+@use "@/sass" as *;
+
+.container {
+  @include slide_button_container;
+
+  .slide_box {
+    @include slide_list_container;
+    gap: 8px;
+
+    p {
+      height: 3.8rem;
+
+      padding: 8px 16px;
+
+      border-radius: 48px;
+
+      color: $primary300;
+      background-color: $primary100;
+
+      white-space: nowrap;
+
+      @include typography(button);
+    }
+  }
+}

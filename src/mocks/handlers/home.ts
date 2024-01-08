@@ -1,8 +1,10 @@
+import SearchKeyword from "@/components/SearchFromHome/SearchKeyword/SearchKeyword";
 import axios from "axios";
 import { http, HttpResponse } from "msw";
 import { Dispatch } from "react";
 
 const recommendedItem = [
+  // 홈
   [
     {
       title: "호텔 loft",
@@ -175,7 +177,6 @@ const recommendedLocation = [
       "https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg",
   },
 ];
-
 const userVoteData = [
   {
     title: "부산, 여수 여행",
@@ -222,8 +223,18 @@ const tripSpaceData = [
     dDay: "D-34",
   },
 ];
+// 홈 검색
+const searchKeywordData = [
+  "감자",
+  "강릉 감자",
+  "강릉 감자유원지",
+  "부산",
+  "울산 맛집",
+  "해운대 카페",
+];
 
 export const home = [
+  // 홈
   http.get("/api/home/recommendedItem/1", () => {
     return HttpResponse.json(recommendedItem[0], {
       status: 200,
@@ -246,6 +257,12 @@ export const home = [
   }),
   http.get("/api/home/tripSpace", () => {
     return HttpResponse.json(tripSpaceData, {
+      status: 200,
+    });
+  }),
+  // 홈 검색
+  http.get("/api/home/search/keyword", () => {
+    return HttpResponse.json(searchKeywordData, {
       status: 200,
     });
   }),

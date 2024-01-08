@@ -1,3 +1,5 @@
+// 홈 타입
+
 export interface RecommendedItemDataType {
   title: string;
   imageURL: string;
@@ -43,3 +45,5 @@ export interface SlideButtonPropsType extends LeftButtonPropsType {
   slideSize: ComponentSize;
   itemNumber: number;
 }
+
+// 홈 검색 타입
