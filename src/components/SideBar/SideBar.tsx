@@ -54,7 +54,17 @@ function SideBar({ isSideOpen, sideClose }: SideBarProps) {
         <DrawerHeader display="flex" justifyContent="flex-end">
           <CloseButton onClick={sideClose} size="lg" />
         </DrawerHeader>
-        <DrawerBody padding={0}>
+        <DrawerBody
+          padding={0}
+          sx={{
+            overflowY: "auto",
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+          }}
+        >
           <div className={styles.container}>
             <section className={styles.container__profile}>
               <div>
