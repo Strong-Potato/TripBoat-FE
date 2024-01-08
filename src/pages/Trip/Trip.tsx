@@ -1,22 +1,26 @@
-import styles from "./Trip.module.scss";
-import { AiOutlineBell as AlarmIcon } from "react-icons/ai";
-import { AiOutlineMenu as MenuIcon } from "react-icons/ai";
-import { FiPlus as PlusIcon } from "react-icons/fi";
 import {
   Avatar,
   AvatarGroup,
-  useDisclosure,
-  Tabs,
-  TabList,
-  TabPanels,
   Tab,
-  TabPanel,
   TabIndicator,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  useDisclosure,
 } from "@chakra-ui/react";
-import EditBottomSlideContent from "@/components/TripSpace/EditBottomSlideContent/EditBottomSlideContent";
-import SlideBar from "@/components/SideBar/SideBar";
-import BottomSlide from "@/components/BottomSlide/BottomSlide";
+import { AiOutlineBell as AlarmIcon } from "react-icons/ai";
+import { AiOutlineMenu as MenuIcon } from "react-icons/ai";
+import { FiPlus as PlusIcon } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+
+import styles from "./Trip.module.scss";
+
+import BottomSlide from "@/components/BottomSlide/BottomSlide";
+import SlideBar from "@/components/SideBar/SideBar";
+import EditBottomSlideContent from "@/components/TripSpace/EditBottomSlideContent/EditBottomSlideContent";
+import FriendList from "@/components/TripSpace/FriendList/FriendList";
+import InviteFriends from "@/components/TripSpace/InviteFriends/InviteFriends";
 
 function Trip() {
   const navigate = useNavigate();
@@ -35,18 +39,30 @@ function Trip() {
     onOpen: onBottomSlideOpen,
     onClose: onBottomSlideClose,
   } = useDisclosure();
-  
+
   const {
     isOpen: isSlideBarOpen,
     onOpen: onSlideBarOpen,
     onClose: onSlideBarClose,
   } = useDisclosure();
 
+  const {
+    isOpen: isInviteOpen,
+    onOpen: onInviteOpen,
+    onClose: onInviteClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isFriendListOpen,
+    onOpen: onFriendListOpen,
+    onClose: onFriendListClose,
+  } = useDisclosure();
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.iconTab}>
-          <button onClick={() => navigate('/alarm')}>
+          <button onClick={() => navigate("/alarm")}>
             <AlarmIcon size="24px" color="white" />
           </button>
           <button onClick={onSlideBarOpen}>
@@ -71,7 +87,7 @@ function Trip() {
           </div>
         </div>
         <div className={styles.userContainer}>
-          <div className={styles.avatarContainer}>
+          <button className={styles.avatarContainer} onClick={onFriendListOpen}>
             <AvatarGroup
               className={styles.avatarContainer__group}
               spacing="-8px"
@@ -82,8 +98,8 @@ function Trip() {
               ))}
             </AvatarGroup>
             <span>외 {users.length - 3}명</span>
-          </div>
-          <button className={styles.addPersonButton}>
+          </button>
+          <button className={styles.addPersonButton} onClick={onInviteOpen}>
             <PlusIcon />
             <span>일행추가</span>
           </button>
@@ -124,6 +140,16 @@ function Trip() {
         isOpen={isBottomSlideOpen}
         onClose={onBottomSlideClose}
         children={<EditBottomSlideContent />}
+      />
+      <BottomSlide
+        isOpen={isInviteOpen}
+        onClose={onInviteClose}
+        children={<InviteFriends />}
+      />
+      <BottomSlide
+        isOpen={isFriendListOpen}
+        onClose={onFriendListClose}
+        children={<FriendList users={users} />}
       />
     </div>
   );
