@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
+import Login from "@/pages/Login/Login";
 import Alarm from "@/pages/Alarm/Alarm";
 import Detail from "@/pages/Detail/Detail";
 import Home from "@/pages/Home/Home";
@@ -18,7 +19,8 @@ function MainRouter() {
         <Route path="/heart" element={<Home />} />
         <Route path="/user" element={<Home />} />
       </Route>
-      <Route path="vote" element={<Vote />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/vote" element={<Vote />} />
       <Route path="/detail/:id" element={<Detail />} />
       <Route path="/signup/agreePrivacy" element={<AgreePrivacy />} />
       <Route path="/signup/agreeService" element={<AgreeService />} />
