@@ -10,6 +10,7 @@ import { getData } from "@/mocks/handlers/home";
 
 function SearchKeyword() {
   const [data, setData] = useState<string[] | undefined>();
+  const [listWidth, setListWidth] = useState<number>(0);
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
 
@@ -17,21 +18,35 @@ function SearchKeyword() {
     getData<string[] | undefined>("home/search/keyword", setData);
   }, []);
 
+  // 각 키워드의 너비를 모두 더한 값을 구함
+  useEffect(() => {
+    // 정확한 이유를 찾지 못하였으나 setTimeout을 걸지 않으면 각 p태그의 width가 실제보다 다소 큰 수가 반영됨
+    setTimeout(() => {
+      if (
+        data &&
+        componentRef.current &&
+        componentRef.current?.childNodes.length === data.length
+      ) {
+        const pTags = componentRef.current.querySelectorAll("p");
+        const widths = Array.from(pTags).map((pTag) => {
+          const rect = pTag.getBoundingClientRect();
+          return rect.width;
+        });
+        const width = widths.reduce((acc, width) => acc + width, 0);
+        setListWidth(width);
+      }
+    }, 100);
+  }, [data, componentRef]);
+
   return (
     <div className={styles.container}>
       {data && (
         <SlideButton
-          // ref의 left값 state
           slideLocation={slideLocation}
-          // left값 setState
           setSlideLocation={setSlideLocation}
-          // 리스트 목록 아이템의 width
-          itemWidth={144}
-          // 리스트의 갭
-          flexGap={16}
-          // 아이템 갯수
+          itemWidth={listWidth / data.length}
+          flexGap={8}
           itemNumber={data.length}
-          // 목록 전체 넓이
           slideSize={size}
         />
       )}

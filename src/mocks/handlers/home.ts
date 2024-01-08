@@ -230,6 +230,8 @@ const searchKeywordData = [
   "부산",
   "울산 맛집",
   "해운대 카페",
+  "광안리 횟집",
+  "깡통시장 깡돼후",
 ];
 const hotPlaces = [
   {
