@@ -4,6 +4,7 @@ import { GoDotFill } from "react-icons/go";
 import styles from "./VoteContent.module.scss";
 
 import CandidateCard from "./CandidateCard/CandidateCard";
+import VoteRecommendList from "./VoteRecommendList/VoteRecommendList";
 
 import { VoteContentProps } from "@/types/vote";
 
@@ -34,6 +35,7 @@ const VoteContent = ({ onClick }: VoteContentProps) => {
         <CandidateCard />
         <CandidateCard />
       </div>
+      <VoteRecommendList />
     </div>
   );
 };

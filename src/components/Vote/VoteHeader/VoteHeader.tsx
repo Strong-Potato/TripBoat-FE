@@ -1,7 +1,6 @@
-import { useDisclosure } from "@chakra-ui/react";
 import { BsThreeDots } from "react-icons/bs";
-import { FaRegMap } from "react-icons/fa";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
+import { RiMap2Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./VoteHeader.module.scss";
@@ -25,7 +24,7 @@ const VoteHeader = ({ onOpen }: VoteHeaderProps) => {
 
       <div className={styles.iconBox}>
         <button>
-          <FaRegMap />
+          <RiMap2Line />
         </button>
 
         <button onClick={onOpen}>
