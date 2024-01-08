@@ -29,7 +29,10 @@ function RightButton({
       style={{
         display:
           -slideLocation >=
-          itemWidth * itemNumber + flexGap * (itemNumber - 1) - slideSize.width
+          itemWidth * itemNumber +
+            flexGap * (itemNumber - 1) +
+            40 -
+            slideSize.width
             ? "none"
             : "block",
       }}
