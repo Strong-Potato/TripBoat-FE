@@ -34,7 +34,6 @@ function ImageSwiper() {
         </SwiperSlide>
       ))}
       <SwiperButton
-        setImageIndex={setImageIndex}
         imageIndex={imageIndex}
         imageLength={images.length}
       />
