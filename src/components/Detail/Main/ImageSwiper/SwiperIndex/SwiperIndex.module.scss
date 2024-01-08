@@ -1,0 +1,22 @@
+@use "@/sass" as *;
+
+.container {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+
+  display: flex;
+  padding: 4px 12px;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 16px;
+
+  background-color: $neutral800;
+
+  z-index: 2;
+  span {
+    @include typography(captionSmall);
+    color: $neutral0;
+  }
+}
