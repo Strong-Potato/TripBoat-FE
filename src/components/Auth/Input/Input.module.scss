@@ -1,0 +1,47 @@
+@use "@/sass" as *;
+.container {
+  position: relative;
+
+  label {
+    display: block;
+
+    @include typography(tabLabel);
+    color: $neutral900;
+  }
+
+  &:focus-within {
+    input {
+      outline: none;
+      border-width: 1px;
+      border-color: $primary300;
+    }
+
+    .removeBtn {
+      display: block;
+    }
+  }
+
+  .input {
+    width: 100%;
+    margin-top: 6px;
+    margin-bottom: 24px;
+    padding: 16px;
+    border: 1px solid $neutral200;
+    border-radius: 8px;
+
+    @include typography(bodyLarge);
+    color: $neutral900;
+
+    &::placeholder {
+      color: $neutral400;
+    }
+  }
+
+  .removeBtn {
+    display: none;
+    position: absolute;
+    top: 47px;
+    right: 14px;
+    cursor: default;
+  }
+}
