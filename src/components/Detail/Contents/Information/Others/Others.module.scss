@@ -17,7 +17,15 @@
 
     overflow: hidden;
 
+    &:hover {
+      button {
+        visibility: visible;
+      }
+    }
+
     &__leftBtn {
+      visibility: hidden;
+
       position: absolute;
       top: 50%;
       left: 10px;
@@ -38,6 +46,8 @@
     }
 
     &__rightBtn {
+      visibility: hidden;
+
       position: absolute;
       top: 50%;
       right: 10px;
