@@ -33,6 +33,11 @@ function SearchBar({ set, keyword }: PropsType) {
             className={styles.searchBar__input}
             value={inputValue}
             onChange={handleInputValue}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                search();
+              }
+            }}
           />
         </div>
         <Link to="/" className={styles.return}>

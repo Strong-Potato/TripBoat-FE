@@ -19,7 +19,7 @@ function CardNull() {
             <br />
             여행 장소를 정해보세요
           </p>
-          <Link to="/voteDetail">
+          <Link to="/vote">
             <button>
               <span>투표 만들기</span>
               <p>
