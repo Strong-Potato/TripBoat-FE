@@ -1,13 +1,16 @@
 import { Icon } from "@chakra-ui/react";
 import { GoDotFill } from "react-icons/go";
 
-import styles from "./VoteDetailsField.module.scss";
+import styles from "./VoteContent.module.scss";
 
-import VoteCandidateItem from "../VoteCandidateItem/VoteCandidateItem";
+import CandidateCard from "./CandidateCard/CandidateCard";
+import VoteRecommendList from "./VoteRecommendList/VoteRecommendList";
+
+import { VoteContentProps } from "@/types/vote";
 
 // import VoteDetailsFieldZero from "../VoteDetailsFieldZero/VoteDetailsFieldZero";
 
-const VoteDetailsField = () => {
+const VoteContent = ({ onClick }: VoteContentProps) => {
   // if(CandidateList.length===0) {
   //   //지도 색 neutral300
   //   return <VoteDetailsFieldZero />
@@ -20,16 +23,20 @@ const VoteDetailsField = () => {
           <Icon as={GoDotFill} fontSize="1rem" mt="1px" mr="4px" />
           진행 중
         </div>
-        <div className={styles.container__stateBar__addCandidate}>
+        <button
+          onClick={onClick}
+          className={styles.container__stateBar__addCandidate}
+        >
           + 후보 추가(1/15)
-        </div>
+        </button>
       </div>
       <div className={styles.container__candidateList}>
-        <VoteCandidateItem />
-        <VoteCandidateItem />
-        <VoteCandidateItem />
+        <CandidateCard />
+        <CandidateCard />
+        <CandidateCard />
       </div>
+      <VoteRecommendList />
     </div>
   );
 };
-export default VoteDetailsField;
+export default VoteContent;
