@@ -1,10 +1,6 @@
 import { UseFormRegister, UseFormResetField } from "react-hook-form";
 
-interface SubmitResult {
-  try: boolean;
-  isPassed: boolean;
-}
-
+/* ---------------------------------- Login --------------------------------- */
 interface LoginForm {
   email: string;
   password: string;
@@ -22,4 +18,27 @@ interface LoginInput {
   resetField: UseFormResetField<LoginForm>;
 }
 
-export type { LoginDirtyFields, LoginForm, LoginInput, SubmitResult };
+/* --------------------------------- Signup --------------------------------- */
+
+interface AgreeForm {
+  allCheck: boolean;
+  age: boolean;
+  service: boolean;
+  privacy: boolean;
+  marketing: boolean;
+}
+
+interface AgreeProps {
+  setSignupStep: React.Dispatch<React.SetStateAction<string>>;
+}
+
+type AgreeName = "age" | "service" | "privacy" | "marketing" | "allCheck";
+
+export type {
+  AgreeForm,
+  AgreeName,
+  AgreeProps,
+  LoginDirtyFields,
+  LoginForm,
+  LoginInput,
+};
