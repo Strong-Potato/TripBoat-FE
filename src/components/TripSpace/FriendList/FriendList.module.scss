@@ -13,6 +13,13 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    max-height: calc(4rem * 5 + 16px * 4);
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 
     &__user {
       display: flex;
