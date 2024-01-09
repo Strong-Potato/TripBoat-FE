@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 
 import App from "./App.tsx";
-import { customTheme } from "./sass/chakraCustomTheme.tsx";
+import { customTheme } from "./chakra/chakraCustomTheme.tsx";
 
 async function enableMocking() {
   if (import.meta.env.MODE !== "development") {

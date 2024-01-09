@@ -1,0 +1,9 @@
+@use "@/sass" as *;
+
+.container {
+  margin: 0 10px;
+  &__counts {
+    @include typography(tabLabel);
+    margin-bottom: 16px;
+  }
+}

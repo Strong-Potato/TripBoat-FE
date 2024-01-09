@@ -1,3 +1,5 @@
+import { avatarTheme } from "./avatarCustom";
+import { tabsTheme } from "./tabsCustom";
 import { extendTheme } from "@chakra-ui/react";
 
 export const customTheme = extendTheme({
@@ -18,7 +20,7 @@ export const customTheme = extendTheme({
         width: "5.2rem",
         backgroundSize: "50% auto",
         backgroundPosition: "center",
-        background: "url(src/assets/swiper-next-btn.svg) no-repeat",
+        background: "url(src/assets/voteIcons/swiper-next-btn.svg) no-repeat",
         opacity: "0",
         transition: "opacity 0.3s ease",
         _after: {
@@ -30,7 +32,7 @@ export const customTheme = extendTheme({
         width: "5.2rem",
         backgroundSize: "50% auto",
         backgroundPosition: "center",
-        background: "url(src/assets/swiper-prev-btn.svg) no-repeat",
+        background: "url(src/assets/voteIcons/swiper-prev-btn.svg) no-repeat",
         opacity: "0",
         transition: "opacity 0.3s ease",
         _after: {
@@ -43,6 +45,9 @@ export const customTheme = extendTheme({
     },
   },
   components: {
+    Avatar: avatarTheme,
+    Tabs: tabsTheme,
+
     Button: {
       baseStyle: {
         _disabled: {

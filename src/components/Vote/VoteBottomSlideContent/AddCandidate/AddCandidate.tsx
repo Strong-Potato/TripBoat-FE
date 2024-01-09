@@ -1,7 +1,7 @@
 import styles from "./AddCandidate.module.scss";
 
-import VoteHeartIcon from "@/assets/vote_heart.svg?react";
-import VoteSearchIcon from "@/assets/vote_search.svg?react";
+import VoteHeartIcon from "@/assets/voteIcons/vote_heart.svg?react";
+import VoteSearchIcon from "@/assets/voteIcons/vote_search.svg?react";
 
 const AddCandidate = () => {
   const title = "후보 추가하기";

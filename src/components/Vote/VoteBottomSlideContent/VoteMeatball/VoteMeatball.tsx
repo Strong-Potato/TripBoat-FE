@@ -1,8 +1,8 @@
 import styles from "./VoteMeatball.module.scss";
 
-import CheckIcon from "@/assets/vote_check.svg?react";
-import EditIcon from "@/assets/vote_edit.svg?react";
-import TrashIcon from "@/assets/vote_trash.svg?react";
+import CheckIcon from "@/assets/voteIcons/vote_check.svg?react";
+import EditIcon from "@/assets/voteIcons/vote_edit.svg?react";
+import TrashIcon from "@/assets/voteIcons/vote_trash.svg?react";
 
 const VoteMeatball = () => {
   return (

@@ -21,6 +21,7 @@ import SlideBar from "@/components/SideBar/SideBar";
 import EditBottomSlideContent from "@/components/TripSpace/EditBottomSlideContent/EditBottomSlideContent";
 import FriendList from "@/components/TripSpace/FriendList/FriendList";
 import InviteFriends from "@/components/TripSpace/InviteFriends/InviteFriends";
+import VoteTabPanel from "@/components/VoteTabPanel/VoteTabPanel";
 
 function Trip() {
   const navigate = useNavigate();
@@ -127,7 +128,7 @@ function Trip() {
           <TabIndicator className={styles.contents__tabIndicator} />
           <TabPanels>
             <TabPanel className={styles.contents__tabContent}>
-              <>메인 탭 컴포넌트</>
+              <VoteTabPanel />
             </TabPanel>
             <TabPanel className={styles.contents__tabContent}>
               <>일정 탭 컴포넌트</>
