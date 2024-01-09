@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 
 import styles from "./LoginForm.module.scss";
 
+import AuthButton from "@/components/Auth/Button/AuthButton";
+
 import validationForm from "@/utils/inputValidation";
 
 import InputEmail from "../Input/InputEmail";
@@ -69,9 +71,7 @@ function LoginForm() {
         <small>이메일 또는 비밀번호를 확인해주세요.</small>
       ) : null}
 
-      <button className={styles.submitBtn} type="submit">
-        로그인
-      </button>
+      <AuthButton content="로그인" type="submit" disabled={false} />
     </form>
   );
 }

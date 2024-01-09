@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import styles from "./AgreeForm.module.scss";
 
-import SignupButton from "../Button/SignupButton";
+import AuthButton from "@/components/Auth/Button/AuthButton";
 
 import { AgreeForm, AgreeName, AgreeProps } from "@/types/auth";
 
@@ -113,7 +113,7 @@ function Agree({ setSignupStep }: AgreeProps) {
           <label htmlFor="allCheck">(선택) 마케팅 정보 수신 동의</label>
         </div>
 
-        <SignupButton
+        <AuthButton
           content="동의하기"
           type="submit"
           disabled={!watchRequired.every((input) => input === true)}

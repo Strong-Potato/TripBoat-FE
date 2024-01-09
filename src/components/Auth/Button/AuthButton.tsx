@@ -1,4 +1,4 @@
-import styles from "./SignupButton.module.scss";
+import styles from "./AuthButton.module.scss";
 
 interface SignupButton {
   content: string;
