@@ -19,6 +19,8 @@
 
       white-space: nowrap;
 
+      cursor: pointer;
+
       @include typography(button);
     }
   }

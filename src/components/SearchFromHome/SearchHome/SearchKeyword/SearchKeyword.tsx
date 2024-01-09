@@ -8,7 +8,11 @@ import SlideButton from "@/components/SlideButton/SlideButton";
 
 import { getData } from "@/mocks/handlers/home";
 
-function SearchKeyword() {
+interface PropsType {
+  set: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+
+function SearchKeyword({ set }: PropsType) {
   const [data, setData] = useState<string[] | undefined>();
   const [listWidth, setListWidth] = useState<number>(0);
   const [slideLocation, setSlideLocation] = useState<number>(0);
@@ -38,6 +42,10 @@ function SearchKeyword() {
     }, 100);
   }, [data, componentRef]);
 
+  function searchKeyword(keyword: string) {
+    set(keyword);
+  }
+
   return (
     <div className={styles.container}>
       {data && (
@@ -59,7 +67,16 @@ function SearchKeyword() {
         }}
       >
         {data ? (
-          data.map((keyword, i) => <p key={keyword + i}>{keyword}</p>)
+          data.map((keyword, i) => (
+            <p
+              key={keyword + i}
+              onClick={() => {
+                searchKeyword(keyword);
+              }}
+            >
+              {keyword}
+            </p>
+          ))
         ) : (
           <p>키워드가 없습니다.</p>
         )}

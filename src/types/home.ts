@@ -53,3 +53,10 @@ export interface SearchHotItemType {
   location: string;
   id: number;
 }
+
+export interface SearchItemType {
+  title: string;
+  imageURL: string;
+  location: string;
+  category: string;
+}

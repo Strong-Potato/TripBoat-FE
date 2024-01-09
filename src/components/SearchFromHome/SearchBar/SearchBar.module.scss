@@ -21,7 +21,7 @@
   .search_container {
     position: relative;
 
-    padding: 5px 24px 8px 32px;
+    padding: 5px 32px 8px 32px;
 
     .bottom_line {
       position: absolute;
@@ -44,6 +44,7 @@
     @include typography(subTitle);
 
     &__input {
+      width: 100%;
       &:focus {
         outline: none;
       }
@@ -59,5 +60,7 @@
     right: 0;
 
     @include icon;
+
+    cursor: pointer;
   }
 }

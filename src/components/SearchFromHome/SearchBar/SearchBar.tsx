@@ -1,8 +1,28 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import styles from "./SearchBar.module.scss";
 
-function SearchBar() {
+interface PropsType {
+  set: React.Dispatch<React.SetStateAction<string | undefined>>;
+  keyword: string;
+}
+
+function SearchBar({ set, keyword }: PropsType) {
+  const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    setInputValue(keyword);
+  }, [keyword]);
+
+  function handleInputValue(e: React.ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value);
+  }
+
+  function search() {
+    set(inputValue);
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.search_container}>
@@ -11,6 +31,8 @@ function SearchBar() {
             type="text"
             placeholder="장소 이름이나 키워드를 입력해보세요"
             className={styles.searchBar__input}
+            value={inputValue}
+            onChange={handleInputValue}
           />
         </div>
         <Link to="/" className={styles.return}>
@@ -27,7 +49,7 @@ function SearchBar() {
             />
           </svg>
         </Link>
-        <p className={styles.enter}>
+        <p className={styles.enter} onClick={search}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

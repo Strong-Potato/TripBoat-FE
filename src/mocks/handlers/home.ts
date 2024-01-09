@@ -321,6 +321,71 @@ const hotHotels = [
     id: "1",
   },
 ];
+const searchItemData = [
+  {
+    title: "아시안 누들 서비스",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "맛집",
+  },
+  {
+    title: "더 타코부스",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "맛집",
+  },
+  {
+    title: "콴안다오",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "맛집",
+  },
+  {
+    title: "신라호텔",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "숙소",
+  },
+  {
+    title: "조선호텔",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "숙소",
+  },
+  {
+    title: "그랜드하얏트",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "숙소",
+  },
+  {
+    title: "더 현대",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "관광",
+  },
+  {
+    title: "서울숲",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "관광",
+  },
+  {
+    title: "롯데월드",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "관광",
+  },
+];
 
 export const home = [
   // 홈
@@ -362,6 +427,11 @@ export const home = [
   }),
   http.get("/api/home/search/hothotel", () => {
     return HttpResponse.json(hotHotels, {
+      status: 200,
+    });
+  }),
+  http.get("/api/home/search/search", () => {
+    return HttpResponse.json(searchItemData, {
       status: 200,
     });
   }),
