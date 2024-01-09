@@ -1,0 +1,88 @@
+@use "@/sass" as *;
+
+.container {
+  padding: 0 24px;
+
+  h1 {
+    margin: 48px 0 64px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .aboutAuth {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    margin-top: 24px;
+
+    @include typography(captionSmall);
+    color: $neutral400;
+
+    a:hover {
+      font-weight: bold;
+    }
+  }
+
+  .snsLogin {
+    margin: 128px 0 24px 0;
+
+    &__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+
+      @include typography(captionSmall);
+      color: $neutral400;
+    }
+
+    &__btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 11.5px 28px;
+      margin-top: 16px;
+      background: $etc1;
+      width: 100%;
+      border-radius: 6px;
+
+      @include typography(button);
+
+      .kakao_text {
+        flex-grow: 1;
+      }
+
+      .kakao_space {
+        width: 18px;
+      }
+    }
+  }
+
+  .toHome {
+    text-align: center;
+    margin-bottom: 55px;
+
+    &__link {
+      @include typography(tabLabel);
+      color: $neutral800;
+      text-decoration-line: underline;
+      text-underline-position: under;
+
+      &:hover {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .col_bar {
+    border-left: 1px solid $neutral300;
+    margin: 4px 0;
+  }
+  .row_bar {
+    flex-grow: 1;
+    background: $neutral200;
+    height: 1px;
+  }
+}

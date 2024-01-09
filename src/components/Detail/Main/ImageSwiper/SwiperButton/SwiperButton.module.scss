@@ -1,0 +1,52 @@
+.container {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translate(0, -50%);
+
+  display: flex;
+  justify-content: space-between;
+
+  z-index: 2;
+
+  &__prevBtn {
+    visibility: hidden;
+
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translate(0, -50%);
+
+    width: 2.4rem;
+    height: 2.2rem;
+    border-radius: 1.2rem;
+
+    background-color: #ffffff;
+    z-index: 2;
+  }
+
+  &__nextBtn {
+    visibility: hidden;
+
+    width: 40px;
+
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(0, -50%);
+
+    width: 2.4rem;
+    height: 2.2rem;
+    border-radius: 1.2rem;
+
+    background-color: #ffffff;
+    z-index: 2;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
