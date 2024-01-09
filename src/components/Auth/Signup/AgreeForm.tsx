@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-import styles from "./Agree.module.scss";
+import styles from "./AgreeForm.module.scss";
 
 import SignupButton from "./Button/SignupButton";
 
