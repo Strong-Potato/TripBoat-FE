@@ -1,18 +1,19 @@
 import styles from "./SignupButton.module.scss";
 
 interface SignupButton {
-  onClick: () => void;
   content: string;
+  type: "button" | "reset" | "submit" | undefined;
   disabled: boolean;
+  onClick?: () => void;
 }
 
-function SignupButton({ onClick, content, disabled }: SignupButton) {
+function SignupButton({ content, type, disabled, onClick }: SignupButton) {
   return (
     <button
       className={styles.container}
-      onClick={onClick}
-      type="button"
+      type={type}
       disabled={disabled}
+      onClick={onClick}
     >
       {content}
     </button>

@@ -4,36 +4,31 @@ import { Link } from "react-router-dom";
 
 import styles from "./AgreeForm.module.scss";
 
-import SignupButton from "./Button/SignupButton";
+import SignupButton from "../Button/SignupButton";
 
 import { AgreeForm, AgreeName, AgreeProps } from "@/types/auth";
 
 function Agree({ setSignupStep }: AgreeProps) {
-  const { register, setValue, watch } = useForm<AgreeForm>({
-    mode: "onChange",
-  });
+  const { register, getValues, setValue, handleSubmit, watch } =
+    useForm<AgreeForm>({
+      mode: "onChange",
+    });
 
-  // watch formState
-  const watchAllCheck = watch("allCheck", false);
-  const watchAge = watch("age", false);
-  const watchService = watch("service", false);
-  const watchPrivacy = watch("privacy", false);
-  const watchMarketing = watch("marketing", false);
   const watchRequired = watch(["age", "service", "privacy"]);
-
-  const inputs: AgreeName[] = ["age", "service", "privacy", "marketing"];
+  const watchAll = watch(["age", "service", "privacy", "marketing"]);
 
   useEffect(() => {
-    if (inputs.every((input) => watch(input) === true)) {
+    if (watchAll.every((input) => input === true)) {
       setValue("allCheck", true);
     } else {
       setValue("allCheck", false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [watchAge, watchService, watchPrivacy, watchMarketing]);
+  });
 
   const clickAllCheck = () => {
-    if (watchAllCheck) {
+    const inputs: AgreeName[] = ["age", "service", "privacy", "marketing"];
+
+    if (getValues("allCheck")) {
       inputs.forEach((input) => {
         setValue(input, false);
       });
@@ -45,7 +40,7 @@ function Agree({ setSignupStep }: AgreeProps) {
     });
   };
 
-  const clickAgree = () => {
+  const onSubmit = () => {
     setSignupStep("email");
   };
 
@@ -53,7 +48,7 @@ function Agree({ setSignupStep }: AgreeProps) {
     <section className={styles.container}>
       <h1>서비스 이용 동의</h1>
 
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.checkInput}>
           <input
             type="checkbox"
@@ -119,8 +114,8 @@ function Agree({ setSignupStep }: AgreeProps) {
         </div>
 
         <SignupButton
-          onClick={clickAgree}
           content="동의하기"
+          type="submit"
           disabled={!watchRequired.every((input) => input === true)}
         />
       </form>
