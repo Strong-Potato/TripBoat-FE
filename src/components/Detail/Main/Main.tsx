@@ -1,12 +1,12 @@
 import styles from "./Main.module.scss";
 
-import Swiper from "./Swiper/Swiper";
+import ImageSwiper from "./ImageSwiper/Swiper";
 import Title from "./Title/Title";
 
 function Main() {
   return (
     <div className={styles.container}>
-      <Swiper />
+      <ImageSwiper />
       <Title />
     </div>
   );

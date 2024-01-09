@@ -8,7 +8,7 @@ import SearchFromHome from "@/pages/SearchFromHome/SearchFromHome";
 import AgreePrivacy from "@/pages/Signup/Agree/AgreePrivacy";
 import AgreeService from "@/pages/Signup/Agree/AgreeService";
 import Trip from "@/pages/Trip/Trip";
-import VoteDetail from "@/pages/VoteDetail/VoteDetail";
+import Vote from "@/pages/Vote/Vote";
 import Dashboard from "@/routes/Dashboard/Dashboard";
 
 function MainRouter() {
@@ -21,7 +21,7 @@ function MainRouter() {
         <Route path="/user" element={<Home />} />
       </Route>
       <Route path="/login" element={<Login />} />
-      <Route path="voteDetail" element={<VoteDetail />} />
+      <Route path="/vote" element={<Vote />} />
       <Route path="/detail/:id" element={<Detail />} />
       <Route path="/signup/agreePrivacy" element={<AgreePrivacy />} />
       <Route path="/signup/agreeService" element={<AgreeService />} />

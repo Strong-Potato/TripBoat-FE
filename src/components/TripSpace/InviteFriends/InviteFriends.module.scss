@@ -1,0 +1,40 @@
+@use "@/sass" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+
+  &__invitelogo {
+    width: 20.3rem;
+    height: 12.4rem;
+  }
+
+  &__wrapperText {
+    text-align: center;
+
+    &__invitetext {
+      margin-top: 8px;
+      letter-spacing: -0.2px;
+      color: $neutral900;
+      @include typography(titleLarge);
+    }
+
+    &__invitedescription {
+      margin-top: 8px;
+      letter-spacing: -0.12px;
+      color: $neutral400;
+      @include typography(captionSmall);
+    }
+  }
+
+  &__wrapperButton {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__a11y {
+    @include a11y-hidden;
+  }
+}
