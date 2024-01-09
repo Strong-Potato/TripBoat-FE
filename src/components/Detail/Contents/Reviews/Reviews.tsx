@@ -3,7 +3,7 @@ import { GoStarFill } from "react-icons/go";
 
 import styles from "./Rviews.module.scss";
 
-import Review from "@/components/Review/Review";
+import Review from "@/components/Detail/Contents/Review/Review";
 
 // 무한 스크롤 구현 필요
 function Reviews() {

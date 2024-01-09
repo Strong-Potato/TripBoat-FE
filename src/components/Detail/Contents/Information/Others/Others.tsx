@@ -60,7 +60,7 @@ function Others() {
         <h3>주변 다른 숙소</h3>
       </div>
       <div className={styles.container__slideContainer}>
-        <div
+        <button
           className={styles.container__slideContainer__leftBtn}
           style={{ display: slideLocation === 0 ? "none" : "block" }}
           onClick={() => {
@@ -70,8 +70,8 @@ function Others() {
           <AiOutlineLeft
             className={styles.container__slideContainer__leftBtn__icon}
           />
-        </div>
-        <div
+        </button>
+        <button
           className={styles.container__slideContainer__rightBtn}
           style={{
             display: -slideLocation >= 160 * 4 - size.width ? "none" : "block",
@@ -83,7 +83,7 @@ function Others() {
           <AiOutlineRight
             className={styles.container__slideContainer__rightBtn__icon}
           />
-        </div>
+        </button>
         <div
           className={styles.container__slideContainer__slide}
           style={{ left: slideLocation + "px" }}
