@@ -39,7 +39,6 @@ function Trip() {
     onOpen: onBottomSlideOpen,
     onClose: onBottomSlideClose,
   } = useDisclosure();
-
   const {
     isOpen: isSlideBarOpen,
     onOpen: onSlideBarOpen,

@@ -1,0 +1,80 @@
+@use "@/sass" as *;
+
+.container {
+  width: 100%; //335?
+  height: 14.4rem;
+  padding: 15px 20px;
+
+  border-radius: 16px;
+  border: 2px solid $neutral200;
+  box-shadow: $shadow100;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+
+  &__contextBox {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    &__name {
+      @include typography(titleMedium);
+      color: $neutral900;
+    }
+    &__category {
+      @include typography(captionSmall);
+      color: $neutral400;
+    }
+    &__addDay {
+      @include typography(captionSmall);
+      color: $neutral800;
+    }
+  }
+  &__voteBox {
+    @include typography(bodySmall);
+    color: $neutral800;
+
+    width: 5.8rem;
+    height: 8rem;
+
+    padding: 10px;
+
+    border-radius: 10px;
+    border: 2px solid $neutral200;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 4px;
+
+    &__star {
+      font-size: 2.4rem;
+    }
+  }
+}
+
+.comment {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  &__text {
+    height: 2.2rem;
+    @include typography(bodySmall);
+    color: $neutral900;
+    background-color: $neutral100;
+
+    padding: 0 17px;
+    border-radius: 7px;
+  }
+}
