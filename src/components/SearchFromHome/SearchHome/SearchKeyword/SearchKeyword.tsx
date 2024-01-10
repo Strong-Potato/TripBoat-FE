@@ -56,6 +56,7 @@ function SearchKeyword({ set }: PropsType) {
           flexGap={8}
           itemNumber={data.length}
           slideSize={size}
+          buttonSize={24}
         />
       )}
       <div

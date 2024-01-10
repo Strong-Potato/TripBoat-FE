@@ -34,6 +34,7 @@ export interface LeftButtonPropsType {
   setSlideLocation: React.Dispatch<React.SetStateAction<number>>;
   itemWidth: number;
   flexGap: number;
+  buttonSize?: number;
 }
 
 interface ComponentSize {

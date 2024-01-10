@@ -38,7 +38,7 @@ function SearchList({ keyword }: { keyword: string }) {
         <LocationFilter />
         <DateFilter />
       </div>
-      <ul className={styles.list}>
+      <ul>
         {filterData &&
           filterData.map((data, i) => (
             <SearchItem data={data} key={data.title + i} />

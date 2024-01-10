@@ -369,21 +369,63 @@ const searchItemData = [
     imageURL:
       "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
     location: "서울",
-    category: "관광",
+    category: "관광지",
   },
   {
     title: "서울숲",
     imageURL:
       "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
     location: "서울",
-    category: "관광",
+    category: "관광지",
   },
   {
     title: "롯데월드",
     imageURL:
       "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
     location: "서울",
-    category: "관광",
+    category: "관광지",
+  },
+  {
+    title: "국립중앙박물관",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "문화시설",
+  },
+  {
+    title: "디큐브아트센터",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "문화시설",
+  },
+  {
+    title: "인사아트프로젝트",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "문화시설",
+  },
+  {
+    title: "한강 레저",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "레포츠",
+  },
+  {
+    title: "서울 레이스 파크",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "레포츠",
+  },
+  {
+    title: "남산 케이블카",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "레포츠",
   },
 ];
 
