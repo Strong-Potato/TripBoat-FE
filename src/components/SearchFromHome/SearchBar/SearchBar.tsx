@@ -5,14 +5,16 @@ import styles from "./SearchBar.module.scss";
 
 interface PropsType {
   set: React.Dispatch<React.SetStateAction<string | undefined>>;
-  keyword: string;
+  keyword: string | undefined;
 }
 
 function SearchBar({ set, keyword }: PropsType) {
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    setInputValue(keyword);
+    if (keyword) {
+      setInputValue(keyword);
+    }
   }, [keyword]);
 
   function handleInputValue(e: React.ChangeEvent<HTMLInputElement>) {
