@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
-import styles from "./CalendarModal.module.scss";
-import DatePicker, { registerLocale } from "react-datepicker";
-import ko from "date-fns/locale/ko";
-import "react-datepicker/dist/react-datepicker.css";
-import { addYears, format } from "date-fns";
 import { Button } from "@chakra-ui/react";
-import { printDayNight } from "@/utils/printDayNight";
+import { addYears, format } from "date-fns";
+import ko from "date-fns/locale/ko";
+import { useEffect, useState } from "react";
+import DatePicker, { registerLocale } from "react-datepicker";
 import { RiCalendarCheckLine as CalendarIcon } from "react-icons/ri";
+
+import "react-datepicker/dist/react-datepicker.css";
+import styles from "./CalendarModal.module.scss";
+
 import BackIcon from "@/assets/back.svg?react";
+import { printDayNight } from "@/utils/printDayNight";
 
 function CalendarModal() {
   registerLocale("ko", ko);
@@ -28,8 +30,8 @@ function CalendarModal() {
   };
 
   useEffect(() => {
-    if (startDate) console.log(format(startDate, "yyyy/MM/dd"));
-    if (endDate) console.log(format(endDate, "yyyy/MM/dd"));
+    if (startDate) console.log("시작", format(startDate, "yyyy/MM/dd"));
+    if (endDate) console.log("끝", format(endDate, "yyyy/MM/dd"));
   }, [startDate, endDate]);
 
   return (
@@ -41,6 +43,9 @@ function CalendarModal() {
         <h1>언제 떠나시나요?</h1>
       </header>
       <div className={styles.calendarContainer}>
+        {/* FIXME : date picker 수정사항
+          1. 달력 첫째주에 지난 달 날짜 보이도록
+          2. 나중 날짜 ~ 먼저 날짜 선택 안 되도록 */}
         <DatePicker
           selectsRange
           inline
@@ -51,14 +56,16 @@ function CalendarModal() {
           maxDate={addYears(today, 3)}
           locale={ko}
           monthsShown={36}
+          dateFormatCalendar="yyyy년 M월"
+          renderDayContents={(day) => <span>{day}</span>}
         />
       </div>
       <div className={styles.dateChoiceContainer}>
         <div className={styles.dateChoice}>
           <CalendarIcon size="22px" color="red" />
-          <span>{startDate ? format(startDate, "M월dd일") : "시작일"} </span>
+          <span>{startDate ? format(startDate, "M월 d일") : "시작일"} </span>
           <span>-</span>
-          <span>{endDate ? format(endDate, "M월dd일") : "종료일"} </span>
+          <span>{endDate ? format(endDate, "M월 d일") : "종료일"} </span>
           {startDate && endDate && (
             <span>{printDayNight(startDate, endDate)}</span>
           )}
