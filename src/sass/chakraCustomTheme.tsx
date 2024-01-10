@@ -63,16 +63,15 @@ export const customTheme = extendTheme({
           fontWeight: "700",
           lineHeight: "2.4rem",
           letterSpacing: "-0.16px",
-          color: "#1D2433",
+          color: "neutral.900",
         },
 
         "&__day-names": {
           display: "flex",
           justifyContent: "center",
           margin: "1.6rem 0",
-          // gap: "1.5rem",
           "& > div:nth-child(1)": {
-            color: "#E02D3C",
+            color: "danger.300",
           },
         },
 
@@ -83,9 +82,8 @@ export const customTheme = extendTheme({
           fontWeight: "500",
           lineHeight: "2rem",
           letterSpacing: "-0.12px",
-          color: "#1D2433",
+          color: "neutral.900",
           margin: "0",
-          // border: "1px solid red"
         },
 
         "&__month-container": {
@@ -97,9 +95,8 @@ export const customTheme = extendTheme({
           display: "flex",
           justifyContent: "center",
           marginBottom: "2rem",
-          // gap: "1.5rem",
           "& > div:nth-child(1)": {
-            color: "#E02D3C",
+            color: "danger.300",
           },
         },
 
@@ -114,7 +111,7 @@ export const customTheme = extendTheme({
           fontWeight: "700",
           lineHeight: "2.4rem",
           letterSpacing: "-0.16px",
-          color: "#1D2433",
+          color: "neutral.900",
           margin: "0",
 
           _hover: {
@@ -130,11 +127,11 @@ export const customTheme = extendTheme({
           },
 
           "&--disabled": {
-            color: "#E3E5E5 !important",
+            color: "neutral.200 !important",
           },
 
           "&--in-selecting-range, &--in-range": {
-            backgroundColor: "#D4E8FF !important",
+            backgroundColor: "primary.100 !important",
             borderRadius: 0,
             position: "relative",
           },
@@ -170,7 +167,7 @@ export const customTheme = extendTheme({
             position: "absolute",
             top: 0,
             left: "50%",
-            backgroundColor: "#D4E8FF !important",
+            backgroundColor: "primary.100 !important",
             color: "neutral.0 !important",
             zIndex: "0 !important",
           },
@@ -183,7 +180,7 @@ export const customTheme = extendTheme({
             position: "absolute",
             top: 0,
             right: "50%",
-            backgroundColor: "#D4E8FF !important",
+            backgroundColor: "primary.100 !important",
             color: "neutral.0 !important",
             zIndex: "0 !important",
           },
