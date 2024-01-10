@@ -1,0 +1,159 @@
+@use "@/sass" as *;
+
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  color: $neutral900;
+  background-color: #1d2433c5;
+
+  z-index: 11;
+
+  @include typography(headline);
+  .modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 31.1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+
+    padding: 80px 20px 64px 20px;
+
+    border-radius: 1.6rem;
+
+    background-color: $primary100;
+
+    transform: translate(-50%, -50%);
+
+    &__bag {
+      position: absolute;
+      top: 0;
+      left: 50%;
+
+      width: 12.8rem;
+      height: 12.8rem;
+
+      padding: 6.4px 16.6px 7.68px 16.6px;
+
+      transform: translate(-50%, -50%);
+    }
+
+    &__closeButton {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+    &__title {
+      display: flex;
+      justify-content: center;
+    }
+
+    .voteBox {
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      &__item {
+        position: relative;
+
+        width: 100%;
+        min-height: 6.8rem;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 16px 20px;
+
+        border-radius: 1.6rem;
+
+        background-color: $neutral0;
+
+        @include typography(titleSmall);
+
+        p {
+          position: relative;
+
+          display: flex;
+          flex-wrap: nowrap;
+          gap: 4px;
+        }
+
+        &__icon {
+          width: 2rem;
+          height: 2rem;
+        }
+
+        &__graph {
+          position: absolute;
+          top: 0;
+          left: 0;
+
+          height: 100%;
+
+          border-radius: 16px 0px 0px 16px;
+          background: linear-gradient(180deg, #6dbaff 0%, #c3e3ff 142.19%);
+
+          transition: 1s all;
+        }
+
+        &__button {
+          width: 5.8rem;
+          height: 3.6rem;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          border: 1px solid $primary100;
+          border-radius: 10rem;
+
+          cursor: pointer;
+        }
+      }
+    }
+    &__voteButton {
+      width: 100%;
+      height: 4.6rem;
+
+      border-radius: 4.6rem;
+
+      color: $neutral0;
+      background-color: $primary300;
+
+      @include typography(button);
+    }
+    &__removeButton {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+
+      color: $neutral0;
+
+      transform: translate(-50%, 50%);
+
+      text-decoration: underline;
+
+      @include typography(tabLabel);
+    }
+    .blue {
+      color: $primary300;
+
+      @include typography(button);
+    }
+  }
+}
