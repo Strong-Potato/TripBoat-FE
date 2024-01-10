@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import styles from "./InviteFriends.module.scss";
 
+import useKakaoShareButton from "@/hooks/useKakaoShareButton";
+
 import CopyClipboard from "@/components/Modal/CopyClipboard/CopyClipboard";
 
 import InviteKakao from "@/assets/inviteKakao.svg?react";
@@ -10,6 +12,7 @@ import InviteLogo from "@/assets/InviteLogo.svg?react";
 
 function InviteFriends() {
   const [isModalVisible, setIsModalVisible] = useState(false);
+
   const handleCopyClick = () => {
     //초대 링크 어떻게 넣을지 고민해보기
     navigator.clipboard.writeText("하하 반갑수다. 우리 같이 여행 갈마씸.");
@@ -33,7 +36,7 @@ function InviteFriends() {
           </p>
         </div>
         <div className={styles.container__wrapperButton}>
-          <button>
+          <button onClick={useKakaoShareButton()} id="kakaoShareButton">
             <InviteKakao />
             <p className={styles.container__a11y}>카카오톡 초대</p>
           </button>

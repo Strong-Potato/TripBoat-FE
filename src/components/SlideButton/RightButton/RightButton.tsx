@@ -11,10 +11,13 @@ function RightButton({
   itemNumber,
   slideSize,
   flexGap,
+  buttonSize,
 }: SlideButtonPropsType) {
   const moveRight = slideLocation - itemWidth - flexGap;
   const moveEnd =
     -itemWidth * itemNumber - flexGap * (itemNumber - 1) - 40 + slideSize.width;
+  const buttonsSize = buttonSize ? buttonSize : 40;
+  const iconSize = buttonSize ? buttonSize / 3 : undefined;
 
   function handleButton() {
     if (moveRight <= moveEnd) {
@@ -29,9 +32,15 @@ function RightButton({
       style={{
         display:
           -slideLocation >=
-          itemWidth * itemNumber + flexGap * (itemNumber - 1) - slideSize.width
+          itemWidth * itemNumber +
+            flexGap * (itemNumber - 1) +
+            40 -
+            slideSize.width
             ? "none"
             : "block",
+        width: buttonsSize,
+        height: buttonsSize,
+        fontSize: iconSize && iconSize,
       }}
       onClick={handleButton}
     >
