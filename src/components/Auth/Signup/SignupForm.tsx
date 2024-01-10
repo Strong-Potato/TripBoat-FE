@@ -1,6 +1,36 @@
+import { useForm } from "react-hook-form";
+
 import styles from "./SignupForm.module.scss";
 
-function SignupForm({ signupStep, setSignupStep }) {
+import StepEmail from "./Step/StepEmail";
+
+interface SignupFormProps {
+  signupStep: string;
+  setSignupStep: React.Dispatch<React.SetStateAction<string>>;
+}
+
+interface SignupForm {
+  email: string;
+  emailSert: string;
+  password: string;
+  passwordConfirm: string;
+  profile: string;
+}
+
+function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
+  const {
+    register,
+    resetField,
+    getValues,
+    formState: { errors, dirtyFields },
+  } = useForm<SignupForm>({
+    mode: "onChange",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
   return (
     <form className={styles.container}>
       <div className={styles.bar}></div>
@@ -18,27 +48,15 @@ function SignupForm({ signupStep, setSignupStep }) {
         `}
       ></div>
 
-      {signupStep === "email"}
-
-      <button type="button" onClick={() => setSignupStep("emailSert")}>
-        toEmailSert
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          setSignupStep("password");
-        }}
-      >
-        password
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          setSignupStep("profile");
-        }}
-      >
-        profile
-      </button>
+      {signupStep === "email" && (
+        <StepEmail
+          label="아이디(이메일 주소)"
+          register={register}
+          resetField={resetField}
+          dirty={dirtyFields.email}
+          error={errors.email}
+        />
+      )}
 
       {signupStep === "emailSert" && <section>password</section>}
 

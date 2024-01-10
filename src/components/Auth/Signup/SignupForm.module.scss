@@ -2,6 +2,23 @@
 
 .container {
   position: relative;
+  color: $neutral900;
+
+  h2 {
+    margin-bottom: 32px;
+
+    @include typography(headline);
+  }
+
+  small {
+    width: 100%;
+    position: absolute;
+    bottom: 68px;
+    left: 0;
+
+    @include typography(captionSmall);
+    color: $danger300;
+  }
 
   .bar {
     position: absolute;
@@ -11,30 +28,25 @@
     height: 3px;
     background: $neutral200;
     transition: all 0.5s;
-  }
 
-  .step_email {
-    width: 25%;
-    background: $primary300;
-  }
+    &.step_email {
+      width: 25%;
+      background: $primary300;
+    }
 
-  .step_emailSert {
-    width: 50%;
-    background: $primary300;
-  }
+    &.step_emailSert {
+      width: 50%;
+      background: $primary300;
+    }
 
-  .step_password {
-    width: 75%;
-    background: $primary300;
-  }
+    &.step_password {
+      width: 75%;
+      background: $primary300;
+    }
 
-  .step_profile {
-    width: 100%;
-    background: $primary300;
-  }
-
-  button {
-    display: block;
-    border: 1px solid black;
+    &.step_profile {
+      width: 100%;
+      background: $primary300;
+    }
   }
 }

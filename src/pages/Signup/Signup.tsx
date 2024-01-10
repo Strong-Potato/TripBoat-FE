@@ -8,7 +8,7 @@ import SignupForm from "@/components/Auth/Signup/SignupForm";
 
 function Signup() {
   // agree, email, password, profile
-  const [signupStep, setSignupStep] = useState<string>("agree");
+  const [signupStep, setSignupStep] = useState<string>("email");
 
   return (
     <div className={styles.container}>

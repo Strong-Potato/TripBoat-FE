@@ -1,4 +1,8 @@
-import { UseFormRegister, UseFormResetField } from "react-hook-form";
+import {
+  FieldError,
+  UseFormRegister,
+  UseFormResetField,
+} from "react-hook-form";
 
 /* ---------------------------------- Login --------------------------------- */
 interface LoginForm {
@@ -19,6 +23,21 @@ interface LoginInput {
 }
 
 /* --------------------------------- Signup --------------------------------- */
+interface SignupForm {
+  email: string;
+  emailSert: string;
+  password: string;
+  passwordConfirm: string;
+  profile: string;
+}
+
+interface SignupInput {
+  label: string;
+  dirty?: boolean;
+  error?: FieldError;
+  register: UseFormRegister<SignupForm>;
+  resetField: UseFormResetField<SignupForm>;
+}
 
 interface AgreeForm {
   allCheck: boolean;
@@ -41,4 +60,6 @@ export type {
   LoginDirtyFields,
   LoginForm,
   LoginInput,
+  SignupForm,
+  SignupInput,
 };
