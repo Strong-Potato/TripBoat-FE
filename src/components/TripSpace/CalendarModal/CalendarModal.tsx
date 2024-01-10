@@ -25,8 +25,13 @@ function CalendarModal() {
   const handleDatePick = (dates: Array<Date | null>) => {
     const [start, end] = dates;
 
-    if (start) setStartDate(start);
-    if (end) setEndDate(end);
+    if (startDate && endDate) {
+      setStartDate(start);
+      setEndDate(null);
+    } else {
+      if (start) setStartDate(start);
+      if (end) setEndDate(end);
+    }
   };
 
   useEffect(() => {
@@ -45,7 +50,7 @@ function CalendarModal() {
       <div className={styles.calendarContainer}>
         {/* FIXME : date picker 수정사항
           1. 달력 첫째주에 지난 달 날짜 보이도록
-          2. 나중 날짜 ~ 먼저 날짜 선택 안 되도록 */}
+        */}
         <DatePicker
           selectsRange
           inline
