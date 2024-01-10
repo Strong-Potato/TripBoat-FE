@@ -25,7 +25,6 @@ const voteFilterVariant = definePartsStyle(() => {
     },
     tablist: {
       gap: "8px",
-      my: "24px",
     },
     tabpanel: {
       p: "0",

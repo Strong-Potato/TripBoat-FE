@@ -61,15 +61,16 @@ function Trip() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.iconTab}>
+        <button onClick={() => navigate("/alarm")}>
+          <AlarmIcon size="24px" color="white" />
+        </button>
+        <button onClick={onSlideBarOpen}>
+          <MenuIcon size="24px" color="white" />
+        </button>
+      </div>
+
       <header className={styles.header}>
-        <div className={styles.iconTab}>
-          <button onClick={() => navigate("/alarm")}>
-            <AlarmIcon size="24px" color="white" />
-          </button>
-          <button onClick={onSlideBarOpen}>
-            <MenuIcon size="24px" color="white" />
-          </button>
-        </div>
         <div className={styles.titleContainer}>
           <div className={styles.titleContainer__dDayTitle}>D-day</div>
           <div className={styles.titleContainer__placeTitle}>
@@ -106,28 +107,31 @@ function Trip() {
           </button>
         </div>
       </header>
+
       <div className={styles.contents}>
-        {/* //추가한 부분 표시입니다 */}
         <Tabs isFitted variant="voteTab">
-          <TabList className={styles.contents__tabList}>
-            <Tab
-              fontSize="tabLabel"
-              padding="0"
-              borderColor="transparent"
-              _selected={{ color: "#1D2433", fontWeight: "700" }}
-            >
-              메인
-            </Tab>
-            <Tab
-              fontSize="tabLabel"
-              padding="0"
-              _selected={{ color: "#1D2433", fontWeight: "700" }}
-            >
-              일정
-            </Tab>
-          </TabList>
-          <TabIndicator className={styles.contents__tabIndicator} />
-          <TabPanels>
+          {/* variant 추가 */}
+          <div className={styles.contents__stickyTabList}>
+            <TabList className={styles.contents__tabList}>
+              <Tab
+                fontSize="tabLabel"
+                padding="0"
+                borderColor="transparent"
+                _selected={{ color: "#1D2433", fontWeight: "700" }}
+              >
+                투표
+              </Tab>
+              <Tab
+                fontSize="tabLabel"
+                padding="0"
+                _selected={{ color: "#1D2433", fontWeight: "700" }}
+              >
+                일정
+              </Tab>
+            </TabList>
+            <TabIndicator className={styles.contents__tabIndicator} />
+          </div>
+          <TabPanels bg="#fff">
             <TabPanel className={styles.contents__tabContent}>
               <VoteTabPanel />
             </TabPanel>
