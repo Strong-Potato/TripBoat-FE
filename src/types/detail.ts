@@ -24,3 +24,7 @@ export interface SwiperIndexPropsType {
   imageIndex: number;
   imageLength: number;
 }
+
+export interface NavigationProps {
+  onOpen: () => void;
+}

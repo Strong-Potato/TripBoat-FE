@@ -1,14 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 
-import Login from "@/pages/Login/Login";
 import Alarm from "@/pages/Alarm/Alarm";
 import Detail from "@/pages/Detail/Detail";
 import Home from "@/pages/Home/Home";
+import Login from "@/pages/Login/Login";
 import AgreePrivacy from "@/pages/Signup/Agree/AgreePrivacy";
 import AgreeService from "@/pages/Signup/Agree/AgreeService";
-import Dashboard from "@/routes/Dashboard/Dashboard";
-import Vote from "@/pages/Vote/Vote";
 import Trip from "@/pages/Trip/Trip";
+import Vote from "@/pages/Vote/Vote";
+import Dashboard from "@/routes/Dashboard/Dashboard";
 
 function MainRouter() {
   return (
