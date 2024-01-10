@@ -107,7 +107,8 @@ function Trip() {
         </div>
       </header>
       <div className={styles.contents}>
-        <Tabs isFitted variant="unstyled">
+        {/* //추가한 부분 표시입니다 */}
+        <Tabs isFitted variant="voteTab">
           <TabList className={styles.contents__tabList}>
             <Tab
               fontSize="tabLabel"

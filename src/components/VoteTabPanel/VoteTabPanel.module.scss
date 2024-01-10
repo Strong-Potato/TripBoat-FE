@@ -1,9 +1,27 @@
 @use "@/sass" as *;
 
 .container {
-  margin: 0 10px;
-  &__counts {
-    @include typography(tabLabel);
-    margin-bottom: 16px;
+  padding: 0 20px;
+  // margin-top: 10px;
+  &__header {
+    margin-top: -2px;
+    padding-left: 20px;
+    width: 45rem;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+
+    z-index: 3;
+    &__counts {
+      @include typography(tabLabel);
+      margin-bottom: 16px;
+    }
   }
+
+  &__content {
+    z-index: 2;
+    padding: 128px 0 60px;
+  }
+
 }

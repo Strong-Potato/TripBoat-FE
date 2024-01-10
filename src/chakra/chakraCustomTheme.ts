@@ -61,6 +61,7 @@ export const customTheme = extendTheme({
         blueButton: {
           backgroundColor: "primary.300",
           borderRadius: "16px",
+          boxShadow: "shadow.200",
 
           color: "neutral.0",
           fontSize: "button",
@@ -88,6 +89,27 @@ export const customTheme = extendTheme({
           lineHeight: "button",
 
           zIndex: "2",
+
+          _hover: {
+            backgroundColor: "primary.400",
+          },
+        },
+        voteButton: {
+          w: "18.4rem",
+          h: "5.4rem",
+          backgroundColor: "primary.300",
+          borderRadius: "48px",
+          boxShadow: "shadow.200",
+
+          position: "fixed",
+          left: "50%",
+          transform: "translateX(-50%)",
+          bottom: "8rem",
+
+          color: "neutral.0",
+          fontSize: "button",
+          fontWeight: "button",
+          lineHeight: "button",
 
           _hover: {
             backgroundColor: "primary.400",

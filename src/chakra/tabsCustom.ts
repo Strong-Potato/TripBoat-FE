@@ -25,18 +25,30 @@ const voteFilterVariant = definePartsStyle(() => {
     },
     tablist: {
       gap: "8px",
-      mt: "14px",
-      mb: "24px",
+      my: "24px",
     },
     tabpanel: {
-      p: "none",
-      bg: "pink",
+      p: "0",
+      display: "flex",
+      flexDir: "column",
+      gap: "16px",
+    },
+  };
+});
+
+//트립에서 적용된 부분
+const voteTabsVariant = definePartsStyle(() => {
+  return {
+    tabpanel: {
+      p: "0",
+      mt: "5px",
     },
   };
 });
 
 const variants = {
-  voteFilter2: voteFilterVariant,
+  voteFilter: voteFilterVariant,
+  voteTab: voteTabsVariant,
 };
 
 export const tabsTheme = defineMultiStyleConfig({ variants });

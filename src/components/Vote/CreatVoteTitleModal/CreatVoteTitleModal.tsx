@@ -14,11 +14,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { LiaVoteYeaSolid } from "react-icons/lia";
 
 import styles from "./CreatVoteTitleModal.module.scss";
 
-// import VoteIcon from "@/assets/ic_vote.svg";
+import VoteIcon from "@/assets/voteIcons/ic_vote.svg?react";
 
 const CreatVoteTitleModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,19 +25,17 @@ const CreatVoteTitleModal = () => {
 
   return (
     <div className={styles.container}>
-      <Button
-        variant="blueButton"
-        onClick={onOpen}
-        mt="30px"
-        w="18.4rem"
-        h="5.4rem"
-        borderRadius="30px"
-      >
-        <Icon as={LiaVoteYeaSolid} fontSize="2.2rem" mr="4px" /> 투표 만들기
+      <Button variant="voteButton" onClick={onOpen}>
+        <Icon as={VoteIcon} fontSize="2rem" mr="4px" />
+        투표 만들기
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} size={"lg"}>
-        <ModalOverlay />
+        <ModalOverlay
+          maxWidth="45rem"
+          left="50%"
+          transform="translateX(-50%)"
+        />
         <ModalContent
           px="10px"
           py="20px"
