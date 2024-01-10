@@ -35,9 +35,8 @@
     height: 13.8rem;
 
     .dateChoice {
-      // FIXME: 버튼 너비 고려해서 padding 수정
       display: flex;
-      padding: 20px;
+      padding: 20px 60px;
       align-items: center;
       gap: 8px;
 

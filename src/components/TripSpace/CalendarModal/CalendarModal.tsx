@@ -3,7 +3,7 @@ import { addYears, format } from "date-fns";
 import ko from "date-fns/locale/ko";
 import { useEffect, useState } from "react";
 import DatePicker, { registerLocale } from "react-datepicker";
-import { RiCalendarCheckLine as CalendarIcon } from "react-icons/ri";
+import { BsCalendarCheck as CalendarIcon } from "react-icons/bs";
 
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./CalendarModal.module.scss";
@@ -62,7 +62,7 @@ function CalendarModal() {
       </div>
       <div className={styles.dateChoiceContainer}>
         <div className={styles.dateChoice}>
-          <CalendarIcon size="22px" color="red" />
+          <CalendarIcon size="22px" color="#23272F" />
           <span>{startDate ? format(startDate, "M월 d일") : "시작일"} </span>
           <span>-</span>
           <span>{endDate ? format(endDate, "M월 d일") : "종료일"} </span>
@@ -70,8 +70,12 @@ function CalendarModal() {
             <span>{printDayNight(startDate, endDate)}</span>
           )}
         </div>
-        <Button zIndex="3" variant="CTAButton">
-          선택 완료
+        <Button
+          isDisabled={!startDate || !endDate}
+          zIndex="3"
+          variant="CTAButton"
+        >
+          {!startDate || !endDate ? "날짜를 선택해주세요" : "선택 완료"}
         </Button>
       </div>
     </div>
