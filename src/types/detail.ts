@@ -28,3 +28,15 @@ export interface SwiperIndexPropsType {
 export interface NavigationProps {
   onOpen: () => void;
 }
+
+export interface MainProps {
+  openToast: (text: string) => void;
+}
+
+export interface MainTitleProps {
+  openToast: (text: string) => void;
+}
+
+export interface NavigationMeatballProps {
+  openToast: (text: string) => void;
+}

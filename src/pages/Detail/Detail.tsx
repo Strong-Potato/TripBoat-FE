@@ -9,24 +9,44 @@ import Contents from "@/components/Detail/Contents/Contents";
 import Main from "@/components/Detail/Main/Main";
 import MeatballBottomSlide from "@/components/Detail/Navigation/MeatballBottomSlide/MeatballBottomSlide";
 import Navigation from "@/components/Detail/Navigation/Navigation";
+import ToastPopup from "@/components/Modal/ToastPopup/ToastPopup";
 
 function Detail() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [bottomSlideContent, setBottomSlideContent] =
     useState<ReactNode | null>(null);
-  //보트ID로 진입, 검색할때 투표갯수 X는거 확인
-  //X -> 메인문구, 헤더에서미트볼 바꾸기
-  //투표 확정 상태일때 바텀 시트 변경
 
   const onBottomSlideOpen = (content: ReactNode) => {
     setBottomSlideContent(content);
     onOpen();
   };
 
+  const [showAlert, setShowAlert] = useState({
+    active: false,
+    message: "",
+  });
+
+  const openToast = (text: string) => {
+    setShowAlert({
+      active: false,
+      message: "",
+    });
+
+    const toastData = {
+      active: true,
+      message: text,
+    };
+    setShowAlert(toastData);
+  };
+
   return (
     <div className={styles.container}>
-      <Navigation onOpen={() => onBottomSlideOpen(<MeatballBottomSlide />)} />
-      <Main />
+      <Navigation
+        onOpen={() =>
+          onBottomSlideOpen(<MeatballBottomSlide openToast={openToast} />)
+        }
+      />
+      <Main openToast={openToast} />
       <Contents />
       <BottomFixedBtn />
       <BottomSlide
@@ -34,6 +54,7 @@ function Detail() {
         onClose={onClose}
         children={bottomSlideContent}
       />
+      <ToastPopup status={showAlert} setFunc={setShowAlert} />
     </div>
   );
 }
