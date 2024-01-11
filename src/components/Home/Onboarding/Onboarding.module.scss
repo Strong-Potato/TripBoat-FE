@@ -1,5 +1,26 @@
 @use "@/sass" as *;
 
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+@include keyframes(graph) {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+@mixin animation($keyframe-name, $duration, $delay, $count: none) {
+  animation-name: $keyframe-name;
+  animation-duration: $duration;
+  animation-delay: $delay;
+  animation-iteration-count: $count;
+}
+
 .container {
   position: fixed;
   top: 0;
@@ -9,7 +30,7 @@
   height: 100vh;
 
   color: $neutral900;
-  background-color: #1d2433c5;
+  background-color: rgba(20, 20, 20, 0.8);
 
   z-index: 11;
 
@@ -93,6 +114,12 @@
           gap: 4px;
         }
 
+        &__rank {
+          position: absolute;
+          top: -4px;
+          left: 0;
+        }
+
         &__icon {
           width: 2rem;
           height: 2rem;
@@ -106,9 +133,23 @@
           height: 100%;
 
           border-radius: 16px 0px 0px 16px;
-          background: linear-gradient(180deg, #6dbaff 0%, #c3e3ff 142.19%);
 
-          transition: 1s all;
+          overflow: hidden;
+
+          div {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: linear-gradient(180deg, #6dbaff 0%, #c3e3ff 142.19%);
+
+            transition: 1s all linear;
+
+            @include animation(graph, 2s, 0);
+          }
         }
 
         &__button {
