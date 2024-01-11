@@ -1,5 +1,8 @@
 import { extendTheme } from "@chakra-ui/react";
 
+import { avatarTheme } from "./avatarCustom";
+import { tabsTheme } from "./tabsCustom";
+
 export const customTheme = extendTheme({
   styles: {
     global: {
@@ -18,7 +21,7 @@ export const customTheme = extendTheme({
         width: "5.2rem",
         backgroundSize: "50% auto",
         backgroundPosition: "center",
-        background: "url(src/assets/swiper-next-btn.svg) no-repeat",
+        background: "url(src/assets/voteIcons/swiper-next-btn.svg) no-repeat",
         opacity: "0",
         transition: "opacity 0.3s ease",
         _after: {
@@ -30,7 +33,7 @@ export const customTheme = extendTheme({
         width: "5.2rem",
         backgroundSize: "50% auto",
         backgroundPosition: "center",
-        background: "url(src/assets/swiper-prev-btn.svg) no-repeat",
+        background: "url(src/assets/voteIcons/swiper-prev-btn.svg) no-repeat",
         opacity: "0",
         transition: "opacity 0.3s ease",
         _after: {
@@ -43,6 +46,9 @@ export const customTheme = extendTheme({
     },
   },
   components: {
+    Avatar: avatarTheme,
+    Tabs: tabsTheme,
+
     Button: {
       baseStyle: {
         _disabled: {
@@ -56,6 +62,7 @@ export const customTheme = extendTheme({
         blueButton: {
           backgroundColor: "primary.300",
           borderRadius: "16px",
+          boxShadow: "shadow.200",
 
           color: "neutral.0",
           fontSize: "button",
@@ -83,6 +90,27 @@ export const customTheme = extendTheme({
           lineHeight: "button",
 
           zIndex: "2",
+
+          _hover: {
+            backgroundColor: "primary.400",
+          },
+        },
+        voteButton: {
+          w: "18.4rem",
+          h: "5.4rem",
+          backgroundColor: "primary.300",
+          borderRadius: "48px",
+          boxShadow: "shadow.200",
+
+          position: "fixed",
+          left: "50%",
+          transform: "translateX(-50%)",
+          bottom: "8rem",
+
+          color: "neutral.0",
+          fontSize: "button",
+          fontWeight: "button",
+          lineHeight: "button",
 
           _hover: {
             backgroundColor: "primary.400",
