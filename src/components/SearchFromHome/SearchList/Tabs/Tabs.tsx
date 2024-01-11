@@ -41,7 +41,7 @@ function Tabs({ set, category }: PropsType) {
         className={styles.tabs}
         ref={componentRef}
         style={{
-          overflow: size.width < 450 ? "scroll" : "visible",
+          overflow: size.width < 449 ? "scroll" : "visible",
           left: slideLocation + "px",
         }}
       >

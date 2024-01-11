@@ -1,0 +1,17 @@
+@use "@/sass" as *;
+
+.container {
+  position: absolute;
+  left: 0;
+  bottom: 24px;
+
+  &:hover {
+    button {
+      opacity: 1;
+    }
+  }
+  .slide_box {
+    @include slide_list_container;
+    gap: 8px;
+  }
+}

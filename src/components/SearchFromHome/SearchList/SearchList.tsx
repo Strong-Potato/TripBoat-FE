@@ -6,13 +6,20 @@ import { getData } from "@/mocks/handlers/home";
 
 import DateFilter from "./DateFilter/DateFilter";
 import LocationFilter from "./LocationFilter/LocationFilter";
+import Map from "./Map/Map";
 import MapButton from "./MapButton/MapButton";
 import SearchItem from "./SearchItem/SearchItem";
 import Tabs from "./Tabs/Tabs";
 
 import { SearchItemType } from "@/types/home";
 
-function SearchList({ keyword }: { keyword: string }) {
+interface PropsType {
+  keyword: string | undefined;
+  moveMap: boolean;
+  set: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function SearchList({ keyword, set, moveMap }: PropsType) {
   const [data, setData] = useState<SearchItemType[]>();
   const [filterData, setFilterData] = useState<SearchItemType[]>();
   const [category, setCategory] = useState("전체");
@@ -31,20 +38,32 @@ function SearchList({ keyword }: { keyword: string }) {
     }
   }, [data, category]);
 
+  function onMap() {
+    set(true);
+  }
+
   return (
     <div className={styles.container}>
       <Tabs set={setCategory} category={category} />
-      <div className={styles.filter}>
-        <LocationFilter />
-        <DateFilter />
-      </div>
-      <ul>
-        {filterData &&
-          filterData.map((data, i) => (
-            <SearchItem data={data} key={data.title + i} />
-          ))}
-      </ul>
-      <MapButton />
+      {moveMap && filterData ? (
+        <Map data={filterData} />
+      ) : (
+        <>
+          <div className={styles.filter}>
+            <LocationFilter />
+            <DateFilter />
+          </div>
+          <ul>
+            {filterData &&
+              filterData.map((data, i) => (
+                <SearchItem data={data} key={data.title + i} />
+              ))}
+          </ul>
+          <button onClick={onMap}>
+            <MapButton />
+          </button>
+        </>
+      )}
     </div>
   );
 }
