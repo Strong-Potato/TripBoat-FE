@@ -15,7 +15,7 @@ function StepEmailSert({
   dirty,
   error,
 }: StepEmailSertProps) {
-  const [due, setDue] = useState<number>(10);
+  const [due, setDue] = useState<number>(1800);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -73,8 +73,8 @@ function StepEmailSert({
           id="sertCode"
           className={styles.input}
           type="text"
-          maxLength={6}
-          placeholder="인증코드 6자리를 입력해주세요"
+          maxLength={8}
+          placeholder="인증코드 8자리를 입력해주세요"
           disabled={due === 0}
           {...register("emailSert", {
             required: true,
@@ -98,13 +98,13 @@ function StepEmailSert({
             입력시간이 초과되었습니다
           </p>
         ) : (
-          <p className={styles.emailReSert__timein}>
+          <p className={styles.emailResert__timein}>
             인증 코드를 못 받으셨나요?
           </p>
         )}
 
         <button
-          className={styles.emailReSert__btn}
+          className={styles.emailResert__btn}
           type="button"
           onClick={onClickEmailResert}
         >
