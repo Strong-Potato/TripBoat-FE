@@ -9,6 +9,20 @@
 
   z-index: 4;
 
+  &__top {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+
+    gap: 8px;
+
+    &__icon {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
   button {
     @include typography(button);
     color: $neutral900;
