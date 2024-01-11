@@ -8,7 +8,7 @@ function TabBar() {
   return (
     <div className={styles.container}>
       <div className={styles.icons}>
-        <Link to="/search">
+        <Link to="/home/search">
           <IoSearchSharp />
         </Link>
         <Link to="/alarm">

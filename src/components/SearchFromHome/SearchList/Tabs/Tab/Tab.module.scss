@@ -1,0 +1,13 @@
+@use "@/sass" as *;
+.container {
+  min-width: 90px;
+  height: 33px;
+
+  transition: 0.5s color;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}

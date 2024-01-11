@@ -1,0 +1,34 @@
+@use "@/sass" as *;
+
+.container {
+  width: 100%;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  &__stateBar {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__state {
+      @include typography(captionSmall);
+      color: $primary200;
+      //color:$neutral400;
+    }
+    &__addCandidate {
+      @include typography(button);
+      color: $neutral900;
+    }
+  }
+  &__candidateList {
+    margin-bottom: 50px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}

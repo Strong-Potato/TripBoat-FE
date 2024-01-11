@@ -1,0 +1,11 @@
+@use "@/sass" as *;
+
+.container {
+  color: $neutral300;
+
+  @include slide_button_container;
+
+  .tabs {
+    @include slide_list_container;
+  }
+}

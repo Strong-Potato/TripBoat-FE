@@ -1,0 +1,38 @@
+.container {
+  width: 100%;
+
+  // 비율 3:2 조절
+  aspect-ratio: 3 / 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #efefef;
+
+  position: relative;
+
+  &:hover {
+    button {
+      visibility: visible;
+    }
+  }
+
+  &__swiperSlide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

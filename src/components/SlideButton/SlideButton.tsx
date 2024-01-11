@@ -12,6 +12,7 @@ function SlideButton({
   itemNumber,
   slideSize,
   flexGap,
+  buttonSize,
 }: SlideButtonPropsType) {
   return (
     <div
@@ -23,6 +24,7 @@ function SlideButton({
         setSlideLocation={setSlideLocation}
         itemWidth={itemWidth}
         flexGap={flexGap}
+        buttonSize={buttonSize}
       />
       <RightButton
         slideLocation={slideLocation}
@@ -31,6 +33,7 @@ function SlideButton({
         flexGap={flexGap}
         itemNumber={itemNumber}
         slideSize={slideSize}
+        buttonSize={buttonSize}
       />
     </div>
   );

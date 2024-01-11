@@ -1,0 +1,11 @@
+@use "@/sass" as *;
+
+.container {
+  margin-bottom: 70px;
+
+  &__title {
+    @include typography(titleLarge);
+
+    margin-bottom: 15px;
+  }
+}

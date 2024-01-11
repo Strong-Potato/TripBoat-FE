@@ -1,22 +1,27 @@
-import styles from "./Trip.module.scss";
-import { AiOutlineBell as AlarmIcon } from "react-icons/ai";
-import { AiOutlineMenu as MenuIcon } from "react-icons/ai";
-import { FiPlus as PlusIcon } from "react-icons/fi";
 import {
   Avatar,
   AvatarGroup,
-  useDisclosure,
-  Tabs,
-  TabList,
-  TabPanels,
   Tab,
-  TabPanel,
   TabIndicator,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  useDisclosure,
 } from "@chakra-ui/react";
-import EditBottomSlideContent from "@/components/TripSpace/EditBottomSlideContent/EditBottomSlideContent";
-import SlideBar from "@/components/SideBar/SideBar";
-import BottomSlide from "@/components/BottomSlide/BottomSlide";
+import { AiOutlineBell as AlarmIcon } from "react-icons/ai";
+import { AiOutlineMenu as MenuIcon } from "react-icons/ai";
+import { FiPlus as PlusIcon } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+
+import styles from "./Trip.module.scss";
+
+import BottomSlide from "@/components/BottomSlide/BottomSlide";
+import SlideBar from "@/components/SideBar/SideBar";
+import EditBottomSlideContent from "@/components/TripSpace/EditBottomSlideContent/EditBottomSlideContent";
+import FriendList from "@/components/TripSpace/FriendList/FriendList";
+import InviteFriends from "@/components/TripSpace/InviteFriends/InviteFriends";
+import VoteTabPanel from "@/components/VoteTabPanel/VoteTabPanel";
 
 function Trip() {
   const navigate = useNavigate();
@@ -30,29 +35,78 @@ function Trip() {
     { name: "마철수", src: "https://bit.ly/code-beast" },
   ];
 
+  const user = {
+    name: "김철수",
+    src: "https://bit.ly/prosper-baba",
+    travelList: [
+      {
+        name: ["서울"],
+        startDate: "2024.1.17",
+        endDate: "2024.1.19",
+        id: "1234",
+      },
+      {
+        name: ["강릉", "여수", "전주", "부산", "대전"],
+        startDate: "2024.1.17",
+        endDate: "2024.1.19",
+        id: "1234",
+      },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      {
+        name: ["강릉", "여수", "전주", "부산", "대전"],
+        startDate: "2024.1.17",
+        endDate: "2024.1.19",
+        id: "1234",
+      },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "2024.1.17", endDate: "2024.1.19", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+    ],
+  };
+
   const {
     isOpen: isBottomSlideOpen,
     onOpen: onBottomSlideOpen,
     onClose: onBottomSlideClose,
   } = useDisclosure();
-  
   const {
     isOpen: isSlideBarOpen,
     onOpen: onSlideBarOpen,
     onClose: onSlideBarClose,
   } = useDisclosure();
 
+  const {
+    isOpen: isInviteOpen,
+    onOpen: onInviteOpen,
+    onClose: onInviteClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isFriendListOpen,
+    onOpen: onFriendListOpen,
+    onClose: onFriendListClose,
+  } = useDisclosure();
+
   return (
     <div className={styles.container}>
+      <div className={styles.iconTab}>
+        <button onClick={() => navigate("/alarm")}>
+          <AlarmIcon size="24px" color="white" />
+        </button>
+        <button onClick={onSlideBarOpen}>
+          <MenuIcon size="24px" color="white" />
+        </button>
+      </div>
+
       <header className={styles.header}>
-        <div className={styles.iconTab}>
-          <button onClick={() => navigate('/alarm')}>
-            <AlarmIcon size="24px" color="white" />
-          </button>
-          <button onClick={onSlideBarOpen}>
-            <MenuIcon size="24px" color="white" />
-          </button>
-        </div>
         <div className={styles.titleContainer}>
           <div className={styles.titleContainer__dDayTitle}>D-day</div>
           <div className={styles.titleContainer__placeTitle}>
@@ -71,7 +125,7 @@ function Trip() {
           </div>
         </div>
         <div className={styles.userContainer}>
-          <div className={styles.avatarContainer}>
+          <button className={styles.avatarContainer} onClick={onFriendListOpen}>
             <AvatarGroup
               className={styles.avatarContainer__group}
               spacing="-8px"
@@ -82,36 +136,40 @@ function Trip() {
               ))}
             </AvatarGroup>
             <span>외 {users.length - 3}명</span>
-          </div>
-          <button className={styles.addPersonButton}>
+          </button>
+          <button className={styles.addPersonButton} onClick={onInviteOpen}>
             <PlusIcon />
             <span>일행추가</span>
           </button>
         </div>
       </header>
+
       <div className={styles.contents}>
-        <Tabs isFitted variant="unstyled">
-          <TabList className={styles.contents__tabList}>
-            <Tab
-              fontSize="tabLabel"
-              padding="0"
-              borderColor="transparent"
-              _selected={{ color: "#1D2433", fontWeight: "700" }}
-            >
-              메인
-            </Tab>
-            <Tab
-              fontSize="tabLabel"
-              padding="0"
-              _selected={{ color: "#1D2433", fontWeight: "700" }}
-            >
-              일정
-            </Tab>
-          </TabList>
-          <TabIndicator className={styles.contents__tabIndicator} />
-          <TabPanels>
+        <Tabs isFitted variant="voteTab">
+          {/* variant 추가 */}
+          <div className={styles.contents__stickyTabList}>
+            <TabList className={styles.contents__tabList}>
+              <Tab
+                fontSize="tabLabel"
+                padding="0"
+                borderColor="transparent"
+                _selected={{ color: "#1D2433", fontWeight: "700" }}
+              >
+                투표
+              </Tab>
+              <Tab
+                fontSize="tabLabel"
+                padding="0"
+                _selected={{ color: "#1D2433", fontWeight: "700" }}
+              >
+                일정
+              </Tab>
+            </TabList>
+            <TabIndicator className={styles.contents__tabIndicator} />
+          </div>
+          <TabPanels bg="#fff">
             <TabPanel className={styles.contents__tabContent}>
-              <>메인 탭 컴포넌트</>
+              <VoteTabPanel />
             </TabPanel>
             <TabPanel className={styles.contents__tabContent}>
               <>일정 탭 컴포넌트</>
@@ -119,11 +177,25 @@ function Trip() {
           </TabPanels>
         </Tabs>
       </div>
-      <SlideBar isSideOpen={isSlideBarOpen} sideClose={onSlideBarClose} />
+      <SlideBar
+        isSideOpen={isSlideBarOpen}
+        sideClose={onSlideBarClose}
+        user={user}
+      />
       <BottomSlide
         isOpen={isBottomSlideOpen}
         onClose={onBottomSlideClose}
         children={<EditBottomSlideContent />}
+      />
+      <BottomSlide
+        isOpen={isInviteOpen}
+        onClose={onInviteClose}
+        children={<InviteFriends />}
+      />
+      <BottomSlide
+        isOpen={isFriendListOpen}
+        onClose={onFriendListClose}
+        children={<FriendList users={users} />}
       />
     </div>
   );
