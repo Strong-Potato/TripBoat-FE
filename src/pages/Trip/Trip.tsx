@@ -34,6 +34,43 @@ function Trip() {
     { name: "마철수", src: "https://bit.ly/code-beast" },
   ];
 
+  const user = {
+    name: "김철수",
+    src: "https://bit.ly/prosper-baba",
+    travelList: [
+      {
+        name: ["서울"],
+        startDate: "2024.1.17",
+        endDate: "2024.1.19",
+        id: "1234",
+      },
+      {
+        name: ["강릉", "여수", "전주", "부산", "대전"],
+        startDate: "2024.1.17",
+        endDate: "2024.1.19",
+        id: "1234",
+      },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      {
+        name: ["강릉", "여수", "전주", "부산", "대전"],
+        startDate: "2024.1.17",
+        endDate: "2024.1.19",
+        id: "1234",
+      },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "2024.1.17", endDate: "2024.1.19", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+      { name: [], startDate: "", endDate: "", id: "1234" },
+    ],
+  };
+
   const {
     isOpen: isBottomSlideOpen,
     onOpen: onBottomSlideOpen,
@@ -135,7 +172,11 @@ function Trip() {
           </TabPanels>
         </Tabs>
       </div>
-      <SlideBar isSideOpen={isSlideBarOpen} sideClose={onSlideBarClose} />
+      <SlideBar
+        isSideOpen={isSlideBarOpen}
+        sideClose={onSlideBarClose}
+        user={user}
+      />
       <BottomSlide
         isOpen={isBottomSlideOpen}
         onClose={onBottomSlideClose}
