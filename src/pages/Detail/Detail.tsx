@@ -44,7 +44,9 @@ function Detail() {
     <div className={styles.container}>
       <Navigation
         onOpen={() =>
-          onBottomSlideOpen(<MeatballBottomSlide openToast={openToast} />)
+          onBottomSlideOpen(
+            <MeatballBottomSlide openToast={openToast} onClose={onClose} />,
+          )
         }
       />
       <Main openToast={openToast} />

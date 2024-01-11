@@ -5,11 +5,21 @@ import { IoShareSocialOutline } from "react-icons/io5";
 
 import styles from "./MeatballBottomSlide.module.scss";
 
+import CloseIcon from "@/assets/close.svg?react";
+
 import { NavigationMeatballProps } from "@/types/detail";
 
-const MeatballBottomSlide = ({ openToast }: NavigationMeatballProps) => {
+const MeatballBottomSlide = ({
+  openToast,
+  onClose,
+}: NavigationMeatballProps) => {
   return (
     <div className={styles.container}>
+      <div className={styles.container__top}>
+        <button onClick={onClose} className={styles.container__top__icon}>
+          <CloseIcon width="2rem" height="2rem" />
+        </button>
+      </div>
       <button onClick={() => openToast("찜 목록에 추가되었습니다.")}>
         <div className={styles.container__iconWrapper}>
           <FaRegHeart fontSize="1.6rem" />

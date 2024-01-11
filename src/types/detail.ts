@@ -32,6 +32,7 @@ export interface NavigationProps {
 
 export interface NavigationMeatballProps {
   openToast: (text: string) => void;
+  onClose: () => void;
 }
 
 // Main
