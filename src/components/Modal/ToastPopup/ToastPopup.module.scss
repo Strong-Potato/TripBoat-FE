@@ -1,0 +1,18 @@
+@use "@/sass" as *;
+
+.container {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 4rem;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 999;
+  width: 33.5rem;
+  padding: 14px 16px;
+  border-radius: 8px;
+  background-color: $neutral900;
+
+  color: $neutral0;
+  @include typography(button);
+}

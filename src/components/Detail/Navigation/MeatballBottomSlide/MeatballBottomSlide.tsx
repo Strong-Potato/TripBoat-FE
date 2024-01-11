@@ -5,10 +5,12 @@ import { IoShareSocialOutline } from "react-icons/io5";
 
 import styles from "./MeatballBottomSlide.module.scss";
 
-const MeatballBottomSlide = () => {
+import { NavigationMeatballProps } from "@/types/detail";
+
+const MeatballBottomSlide = ({ openToast }: NavigationMeatballProps) => {
   return (
     <div className={styles.container}>
-      <button>
+      <button onClick={() => openToast("찜 목록에 추가되었습니다.")}>
         <div className={styles.container__iconWrapper}>
           <FaRegHeart fontSize="1.6rem" />
         </div>
@@ -26,7 +28,7 @@ const MeatballBottomSlide = () => {
         </div>
         <p>리뷰 쓰기</p>
       </button>
-      <button>
+      <button onClick={() => openToast("링크가 복사되었습니다.")}>
         <div className={styles.container__iconWrapper}>
           <IoShareSocialOutline fontSize="1.6rem" />
         </div>
