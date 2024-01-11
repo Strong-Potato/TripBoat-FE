@@ -1,9 +1,3 @@
-import {
-  FieldErrors,
-  UseFormRegister,
-  UseFormResetField,
-} from "react-hook-form";
-
 import styles from "./Step.module.scss";
 
 import AuthButton from "@/components/Auth/Button/AuthButton";
@@ -11,33 +5,7 @@ import AuthButton from "@/components/Auth/Button/AuthButton";
 import InputRemove from "@/assets/icons/InputRemove.svg?react";
 import validationForm from "@/utils/inputValidation";
 
-interface SignupForm {
-  email: string;
-  emailSert: string;
-  password: string;
-  passwordConfirm: string;
-  image: FileList;
-  nickname: string;
-}
-
-interface DirtyFields {
-  email?: boolean;
-  emailSert?: boolean;
-  password?: boolean;
-  passwordConfirm?: boolean;
-  image?: boolean;
-  nickname?: boolean;
-}
-
-interface StepPasswordProps {
-  setSignupStep: React.Dispatch<React.SetStateAction<string>>;
-  register: UseFormRegister<SignupForm>;
-  resetField: UseFormResetField<SignupForm>;
-  password: string;
-  passwordConfirm: string;
-  dirtyFields?: DirtyFields;
-  errors?: FieldErrors<SignupForm>;
-}
+import { StepPasswordProps } from "@/types/auth";
 
 function StepPassword({
   setSignupStep,

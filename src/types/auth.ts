@@ -1,8 +1,21 @@
 import {
   FieldError,
+  FieldErrors,
   UseFormRegister,
   UseFormResetField,
 } from "react-hook-form";
+
+/* --------------------------------- common --------------------------------- */
+interface HeaderProps {
+  content?: string;
+}
+
+interface AuthButtonProps {
+  content: string;
+  type: "button" | "reset" | "submit" | undefined;
+  disabled: boolean;
+  onClick?: () => void;
+}
 
 /* ---------------------------------- Login --------------------------------- */
 interface LoginForm {
@@ -23,14 +36,6 @@ interface LoginInput {
 }
 
 /* --------------------------------- Signup --------------------------------- */
-interface SignupForm {
-  email: string;
-  emailSert: string;
-  password: string;
-  passwordConfirm: string;
-  image: FileList;
-  nickname: string;
-}
 
 interface AgreeForm {
   allCheck: boolean;
@@ -45,6 +50,29 @@ interface AgreeProps {
 }
 
 type AgreeName = "age" | "service" | "privacy" | "marketing" | "allCheck";
+
+interface SignupForm {
+  email: string;
+  emailSert: string;
+  password: string;
+  passwordConfirm: string;
+  image: FileList;
+  nickname: string;
+}
+
+interface DirtyFields {
+  email?: boolean;
+  emailSert?: boolean;
+  password?: boolean;
+  passwordConfirm?: boolean;
+  image?: boolean;
+  nickname?: boolean;
+}
+
+interface SignupFormProps {
+  signupStep: string;
+  setSignupStep: React.Dispatch<React.SetStateAction<string>>;
+}
 
 interface StepEmailProps {
   setSignupStep: React.Dispatch<React.SetStateAction<string>>;
@@ -66,19 +94,32 @@ interface StepPasswordProps {
   setSignupStep: React.Dispatch<React.SetStateAction<string>>;
   register: UseFormRegister<SignupForm>;
   resetField: UseFormResetField<SignupForm>;
-  dirtyFields?: boolean;
-  errors?: FieldError;
-  email: string;
+  password: string;
+  passwordConfirm: string;
+  dirtyFields?: DirtyFields;
+  errors?: FieldErrors<SignupForm>;
+}
+
+interface StepProfileProps {
+  register: UseFormRegister<SignupForm>;
+  resetField: UseFormResetField<SignupForm>;
+  image: FileList;
+  dirty?: boolean;
+  error?: FieldError;
 }
 
 export type {
   AgreeForm,
   AgreeName,
   AgreeProps,
-  LoginDirtyFields,
+  AuthButtonProps,
+  HeaderProps,
   LoginForm,
   LoginInput,
   SignupForm,
+  SignupFormProps,
   StepEmailProps,
   StepEmailSertProps,
+  StepPasswordProps,
+  StepProfileProps,
 };

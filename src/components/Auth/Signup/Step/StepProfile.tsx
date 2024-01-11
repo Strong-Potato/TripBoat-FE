@@ -1,9 +1,3 @@
-import {
-  FieldError,
-  UseFormRegister,
-  UseFormResetField,
-} from "react-hook-form";
-
 import styles from "./Step.module.scss";
 
 import AuthButton from "@/components/Auth/Button/AuthButton";
@@ -12,22 +6,7 @@ import Camera from "@/assets/icons/camera.svg?react";
 import InputRemove from "@/assets/icons/InputRemove.svg?react";
 import validationForm from "@/utils/inputValidation";
 
-interface SignupForm {
-  email: string;
-  emailSert: string;
-  password: string;
-  passwordConfirm: string;
-  image: FileList;
-  nickname: string;
-}
-
-interface StepProfileProps {
-  register: UseFormRegister<SignupForm>;
-  resetField: UseFormResetField<SignupForm>;
-  image: FileList;
-  dirty?: boolean;
-  error?: FieldError;
-}
+import { StepProfileProps } from "@/types/auth";
 
 function StepProfile({
   register,

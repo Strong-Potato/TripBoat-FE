@@ -7,19 +7,7 @@ import StepEmailSert from "./Step/StepEmailSert";
 import StepPassword from "./Step/StepPassword";
 import StepProfile from "./Step/StepProfile";
 
-interface SignupFormProps {
-  signupStep: string;
-  setSignupStep: React.Dispatch<React.SetStateAction<string>>;
-}
-
-interface SignupForm {
-  email: string;
-  emailSert: string;
-  password: string;
-  passwordConfirm: string;
-  image: FileList;
-  nickname: string;
-}
+import { SignupForm, SignupFormProps } from "@/types/auth";
 
 function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
   const {

@@ -1,13 +1,8 @@
 import styles from "./AuthButton.module.scss";
 
-interface SignupButton {
-  content: string;
-  type: "button" | "reset" | "submit" | undefined;
-  disabled: boolean;
-  onClick?: () => void;
-}
+import { AuthButtonProps } from "@/types/auth";
 
-function AuthButton({ content, type, disabled, onClick }: SignupButton) {
+function AuthButton({ content, type, disabled, onClick }: AuthButtonProps) {
   return (
     <button
       className={styles.container}
