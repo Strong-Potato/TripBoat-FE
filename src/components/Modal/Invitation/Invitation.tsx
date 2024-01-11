@@ -49,8 +49,8 @@ function Invitation({ invitation, modalClose }: InvitationProps) {
         </div>
       ) : (
         <>
-          <div className={styles.background}>
-            <div className={styles.container}>
+          <div className={styles.background} onClick={handleBackgroundClick}>
+            <div className={styles.container} onClick={handleModalClick}>
               <div className={styles.wrapperText}>
                 <p className={styles.wrapperText__title}>
                   초대 코드가 만료되었어요.
