@@ -8,8 +8,9 @@ import { BsCalendarCheck as CalendarIcon } from "react-icons/bs";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./CalendarModal.module.scss";
 
-import BackIcon from "@/assets/back.svg?react";
 import { printDayNight } from "@/utils/printDayNight";
+
+import SelectHeader from "../SelectHeader/SelectHeader";
 
 function CalendarModal() {
   registerLocale("ko", ko);
@@ -41,12 +42,7 @@ function CalendarModal() {
 
   return (
     <div className={styles.Container}>
-      <header>
-        <nav>
-          <BackIcon />
-        </nav>
-        <h1>언제 떠나시나요?</h1>
-      </header>
+      <SelectHeader title="언제 떠나시나요?" />
       <div className={styles.calendarContainer}>
         {/* FIXME : date picker 수정사항
           1. 달력 첫째주에 지난 달 날짜 보이도록
