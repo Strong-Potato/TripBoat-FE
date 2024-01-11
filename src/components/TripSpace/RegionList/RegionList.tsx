@@ -1,13 +1,6 @@
-// RegionList.jsx
-
 import styles from "./RegionList.module.scss";
 
-interface RegionListProps {
-  name: string;
-  imageUrl: string;
-  isSelected: boolean;
-  onSelect: (regionName: string) => void;
-}
+import { RegionListProps } from "@/types/regionSearch";
 
 function RegionList({ name, imageUrl, isSelected, onSelect }: RegionListProps) {
   return (
