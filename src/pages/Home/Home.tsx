@@ -1,5 +1,8 @@
+import { useState } from "react";
+
 import styles from "./Home.module.scss";
 
+import Onboarding from "@/components/Home/Onboarding/Onboarding";
 import RecommendedItemList from "@/components/Home/RecommendedItemList/RecommendedItemList";
 import RecommendedLocationList from "@/components/Home/RecommendedLocationList/RecommendedLocationList";
 import SearchBarAtHome from "@/components/Home/SearchBarAtHome/SearchBarAtHome";
@@ -8,6 +11,8 @@ import TripSpaceAtHome from "@/components/Home/TripSpaceAtHome/TripSpaceAtHome";
 import VoteAtHome from "@/components/Home/VoteAtHome/VoteAtHome";
 
 function Home() {
+  const [onboarding, setOnboarding] = useState(false);
+
   return (
     <div className={styles.container}>
       <TabBar />
@@ -31,6 +36,7 @@ function Home() {
           <RecommendedItemList apiNum={2} />
         </div>
       </div>
+      {!onboarding && <Onboarding set={setOnboarding} />}
     </div>
   );
 }
