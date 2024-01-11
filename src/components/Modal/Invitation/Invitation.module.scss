@@ -1,0 +1,52 @@
+@use "@/sass" as *;
+
+.background {
+  position: absolute;
+  top: 0;
+  width: 45rem;
+  height: 100vh;
+  background-color: rgba(20, 20, 20, 0.8);
+  z-index: 10;
+
+  .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    width: 31.2rem;
+    padding: 32px 44px;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    border-radius: 16px;
+    background: $neutral0;
+
+    .wrapperText {
+      text-align: center;
+
+      &__title {
+        color: $neutral900;
+        @include typography(subTitle);
+        margin-bottom: 12px;
+      }
+      &__body {
+        color: $neutral400;
+        @include typography(tabLabel);
+      }
+    }
+    .wrapperButton {
+      display: flex;
+      flex-direction: row;
+      gap: 80px;
+      .accept {
+        color: $primary400;
+        @include typography(button);
+      }
+      .cancel {
+        color: $neutral400;
+        @include typography(button);
+      }
+    }
+  }
+}
