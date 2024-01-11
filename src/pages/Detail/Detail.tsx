@@ -3,9 +3,10 @@ import { ReactNode, useState } from "react";
 
 import styles from "./Detail.module.scss";
 
-import BottomSlide from "@/components/BottomSlide/BottomSlide";
 import BottomFixedBtn from "@/components/Detail/BottomFixedBtn/BottomFixedBtn";
+import BottomSlideDetail from "@/components/Detail/BottomSlideDetail/BottomSlideDetail";
 import Contents from "@/components/Detail/Contents/Contents";
+import ReviewBottomSlide from "@/components/Detail/Contents/ReviewBottomSlide/ReviewBottomSlide";
 import Main from "@/components/Detail/Main/Main";
 import MeatballBottomSlide from "@/components/Detail/Navigation/MeatballBottomSlide/MeatballBottomSlide";
 import Navigation from "@/components/Detail/Navigation/Navigation";
@@ -47,9 +48,13 @@ function Detail() {
         }
       />
       <Main openToast={openToast} />
-      <Contents />
+      <Contents
+        onOpen={() =>
+          onBottomSlideOpen(<ReviewBottomSlide onClose={onClose} />)
+        }
+      />
       <BottomFixedBtn />
-      <BottomSlide
+      <BottomSlideDetail
         isOpen={isOpen}
         onClose={onClose}
         children={bottomSlideContent}
