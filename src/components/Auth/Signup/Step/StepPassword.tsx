@@ -16,7 +16,7 @@ interface SignupForm {
   emailSert: string;
   password: string;
   passwordConfirm: string;
-  image: string;
+  image: FileList;
   nickname: string;
 }
 
@@ -34,6 +34,7 @@ interface StepPasswordProps {
   register: UseFormRegister<SignupForm>;
   resetField: UseFormResetField<SignupForm>;
   password: string;
+  passwordConfirm: string;
   dirtyFields?: DirtyFields;
   errors?: FieldErrors<SignupForm>;
 }
@@ -43,6 +44,7 @@ function StepPassword({
   register,
   resetField,
   password,
+  passwordConfirm,
   dirtyFields,
   errors,
 }: StepPasswordProps) {
@@ -108,15 +110,13 @@ function StepPassword({
           id="passwordConfirm"
           type="password"
           className={`${styles.input} ${
-            dirtyFields?.passwordConfirm && errors?.passwordConfirm
+            dirtyFields?.passwordConfirm && password !== passwordConfirm
               ? styles.error
               : ""
           }`}
           placeholder="비밀번호를 한번 더 입력해주세요"
           {...register("passwordConfirm", {
             required: true,
-            validate: (value) =>
-              value === password || "비밀번호가 일치하지 않습니다.",
           })}
         />
 
@@ -131,8 +131,8 @@ function StepPassword({
           </button>
         )}
 
-        {!dirtyFields?.passwordConfirm || errors?.passwordConfirm ? (
-          <small>{errors?.passwordConfirm?.message}</small>
+        {dirtyFields?.passwordConfirm && password !== passwordConfirm ? (
+          <small>비밀번호가 일치하지 않습니다.</small>
         ) : null}
       </section>
 
@@ -142,7 +142,7 @@ function StepPassword({
           !dirtyFields?.password ||
           !dirtyFields?.passwordConfirm ||
           errors?.password ||
-          errors?.passwordConfirm
+          password !== passwordConfirm
             ? true
             : false
         }

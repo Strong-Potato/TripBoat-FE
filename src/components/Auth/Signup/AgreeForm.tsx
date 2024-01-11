@@ -8,7 +8,7 @@ import AuthButton from "@/components/Auth/Button/AuthButton";
 
 import { AgreeForm, AgreeName, AgreeProps } from "@/types/auth";
 
-function Agree({ setSignupStep }: AgreeProps) {
+function AgreeForm({ setSignupStep }: AgreeProps) {
   const { register, getValues, setValue, handleSubmit, watch } =
     useForm<AgreeForm>({
       mode: "onChange",
@@ -123,4 +123,4 @@ function Agree({ setSignupStep }: AgreeProps) {
   );
 }
 
-export default Agree;
+export default AgreeForm;

@@ -92,19 +92,19 @@ function StepEmailSert({
         >{`${Math.floor(due / 60)}:${String(due % 60).padStart(2, "0")}`}</span>
       </section>
 
-      <div className={styles.emailResult}>
+      <div className={styles.emailResert}>
         {due === 0 ? (
-          <p className={styles.emailResult__timeout}>
+          <p className={styles.emailResert__timeout}>
             입력시간이 초과되었습니다
           </p>
         ) : (
-          <p className={styles.emailResult__timein}>
+          <p className={styles.emailReSert__timein}>
             인증 코드를 못 받으셨나요?
           </p>
         )}
 
         <button
-          className={styles.emailResult__btn}
+          className={styles.emailReSert__btn}
           type="button"
           onClick={onClickEmailResert}
         >
@@ -114,7 +114,7 @@ function StepEmailSert({
 
       <AuthButton
         content="이메일 인증 완료"
-        disabled={!dirty || error ? true : false}
+        disabled={!dirty || due === 0 || error ? true : false}
         type="button"
         onClick={onClickEmailSert}
       />

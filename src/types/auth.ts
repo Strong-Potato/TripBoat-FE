@@ -28,7 +28,7 @@ interface SignupForm {
   emailSert: string;
   password: string;
   passwordConfirm: string;
-  image: string;
+  image: FileList;
   nickname: string;
 }
 

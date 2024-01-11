@@ -5,6 +5,7 @@ import styles from "./SignupForm.module.scss";
 import StepEmail from "./Step/StepEmail";
 import StepEmailSert from "./Step/StepEmailSert";
 import StepPassword from "./Step/StepPassword";
+import StepProfile from "./Step/StepProfile";
 
 interface SignupFormProps {
   signupStep: string;
@@ -16,7 +17,7 @@ interface SignupForm {
   emailSert: string;
   password: string;
   passwordConfirm: string;
-  image: string;
+  image: FileList;
   nickname: string;
 }
 
@@ -26,6 +27,7 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
     resetField,
     getValues,
     handleSubmit,
+    watch,
     formState: { errors, dirtyFields },
   } = useForm<SignupForm>({
     mode: "onChange",
@@ -34,10 +36,14 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
       emailSert: "",
       password: "",
       passwordConfirm: "",
-      image: "",
+      image: undefined,
       nickname: "",
     },
   });
+
+  const watchPassword = watch("password");
+  const watchPasswordConfirm = watch("passwordConfirm");
+  const watchImage = watch("image");
 
   const onSubmit = () => {
     console.log("submit");
@@ -85,13 +91,22 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
           setSignupStep={setSignupStep}
           register={register}
           resetField={resetField}
-          password={getValues("password")}
+          password={watchPassword}
+          passwordConfirm={watchPasswordConfirm}
           dirtyFields={dirtyFields}
           errors={errors}
         />
       )}
 
-      {signupStep === "profile" && <section>profile</section>}
+      {signupStep === "profile" && (
+        <StepProfile
+          register={register}
+          resetField={resetField}
+          image={watchImage}
+          dirty={dirtyFields.nickname}
+          error={errors.nickname}
+        />
+      )}
     </form>
   );
 }
