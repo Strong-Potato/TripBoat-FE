@@ -7,8 +7,8 @@ import AuthButton from "@/components/Auth/Button/AuthButton";
 
 import validationForm from "@/utils/inputValidation";
 
-import InputEmail from "../Input/InputEmail";
-import InputPassword from "../Input/InputPassword";
+import InputEmail from "./Input/InputEmail";
+import InputPassword from "./Input/InputPassword";
 
 import { LoginForm } from "@/types/auth";
 

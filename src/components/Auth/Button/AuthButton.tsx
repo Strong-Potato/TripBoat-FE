@@ -7,7 +7,7 @@ interface SignupButton {
   onClick?: () => void;
 }
 
-function SignupButton({ content, type, disabled, onClick }: SignupButton) {
+function AuthButton({ content, type, disabled, onClick }: SignupButton) {
   return (
     <button
       className={styles.container}
@@ -20,4 +20,4 @@ function SignupButton({ content, type, disabled, onClick }: SignupButton) {
   );
 }
 
-export default SignupButton;
+export default AuthButton;

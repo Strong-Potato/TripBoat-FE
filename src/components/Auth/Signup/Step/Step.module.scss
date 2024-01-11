@@ -10,15 +10,38 @@
     color: $neutral900;
   }
 
-  &:focus-within {
-    input {
-      outline: none;
-      border-width: 1px;
-      border-color: $primary300;
-    }
+  small {
+    width: 100%;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
 
-    .removeBtn {
-      display: block;
+    @include typography(captionSmall);
+    color: $danger300;
+  }
+
+  .email,
+  .emailResult,
+  .password,
+  .passwordConfirm,
+  .profile {
+    position: relative;
+    margin-top: 20px;
+
+    &:focus-within {
+      input {
+        outline: none;
+        border-width: 1px;
+        border-color: $primary300;
+
+        &.error {
+          border-color: $danger300;
+        }
+      }
+
+      .removeBtn {
+        display: block;
+      }
     }
   }
 
@@ -45,8 +68,65 @@
   .removeBtn {
     display: none;
     position: absolute;
-    top: 138px;
+    top: 47px;
     right: 14px;
     cursor: default;
+  }
+
+  .userEmail {
+    &__label {
+      @include typography(tabLabel);
+      color: $neutral900;
+    }
+
+    &__email {
+      @include typography(titleSmall);
+    }
+  }
+
+  .sertCode {
+    position: relative;
+
+    input {
+      margin-bottom: 12px;
+    }
+
+    &__label {
+      margin-top: 32px;
+    }
+
+    &__due {
+      position: absolute;
+      top: 45px;
+      right: 14px;
+
+      @include typography(bodyLarge);
+      color: $primary300;
+
+      &.timeout {
+        color: $neutral300;
+      }
+    }
+  }
+
+  .emailResult {
+    display: flex;
+    gap: 8px;
+
+    @include typography(captionSmall);
+
+    &__timein {
+      color: $neutral400;
+    }
+    &__timeout {
+      color: $danger300;
+    }
+    &__btn {
+      @include typography(captionSmall);
+
+      &:hover {
+        font-weight: 700;
+      }
+    }
   }
 }

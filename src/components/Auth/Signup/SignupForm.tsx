@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import styles from "./SignupForm.module.scss";
 
 import StepEmail from "./Step/StepEmail";
+import StepEmailSert from "./Step/StepEmailSert";
+import StepPassword from "./Step/StepPassword";
 
 interface SignupFormProps {
   signupStep: string;
@@ -14,7 +16,8 @@ interface SignupForm {
   emailSert: string;
   password: string;
   passwordConfirm: string;
-  profile: string;
+  image: string;
+  nickname: string;
 }
 
 function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
@@ -22,17 +25,26 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
     register,
     resetField,
     getValues,
+    handleSubmit,
     formState: { errors, dirtyFields },
   } = useForm<SignupForm>({
     mode: "onChange",
     defaultValues: {
       email: "",
+      emailSert: "",
       password: "",
+      passwordConfirm: "",
+      image: "",
+      nickname: "",
     },
   });
 
+  const onSubmit = () => {
+    console.log("submit");
+  };
+
   return (
-    <form className={styles.container}>
+    <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.bar}></div>
       <div
         className={`${styles.bar}
@@ -50,7 +62,7 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
 
       {signupStep === "email" && (
         <StepEmail
-          label="아이디(이메일 주소)"
+          setSignupStep={setSignupStep}
           register={register}
           resetField={resetField}
           dirty={dirtyFields.email}
@@ -58,9 +70,26 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
         />
       )}
 
-      {signupStep === "emailSert" && <section>password</section>}
+      {signupStep === "emailSert" && (
+        <StepEmailSert
+          setSignupStep={setSignupStep}
+          register={register}
+          email={getValues("email")}
+          dirty={dirtyFields.emailSert}
+          error={errors.emailSert}
+        />
+      )}
 
-      {signupStep === "password" && <section>password</section>}
+      {signupStep === "password" && (
+        <StepPassword
+          setSignupStep={setSignupStep}
+          register={register}
+          resetField={resetField}
+          password={getValues("password")}
+          dirtyFields={dirtyFields}
+          errors={errors}
+        />
+      )}
 
       {signupStep === "profile" && <section>profile</section>}
     </form>

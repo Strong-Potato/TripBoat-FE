@@ -1,6 +1,6 @@
 import styles from "./Input.module.scss";
 
-import RemoveBtn from "@/assets/icons/removeBtn.svg?react";
+import InputRemove from "@/assets/icons/InputRemove.svg?react";
 import validationForm from "@/utils/inputValidation";
 
 import { LoginInput } from "@/types/auth";
@@ -34,7 +34,7 @@ function InputEmail({ label, register, dirtyFields, resetField }: LoginInput) {
           onClick={resetEmail}
           tabIndex={-1}
         >
-          <RemoveBtn className={styles.svg} />
+          <InputRemove className={styles.svg} />
         </button>
       )}
     </section>

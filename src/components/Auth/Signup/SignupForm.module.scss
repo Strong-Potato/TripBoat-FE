@@ -10,16 +10,6 @@
     @include typography(headline);
   }
 
-  small {
-    width: 100%;
-    position: absolute;
-    bottom: 68px;
-    left: 0;
-
-    @include typography(captionSmall);
-    color: $danger300;
-  }
-
   .bar {
     position: absolute;
     top: -24px;

@@ -28,15 +28,8 @@ interface SignupForm {
   emailSert: string;
   password: string;
   passwordConfirm: string;
-  profile: string;
-}
-
-interface SignupInput {
-  label: string;
-  dirty?: boolean;
-  error?: FieldError;
-  register: UseFormRegister<SignupForm>;
-  resetField: UseFormResetField<SignupForm>;
+  image: string;
+  nickname: string;
 }
 
 interface AgreeForm {
@@ -53,6 +46,31 @@ interface AgreeProps {
 
 type AgreeName = "age" | "service" | "privacy" | "marketing" | "allCheck";
 
+interface StepEmailProps {
+  setSignupStep: React.Dispatch<React.SetStateAction<string>>;
+  dirty?: boolean;
+  error?: FieldError;
+  register: UseFormRegister<SignupForm>;
+  resetField: UseFormResetField<SignupForm>;
+}
+
+interface StepEmailSertProps {
+  setSignupStep: React.Dispatch<React.SetStateAction<string>>;
+  register: UseFormRegister<SignupForm>;
+  dirty?: boolean;
+  error?: FieldError;
+  email: string;
+}
+
+interface StepPasswordProps {
+  setSignupStep: React.Dispatch<React.SetStateAction<string>>;
+  register: UseFormRegister<SignupForm>;
+  resetField: UseFormResetField<SignupForm>;
+  dirtyFields?: boolean;
+  errors?: FieldError;
+  email: string;
+}
+
 export type {
   AgreeForm,
   AgreeName,
@@ -61,5 +79,6 @@ export type {
   LoginForm,
   LoginInput,
   SignupForm,
-  SignupInput,
+  StepEmailProps,
+  StepEmailSertProps,
 };
