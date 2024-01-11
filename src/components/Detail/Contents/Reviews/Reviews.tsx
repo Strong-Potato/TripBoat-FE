@@ -5,8 +5,9 @@ import styles from "./Rviews.module.scss";
 
 import Review from "@/components/Detail/Contents/Review/Review";
 
+import { ContentsReviewsProps } from "@/types/detail";
 // 무한 스크롤 구현 필요
-function Reviews() {
+function Reviews({ onOpen }: ContentsReviewsProps) {
   const reviewData = [
     {
       name: "강자밭",
@@ -117,7 +118,7 @@ function Reviews() {
     <div className={styles.container}>
       <div className={styles.container__title}>
         <h3>리뷰</h3>
-        <div className={styles.container__title__rightBox} onClick={() => {}}>
+        <div className={styles.container__title__rightBox} onClick={onOpen}>
           <CiEdit fontSize="24px" />
           <span>리뷰쓰기</span>
         </div>

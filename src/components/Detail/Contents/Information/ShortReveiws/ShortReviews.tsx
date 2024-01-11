@@ -5,7 +5,9 @@ import styles from "./ShortReviews.module.scss";
 
 import Review from "@/components/Detail/Contents/Review/Review";
 
-function ShortReviews() {
+import { ContentsShortReviewsProps } from "@/types/detail";
+
+function ShortReviews({ onOpen }: ContentsShortReviewsProps) {
   const reviewData = [
     {
       name: "강자밭",
@@ -39,7 +41,7 @@ function ShortReviews() {
     <div className={styles.container}>
       <div className={styles.container__title}>
         <h3>리뷰</h3>
-        <div className={styles.container__title__rightBox} onClick={() => {}}>
+        <div className={styles.container__title__rightBox} onClick={onOpen}>
           <CiEdit fontSize="2.4rem" />
           <span>리뷰쓰기</span>
         </div>
