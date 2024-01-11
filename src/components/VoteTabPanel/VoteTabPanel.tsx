@@ -3,6 +3,7 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import styles from "./VoteTabPanel.module.scss";
 
 import TabsVoteCard from "./TabsVoteCard/TabsVoteCard";
+import VoteTabPanelEmpty from "./VoteTabPanelEmpty/VoteTabPanelEmpty";
 import CreatVoteTitleModal from "../Vote/CreatVoteTitleModal/CreatVoteTitleModal";
 
 const VoteTabPanel = () => {
@@ -28,7 +29,7 @@ const VoteTabPanel = () => {
             <TabsVoteCard />
           </TabPanel>
           <TabPanel>
-            <TabsVoteCard />
+            <VoteTabPanelEmpty />
           </TabPanel>
           <TabPanel>
             <TabsVoteCard />

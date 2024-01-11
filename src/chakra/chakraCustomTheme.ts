@@ -48,7 +48,13 @@ export const customTheme = extendTheme({
   components: {
     Avatar: avatarTheme,
     Tabs: tabsTheme,
-
+    Modal: {
+      baseStyle: {
+        overlay: {
+          bg: "rgba(20, 20, 20, 0.8)",
+        },
+      },
+    },
     Button: {
       baseStyle: {
         _disabled: {

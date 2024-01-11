@@ -9,7 +9,7 @@
     text-align: center;
     margin-top: 25vh;
     &__title {
-      @include typography(titleSmall);
+      @include typography(subTitle);
       color: $neutral400;
     }
     &__text {
