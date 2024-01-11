@@ -1,0 +1,52 @@
+@use "@/sass" as *;
+
+.container {
+  padding: 0 20px;
+  position: fixed;
+  z-index: 3;
+  margin-top: 11rem;
+  width: 100%;
+  min-width: 36rem;
+  max-width: 45rem;
+  background-color: $neutral0;
+}
+
+.focusContainer {
+  padding: 0 20px;
+  position: fixed;
+  z-index: 3;
+  margin-top: 0;
+  width: 100%;
+  min-width: 36rem;
+  max-width: 45rem;
+  background-color: $neutral0;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 12px 8px 12px;
+
+  .inputContents {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  input {
+    @include typography(subTitle);
+    width: 100%;
+    outline: none;
+    color: $neutral900;
+
+    &::placeholder {
+      color: $neutral300;
+    }
+  }
+}
+
+.underLine {
+  height: 0.2rem;
+  background: $primary300;
+}
