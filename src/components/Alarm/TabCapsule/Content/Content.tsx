@@ -1,5 +1,7 @@
 import styles from "./Content.module.scss";
 
+import formatTimeAgo from "@/utils/formatTimeAgo";
+
 import { ContentProps } from "@/types/alarm";
 
 function Content({ contents }: ContentProps) {
@@ -10,7 +12,9 @@ function Content({ contents }: ContentProps) {
           <img src={content.url} className={styles.container__thumbnail} />
           <div className={styles.container__wrapper}>
             <p className={styles.container__wrapper__title}>{content.title}</p>
-            <p className={styles.container__wrapper__time}>{content.time}</p>
+            <p className={styles.container__wrapper__time}>
+              {formatTimeAgo(new Date(content.time))}
+            </p>
           </div>
         </div>
       ))}
