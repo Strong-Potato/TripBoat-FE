@@ -4,16 +4,16 @@ import styles from "./InputWrapper.module.scss";
 
 import { InputWrapperProps } from "@/types/detail";
 
-function InputWrapper({ setIsValued }: InputWrapperProps) {
+function InputWrapper({ setIsValuedInput }: InputWrapperProps) {
   const [text, setText] = useState<string>("");
 
   const handleSetValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
 
     if (inputValue.length >= 5) {
-      setIsValued(true);
+      setIsValuedInput(true);
     } else {
-      setIsValued(false);
+      setIsValuedInput(false);
     }
 
     if (inputValue.length <= 100) {

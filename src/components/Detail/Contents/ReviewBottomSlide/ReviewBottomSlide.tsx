@@ -12,7 +12,8 @@ import StarsWrapper from "./StarsWrapper/StarsWrapper";
 import { ReviewBottomSlideProps } from "@/types/detail";
 
 function ReviewBottomSlide({ onClose }: ReviewBottomSlideProps) {
-  const [isValued, setIsValued] = useState<boolean>(false);
+  const [isValuedInput, setIsValuedInput] = useState<boolean>(false);
+  const [isValuedCount, setIsValuedCount] = useState<boolean>(false);
 
   return (
     <div className={styles.container}>
@@ -22,14 +23,14 @@ function ReviewBottomSlide({ onClose }: ReviewBottomSlideProps) {
         </button>
         <div className={styles.container__top__title}>롯데시티 호텔</div>
       </div>
-      <StarsWrapper />
+      <StarsWrapper setIsValuedCount={setIsValuedCount} />
       <DateWrapper />
-      <InputWrapper setIsValued={setIsValued} />
+      <InputWrapper setIsValuedInput={setIsValuedInput} />
       <ImagesWrapper />
       <button
         className={styles.container__addBtn}
         style={
-          isValued
+          isValuedInput && isValuedCount
             ? { backgroundColor: "#2388FF", color: "#FFFFFF" }
             : { backgroundColor: "#E3E5E5", color: "#979C9E" }
         }

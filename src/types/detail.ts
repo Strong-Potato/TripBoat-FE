@@ -66,5 +66,9 @@ export interface ReviewBottomSlideProps {
 }
 
 export interface InputWrapperProps {
-  setIsValued: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsValuedInput: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface starsWrapperProps {
+  setIsValuedCount: React.Dispatch<React.SetStateAction<boolean>>;
 }
