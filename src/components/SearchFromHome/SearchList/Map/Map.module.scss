@@ -6,8 +6,16 @@
   height: 100%;
 
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  padding-bottom: 24px;
 
   background-color: $primary200;
+
+  .map {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 }

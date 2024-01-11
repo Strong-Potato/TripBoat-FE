@@ -323,27 +323,6 @@ const hotHotels = [
 ];
 const searchItemData = [
   {
-    title: "아시안 누들 서비스",
-    imageURL:
-      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-    location: "서울",
-    category: "맛집",
-  },
-  {
-    title: "더 타코부스",
-    imageURL:
-      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-    location: "서울",
-    category: "맛집",
-  },
-  {
-    title: "콴안다오",
-    imageURL:
-      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-    location: "서울",
-    category: "맛집",
-  },
-  {
     title: "신라호텔",
     imageURL:
       "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
@@ -365,7 +344,28 @@ const searchItemData = [
     category: "숙소",
   },
   {
-    title: "더 현대",
+    title: "아시안 누들 서비스",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "맛집",
+  },
+  {
+    title: "더 타코부스",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "맛집",
+  },
+  {
+    title: "콴안다오",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "맛집",
+  },
+  {
+    title: "DDP",
     imageURL:
       "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
     location: "서울",
@@ -426,6 +426,27 @@ const searchItemData = [
       "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
     location: "서울",
     category: "레포츠",
+  },
+  {
+    title: "더 현대",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "쇼핑",
+  },
+  {
+    title: "타임스퀘어",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "쇼핑",
+  },
+  {
+    title: "스타필드",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "쇼핑",
   },
 ];
 

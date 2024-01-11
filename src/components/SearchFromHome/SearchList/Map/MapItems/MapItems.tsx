@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import styles from "./MapItems.module.scss";
 
@@ -6,17 +6,27 @@ import useComponentSize from "@/hooks/useComponetSize";
 
 import SlideButton from "@/components/SlideButton/SlideButton";
 
-import MapItem from "../MapItem/MapItem";
+import MapItem from "./MapItem/MapItem";
 
 import { SearchItemType } from "@/types/home";
 
 interface PropsType {
   data: SearchItemType[];
+  categoryChange: boolean;
 }
 
-function MapItems({ data }: PropsType) {
+function MapItems({ data, categoryChange }: PropsType) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
+
+  useEffect(() => {
+    if (size.width < 449) {
+      componentRef.current?.scrollTo({ left: 0, behavior: "smooth" });
+    } else {
+      setSlideLocation(0);
+    }
+  }, [data, size, componentRef]);
+
   return (
     <div className={styles.container}>
       {data && (
@@ -44,7 +54,13 @@ function MapItems({ data }: PropsType) {
         }}
       >
         {data &&
-          data.map((data, i) => <MapItem data={data} key={data.title + i} />)}
+          data.map((data, i) => (
+            <MapItem
+              data={data}
+              key={data.title + i}
+              categoryChange={categoryChange}
+            />
+          ))}
       </div>
     </div>
   );

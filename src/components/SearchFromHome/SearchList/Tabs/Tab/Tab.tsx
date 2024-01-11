@@ -1,14 +1,24 @@
 import styles from "./Tab.module.scss";
 
 interface PropsType {
-  set: React.Dispatch<React.SetStateAction<string>>;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  setCategoryChange: React.Dispatch<React.SetStateAction<boolean>>;
   category: string;
   thisCategory: string;
 }
 
-function Tab({ set, category, thisCategory }: PropsType) {
+function Tab({
+  setCategory,
+  setCategoryChange,
+  category,
+  thisCategory,
+}: PropsType) {
   function handleCategory(key: string) {
-    set(key);
+    setCategoryChange(true);
+    setTimeout(() => {
+      setCategoryChange(false);
+    }, 200);
+    setCategory(key);
   }
 
   return (

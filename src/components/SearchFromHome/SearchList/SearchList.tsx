@@ -23,6 +23,7 @@ function SearchList({ keyword, set, moveMap }: PropsType) {
   const [data, setData] = useState<SearchItemType[]>();
   const [filterData, setFilterData] = useState<SearchItemType[]>();
   const [category, setCategory] = useState("전체");
+  const [categoryChange, setCategoryChange] = useState(false);
 
   useEffect(() => {
     setCategory("전체");
@@ -30,11 +31,13 @@ function SearchList({ keyword, set, moveMap }: PropsType) {
   }, [keyword]);
 
   useEffect(() => {
-    if (data && category !== "전체") {
-      const filterData = data.filter((data) => data.category === category);
-      setFilterData(filterData);
-    } else {
-      setFilterData(data);
+    if (data) {
+      if (category !== "전체") {
+        const filterData = data.filter((data) => data.category === category);
+        setFilterData(filterData);
+      } else {
+        setFilterData(data);
+      }
     }
   }, [data, category]);
 
@@ -44,9 +47,13 @@ function SearchList({ keyword, set, moveMap }: PropsType) {
 
   return (
     <div className={styles.container}>
-      <Tabs set={setCategory} category={category} />
+      <Tabs
+        setCategory={setCategory}
+        category={category}
+        setCategoryChange={setCategoryChange}
+      />
       {moveMap && filterData ? (
-        <Map data={filterData} />
+        <Map data={filterData} categoryChange={categoryChange} />
       ) : (
         <>
           <div className={styles.filter}>
@@ -56,7 +63,11 @@ function SearchList({ keyword, set, moveMap }: PropsType) {
           <ul>
             {filterData &&
               filterData.map((data, i) => (
-                <SearchItem data={data} key={data.title + i} />
+                <SearchItem
+                  data={data}
+                  key={data.title + i}
+                  categoryChange={categoryChange}
+                />
               ))}
           </ul>
           <button onClick={onMap}>

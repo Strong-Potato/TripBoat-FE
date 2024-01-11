@@ -1,9 +1,7 @@
 @use "@/sass" as *;
 
 .container {
-  position: absolute;
-  left: 0;
-  bottom: 24px;
+  position: relative;
 
   &:hover {
     button {

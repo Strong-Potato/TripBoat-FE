@@ -6,13 +6,14 @@ import { SearchItemType } from "@/types/home";
 
 interface PropsType {
   data: SearchItemType[];
+  categoryChange: boolean;
 }
 
-function Map({ data }: PropsType) {
+function Map({ data, categoryChange }: PropsType) {
   return (
     <div className={styles.container}>
-      <p>Map</p>
-      <MapItems data={data} />
+      <p className={styles.map}>Map</p>
+      <MapItems data={data} categoryChange={categoryChange} />
     </div>
   );
 }

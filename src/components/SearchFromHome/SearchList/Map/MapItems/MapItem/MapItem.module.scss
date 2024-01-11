@@ -17,6 +17,8 @@
   img {
     width: 9.6rem;
     height: 9.6rem;
+
+    transition: 0.3s all linear;
   }
 
   .text {
@@ -25,6 +27,8 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+
+    transition: 0.3s all linear;
 
     .title {
       @include typography(titleSmall);
