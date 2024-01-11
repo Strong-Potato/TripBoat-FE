@@ -15,11 +15,9 @@ const MeatballBottomSlide = ({
 }: NavigationMeatballProps) => {
   return (
     <div className={styles.container}>
-      <div className={styles.container__top}>
-        <button onClick={onClose} className={styles.container__top__icon}>
-          <CloseIcon width="2rem" height="2rem" />
-        </button>
-      </div>
+      <button onClick={onClose} className={styles.container__top}>
+        <CloseIcon width="2rem" height="2rem" />
+      </button>
       <button onClick={() => openToast("찜 목록에 추가되었습니다.")}>
         <div className={styles.container__iconWrapper}>
           <FaRegHeart fontSize="1.6rem" />
