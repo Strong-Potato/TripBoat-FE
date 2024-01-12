@@ -1,86 +1,64 @@
-import {
-  Avatar,
-  CloseButton,
-  Divider,
-  Drawer,
-  DrawerBody,
-  DrawerContent,
-  DrawerHeader,
-  DrawerOverlay,
-} from "@chakra-ui/react";
+import { Avatar, Divider, Slide } from "@chakra-ui/react";
+import { useRef } from "react";
+import { IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 import styles from "./SideBar.module.scss";
+
+import useOnClickOutside from "@/hooks/useOnClickOutside";
 
 import TravelList from "./TravelList/TravelList";
 
 import { SideBarProps } from "@/types/sidebar";
 
-const travelList = [
-  { name: "여행 리스트 1 (여행지 미정)", date: "날짜 미정" },
-  { name: "여행 리스트 2 (여행지 미정)", date: "날짜 미정" },
-  { name: "여행 리스트 3 (여행지 미정)", date: "날짜 미정" },
-  { name: "여행 리스트 4 (여행지 미정)", date: "날짜 미정" },
-  { name: "여행 리스트 5 (여행지 미정)", date: "날짜 미정" },
-  { name: "여행 리스트 6 (여행지 미정)", date: "날짜 미정" },
-  { name: "여행 리스트 7 (여행지 미정)", date: "날짜 미정" },
-  { name: "여행 리스트 8 (여행지 미정)", date: "날짜 미정" },
-  { name: "여행 리스트 9 (여행지 미정)", date: "날짜 미정" },
-  { name: "여행 리스트 10 (여행지 미정)", date: "날짜 미정" },
-  { name: "여행 리스트 11 (여행지 미정)", date: "날짜 미정" },
-  { name: "여행 리스트 12 (여행지 미정)", date: "날짜 미정" },
-  { name: "여행 리스트 13 (여행지 미정)", date: "날짜 미정" },
-  { name: "여행 리스트 14 (여행지 미정)", date: "날짜 미정" },
-  { name: "여행 리스트 15 (여행지 미정)", date: "날짜 미정" },
-];
+function SideBar({ isSideOpen, sideClose, user }: SideBarProps) {
+  const containerStyle = {
+    display: isSideOpen ? "block" : "none",
+  };
 
-function SideBar({ isSideOpen, sideClose }: SideBarProps) {
-  // const {
-  //   onOpen: sideOpen,
-  //   isOpen: isSideOpen,
-  //   onClose: sideClose,
-  // } = useDisclosure();
+  const slideRef = useRef(null);
+  useOnClickOutside(slideRef, sideClose);
+
   return (
-    // <button onClick={sideOpen}>Open</button>
-    <Drawer
-      isOpen={isSideOpen}
-      placement="right"
-      onClose={sideClose}
-      onEsc={sideClose}
-      size={"sm"}
-    >
-      <DrawerOverlay />
-      <DrawerContent>
-        <DrawerHeader display="flex" justifyContent="flex-end">
-          <CloseButton onClick={sideClose} size="lg" />
-        </DrawerHeader>
-        <DrawerBody padding={0}>
-          <div className={styles.container}>
-            <section className={styles.container__profile}>
-              <div>
-                <Avatar
-                  size="lg"
-                  name="Prosper Otemuyiwa"
-                  src="https://bit.ly/prosper-baba"
-                />
-              </div>
-              <div>
-                <p className={styles.container__profile__nickName}>닉네임</p>
-                <Link
-                  to="/user"
-                  onClick={sideClose}
-                  className={styles.container__profile__editProfile}
-                >
-                  {"프로필 보기 >"}
-                </Link>
-              </div>
-            </section>
-            <Divider />
-            <TravelList travelList={travelList} />
+    <div style={containerStyle} className={styles.page}>
+      <Slide
+        in={isSideOpen}
+        direction="right"
+        ref={slideRef}
+        className={styles.slide}
+        style={{ width: "28rem", position: "absolute" }}
+      >
+        <div className={styles.container}>
+          <div className={styles.wrapper}>
+            <button onClick={sideClose}>
+              <IoMdClose className={styles.wrapper__button} />
+            </button>
           </div>
-        </DrawerBody>
-      </DrawerContent>
-    </Drawer>
+          <section className={styles.profile}>
+            <div>
+              <Avatar
+                w={"6.4rem"}
+                h={"6.4rem"}
+                name={user.name}
+                src={user.src}
+              />
+            </div>
+            <div>
+              <p className={styles.profile__nickName}>{user.name}</p>
+              <Link
+                to="/user"
+                onClick={sideClose}
+                className={styles.profile__editProfile}
+              >
+                {"프로필 보기 >"}
+              </Link>
+            </div>
+          </section>
+          <Divider />
+          <TravelList travelList={user.travelList} />
+        </div>
+      </Slide>
+    </div>
   );
 }
 

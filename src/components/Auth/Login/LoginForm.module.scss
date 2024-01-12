@@ -1,0 +1,16 @@
+@use "@/sass" as *;
+
+.container {
+  position: relative;
+
+  small {
+    width: 100%;
+    position: absolute;
+    bottom: 65px;
+    left: 0;
+    text-align: center;
+
+    @include typography(captionSmall);
+    color: $danger300;
+  }
+}

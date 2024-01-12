@@ -1,0 +1,48 @@
+@use "@/sass" as *;
+
+.Container {
+  header {
+    background-color: $neutral0;
+    width: 100%;
+    max-width: 45rem;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+
+    nav {
+      padding: 16px 20px;
+    }
+
+    h1 {
+      @include typography(headline);
+      padding: 8px 20px;
+    }
+  }
+
+  .calendarContainer {
+    margin-top: 10.2rem;
+    margin-bottom: 14rem;
+  }
+
+  .dateChoiceContainer {
+    background-color: $neutral0;
+    box-shadow: $shadow200;
+    position: fixed;
+    bottom: 0px;
+    z-index: 3;
+    width: 100%;
+    max-width: 45rem;
+    height: 13.8rem;
+
+    .dateChoice {
+      display: flex;
+      padding: 20px 60px;
+      align-items: center;
+      gap: 8px;
+
+      span {
+        @include typography(titleSmall);
+      }
+    }
+  }
+}

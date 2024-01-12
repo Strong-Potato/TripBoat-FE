@@ -1,0 +1,35 @@
+@use "@/sass" as *;
+
+.container {
+  height: 4rem;
+  width: 100%;
+  max-width: 45rem;
+
+  position: fixed;
+  top: 0;
+
+  padding: 0 16px;
+
+  background-color: $neutral0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 2rem;
+
+  z-index: 2;
+}
+
+.title {
+  @include typography(tabLabel);
+  height: 2.2rem;
+  margin-left: 40px;
+}
+
+.iconBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}

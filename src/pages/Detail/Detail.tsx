@@ -1,10 +1,9 @@
 import styles from "./Detail.module.scss";
 
 import BottomFixedBtn from "@/components/Detail/BottomFixedBtn/BottomFixedBtn";
-
-import Contents from "../../components/Detail/Contents/Contents";
-import Main from "../../components/Detail/Main/Main";
-import Navigation from "../../components/Detail/Navigation/Navigation";
+import Contents from "@/components/Detail/Contents/Contents";
+import Main from "@/components/Detail/Main/Main";
+import Navigation from "@/components/Detail/Navigation/Navigation";
 
 function Detail() {
   return (

@@ -2,7 +2,7 @@
 /* tslint:disable */
 
 /**
- * Mock Service Worker (2.0.11).
+ * Mock Service Worker (2.0.12).
  * @see https://github.com/mswjs/msw
  * - Please do NOT modify this file.
  * - Please do NOT serve this file on production.
@@ -89,14 +89,14 @@ self.addEventListener('fetch', function (event) {
   const { request } = event
 
   // Bypass navigation requests.
-  if (request.mode === "navigate") {
-    return;
+  if (request.mode === 'navigate') {
+    return
   }
 
   // Opening the DevTools triggers the "only-if-cached" request
   // that cannot be handled by the worker. Bypass such requests.
-  if (request.cache === "only-if-cached" && request.mode !== "same-origin") {
-    return;
+  if (request.cache === 'only-if-cached' && request.mode !== 'same-origin') {
+    return
   }
 
   // Bypass all requests when there are no active clients.
@@ -107,9 +107,9 @@ self.addEventListener('fetch', function (event) {
   }
 
   // Generate unique request ID.
-  const requestId = crypto.randomUUID();
-  event.respondWith(handleRequest(event, requestId));
-});
+  const requestId = crypto.randomUUID()
+  event.respondWith(handleRequest(event, requestId))
+})
 
 async function handleRequest(event, requestId) {
   const client = await resolveMainClient(event)
@@ -162,13 +162,13 @@ async function resolveMainClient(event) {
   return allClients
     .filter((client) => {
       // Get only those clients that are currently visible.
-      return client.visibilityState === "visible";
+      return client.visibilityState === 'visible'
     })
     .find((client) => {
       // Find the client ID that's recorded in the
       // set of clients that have registered the worker.
-      return activeClientIds.has(client.id);
-    });
+      return activeClientIds.has(client.id)
+    })
 }
 
 async function getResponse(event, client, requestId) {
@@ -176,7 +176,7 @@ async function getResponse(event, client, requestId) {
 
   // Clone the request because it might've been already used
   // (i.e. its body has been read and sent to the client).
-  const requestClone = request.clone();
+  const requestClone = request.clone()
 
   function passthrough() {
     const headers = Object.fromEntries(requestClone.headers.entries())
@@ -184,7 +184,7 @@ async function getResponse(event, client, requestId) {
     // Remove internal MSW request header so the passthrough request
     // complies with any potential CORS preflight checks on the server.
     // Some servers forbid unknown request headers.
-    delete headers["x-msw-intention"];
+    delete headers['x-msw-intention']
 
     return fetch(requestClone, { headers })
   }
@@ -204,13 +204,13 @@ async function getResponse(event, client, requestId) {
 
   // Bypass requests with the explicit bypass header.
   // Such requests can be issued by "ctx.fetch()".
-  const mswIntention = request.headers.get("x-msw-intention");
-  if (["bypass", "passthrough"].includes(mswIntention)) {
-    return passthrough();
+  const mswIntention = request.headers.get('x-msw-intention')
+  if (['bypass', 'passthrough'].includes(mswIntention)) {
+    return passthrough()
   }
 
   // Notify the client that a request has been intercepted.
-  const requestBuffer = await request.arrayBuffer();
+  const requestBuffer = await request.arrayBuffer()
   const clientMessage = await sendToClient(
     client,
     {

@@ -3,6 +3,7 @@ import { http, HttpResponse } from "msw";
 import { Dispatch } from "react";
 
 const recommendedItem = [
+  // 홈
   [
     {
       title: "호텔 loft",
@@ -175,28 +176,27 @@ const recommendedLocation = [
       "https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg",
   },
 ];
-
 const userVoteData = [
   {
     title: "부산, 여수 여행",
     date: "1.17-1.19",
     profile: "https://avatars.githubusercontent.com/u/154430298?s=48&v=4",
     discussion: "첫째 날 카페 어디갈래?",
-    voteURL: "/voteDetail",
+    voteURL: "/vote",
   },
   {
     title: "부산, 여수 여행",
     date: "1.17-1.19",
     profile: "https://avatars.githubusercontent.com/u/154430298?s=48&v=4",
     discussion: "둘째 날 카페 어디갈래?",
-    voteURL: "/voteDetail",
+    voteURL: "/vote",
   },
   {
     title: "부산, 여수 여행",
     date: "1.17-1.19",
     profile: "https://avatars.githubusercontent.com/u/154430298?s=48&v=4",
     discussion: "셋째 날 카페 어디갈래?",
-    voteURL: "/voteDetail",
+    voteURL: "/vote",
   },
 ];
 const tripSpaceData = [
@@ -222,8 +222,236 @@ const tripSpaceData = [
     dDay: "D-34",
   },
 ];
+// 홈 검색
+const searchKeywordData = [
+  "감자",
+  "강릉 감자",
+  "강릉 감자유원지",
+  "부산",
+  "울산 맛집",
+  "해운대 카페",
+  "광안리 횟집",
+  "깡통시장 깡돼후",
+];
+const hotPlaces = [
+  {
+    title: "대전 성심당",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "맛집 · 대전",
+    id: "1",
+  },
+  {
+    title: "대전 성심당",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "맛집 · 대전",
+    id: "1",
+  },
+  {
+    title: "대전 성심당",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "맛집 · 대전",
+    id: "1",
+  },
+  {
+    title: "대전 성심당",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "맛집 · 대전",
+    id: "1",
+  },
+  {
+    title: "대전 성심당",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "맛집 · 대전",
+    id: "1",
+  },
+  {
+    title: "대전 성심당",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "맛집 · 대전",
+    id: "1",
+  },
+];
+const hotHotels = [
+  {
+    title: "호텔 loft",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "호텔 · 제주",
+    id: "1",
+  },
+  {
+    title: "호텔 loft",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "호텔 · 제주",
+    id: "1",
+  },
+  {
+    title: "호텔 loft",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "호텔 · 제주",
+    id: "1",
+  },
+  {
+    title: "호텔 loft",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "호텔 · 제주",
+    id: "1",
+  },
+  {
+    title: "호텔 loft",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "호텔 · 제주",
+    id: "1",
+  },
+  {
+    title: "호텔 loft",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "호텔 · 제주",
+    id: "1",
+  },
+];
+const searchItemData = [
+  {
+    title: "신라호텔",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "숙소",
+  },
+  {
+    title: "조선호텔",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "숙소",
+  },
+  {
+    title: "그랜드하얏트",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "숙소",
+  },
+  {
+    title: "아시안 누들 서비스",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "맛집",
+  },
+  {
+    title: "더 타코부스",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "맛집",
+  },
+  {
+    title: "콴안다오",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "맛집",
+  },
+  {
+    title: "DDP",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "관광지",
+  },
+  {
+    title: "서울숲",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "관광지",
+  },
+  {
+    title: "롯데월드",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "관광지",
+  },
+  {
+    title: "국립중앙박물관",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "문화시설",
+  },
+  {
+    title: "디큐브아트센터",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "문화시설",
+  },
+  {
+    title: "인사아트프로젝트",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "문화시설",
+  },
+  {
+    title: "한강 레저",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "레포츠",
+  },
+  {
+    title: "서울 레이스 파크",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "레포츠",
+  },
+  {
+    title: "남산 케이블카",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "레포츠",
+  },
+  {
+    title: "더 현대",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "쇼핑",
+  },
+  {
+    title: "타임스퀘어",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "쇼핑",
+  },
+  {
+    title: "스타필드",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    location: "서울",
+    category: "쇼핑",
+  },
+];
 
 export const home = [
+  // 홈
   http.get("/api/home/recommendedItem/1", () => {
     return HttpResponse.json(recommendedItem[0], {
       status: 200,
@@ -246,6 +474,27 @@ export const home = [
   }),
   http.get("/api/home/tripSpace", () => {
     return HttpResponse.json(tripSpaceData, {
+      status: 200,
+    });
+  }),
+  // 홈 검색
+  http.get("/api/home/search/keyword", () => {
+    return HttpResponse.json(searchKeywordData, {
+      status: 200,
+    });
+  }),
+  http.get("/api/home/search/hotplace", () => {
+    return HttpResponse.json(hotPlaces, {
+      status: 200,
+    });
+  }),
+  http.get("/api/home/search/hothotel", () => {
+    return HttpResponse.json(hotHotels, {
+      status: 200,
+    });
+  }),
+  http.get("/api/home/search/search", () => {
+    return HttpResponse.json(searchItemData, {
       status: 200,
     });
   }),
