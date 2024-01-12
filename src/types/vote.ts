@@ -4,13 +4,13 @@ export interface VoteBottomButtonProps {
 }
 
 export interface VoteContentProps {
-  onClick: () => void;
+  onBottomSlideOpen: () => void;
   data: VoteListData;
   showResults: boolean;
 }
 
 export interface VoteHeaderProps {
-  onOpen: () => void;
+  onBottomSlideOpen: () => void;
   title: string;
 }
 
@@ -39,4 +39,8 @@ export interface CandidateCardProps {
   candidate: CandidateData;
   showResults: boolean;
   index: number;
+}
+
+export interface VoteMeatballProps {
+  state: string;
 }

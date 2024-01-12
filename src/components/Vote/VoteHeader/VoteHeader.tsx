@@ -7,7 +7,7 @@ import styles from "./VoteHeader.module.scss";
 
 import { VoteHeaderProps } from "@/types/vote";
 
-const VoteHeader = ({ onOpen, title }: VoteHeaderProps) => {
+const VoteHeader = ({ onBottomSlideOpen, title }: VoteHeaderProps) => {
   const navigate = useNavigate();
 
   //상태에 따른 아이콘 disabled
@@ -25,7 +25,7 @@ const VoteHeader = ({ onOpen, title }: VoteHeaderProps) => {
           <RiMap2Line />
         </button>
 
-        <button onClick={onOpen}>
+        <button onClick={onBottomSlideOpen}>
           <BsThreeDots />
         </button>
       </div>

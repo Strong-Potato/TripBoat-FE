@@ -38,37 +38,45 @@ const Vote = () => {
   };
 
   return (
-    <div className={styles.container}>
-      {/* 투표 확정상태일때 "투표 재진행"*/}
-      <VoteHeader
-        title={data?.title as string}
-        onOpen={() => onBottomSlideOpen(<VoteMeatball />)}
-      />
+    <>
+      {data && (
+        <div className={styles.container}>
+          {/* 투표 확정상태일때 "투표 재진행"*/}
+          <VoteHeader
+            title={data.title as string}
+            onBottomSlideOpen={() =>
+              onBottomSlideOpen(<VoteMeatball state={data.state} />)
+            }
+          />
 
-      {data ? (
-        <VoteContent
-          data={data}
-          onClick={() => onBottomSlideOpen(<AddCandidate />)}
-          showResults={showResults}
-        />
-      ) : (
-        <VoteContentEmpty />
+          {data.candidates ? (
+            <VoteContent
+              data={data}
+              onBottomSlideOpen={() => onBottomSlideOpen(<AddCandidate />)}
+              showResults={showResults}
+            />
+          ) : (
+            <VoteContentEmpty />
+          )}
+
+          {data.state === "진행 중" && (
+            <Button
+              variant="CTAButton"
+              onClick={handleShowResultsClick}
+              isDisabled={data.candidates.length === 0}
+            >
+              {showResults ? "다시 투표하기" : "결과보기"}
+            </Button>
+          )}
+
+          <BottomSlide
+            isOpen={isOpen}
+            onClose={onClose}
+            children={bottomSlideContent}
+          />
+        </div>
       )}
-
-      <Button
-        variant="CTAButton"
-        onClick={handleShowResultsClick}
-        isDisabled={data?.candidates.length === 0}
-      >
-        {showResults ? "다시 투표하기" : "결과보기"}
-      </Button>
-
-      <BottomSlide
-        isOpen={isOpen}
-        onClose={onClose}
-        children={bottomSlideContent}
-      />
-    </div>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import { Avatar, Icon } from "@chakra-ui/react";
 import { GoDotFill } from "react-icons/go";
+import { IoMdCheckmark } from "react-icons/io";
 
 import styles from "./VoteContent.module.scss";
 
@@ -9,7 +10,11 @@ import VoteRecommendList from "./VoteRecommendList/VoteRecommendList";
 
 import { VoteContentProps } from "@/types/vote";
 
-const VoteContent = ({ onClick, data, showResults }: VoteContentProps) => {
+const VoteContent = ({
+  onBottomSlideOpen,
+  data,
+  showResults,
+}: VoteContentProps) => {
   const candidates = data.candidates;
 
   //결과보기 클릭(showResults) 이후
@@ -21,12 +26,20 @@ const VoteContent = ({ onClick, data, showResults }: VoteContentProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.container__stateBar}>
-        <div className={styles.container__stateBar__state}>
-          <Icon as={GoDotFill} fontSize="1rem" mt="1px" mr="4px" />
-          {data?.state}
+        <div
+          className={styles.container__stateBar__state}
+          style={{ color: data.state === "결정완료" ? "#979C9E" : "#2388FF" }}
+        >
+          {data.state === "결정완료" ? (
+            <Icon as={IoMdCheckmark} />
+          ) : (
+            <Icon as={GoDotFill} />
+          )}
+          {data.state}
         </div>
+
         <button
-          onClick={onClick}
+          onClick={onBottomSlideOpen}
           className={styles.container__stateBar__addCandidate}
         >
           + 후보 추가({candidates.length}/15)

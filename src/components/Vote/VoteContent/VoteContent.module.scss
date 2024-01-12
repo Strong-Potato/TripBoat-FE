@@ -16,8 +16,14 @@
 
     &__state {
       @include typography(captionSmall);
-      color: $primary200;
-      //color:$neutral400;
+
+      display: flex;
+      gap: 4px;
+      align-items: center;
+
+      & > svg {
+        font-size: 1.5rem;
+      }
     }
     &__addCandidate {
       @include typography(button);
