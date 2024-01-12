@@ -1,30 +1,32 @@
 @use "@/sass" as *;
 
 .container {
-  width: 100%;
-  max-height: 70px;
+  min-width: 33.5rem;
+  min-height: 12rem;
 
   display: flex;
+  align-items: center;
   gap: 12px;
 
-  padding: 16px 0;
+  padding: 12px 40px 12px 12px;
+
+  border-radius: 1.6rem;
+
+  background-color: $neutral0;
 
   img {
-    width: 4rem;
-    height: 4rem;
-
-    border-radius: 0.8rem;
-
-    opacity: 1;
+    width: 9.6rem;
+    height: 9.6rem;
 
     transition: 0.3s all linear;
   }
 
   .text {
+    width: 100%;
+
     display: flex;
     flex-direction: column;
-
-    opacity: 1;
+    gap: 4px;
 
     transition: 0.3s all linear;
 
@@ -33,7 +35,6 @@
     }
     .info {
       color: $neutral400;
-
       @include typography(captionSmall);
     }
   }

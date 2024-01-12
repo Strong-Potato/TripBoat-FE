@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
-
-import styles from "./SearchItem.module.scss";
+import styles from "./MapItem.module.scss";
 
 import { SearchItemType } from "@/types/home";
 
@@ -9,9 +7,9 @@ interface PropsType {
   categoryChange: boolean;
 }
 
-function SearchItem({ data, categoryChange }: PropsType) {
+function MapItem({ data, categoryChange }: PropsType) {
   return (
-    <Link to={`/detail/${data.title}`} className={styles.container}>
+    <div className={styles.container}>
       <img
         src={data.imageURL}
         alt={`${data.title}의 사진`}
@@ -23,8 +21,8 @@ function SearchItem({ data, categoryChange }: PropsType) {
           {data.category}·{data.location}
         </span>
       </p>
-    </Link>
+    </div>
   );
 }
 
-export default SearchItem;
+export default MapItem;

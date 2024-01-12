@@ -1,38 +1,47 @@
 import { useEffect, useState } from "react";
 
-import styles from "./RecommendedLocationList.module.scss";
+import styles from "./MapItems.module.scss";
 
 import useComponentSize from "@/hooks/useComponetSize";
 
 import SlideButton from "@/components/SlideButton/SlideButton";
 
-import { getData } from "@/mocks/handlers/home";
+import MapItem from "./MapItem/MapItem";
 
-import RecommendedLocation from "./RecommendedLocation/RecommendedLocation";
+import { SearchItemType } from "@/types/home";
 
-import { LocationDataType } from "@/types/home";
+interface PropsType {
+  data: SearchItemType[];
+  categoryChange: boolean;
+}
 
-function RecommendedLocationList() {
-  const [data, setData] = useState<LocationDataType[]>();
+function MapItems({ data, categoryChange }: PropsType) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
 
   useEffect(() => {
-    getData<LocationDataType[] | undefined>(
-      `home/recommendedLocation`,
-      setData,
-    );
-  }, []);
+    if (size.width < 449) {
+      componentRef.current?.scrollTo({ left: 0, behavior: "smooth" });
+    } else {
+      setSlideLocation(0);
+    }
+  }, [data, size, componentRef]);
 
   return (
     <div className={styles.container}>
       {data && (
         <SlideButton
+          // ref의 left값 state
           slideLocation={slideLocation}
+          // left값 setState
           setSlideLocation={setSlideLocation}
-          itemWidth={122}
+          // 리스트 목록 아이템의 width
+          itemWidth={335}
+          // 리스트의 갭
           flexGap={8}
+          // 아이템 갯수
           itemNumber={data.length}
+          // 목록 전체 넓이
           slideSize={size}
         />
       )}
@@ -46,11 +55,15 @@ function RecommendedLocationList() {
       >
         {data &&
           data.map((data, i) => (
-            <RecommendedLocation data={data} key={data.location + i} />
+            <MapItem
+              data={data}
+              key={data.title + i}
+              categoryChange={categoryChange}
+            />
           ))}
       </div>
     </div>
   );
 }
 
-export default RecommendedLocationList;
+export default MapItems;

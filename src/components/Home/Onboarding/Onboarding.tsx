@@ -87,17 +87,16 @@ function Onboarding({ set }: PropsType) {
             );
           })}
         </div>
-        {isVote && (
-          <button
-            className={styles.modal__voteButton}
-            onClick={() => {
-              vote();
-              navigate("/vote");
-            }}
-          >
-            나도 투표 만들러 가기
-          </button>
-        )}
+        <button
+          className={styles.modal__voteButton}
+          onClick={() => {
+            vote();
+            navigate("/vote");
+          }}
+          style={{ height: isVote ? "4.6rem" : 0 }}
+        >
+          나도 투표만들러 가기
+        </button>
         <button className={styles.modal__removeButton} onClick={exit}>
           다시 보지 않기
         </button>
