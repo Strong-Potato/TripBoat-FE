@@ -1,30 +1,47 @@
-# React + TypeScript + Vite
+# 중간 결과물 서면 피드백 8조 FE
+## API 명세 
+[스웨거](https://app.swaggerhub.com/apis-docs/strong-potato/trip-vote_api/1.0.0)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 다자인 
+[피그마](https://www.figma.com/file/ypTLv92s72sihUApnxjP5C/%EA%B0%95%EC%9E%90%EB%B0%AD-%ED%94%BC%EA%B7%B8%EB%A7%88?type=design&node-id=40-3&mode=design&t=ApKRWjdA112o0y1T-0)
 
-Currently, two official plugins are available:
+## 역할
+### 박성후
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 알림
+- 친구 초대
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 은영 & 서현
 
-- Configure the top-level `parserOptions` property like this:
+- 투표 만들기
+    - 투표만들기, 투표 만들기 완료페이지
+- 투표하기
+    - 투표하기, 투표 페이지에서 일정 추가, 지도보기 기능
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- 여행지 후보 등록
+- 장소 검색, 후보 장소 메모작성, 나의 찜 가져오기, 전체 지역 필터 기능
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- 여행 스페이스 만들기
+    - 여행 날짜 정하기, 여행지 정하기, 완료 페이지
+- 일정 관리
+    - 일정 유무에 따라 보여지는 일정 탭 화면, 지도 확대 기능, 일정 편집 기능, 투표에서 불러오기, 루트 최적화, 장소 검색, 찜목록 검색
+
+---
+
+### 정민 & 상원
+
+- gnb
+- 홈화면
+- 검색
+- 상세페이지
+    - 후보장소 등록 기능, 투표만들기 기능, 상품 검색 기능, 찜하기
+
+---
+
+### 남궁 & 종민
+
+- 리뷰
+- 마이페이지
+- 인증
