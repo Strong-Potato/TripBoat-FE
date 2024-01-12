@@ -1,24 +1,65 @@
-import { Avatar } from "@chakra-ui/react";
+import { useState } from "react";
+import { FaRegStar, FaStar } from "react-icons/fa";
 
 import styles from "./CandidateCard.module.scss";
 
-const CandidateCard = () => {
+import AddDayIcon from "@/assets/voteIcons/vote_addDay.svg?react";
+
+import { CandidateCardProps } from "@/types/vote";
+
+const CandidateCard = ({ candidate, showResults }: CandidateCardProps) => {
+  const [isVoted, setIsVoted] = useState(false);
+
+  const voteCounts = candidate.voteCounts;
+
+  const onVoteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setIsVoted(!isVoted);
+  };
+
   return (
     <div className={styles.container}>
+      <img src={candidate.imageURL} alt={candidate.name} />
       <div className={styles.main}>
         <div className={styles.main__contextBox}>
-          <div className={styles.main__contextBox__name}>대전 성심당 {">"}</div>
-          <div className={styles.main__contextBox__category}>카페</div>
-          <div className={styles.main__contextBox__addDay}>+ 일정에 추가</div>
+          {/* 장소 제목 Link 장소 상페로 */}
+          <div className={styles.main__contextBox__name}>
+            {candidate.name} {">"}
+          </div>
+          <div className={styles.main__contextBox__category}>
+            {candidate.category}
+            {" ꞏ "}
+            {candidate.location}
+          </div>
+
+          {/* 일정 담기
+          날짜를 담고 있어야 함
+          없 : 토스트
+          있 : 바텀시트 -> 일정 추가api -> 시트close, 완료 토스트
+          */}
+
+          {showResults && (
+            <button className={styles.main__contextBox__addDay}>
+              <AddDayIcon /> 일정에 담기
+            </button>
+          )}
         </div>
-        <div className={styles.main__voteBox}>
-          <div className={styles.main__voteBox__star}>☆</div> <div>투표</div>
-        </div>
+        <button
+          className={styles.main__voteBox}
+          onClick={onVoteClick}
+          disabled={showResults}
+        >
+          <div className={styles.main__voteBox__star}>
+            {isVoted ? <FaStar style={{ color: "#fee500" }} /> : <FaRegStar />}
+          </div>{" "}
+          <div className={styles.main__voteBox__vote}>
+            {showResults ? voteCounts : "투표"}
+          </div>
+        </button>
       </div>
-      <div className={styles.comment}>
+      {/* <div className={styles.comment}>
         <Avatar boxSize="24px" />
-        <div className={styles.comment__text}>여기 갈래?</div>
-      </div>
+        <div className={styles.comment__text}>{candidate.memo}</div>
+      </div> */}
     </div>
   );
 };

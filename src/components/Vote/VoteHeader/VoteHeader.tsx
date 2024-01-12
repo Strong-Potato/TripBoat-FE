@@ -7,10 +7,8 @@ import styles from "./VoteHeader.module.scss";
 
 import { VoteHeaderProps } from "@/types/vote";
 
-const VoteHeader = ({ onOpen }: VoteHeaderProps) => {
+const VoteHeader = ({ onOpen, title }: VoteHeaderProps) => {
   const navigate = useNavigate();
-
-  const voteTitle = "카페 어디로 갈래?";
 
   //상태에 따른 아이콘 disabled
   // 또는 없애기
@@ -20,7 +18,7 @@ const VoteHeader = ({ onOpen }: VoteHeaderProps) => {
       <button onClick={() => navigate(-1)} className={styles.leftBackIcon}>
         <MdOutlineArrowBackIosNew />
       </button>
-      <p className={styles.title}>{voteTitle}</p>
+      <p className={styles.title}>{title}</p>
 
       <div className={styles.iconBox}>
         <button>

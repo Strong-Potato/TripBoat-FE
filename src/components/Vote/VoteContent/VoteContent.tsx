@@ -1,41 +1,58 @@
-import { Icon } from "@chakra-ui/react";
+import { Avatar, Icon } from "@chakra-ui/react";
 import { GoDotFill } from "react-icons/go";
 
 import styles from "./VoteContent.module.scss";
 
 import CandidateCard from "./CandidateCard/CandidateCard";
+import VoteContentEmpty from "./VoteContentEmpty/VoteContentEmpty";
 import VoteRecommendList from "./VoteRecommendList/VoteRecommendList";
 
 import { VoteContentProps } from "@/types/vote";
 
 // import VoteDetailsFieldZero from "../VoteDetailsFieldZero/VoteDetailsFieldZero";
 
-const VoteContent = ({ onClick }: VoteContentProps) => {
-  // if(CandidateList.length===0) {
-  //   //지도 색 neutral300
-  //   return <VoteDetailsFieldZero />
-  // }
+const VoteContent = ({ onClick, data, showResults }: VoteContentProps) => {
+  const candidates = data.candidates;
+
+  //결과보기 클릭(showResults) 이후
+  // 득표 순으로 재정렬
+
+  // 결정완료 상태 -> stateBar 결정완료 / CTA버튼 삭제 / 추천슬라이드 후보추가->일정에담기
+  // 결정완료는... voteData에서
 
   return (
     <div className={styles.container}>
       <div className={styles.container__stateBar}>
         <div className={styles.container__stateBar__state}>
           <Icon as={GoDotFill} fontSize="1rem" mt="1px" mr="4px" />
-          진행 중
+          {data?.state}
         </div>
         <button
           onClick={onClick}
           className={styles.container__stateBar__addCandidate}
         >
-          + 후보 추가(1/15)
+          + 후보 추가({candidates.length}/15)
         </button>
       </div>
       <div className={styles.container__candidateList}>
-        <CandidateCard />
-        <CandidateCard />
-        <CandidateCard />
+        {candidates ? (
+          candidates.map((candidate, i) => (
+            <div key={i} className={styles.candidateBox}>
+              <CandidateCard candidate={candidate} showResults={showResults} />
+              <div className={styles.candidateBox__memo}>
+                <Avatar boxSize="24px" />
+                <div className={styles.candidateBox__memo__text}>
+                  {candidate.memo}
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <VoteContentEmpty />
+        )}
       </div>
-      <VoteRecommendList />
+      {/* 후보지&여행지 X -> 상품 추천 없음 */}
+      <VoteRecommendList state={data.state} />
     </div>
   );
 };

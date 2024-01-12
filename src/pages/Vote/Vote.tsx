@@ -1,36 +1,64 @@
 import { useDisclosure } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
+import { ReactNode, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import styles from "./Vote.module.scss";
 
 import BottomSlide from "@/components/BottomSlide/BottomSlide";
-import VoteBottomButton from "@/components/Vote/VoteBottomButton/VoteBottomButton";
 import AddCandidate from "@/components/Vote/VoteBottomSlideContent/AddCandidate/AddCandidate";
-import VoteContent from "@/components/Vote/VoteContent/VoteContent";
-import VoteHeader from "@/components/Vote/VoteHeader/VoteHeader";
-import { ReactNode, useState } from "react";
 import VoteMeatball from "@/components/Vote/VoteBottomSlideContent/VoteMeatball/VoteMeatball";
+import VoteContent from "@/components/Vote/VoteContent/VoteContent";
+import VoteContentEmpty from "@/components/Vote/VoteContent/VoteContentEmpty/VoteContentEmpty";
+import VoteHeader from "@/components/Vote/VoteHeader/VoteHeader";
+
+import { getVoteData } from "@/mocks/handlers/vote";
+
+import { VoteListData } from "@/types/vote";
 
 const Vote = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [showResults, setShowResults] = useState(false);
   const [bottomSlideContent, setBottomSlideContent] =
     useState<ReactNode | null>(null);
-  //보트ID로 진입, 검색할때 투표갯수 X는거 확인
-  //X -> 메인문구, 헤더에서미트볼 바꾸기
-  //투표 확정 상태일때 바텀 시트 변경
+  const [data, setData] = useState<VoteListData>();
+  const param = useParams().id as string;
+
+  useEffect(() => {
+    getVoteData(param, setData);
+  }, []);
 
   const onBottomSlideOpen = (content: ReactNode) => {
     setBottomSlideContent(content);
     onOpen();
   };
 
+  const handleShowResultsClick = () => {
+    setShowResults(!showResults);
+  };
+
   return (
     <div className={styles.container}>
-      <VoteHeader onOpen={() => onBottomSlideOpen(<VoteMeatball />)} />
-      <VoteContent onClick={() => onBottomSlideOpen(<AddCandidate />)} />
-      <VoteBottomButton
-        onClick={() => onBottomSlideOpen(<AddCandidate />)}
-        title={"후보 추가하기"}
+      {/* showResults일때 보여주는거 달랐던거 같음 */}
+      <VoteHeader
+        title={data?.title as string}
+        onOpen={() => onBottomSlideOpen(<VoteMeatball />)}
       />
+
+      {data ? (
+        <VoteContent
+          data={data}
+          onClick={() => onBottomSlideOpen(<AddCandidate />)}
+          showResults={showResults}
+        />
+      ) : (
+        <VoteContentEmpty />
+      )}
+
+      <Button variant="CTAButton" onClick={handleShowResultsClick}>
+        {showResults ? "다시 투표하기" : "결과보기"}
+      </Button>
+
       <BottomSlide
         isOpen={isOpen}
         onClose={onClose}
