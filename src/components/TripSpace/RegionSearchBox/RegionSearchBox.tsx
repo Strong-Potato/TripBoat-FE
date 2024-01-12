@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { TfiSearch as SearchIcon } from "react-icons/tfi";
-import { useNavigate } from "react-router-dom";
 
 import styles from "./RegionSearchBox.module.scss";
+
+import useGoBack from "@/hooks/useGoBack";
 
 import BackIcon from "@/assets/back.svg?react";
 import CloseIcon from "@/assets/close.svg?react";
@@ -12,17 +13,18 @@ import { FormData, RegionSearchInputProps } from "@/types/regionSearch";
 
 function RegionSearchInput({
   onInputChange,
-  onSearchCompletionChange,
+  onRegionValueChange,
 }: RegionSearchInputProps) {
-  const navigate = useNavigate();
+  const goBack = useGoBack();
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isSearchCompleted, setIsSearchCompleted] = useState(false);
-  const { register, handleSubmit, setValue } = useForm<FormData>({
+  const { register, handleSubmit, setValue, watch } = useForm<FormData>({
     mode: "onChange",
     defaultValues: {
       region: "",
     },
   });
+  const regionValue = watch("region");
 
   const handleInputFocus = () => {
     setIsInputFocused(true);
@@ -41,34 +43,41 @@ function RegionSearchInput({
 
     if (data.region) {
       setIsSearchCompleted(true);
-      onSearchCompletionChange(true);
     }
   };
 
   const handleClearInput = () => {
     setValue("region", "");
     setIsSearchCompleted(false);
-    onSearchCompletionChange(false);
   };
 
   useEffect(() => {
+    onRegionValueChange(regionValue);
+  }, [regionValue, onRegionValueChange]);
+
+  useEffect(() => {
     console.log("포커스", isInputFocused);
-    console.log("검색완료", isSearchCompleted);
-  }, [isInputFocused, isSearchCompleted]);
+    console.log("입력값", regionValue);
+    console.log("result", isInputFocused || regionValue);
+  }, [isInputFocused, regionValue]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSubmit(handleSearch)();
+    }
+  };
 
   return (
     <form
       className={
-        isInputFocused || isSearchCompleted
-          ? styles.focusContainer
-          : styles.container
+        isInputFocused || regionValue ? styles.focusContainer : styles.container
       }
       onSubmit={handleSubmit(handleSearch)}
     >
       <div className={styles.inputContainer}>
         <div className={styles.inputContents}>
-          {(isInputFocused || isSearchCompleted) && (
-            <button onClick={() => navigate(-1)}>
+          {(isInputFocused || regionValue) && (
+            <button onClick={goBack}>
               <BackIcon />
             </button>
           )}
@@ -76,6 +85,7 @@ function RegionSearchInput({
             type="text"
             placeholder="여행 도시를 검색해보세요."
             onFocus={handleInputFocus}
+            onKeyDown={handleKeyDown}
             {...register("region", { onBlur: handleInputBlur })}
           />
           {isSearchCompleted ? (

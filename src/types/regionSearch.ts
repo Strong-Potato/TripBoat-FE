@@ -11,7 +11,7 @@ export interface FormData {
 
 export interface RegionSearchInputProps {
   onInputChange: (newIsInputFocused: boolean) => void;
-  onSearchCompletionChange: (newIsSearchCompleted: boolean) => void;
+  onRegionValueChange: (regionValue: string) => void;
 }
 
 export interface TagItemProps {
