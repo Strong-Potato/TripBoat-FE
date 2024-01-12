@@ -13,3 +13,8 @@ export interface RegionSearchInputProps {
   onInputChange: (newIsInputFocused: boolean) => void;
   onSearchCompletionChange: (newIsSearchCompleted: boolean) => void;
 }
+
+export interface TagItemProps {
+  label: string;
+  onClose: () => void;
+}
