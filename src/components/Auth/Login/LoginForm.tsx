@@ -1,41 +1,46 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import styles from "./LoginForm.module.scss";
 
-import InputEmail from "../Input/InputEmail";
-import InputPassword from "../Input/InputPassword";
+import AuthButton from "@/components/Auth/Button/AuthButton";
 
-import { LoginForm, SubmitResult } from "@/types/auth";
+import validationForm from "@/utils/inputValidation";
+
+import InputEmail from "./Input/InputEmail";
+import InputPassword from "./Input/InputPassword";
+
+import { LoginForm } from "@/types/auth";
 
 function LoginForm() {
   const {
     register,
     resetField,
-    formState: { errors, dirtyFields },
+    getValues,
+    formState: { dirtyFields },
   } = useForm<LoginForm>({
-    mode: "onChange",
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const [submitResult, setSubmitResult] = useState<SubmitResult>({
-    try: false,
-    isPassed: false,
-  });
+  const [validationError, setValidationError] = useState<boolean>(false);
 
-  const clickLogin = () => {
-    setSubmitResult({ ...submitResult, try: true });
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
 
-    const isError = Object.keys(errors).length > 0;
-    if (isError) {
-      setSubmitResult({ try: true, isPassed: false });
+    const { email, password } = getValues();
+    const isValid =
+      validationForm.email.test(email) &&
+      validationForm.password.test(password);
+
+    if (!isValid) {
+      setValidationError(true);
       return;
+    } else {
+      setValidationError(false);
     }
-
-    setSubmitResult({ try: true, isPassed: true });
 
     // 이메일 비밀번호 validation 성공
     // 로그인 api 요청
@@ -47,7 +52,7 @@ function LoginForm() {
   };
 
   return (
-    <form className={styles.container}>
+    <form className={styles.container} onSubmit={onSubmit}>
       <InputEmail
         label="이메일"
         register={register}
@@ -62,13 +67,11 @@ function LoginForm() {
         dirtyFields={dirtyFields}
       />
 
-      {submitResult.try && !submitResult.isPassed ? (
+      {validationError ? (
         <small>이메일 또는 비밀번호를 확인해주세요.</small>
       ) : null}
 
-      <button className={styles.submitBtn} type="button" onClick={clickLogin}>
-        로그인
-      </button>
+      <AuthButton content="로그인" type="submit" disabled={false} />
     </form>
   );
 }

@@ -14,11 +14,19 @@
     height: 4rem;
 
     border-radius: 0.8rem;
+
+    opacity: 1;
+
+    transition: 0.3s all linear;
   }
 
   .text {
     display: flex;
     flex-direction: column;
+
+    opacity: 1;
+
+    transition: 0.3s all linear;
 
     .title {
       @include typography(titleSmall);

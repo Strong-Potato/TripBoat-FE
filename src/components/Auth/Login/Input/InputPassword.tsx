@@ -1,6 +1,7 @@
 import styles from "./Input.module.scss";
 
-import RemoveBtn from "@/assets/icons/removeBtn.svg?react";
+import InputRemove from "@/assets/icons/InputRemove.svg?react";
+import validationForm from "@/utils/inputValidation";
 
 import { LoginInput } from "@/types/auth";
 
@@ -25,7 +26,7 @@ function InputPassword({
         placeholder="비밀번호를 입력해주세요"
         {...register("password", {
           pattern: {
-            value: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/,
+            value: validationForm.password,
             message: "비밀번호 형식이 올바르지 않습니다.",
           },
         })}
@@ -38,7 +39,7 @@ function InputPassword({
           onClick={resetPassword}
           tabIndex={-1}
         >
-          <RemoveBtn className={styles.svg} />
+          <InputRemove className={styles.svg} />
         </button>
       )}
     </section>

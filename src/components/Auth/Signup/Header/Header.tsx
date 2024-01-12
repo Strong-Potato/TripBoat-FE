@@ -3,11 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./Header.module.scss";
 
-interface Props {
-  content?: string;
-}
+import { HeaderProps } from "@/types/auth";
 
-function Header({ content }: Props) {
+function Header({ content }: HeaderProps) {
   const navigate = useNavigate();
 
   return (

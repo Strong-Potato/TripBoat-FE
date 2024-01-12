@@ -9,11 +9,12 @@ import SlideButton from "@/components/SlideButton/SlideButton";
 import Tab from "./Tab/Tab";
 
 interface PropsType {
-  set: React.Dispatch<React.SetStateAction<string>>;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  setCategoryChange: React.Dispatch<React.SetStateAction<boolean>>;
   category: string;
 }
 
-function Tabs({ set, category }: PropsType) {
+function Tabs({ setCategory, setCategoryChange, category }: PropsType) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
   const thisCategory = [
@@ -31,7 +32,7 @@ function Tabs({ set, category }: PropsType) {
       <SlideButton
         slideLocation={slideLocation}
         setSlideLocation={setSlideLocation}
-        itemWidth={78}
+        itemWidth={90}
         flexGap={0}
         itemNumber={thisCategory.length}
         slideSize={size}
@@ -41,13 +42,14 @@ function Tabs({ set, category }: PropsType) {
         className={styles.tabs}
         ref={componentRef}
         style={{
-          overflow: size.width < 450 ? "scroll" : "visible",
+          overflow: size.width < 449 ? "scroll" : "visible",
           left: slideLocation + "px",
         }}
       >
         {thisCategory.map((thisCategory) => (
           <Tab
-            set={set}
+            setCategory={setCategory}
+            setCategoryChange={setCategoryChange}
             category={category}
             thisCategory={thisCategory}
             key={thisCategory}
