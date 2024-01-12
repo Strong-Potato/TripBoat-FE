@@ -38,4 +38,5 @@ export interface VoteListData {
 export interface CandidateCardProps {
   candidate: CandidateData;
   showResults: boolean;
+  index: number;
 }

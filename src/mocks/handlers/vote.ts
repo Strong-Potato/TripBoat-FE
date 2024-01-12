@@ -25,6 +25,28 @@ const candidateData = [
     memo: "여기 개쩔드라",
     id: 2,
   },
+  {
+    name: "기역호텔",
+    imageURL:
+      "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+    category: "숙박",
+    location: "서울",
+    voteUserId: ["Id123", "Id234", "Id345"],
+    voteCounts: 3,
+    memo: "예쁨~~~~~~~~~",
+    id: 4,
+  },
+  {
+    name: "니은펜션",
+    imageURL:
+      "https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg",
+    category: "숙박",
+    location: "경기",
+    voteUserId: ["Id123", "Id345"],
+    voteCounts: 2,
+    memo: "여기 개쩔드라",
+    id: 3,
+  },
 ];
 
 const voteListData = [

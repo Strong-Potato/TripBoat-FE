@@ -1,6 +1,8 @@
 @use "@/sass" as *;
 
 .container {
+  position: relative;
+
   width: 100%; //335?
   min-width: 33.5rem;
   height: 10rem;
@@ -13,12 +15,30 @@
   display: flex;
   gap: 12px;
 
+  z-index: 3;
+
   & > img {
     height: 100%;
     width: 8rem;
-    border-radius: 8px 0 0 8px;
+    border-radius: 16px 0 0 16px;
     object-fit: cover;
   }
+}
+
+.firstBorder {
+  border: 1px solid #e23774;
+}
+.secondBorder {
+  border: 1px solid #2388ff;
+}
+.thirdBorder {
+  border: 1px solid #cdcfd0;
+}
+
+.rankTag {
+  position: absolute;
+  left: -1px;
+  top: -1px;
 }
 
 .main {

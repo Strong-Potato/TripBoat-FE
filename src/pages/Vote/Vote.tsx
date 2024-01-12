@@ -39,7 +39,7 @@ const Vote = () => {
 
   return (
     <div className={styles.container}>
-      {/* showResults일때 보여주는거 달랐던거 같음 */}
+      {/* 투표 확정상태일때 "투표 재진행"*/}
       <VoteHeader
         title={data?.title as string}
         onOpen={() => onBottomSlideOpen(<VoteMeatball />)}
@@ -55,7 +55,11 @@ const Vote = () => {
         <VoteContentEmpty />
       )}
 
-      <Button variant="CTAButton" onClick={handleShowResultsClick}>
+      <Button
+        variant="CTAButton"
+        onClick={handleShowResultsClick}
+        isDisabled={data?.candidates.length === 0}
+      >
         {showResults ? "다시 투표하기" : "결과보기"}
       </Button>
 

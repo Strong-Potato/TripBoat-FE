@@ -9,8 +9,6 @@ import VoteRecommendList from "./VoteRecommendList/VoteRecommendList";
 
 import { VoteContentProps } from "@/types/vote";
 
-// import VoteDetailsFieldZero from "../VoteDetailsFieldZero/VoteDetailsFieldZero";
-
 const VoteContent = ({ onClick, data, showResults }: VoteContentProps) => {
   const candidates = data.candidates;
 
@@ -38,7 +36,11 @@ const VoteContent = ({ onClick, data, showResults }: VoteContentProps) => {
         {candidates ? (
           candidates.map((candidate, i) => (
             <div key={i} className={styles.candidateBox}>
-              <CandidateCard candidate={candidate} showResults={showResults} />
+              <CandidateCard
+                candidate={candidate}
+                showResults={showResults}
+                index={i + 1}
+              />
               <div className={styles.candidateBox__memo}>
                 <Avatar boxSize="24px" />
                 <div className={styles.candidateBox__memo__text}>
