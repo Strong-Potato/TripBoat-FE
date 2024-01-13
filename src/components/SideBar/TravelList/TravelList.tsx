@@ -8,20 +8,9 @@ import { TravelListProps } from "@/types/sidebar";
 function TravelList({ travelList }: TravelListProps) {
   const navigate = useNavigate();
 
-  const handleItemClick = () => {
-    if (travelList.length >= 15) {
-      navigate(`/mypage?full=true`);
-    } else {
-      navigate(`/carryout/1234`); //여행 스페이스 로직 연결 후 바꾸기
-    }
-  };
-
   return (
     <section className={styles.travelSpaceList}>
-      <button
-        className={styles.travelSpaceList__addButton}
-        onClick={() => handleItemClick()}
-      >
+      <button className={styles.travelSpaceList__addButton}>
         <GoPlus className={styles.travelSpaceList__addButton__icon} />
         <p className={styles.travelSpaceList__addButton__text}>
           새 여행 스페이스 만들기
@@ -35,8 +24,8 @@ function TravelList({ travelList }: TravelListProps) {
               onClick={() => navigate(`/carryout/${item.id}`)}
             >
               <p className={styles.travelSpaceList__items__item__name}>
-                {item.name[0]
-                  ? `${item.name} ${"여행"}`
+                {item.title[0]
+                  ? `${item.title} ${"여행"}`
                   : `${"여행스페이스"} ${index + 1} ${"(여행지 미정)"}`}
               </p>
               <p className={styles.travelSpaceList__items__item__date}>

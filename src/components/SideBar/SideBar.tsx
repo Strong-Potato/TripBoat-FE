@@ -5,19 +5,22 @@ import { Link } from "react-router-dom";
 
 import styles from "./SideBar.module.scss";
 
+import useGetSpaces from "@/hooks/useGetSpaces";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 
 import TravelList from "./TravelList/TravelList";
 
 import { SideBarProps } from "@/types/sidebar";
 
-function SideBar({ isSideOpen, sideClose, user }: SideBarProps) {
+function SideBar({ isSideOpen, sideClose, users }: SideBarProps) {
   const containerStyle = {
     display: isSideOpen ? "block" : "none",
   };
 
   const slideRef = useRef(null);
   useOnClickOutside(slideRef, sideClose);
+
+  const spaces = useGetSpaces(isSideOpen);
 
   return (
     <div style={containerStyle} className={styles.page}>
@@ -39,12 +42,12 @@ function SideBar({ isSideOpen, sideClose, user }: SideBarProps) {
               <Avatar
                 w={"6.4rem"}
                 h={"6.4rem"}
-                name={user.name}
-                src={user.src}
+                name={users.name}
+                src={users.src}
               />
             </div>
             <div>
-              <p className={styles.profile__nickName}>{user.name}</p>
+              <p className={styles.profile__nickName}>{users.name}</p>
               <Link
                 to="/user"
                 onClick={sideClose}
@@ -55,7 +58,7 @@ function SideBar({ isSideOpen, sideClose, user }: SideBarProps) {
             </div>
           </section>
           <Divider />
-          <TravelList travelList={user.travelList} />
+          <TravelList travelList={spaces} />
         </div>
       </Slide>
     </div>

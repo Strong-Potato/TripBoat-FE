@@ -1,11 +1,10 @@
 interface User {
   name: string;
   src: string;
-  travelList: TravelListItem[];
 }
 
 type TravelListItem = {
-  name: string[];
+  title: string;
   startDate: string;
   endDate: string;
   id: string;
@@ -14,7 +13,7 @@ type TravelListItem = {
 export type SideBarProps = {
   sideClose: () => void;
   isSideOpen: boolean;
-  user: User;
+  users: User;
 };
 
 export type TravelListProps = {
