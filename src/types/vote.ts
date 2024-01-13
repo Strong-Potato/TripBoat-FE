@@ -1,10 +1,12 @@
+import { ReactNode } from "react";
+
 export interface VoteBottomButtonProps {
   onClick: () => void;
   title: string;
 }
 
 export interface VoteContentProps {
-  onBottomSlideOpen: () => void;
+  onBottomSlideOpen: (content: ReactNode) => void;
   data: VoteListData;
   showResults: boolean;
 }
@@ -36,6 +38,7 @@ export interface VoteListData {
 }
 
 export interface CandidateCardProps {
+  onBottomSlideOpen: (content: ReactNode) => void;
   candidate: CandidateData;
   showResults: boolean;
   index: number;

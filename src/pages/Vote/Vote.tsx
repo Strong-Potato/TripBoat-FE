@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import styles from "./Vote.module.scss";
 
 import BottomSlide from "@/components/BottomSlide/BottomSlide";
-import AddCandidate from "@/components/Vote/VoteBottomSlideContent/AddCandidate/AddCandidate";
 import VoteMeatball from "@/components/Vote/VoteBottomSlideContent/VoteMeatball/VoteMeatball";
 import VoteContent from "@/components/Vote/VoteContent/VoteContent";
 import VoteContentEmpty from "@/components/Vote/VoteContent/VoteContentEmpty/VoteContentEmpty";
@@ -68,7 +67,7 @@ const Vote = () => {
           {data.candidates ? (
             <VoteContent
               data={data}
-              onBottomSlideOpen={() => onBottomSlideOpen(<AddCandidate />)}
+              onBottomSlideOpen={onBottomSlideOpen}
               showResults={showResults}
             />
           ) : (

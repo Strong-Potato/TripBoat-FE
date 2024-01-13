@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import styles from "./CandidateCard.module.scss";
 
@@ -8,9 +9,12 @@ import SecondIcon from "@/assets/voteIcons/rank_2.svg?react";
 import ThirdIcon from "@/assets/voteIcons/rank_3.svg?react";
 import AddDayIcon from "@/assets/voteIcons/vote_addDay.svg?react";
 
+import VotedUserList from "../../VoteBottomSlideContent/VotedUserList/VotedUserList";
+
 import { CandidateCardProps } from "@/types/vote";
 
 const CandidateCard = ({
+  onBottomSlideOpen,
   candidate,
   showResults,
   index,
@@ -47,8 +51,12 @@ const CandidateCard = ({
   const rankClassName = showResults && getRankClassName(index);
   const RankIcon = showResults && getRankIcon(index);
 
-  const onVoteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setIsVoted(!isVoted);
+  const onVoteBoxClick = () => {
+    if (showResults) {
+      onBottomSlideOpen(<VotedUserList />);
+    } else {
+      setIsVoted(!isVoted);
+    }
   };
 
   return (
@@ -62,10 +70,9 @@ const CandidateCard = ({
 
       <div className={styles.main}>
         <div className={styles.main__contextBox}>
-          {/* 장소 제목 Link 장소 상페로 */}
-          <div className={styles.main__contextBox__name}>
+          <Link to="" className={styles.main__contextBox__name}>
             {candidate.name} {">"}
-          </div>
+          </Link>
 
           <div className={styles.main__contextBox__category}>
             {candidate.category}
@@ -85,11 +92,7 @@ const CandidateCard = ({
             </button>
           )}
         </div>
-        <button
-          className={styles.main__voteBox}
-          onClick={onVoteClick}
-          disabled={showResults}
-        >
+        <button className={styles.main__voteBox} onClick={onVoteBoxClick}>
           <div className={styles.main__voteBox__star}>
             {isVoted ? <FaStar style={{ color: "#fee500" }} /> : <FaRegStar />}
           </div>
@@ -98,10 +101,6 @@ const CandidateCard = ({
           </div>
         </button>
       </div>
-      {/* <div className={styles.comment}>
-        <Avatar boxSize="24px" />
-        <div className={styles.comment__text}>{candidate.memo}</div>
-      </div> */}
     </div>
   );
 };

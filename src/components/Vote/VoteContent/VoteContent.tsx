@@ -7,6 +7,7 @@ import styles from "./VoteContent.module.scss";
 import CandidateCard from "./CandidateCard/CandidateCard";
 import VoteContentEmpty from "./VoteContentEmpty/VoteContentEmpty";
 import VoteRecommendList from "./VoteRecommendList/VoteRecommendList";
+import AddCandidate from "../VoteBottomSlideContent/AddCandidate/AddCandidate";
 
 import { VoteContentProps } from "@/types/vote";
 
@@ -39,7 +40,7 @@ const VoteContent = ({
         </div>
 
         <button
-          onClick={onBottomSlideOpen}
+          onClick={() => onBottomSlideOpen(<AddCandidate />)}
           className={styles.container__stateBar__addCandidate}
         >
           + 후보 추가({candidates.length}/15)
@@ -50,6 +51,7 @@ const VoteContent = ({
           candidates.map((candidate, i) => (
             <div key={i} className={styles.candidateBox}>
               <CandidateCard
+                onBottomSlideOpen={onBottomSlideOpen}
                 candidate={candidate}
                 showResults={showResults}
                 index={i + 1}
