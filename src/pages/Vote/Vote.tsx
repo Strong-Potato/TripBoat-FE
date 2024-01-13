@@ -37,6 +37,22 @@ const Vote = () => {
     setShowResults(!showResults);
   };
 
+  // const showBottomButton = () => {
+  //   if(data?.state === "진행 중") {
+  //     <Button
+  //     variant="CTAButton"
+  //     onClick={handleShowResultsClick}
+  //     isDisabled={data.candidates.length === 0}
+  //   >
+  //     {showResults ? "다시 투표하기" : "결과보기"}
+  //   </Button>
+  //   } else if ("리코일 후보삭제") {
+  //     //새로운 버튼 컴포넌트 <DeleteCandidateBottomButton/>
+  //   } else {
+  //     null
+  //   }
+  // }
+
   return (
     <>
       {data && (

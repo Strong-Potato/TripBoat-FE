@@ -1,6 +1,5 @@
 import { Avatar, AvatarGroup, Icon } from "@chakra-ui/react";
 import { useState } from "react";
-// import CheckedIcon from "@/assets/voteIcons/vote_card_check.svg?react";
 import { IoMdCheckmark } from "react-icons/io";
 import { Link } from "react-router-dom";
 
@@ -19,8 +18,6 @@ const TabsVoteCard = ({ data }: { data: VoteListData }) => {
   };
 
   const users = data.voteUserId;
-
-  console.log("users", users);
 
   //카드 전체 클릭vs결정클릭이 부딪힘, 제목에만 Link 넣을지 보기
   return (

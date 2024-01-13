@@ -18,8 +18,6 @@ const VoteTabPanel = () => {
     getVoteListData(setData);
   }, []);
 
-  console.log("뭔데", data);
-
   return (
     <div className={styles.container}>
       <Tabs variant="voteFilter">
