@@ -13,11 +13,13 @@ import { SearchItemType } from "@/types/home";
 interface PropsType {
   data: SearchItemType[];
   categoryChange: boolean;
+  setCurrentPin: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function MapItems({ data, categoryChange }: PropsType) {
+function MapItems({ data, categoryChange, setCurrentPin }: PropsType) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
+  const [throttle, setThrottle] = useState(false);
 
   useEffect(() => {
     if (size.width < 449) {
@@ -27,8 +29,48 @@ function MapItems({ data, categoryChange }: PropsType) {
     }
   }, [data, size, componentRef]);
 
+  function setCurrentIndex() {
+    const criterion = document.querySelector("#map_slide_container");
+    const elements = document.querySelectorAll("#map_slide");
+    const childrenArray = Array.from(elements[0].children);
+
+    for (const item of childrenArray) {
+      const currentLeft =
+        criterion &&
+        item.getBoundingClientRect().x - criterion.getBoundingClientRect().x;
+      if (currentLeft) {
+        if (0 < currentLeft && currentLeft < 196) {
+          const index = childrenArray.indexOf(item);
+          setCurrentPin(index);
+        }
+      }
+    }
+  }
+
+  const handleScroll = () => {
+    if (throttle) return;
+    if (!throttle) {
+      setThrottle(true);
+      setTimeout(async () => {
+        setThrottle(false);
+      }, 300);
+    }
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCurrentIndex();
+    }, 600);
+  }, [slideLocation]);
+
+  useEffect(() => {
+    if (throttle) {
+      setCurrentIndex();
+    }
+  }, [throttle]);
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id="map_slide_container">
       {data && (
         <SlideButton
           // ref의 left값 state
@@ -48,10 +90,12 @@ function MapItems({ data, categoryChange }: PropsType) {
       <div
         className={styles.slide_box}
         ref={componentRef}
+        id="map_slide"
         style={{
           overflow: size.width < 449 ? "scroll" : "visible",
           left: slideLocation + "px",
         }}
+        onScroll={handleScroll}
       >
         {data &&
           data.map((data, i) => (
