@@ -47,3 +47,11 @@ export interface CandidateCardProps {
 export interface VoteMeatballProps {
   state: string;
 }
+
+export interface AlertModalProps {
+  title: string;
+  subText?: string;
+  actionButton: string;
+  isSmallSize: boolean;
+  onClickAction?: () => void;
+}

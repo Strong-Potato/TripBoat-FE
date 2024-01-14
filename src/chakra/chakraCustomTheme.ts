@@ -1,6 +1,7 @@
 import { extendTheme } from "@chakra-ui/react";
 
 import { avatarTheme } from "./avatarCustom";
+import { modalTheme } from "./modalCustom";
 import { tabsTheme } from "./tabsCustom";
 
 export const customTheme = extendTheme({
@@ -212,13 +213,7 @@ export const customTheme = extendTheme({
   components: {
     Avatar: avatarTheme,
     Tabs: tabsTheme,
-    Modal: {
-      baseStyle: {
-        overlay: {
-          bg: "rgba(20, 20, 20, 0.8)",
-        },
-      },
-    },
+    Modal: modalTheme,
     Button: {
       baseStyle: {
         _disabled: {

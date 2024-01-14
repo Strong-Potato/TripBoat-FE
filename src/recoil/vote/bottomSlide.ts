@@ -11,3 +11,8 @@ export const bottomSlideContentState = atom<BottomSlideContentState>({
     content: null,
   },
 });
+
+export const isBottomSlideOpenState = atom<boolean>({
+  key: "isBottomSlideOpenState",
+  default: false,
+});
