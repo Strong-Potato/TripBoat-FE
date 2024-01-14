@@ -18,7 +18,8 @@
 
     .dateChoice {
       display: flex;
-      padding: 20px 60px;
+      padding: 22px 0;
+      padding-left: calc((100% - 32.7rem) / 2);
       align-items: center;
       gap: 8px;
 
