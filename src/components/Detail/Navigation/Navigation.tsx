@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./Navigation.module.scss";
 
-import { NavigationProps } from "@/types/detail";
-
-function Navigation({ onOpen }: NavigationProps) {
+function Navigation() {
   const navigate = useNavigate();
 
   return (
@@ -16,7 +14,7 @@ function Navigation({ onOpen }: NavigationProps) {
         onClick={() => navigate(-1)}
         cursor="pointer"
       />
-      <GoKebabHorizontal fontSize="2.4rem" onClick={onOpen} cursor="pointer" />
+      <GoKebabHorizontal fontSize="2.4rem" cursor="pointer" />
     </div>
   );
 }
