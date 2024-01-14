@@ -66,6 +66,9 @@ function Map({ data, categoryChange }: PropsType) {
         ),
         image: markerImage,
       });
+      if (i == currentpin) {
+        marker.setZIndex(10);
+      }
       currentMarkers.push(marker);
     });
     setMarkers([...currentMarkers]);
