@@ -1,24 +1,6 @@
 @use "@/sass" as *;
 
 .Container {
-  header {
-    background-color: $neutral0;
-    width: 100%;
-    max-width: 45rem;
-    position: fixed;
-    top: 0;
-    z-index: 2;
-
-    nav {
-      padding: 16px 20px;
-    }
-
-    h1 {
-      @include typography(headline);
-      padding: 8px 20px;
-    }
-  }
-
   .calendarContainer {
     margin-top: 10.2rem;
     margin-bottom: 14rem;

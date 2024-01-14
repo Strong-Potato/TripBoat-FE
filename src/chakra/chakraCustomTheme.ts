@@ -3,6 +3,7 @@ import { extendTheme } from "@chakra-ui/react";
 import { avatarTheme } from "./avatarCustom";
 import { modalTheme } from "./modalCustom";
 import { tabsTheme } from "./tabsCustom";
+import { tagTheme } from "./tagCustom";
 
 export const customTheme = extendTheme({
   styles: {
@@ -213,6 +214,7 @@ export const customTheme = extendTheme({
   components: {
     Avatar: avatarTheme,
     Tabs: tabsTheme,
+    Tag: tagTheme,
     Modal: modalTheme,
     Button: {
       baseStyle: {
