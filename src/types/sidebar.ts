@@ -3,7 +3,7 @@ interface User {
   src: string;
 }
 
-type TravelListItem = {
+export type TravelListItem = {
   title: string;
   startDate: string;
   endDate: string;

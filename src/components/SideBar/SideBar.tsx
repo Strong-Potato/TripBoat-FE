@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import styles from "./SideBar.module.scss";
 
-import useGetSpaces from "@/hooks/useGetSpaces";
+import { useGetSpaces } from "@/hooks/Spaces/useSpaces";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 
 import TravelList from "./TravelList/TravelList";
@@ -20,7 +20,7 @@ function SideBar({ isSideOpen, sideClose, users }: SideBarProps) {
   const slideRef = useRef(null);
   useOnClickOutside(slideRef, sideClose);
 
-  const spaces = useGetSpaces(isSideOpen);
+  const { data: spaces } = useGetSpaces(isSideOpen);
 
   return (
     <div style={containerStyle} className={styles.page}>
@@ -58,7 +58,8 @@ function SideBar({ isSideOpen, sideClose, users }: SideBarProps) {
             </div>
           </section>
           <Divider />
-          <TravelList travelList={spaces} />
+
+          {spaces && <TravelList travelList={spaces} />}
         </div>
       </Slide>
     </div>
