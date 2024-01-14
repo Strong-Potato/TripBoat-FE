@@ -42,7 +42,11 @@ const AlertModal = ({
       variant="alertModal"
     >
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent
+        style={
+          isSmallSize ? { margin: "288px 48px auto", padding: "auto 24px" } : {}
+        }
+      >
         <ModalBody>
           <p className={styles.title}>{title}</p>
           <span className={styles.subText}>{subText}</span>
