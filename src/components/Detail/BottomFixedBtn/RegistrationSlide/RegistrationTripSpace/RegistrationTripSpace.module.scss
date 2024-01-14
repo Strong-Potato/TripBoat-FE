@@ -1,0 +1,79 @@
+@use "@/sass" as *;
+
+.container {
+  border-radius: 16px;
+  margin-bottom: 32px;
+  transition: height 0.5s;
+  overflow: hidden;
+
+  &__select {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    cursor: pointer;
+
+    &__true {
+      @include typography(subTitle);
+      color: $neutral900;
+    }
+
+    &__false {
+      @include typography(bodyLarge);
+      color: $neutral200;
+    }
+  }
+
+  &__itemsBox {
+    padding: 0 8px;
+    padding-bottom: 16px;
+
+    visibility: hidden;
+    transition: visibility 0.5s;
+    &__item {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 8px;
+
+      &:hover {
+        background-color: $primary100;
+      }
+
+      &:hover svg {
+        color: $primary300;
+      }
+
+      &__title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        @include typography(subTitle);
+        color: $neutral900;
+
+        &__img {
+          width: 4rem;
+          height: 4rem;
+          border-radius: 2rem;
+        }
+      }
+
+      &__icon {
+        font-size: 2.4rem;
+        color: $neutral300;
+      }
+    }
+
+    &__itemSelected {
+      background-color: $primary100;
+      svg {
+        color: $primary300;
+      }
+    }
+  }
+
+  &__itemsBoxVisible {
+    visibility: visible;
+  }
+}

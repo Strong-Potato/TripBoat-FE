@@ -72,3 +72,20 @@ export interface InputWrapperProps {
 export interface starsWrapperProps {
   setIsValuedCount: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface BottomFixedBtnProps {
+  onOpen: () => void;
+}
+
+export interface RegistrationSlideProps {
+  onClose: () => void;
+}
+
+export interface RegistrationTripSpaceProps {
+  setIsTripSelected: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface RegistrationListItemProps {
+  title: string;
+  isSelectedProps: boolean;
+}
