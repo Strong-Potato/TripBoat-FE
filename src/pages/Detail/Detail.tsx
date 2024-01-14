@@ -4,6 +4,7 @@ import { ReactNode, useState } from "react";
 import styles from "./Detail.module.scss";
 
 import BottomFixedBtn from "@/components/Detail/BottomFixedBtn/BottomFixedBtn";
+import RegistrationSlide from "@/components/Detail/BottomFixedBtn/RegistrationSlide/RegistrationSlide";
 import BottomSlideDetail from "@/components/Detail/BottomSlideDetail/BottomSlideDetail";
 import Contents from "@/components/Detail/Contents/Contents";
 import ReviewBottomSlide from "@/components/Detail/Contents/ReviewBottomSlide/ReviewBottomSlide";
@@ -55,7 +56,11 @@ function Detail() {
           onBottomSlideOpen(<ReviewBottomSlide onClose={onClose} />)
         }
       />
-      <BottomFixedBtn />
+      <BottomFixedBtn
+        onOpen={() =>
+          onBottomSlideOpen(<RegistrationSlide onClose={onClose} />)
+        }
+      />
       <BottomSlideDetail
         isOpen={isOpen}
         onClose={onClose}
