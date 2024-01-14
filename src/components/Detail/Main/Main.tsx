@@ -3,13 +3,11 @@ import styles from "./Main.module.scss";
 import ImageSwiper from "./ImageSwiper/Swiper";
 import Title from "./Title/Title";
 
-import { MainProps } from "@/types/detail";
-
-function Main({ openToast }: MainProps) {
+function Main() {
   return (
     <div className={styles.container}>
       <ImageSwiper />
-      <Title openToast={openToast} />
+      <Title />
     </div>
   );
 }

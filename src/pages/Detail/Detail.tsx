@@ -11,7 +11,6 @@ import ReviewBottomSlide from "@/components/Detail/Contents/ReviewBottomSlide/Re
 import Main from "@/components/Detail/Main/Main";
 import MeatballBottomSlide from "@/components/Detail/Navigation/MeatballBottomSlide/MeatballBottomSlide";
 import Navigation from "@/components/Detail/Navigation/Navigation";
-import ToastPopup from "@/components/Modal/ToastPopup/ToastPopup";
 
 function Detail() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -23,34 +22,14 @@ function Detail() {
     onOpen();
   };
 
-  const [showAlert, setShowAlert] = useState({
-    active: false,
-    message: "",
-  });
-
-  const openToast = (text: string) => {
-    setShowAlert({
-      active: false,
-      message: "",
-    });
-
-    const toastData = {
-      active: true,
-      message: text,
-    };
-    setShowAlert(toastData);
-  };
-
   return (
     <div className={styles.container}>
       <Navigation
         onOpen={() =>
-          onBottomSlideOpen(
-            <MeatballBottomSlide openToast={openToast} onClose={onClose} />,
-          )
+          onBottomSlideOpen(<MeatballBottomSlide onClose={onClose} />)
         }
       />
-      <Main openToast={openToast} />
+      <Main />
       <Contents
         onOpen={() =>
           onBottomSlideOpen(<ReviewBottomSlide onClose={onClose} />)
@@ -66,7 +45,6 @@ function Detail() {
         onClose={onClose}
         children={bottomSlideContent}
       />
-      <ToastPopup status={showAlert} setFunc={setShowAlert} />
     </div>
   );
 }

@@ -9,16 +9,13 @@ import CloseIcon from "@/assets/close.svg?react";
 
 import { NavigationMeatballProps } from "@/types/detail";
 
-const MeatballBottomSlide = ({
-  openToast,
-  onClose,
-}: NavigationMeatballProps) => {
+const MeatballBottomSlide = ({ onClose }: NavigationMeatballProps) => {
   return (
     <div className={styles.container}>
       <button onClick={onClose} className={styles.container__top}>
         <CloseIcon width="2rem" height="2rem" />
       </button>
-      <button onClick={() => openToast("찜 목록에 추가되었습니다.")}>
+      <button>
         <div className={styles.container__iconWrapper}>
           <FaRegHeart fontSize="1.6rem" />
         </div>
@@ -36,7 +33,7 @@ const MeatballBottomSlide = ({
         </div>
         <p>리뷰 쓰기</p>
       </button>
-      <button onClick={() => openToast("링크가 복사되었습니다.")}>
+      <button>
         <div className={styles.container__iconWrapper}>
           <IoShareSocialOutline fontSize="1.6rem" />
         </div>

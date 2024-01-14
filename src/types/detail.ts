@@ -26,23 +26,12 @@ export interface SwiperIndexPropsType {
 }
 
 // Navigation
-export interface NavigationProps {
-  onOpen: () => void;
-}
 
 export interface NavigationMeatballProps {
-  openToast: (text: string) => void;
   onClose: () => void;
 }
 
 // Main
-export interface MainProps {
-  openToast: (text: string) => void;
-}
-
-export interface MainTitleProps {
-  openToast: (text: string) => void;
-}
 
 // Contents
 export interface ContentsProps {
