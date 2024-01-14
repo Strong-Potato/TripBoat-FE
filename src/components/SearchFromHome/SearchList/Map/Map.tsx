@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useEffect, useState } from "react";
 
 import styles from "./Map.module.scss";
@@ -19,15 +21,11 @@ interface PropsType {
 }
 
 function Map({ data, categoryChange }: PropsType) {
-  const [currentpin, setCurrentPin] = useState(0);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [currentpin, setCurrentPin] = useState<number | undefined>();
   const [map, setMap] = useState<any>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [markers, setMarkers] = useState<any[]>([]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function setPin(data: SearchItemType[]) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function addPin(data: SearchItemType[]) {
     const currentMarkers: any[] = [];
 
     data.map((data, i) => {
@@ -69,11 +67,19 @@ function Map({ data, categoryChange }: PropsType) {
       if (i == currentpin) {
         marker.setZIndex(10);
       }
+      marker.setMap(map);
       currentMarkers.push(marker);
     });
     setMarkers([...currentMarkers]);
   }
+  function removePin(marker: any[]) {
+    marker.map((marker) => {
+      marker.setMap(null);
+    });
+    return true;
+  }
 
+  // 컴포넌트 마운트, 카테고리 전환 시 새로운 맵 생성
   useEffect(() => {
     const container = document.getElementById("map");
 
@@ -91,10 +97,11 @@ function Map({ data, categoryChange }: PropsType) {
     setMap(new window.kakao.maps.Map(container, options));
   }, [data]);
 
+  // 맵 생성 시 현재 데이터 좌표들의 바운드를 만들어 중심점 생성
   useEffect(() => {
     if (map) {
       const bounds = new window.kakao.maps.LatLngBounds();
-      setPin(data);
+      addPin(data);
       data.map((data) => {
         bounds.extend(
           new window.kakao.maps.LatLng(
@@ -107,32 +114,13 @@ function Map({ data, categoryChange }: PropsType) {
     }
   }, [map]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function addPin(marker: any[]) {
-    marker.map((marker) => {
-      marker.setMap(map);
-    });
-  }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function removePin(marker: any[]) {
-    marker.map((marker) => {
-      marker.setMap(null);
-    });
-    return true;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-
+  // 현재 화면에 보이는 아이템의 아이콘 변경
   useEffect(() => {
-    removePin(markers);
-    setPin(data);
-  }, [currentpin]);
-
-  useEffect(() => {
-    if (markers) {
-      addPin(markers);
+    if (map) {
+      removePin(markers);
+      addPin(data);
     }
-  }, [markers]);
+  }, [currentpin]);
 
   return (
     <div className={styles.container}>
