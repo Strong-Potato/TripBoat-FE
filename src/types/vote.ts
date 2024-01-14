@@ -46,6 +46,7 @@ export interface CandidateCardProps {
 
 export interface VoteMeatballProps {
   state: string;
+  isZeroCandidates: boolean;
 }
 
 export interface AlertModalProps {

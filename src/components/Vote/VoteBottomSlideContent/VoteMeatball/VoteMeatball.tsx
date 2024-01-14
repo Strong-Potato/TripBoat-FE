@@ -21,10 +21,9 @@ import {
 
 import { AlertModalProps, VoteMeatballProps } from "@/types/vote";
 
-const VoteMeatball = ({ state }: VoteMeatballProps) => {
+const VoteMeatball = ({ state, isZeroCandidates }: VoteMeatballProps) => {
   const setIsBTOpen = useSetRecoilState(isBottomSlideOpenState);
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
-
   const [modalProps, setModalProps] = useState<AlertModalProps | null>(
     retryVoteContent,
   );
@@ -52,6 +51,7 @@ const VoteMeatball = ({ state }: VoteMeatballProps) => {
         </button>
       ) : (
         <button
+          disabled={isZeroCandidates}
           onClick={() =>
             showAlertModal({
               onClickAction: modalConsole,
@@ -69,6 +69,7 @@ const VoteMeatball = ({ state }: VoteMeatballProps) => {
         <p>투표 제목 수정</p>
       </button>
       <button
+        disabled={isZeroCandidates}
         onClick={() =>
           showAlertModal({
             onClickAction: modalConsole,

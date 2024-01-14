@@ -61,7 +61,12 @@ const Vote = () => {
           <VoteHeader
             title={data.title as string}
             onBottomSlideOpen={() =>
-              BottomSlideOpen(<VoteMeatball state={data.state} />)
+              BottomSlideOpen(
+                <VoteMeatball
+                  state={data.state}
+                  isZeroCandidates={data.candidates.length === 0}
+                />,
+              )
             }
           />
 
