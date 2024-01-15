@@ -5,6 +5,11 @@ const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(modalAnatomy.keys);
 
 const baseStyle = definePartsStyle({
+  closeButton: {
+    fontSize: "1.5rem",
+    top: "16px",
+    right: "16px",
+  },
   overlay: {
     bg: "rgba(20, 20, 20, 0.8)",
   },
