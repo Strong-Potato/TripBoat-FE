@@ -50,7 +50,7 @@ function RecommendedItemList(apiNum: PropsType) {
         className={styles.slide_box}
         ref={componentRef}
         style={{
-          overflow: size.width < 450 ? "scroll" : "visible",
+          overflow: size.width < 449 ? "scroll" : "visible",
           left: slideLocation + "px",
         }}
       >

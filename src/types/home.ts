@@ -1,3 +1,5 @@
+// 홈 타입
+
 export interface RecommendedItemDataType {
   title: string;
   imageURL: string;
@@ -32,6 +34,7 @@ export interface LeftButtonPropsType {
   setSlideLocation: React.Dispatch<React.SetStateAction<number>>;
   itemWidth: number;
   flexGap: number;
+  buttonSize?: number;
 }
 
 interface ComponentSize {
@@ -42,4 +45,25 @@ interface ComponentSize {
 export interface SlideButtonPropsType extends LeftButtonPropsType {
   slideSize: ComponentSize;
   itemNumber: number;
+}
+
+// 홈 검색 타입
+export interface SearchItemLocationType {
+  address: string;
+  latitude: number;
+  longtitude: number;
+}
+
+export interface SearchHotItemType {
+  title: string;
+  imageURL: string;
+  location: string;
+  id: number;
+}
+
+export interface SearchItemType {
+  title: string;
+  imageURL: string;
+  location: SearchItemLocationType;
+  category: string;
 }

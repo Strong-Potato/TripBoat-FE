@@ -1,0 +1,27 @@
+@use "@/sass" as *;
+
+.cotainer {
+  width: 100%;
+  max-width: 45rem;
+  min-width: 36rem;
+}
+.header {
+  width: 45rem;
+  min-width: 36rem;
+  height: 12.4rem;
+  padding: 24px 20px 14px;
+
+  background-color: $neutral0;
+
+  position: sticky;
+  top: 97px;
+  z-index: 3;
+
+  &__counts {
+    @include typography(tabLabel);
+    margin-top: 20px;
+  }
+}
+.content {
+  padding: 0px 20px 100px;
+}

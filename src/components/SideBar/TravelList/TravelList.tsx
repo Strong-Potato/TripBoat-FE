@@ -1,14 +1,17 @@
-import styles from "./TravelList.module.scss";
+import { GoPlus } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
 
-import PlusIcon from "@/assets/plus.svg?react";
+import styles from "./TravelList.module.scss";
 
 import { TravelListProps } from "@/types/sidebar";
 
 function TravelList({ travelList }: TravelListProps) {
+  const navigate = useNavigate();
+
   return (
     <section className={styles.travelSpaceList}>
       <button className={styles.travelSpaceList__addButton}>
-        <PlusIcon />
+        <GoPlus className={styles.travelSpaceList__addButton__icon} />
         <p className={styles.travelSpaceList__addButton__text}>
           새 여행 스페이스 만들기
         </p>
@@ -16,12 +19,19 @@ function TravelList({ travelList }: TravelListProps) {
       <ul className={styles.travelSpaceList__items}>
         {travelList.map((item, index) => (
           <li key={index}>
-            <button className={styles.travelSpaceList__items__item}>
+            <button
+              className={styles.travelSpaceList__items__item}
+              onClick={() => navigate(`/carryout/${item.id}`)}
+            >
               <p className={styles.travelSpaceList__items__item__name}>
-                {item.name}
+                {item.title[0]
+                  ? `${item.title} ${"여행"}`
+                  : `${"여행스페이스"} ${index + 1} ${"(여행지 미정)"}`}
               </p>
               <p className={styles.travelSpaceList__items__item__date}>
-                {item.date}
+                {item.startDate && item.endDate
+                  ? `${item.startDate}-${item.endDate}`
+                  : "날짜 미정"}
               </p>
             </button>
           </li>

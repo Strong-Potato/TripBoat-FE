@@ -18,9 +18,10 @@ import styles from "./Trip.module.scss";
 
 import BottomSlide from "@/components/BottomSlide/BottomSlide";
 import SlideBar from "@/components/SideBar/SideBar";
-import EditBottomSlideContent from "@/components/TripSpace/EditBottomSlideContent/EditBottomSlideContent";
+import EditTripSpace from "@/components/TripSpace/EditTripSpace/EditTripSpace";
 import FriendList from "@/components/TripSpace/FriendList/FriendList";
 import InviteFriends from "@/components/TripSpace/InviteFriends/InviteFriends";
+import VoteTabPanel from "@/components/VoteTabPanel/VoteTabPanel";
 
 function Trip() {
   const navigate = useNavigate();
@@ -39,7 +40,6 @@ function Trip() {
     onOpen: onBottomSlideOpen,
     onClose: onBottomSlideClose,
   } = useDisclosure();
-
   const {
     isOpen: isSlideBarOpen,
     onOpen: onSlideBarOpen,
@@ -59,8 +59,8 @@ function Trip() {
   } = useDisclosure();
 
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
+    <>
+      <div className={styles.container}>
         <div className={styles.iconTab}>
           <button onClick={() => navigate("/alarm")}>
             <AlarmIcon size="24px" color="white" />
@@ -69,89 +69,108 @@ function Trip() {
             <MenuIcon size="24px" color="white" />
           </button>
         </div>
-        <div className={styles.titleContainer}>
-          <div className={styles.titleContainer__dDayTitle}>D-day</div>
-          <div className={styles.titleContainer__placeTitle}>
-            여행지를 정해주세요
+
+        <header className={styles.header}>
+          <div className={styles.titleContainer}>
+            <div className={styles.titleContainer__dDayTitle}>D-day</div>
+            <div className={styles.titleContainer__placeTitle}>
+              여행지를 정해주세요
+            </div>
+            <div className={styles.dateContainer}>
+              <span className={styles.dateContainer__dateTitle}>
+                날짜를 정해주세요
+              </span>
+              <button
+                className={styles.dateContainer__editButton}
+                onClick={onBottomSlideOpen}
+              >
+                편집
+              </button>
+            </div>
           </div>
-          <div className={styles.dateContainer}>
-            <span className={styles.dateContainer__dateTitle}>
-              날짜를 정해주세요
-            </span>
+          <div className={styles.userContainer}>
             <button
-              className={styles.dateContainer__editButton}
-              onClick={onBottomSlideOpen}
+              className={styles.avatarContainer}
+              onClick={onFriendListOpen}
             >
-              편집
+              <AvatarGroup
+                className={styles.avatarContainer__group}
+                spacing="-8px"
+                max={3}
+              >
+                {users.map((user) => (
+                  <Avatar
+                    w="2.6rem"
+                    h="2.6rem"
+                    name={user.name}
+                    src={user.src}
+                  />
+                ))}
+              </AvatarGroup>
+              <span>외 {users.length - 3}명</span>
+            </button>
+            <button className={styles.addPersonButton} onClick={onInviteOpen}>
+              <PlusIcon />
+              <span>일행추가</span>
             </button>
           </div>
+        </header>
+
+        <div className={styles.contents}>
+          <Tabs isFitted variant="voteTab">
+            {/* variant 추가 */}
+            <div className={styles.contents__stickyTabList}>
+              <TabList className={styles.contents__tabList}>
+                <Tab
+                  fontSize="tabLabel"
+                  padding="0"
+                  borderColor="transparent"
+                  _selected={{ color: "#1D2433", fontWeight: "700" }}
+                >
+                  투표
+                </Tab>
+                <Tab
+                  fontSize="tabLabel"
+                  padding="0"
+                  _selected={{ color: "#1D2433", fontWeight: "700" }}
+                >
+                  일정
+                </Tab>
+              </TabList>
+              <TabIndicator className={styles.contents__tabIndicator} />
+            </div>
+            <TabPanels bg="#fff">
+              <TabPanel className={styles.contents__tabContent}>
+                <VoteTabPanel />
+              </TabPanel>
+              <TabPanel className={styles.contents__tabContent}>
+                <>일정 탭 컴포넌트</>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
         </div>
-        <div className={styles.userContainer}>
-          <button className={styles.avatarContainer} onClick={onFriendListOpen}>
-            <AvatarGroup
-              className={styles.avatarContainer__group}
-              spacing="-8px"
-              max={3}
-            >
-              {users.map((user) => (
-                <Avatar w="2.6rem" h="2.6rem" name={user.name} src={user.src} />
-              ))}
-            </AvatarGroup>
-            <span>외 {users.length - 3}명</span>
-          </button>
-          <button className={styles.addPersonButton} onClick={onInviteOpen}>
-            <PlusIcon />
-            <span>일행추가</span>
-          </button>
-        </div>
-      </header>
-      <div className={styles.contents}>
-        <Tabs isFitted variant="unstyled">
-          <TabList className={styles.contents__tabList}>
-            <Tab
-              fontSize="tabLabel"
-              padding="0"
-              borderColor="transparent"
-              _selected={{ color: "#1D2433", fontWeight: "700" }}
-            >
-              메인
-            </Tab>
-            <Tab
-              fontSize="tabLabel"
-              padding="0"
-              _selected={{ color: "#1D2433", fontWeight: "700" }}
-            >
-              일정
-            </Tab>
-          </TabList>
-          <TabIndicator className={styles.contents__tabIndicator} />
-          <TabPanels>
-            <TabPanel className={styles.contents__tabContent}>
-              <>메인 탭 컴포넌트</>
-            </TabPanel>
-            <TabPanel className={styles.contents__tabContent}>
-              <>일정 탭 컴포넌트</>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+        <BottomSlide
+          isOpen={isBottomSlideOpen}
+          onClose={onBottomSlideClose}
+          children={<EditTripSpace />}
+        />
+        <BottomSlide
+          isOpen={isInviteOpen}
+          onClose={onInviteClose}
+          children={<InviteFriends />}
+        />
+        <BottomSlide
+          isOpen={isFriendListOpen}
+          onClose={onFriendListClose}
+          children={<FriendList users={users} />}
+        />
       </div>
-      <SlideBar isSideOpen={isSlideBarOpen} sideClose={onSlideBarClose} />
-      <BottomSlide
-        isOpen={isBottomSlideOpen}
-        onClose={onBottomSlideClose}
-        children={<EditBottomSlideContent />}
+      <SlideBar
+        isSideOpen={isSlideBarOpen}
+        sideClose={onSlideBarClose}
+        users={users[0]}
       />
-      <BottomSlide
-        isOpen={isInviteOpen}
-        onClose={onInviteClose}
-        children={<InviteFriends />}
-      />
-      <BottomSlide
-        isOpen={isFriendListOpen}
-        onClose={onFriendListClose}
-        children={<FriendList users={users} />}
-      />
-    </div>
+    </>
   );
 }
 

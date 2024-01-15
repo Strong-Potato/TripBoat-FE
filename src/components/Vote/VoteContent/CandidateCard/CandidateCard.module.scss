@@ -1,32 +1,61 @@
 @use "@/sass" as *;
 
 .container {
+  position: relative;
+
   width: 100%; //335?
-  height: 14.4rem;
-  padding: 15px 20px;
+  min-width: 33.5rem;
+  height: 10rem;
+  padding-right: 16px;
 
   border-radius: 16px;
-  border: 2px solid $neutral200;
-  box-shadow: $shadow100;
+  // border: 2px solid $neutral200;
+  box-shadow: $shadow200;
 
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  gap: 12px;
+
+  z-index: 2;
+
+  & > img {
+    height: 100%;
+    width: 8rem;
+    border-radius: 16px 0 0 16px;
+    object-fit: cover;
+  }
+}
+
+.firstBorder {
+  border: 1px solid #e23774;
+}
+.secondBorder {
+  border: 1px solid #2388ff;
+}
+.thirdBorder {
+  border: 1px solid #cdcfd0;
+}
+
+.rankTag {
+  position: absolute;
+  left: -1px;
+  top: -1px;
 }
 
 .main {
   width: 100%;
+  padding: 16px 0;
 
   display: flex;
+  align-items: center;
   justify-content: space-between;
 
   &__contextBox {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    // gap: 8px;
 
     &__name {
-      @include typography(titleMedium);
+      @include typography(titleSmall);
       color: $neutral900;
     }
     &__category {
@@ -36,45 +65,34 @@
     &__addDay {
       @include typography(captionSmall);
       color: $neutral800;
+      margin-top: 8px;
+
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
   }
   &__voteBox {
     @include typography(bodySmall);
     color: $neutral800;
 
-    width: 5.8rem;
-    height: 8rem;
+    padding: 12px;
 
-    padding: 10px;
-
-    border-radius: 10px;
-    border: 2px solid $neutral200;
+    border-radius: 8px;
+    border: 1px solid $neutral200;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    gap: 4px;
+    color: $neutral800;
 
     &__star {
-      font-size: 2.4rem;
+      font-size: 2.1rem;
     }
-  }
-}
-
-.comment {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  &__text {
-    height: 2.2rem;
-    @include typography(bodySmall);
-    color: $neutral900;
-    background-color: $neutral100;
-
-    padding: 0 17px;
-    border-radius: 7px;
+    &__vote {
+      @include typography(captionSmall);
+    }
   }
 }

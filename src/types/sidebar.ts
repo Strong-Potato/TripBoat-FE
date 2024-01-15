@@ -1,11 +1,19 @@
+interface User {
+  name: string;
+  src: string;
+}
+
+export type TravelListItem = {
+  title: string;
+  startDate: string;
+  endDate: string;
+  id: string;
+};
+
 export type SideBarProps = {
   sideClose: () => void;
   isSideOpen: boolean;
-};
-
-type TravelListItem = {
-  name: string;
-  date: string;
+  users: User;
 };
 
 export type TravelListProps = {

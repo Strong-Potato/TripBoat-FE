@@ -1,0 +1,41 @@
+@use "@/sass" as *;
+
+.container {
+  min-width: 33.5rem;
+  min-height: 12rem;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 40px 12px 12px;
+
+  border-radius: 1.6rem;
+
+  background-color: $neutral0;
+
+  img {
+    width: 9.6rem;
+    height: 9.6rem;
+
+    transition: 0.3s all linear;
+  }
+
+  .text {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    transition: 0.3s all linear;
+
+    .title {
+      @include typography(titleSmall);
+    }
+    .info {
+      color: $neutral400;
+      @include typography(captionSmall);
+    }
+  }
+}

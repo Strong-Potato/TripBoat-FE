@@ -7,7 +7,9 @@ import styles from "./VoteRecommendList.module.scss";
 
 import VoteRecommendItem from "./VoteRecommendItem/VoteRecommendItem";
 
-const VoteRecommendList = () => {
+// 후보지&여행지 X -> 상품 추천 없음
+
+const VoteRecommendList = ({ state }: { state: string }) => {
   return (
     <div className={styles.container}>
       <p className={styles.container__title}>이런 카페는 어때요?</p>
@@ -19,16 +21,16 @@ const VoteRecommendList = () => {
         breakpoints={{ 400: { slidesPerView: 2.4 } }}
       >
         <SwiperSlide>
-          <VoteRecommendItem />
+          <VoteRecommendItem state={state} />
         </SwiperSlide>
         <SwiperSlide>
-          <VoteRecommendItem />
+          <VoteRecommendItem state={state} />
         </SwiperSlide>
         <SwiperSlide>
-          <VoteRecommendItem />
+          <VoteRecommendItem state={state} />
         </SwiperSlide>
         <SwiperSlide>
-          <VoteRecommendItem />
+          <VoteRecommendItem state={state} />
         </SwiperSlide>
       </Swiper>
     </div>

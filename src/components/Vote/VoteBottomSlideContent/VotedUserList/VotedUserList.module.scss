@@ -1,0 +1,36 @@
+@use "@/sass" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  &__title {
+    @include typography(subTitle);
+  }
+
+  &__list {
+    max-height: calc(4rem * 5 + 16px * 4);
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    .userBox {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      &__name {
+        @include typography(tabLabel);
+      }
+    }
+  }
+}

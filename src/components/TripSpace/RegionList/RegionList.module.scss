@@ -1,0 +1,42 @@
+@use "@/sass" as *;
+
+.container {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100px;
+  }
+
+  .regionInformation {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    span {
+      @include typography(titleSmall);
+      color: $neutral900;
+    }
+  }
+
+  button {
+    @include typography(captionSmall);
+    border-radius: 16px;
+    width: 5.3rem;
+    height: 2.8rem;
+  }
+
+  .selectedButton {
+    background-color: $primary300;
+    color: $neutral0;
+  }
+
+  .unselectedButton {
+    background-color: $neutral100;
+    color: $neutral800;
+  }
+}

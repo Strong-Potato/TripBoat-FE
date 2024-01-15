@@ -1,0 +1,14 @@
+@use "@/sass" as *;
+
+.container {
+  text-align: center;
+  margin-top: 16vh;
+  &__title {
+    @include typography(subTitle);
+    color: $neutral400;
+  }
+  &__text {
+    @include typography(captionSmall);
+    color: $neutral300;
+  }
+}

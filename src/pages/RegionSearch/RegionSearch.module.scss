@@ -1,0 +1,66 @@
+@use "@/sass" as *;
+
+.container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  .header {
+    height: 17rem;
+    background-color: $neutral0;
+    transition: all 0.5s;
+  }
+
+  .focusHeader {
+    height: 5rem;
+    background-color: $neutral0;
+    transition: all 0.5s;
+  }
+
+  .regionListsContainer {
+    width: 100%;
+    min-width: 36rem;
+    max-width: 45rem;
+    height: calc(100vh - 17rem);
+    // margin-top: 17rem;
+    margin-bottom: 15.5rem;
+    position: sticky;
+    top: 17rem;
+    overflow-y: auto;
+    transition: all 0.5s;
+
+    &__focus {
+      width: 100%;
+      min-width: 36rem;
+      max-width: 45rem;
+      height: calc(100vh - 5rem);
+      // margin-top: 5rem;
+      margin-bottom: 15.5rem;
+      position: sticky;
+      top: 5rem;
+      overflow-y: auto;
+      transition: all 0.5s;
+    }
+  }
+
+  .regionChoiceContainer {
+    background-color: $neutral0;
+    box-shadow: $shadow200;
+    position: fixed;
+    bottom: 0px;
+    z-index: 3;
+    width: 100%;
+    min-width: 36rem;
+    max-width: 45rem;
+    height: 15.5rem;
+    padding: 24px 20px;
+    white-space: nowrap;
+
+    .tagContainer {
+      display: flex;
+      overflow-x: auto;
+    }
+  }
+}
