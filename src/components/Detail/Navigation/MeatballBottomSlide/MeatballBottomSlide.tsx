@@ -5,14 +5,14 @@ import { IoShareSocialOutline } from "react-icons/io5";
 
 import styles from "./MeatballBottomSlide.module.scss";
 
-import useToastCustom from "@/hooks/useToastCustom/useToastCustom";
+import CustomToast from "@/components/CustomToast/CustomToast";
 
 import CloseIcon from "@/assets/close.svg?react";
 
 import { NavigationMeatballProps } from "@/types/detail";
 
 const MeatballBottomSlide = ({ onClose }: NavigationMeatballProps) => {
-  const showToast = useToastCustom();
+  const showToast = CustomToast();
 
   return (
     <div className={styles.container}>

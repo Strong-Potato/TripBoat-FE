@@ -1,6 +1,6 @@
 import { Box, useToast } from "@chakra-ui/react";
 
-import styles from "./useToastCustom.module.scss";
+import styles from "./CustomToast.module.scss";
 
 interface UseToastCustomProps {
   text: string;
@@ -8,7 +8,7 @@ interface UseToastCustomProps {
   linkText: string;
 }
 
-const useToastCustom = () => {
+const CustomToast = () => {
   const toast = useToast();
 
   const showToast = (
@@ -44,4 +44,4 @@ const useToastCustom = () => {
   return showToast;
 };
 
-export default useToastCustom;
+export default CustomToast;
