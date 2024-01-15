@@ -18,7 +18,7 @@ import styles from "./Trip.module.scss";
 
 import BottomSlide from "@/components/BottomSlide/BottomSlide";
 import SlideBar from "@/components/SideBar/SideBar";
-import EditBottomSlideContent from "@/components/TripSpace/EditBottomSlideContent/EditBottomSlideContent";
+import EditTripSpace from "@/components/TripSpace/EditTripSpace/EditTripSpace";
 import FriendList from "@/components/TripSpace/FriendList/FriendList";
 import InviteFriends from "@/components/TripSpace/InviteFriends/InviteFriends";
 import VoteTabPanel from "@/components/VoteTabPanel/VoteTabPanel";
@@ -152,7 +152,7 @@ function Trip() {
         <BottomSlide
           isOpen={isBottomSlideOpen}
           onClose={onBottomSlideClose}
-          children={<EditBottomSlideContent />}
+          children={<EditTripSpace />}
         />
         <BottomSlide
           isOpen={isInviteOpen}
