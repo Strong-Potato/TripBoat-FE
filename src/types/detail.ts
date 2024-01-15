@@ -26,6 +26,9 @@ export interface SwiperIndexPropsType {
 }
 
 // Navigation
+export interface NavigationProps {
+  onOpen: () => void;
+}
 
 export interface NavigationMeatballProps {
   onClose: () => void;

@@ -23,9 +23,7 @@ function BottomSlideDetail({ isOpen, onClose, children }: BottomSlideProps) {
         direction="bottom"
         in={isOpen}
       >
-        <div className={styles.slide__content}>
-          <div>{children}</div>
-        </div>
+        <div className={styles.slide__content}>{children}</div>
       </Slide>
     </div>
   );
