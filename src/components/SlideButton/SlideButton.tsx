@@ -17,7 +17,8 @@ function SlideButton({
   return (
     <div
       className={styles.container}
-      style={{ display: slideSize.width < 449 ? "none" : "block" }}
+      // slide 사이즈가 450이 아닌 경우가 있어 모바일 환경을 체크하기 위해 window의 width를 통해 버튼 보여짐
+      style={{ display: window.innerWidth < 450 ? "none" : "block" }}
     >
       <LeftButton
         slideLocation={slideLocation}
