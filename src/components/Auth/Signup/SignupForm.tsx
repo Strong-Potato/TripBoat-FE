@@ -1,4 +1,7 @@
-import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./SignupForm.module.scss";
 
@@ -13,7 +16,6 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
   const {
     register,
     resetField,
-    getValues,
     handleSubmit,
     watch,
     formState: { errors, dirtyFields },
@@ -29,12 +31,36 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
     },
   });
 
-  const watchPassword = watch("password");
-  const watchPasswordConfirm = watch("passwordConfirm");
-  const watchImage = watch("image");
+  const navigate = useNavigate();
+  const [toast, setToast] = useState<string | null>(null);
+  const watchFields = watch();
 
-  const onSubmit = () => {
-    console.log("submit");
+  const showToast = (message: string) => {
+    setToast(message);
+    setTimeout(() => {
+      setToast(null);
+    }, 1500);
+  };
+
+  const onSubmit: SubmitHandler<SignupForm> = async (data) => {
+    if (Object.keys(dirtyFields).length < 5) return;
+    console.log(data);
+
+    try {
+      const { email, emailSert, password, image, nickname } = data;
+      const res = await axios.post("https://api.tripvote.site/auth/register", {
+        email,
+        password,
+        nickname,
+        profile: image,
+        token: emailSert,
+      });
+      console.log(res);
+
+      navigate("/login", { replace: true });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -58,9 +84,12 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
         <StepEmail
           setSignupStep={setSignupStep}
           register={register}
+          watchFields={watchFields}
           resetField={resetField}
           dirty={dirtyFields.email}
           error={errors.email}
+          showToast={showToast}
+          toast={toast}
         />
       )}
 
@@ -68,9 +97,11 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
         <StepEmailSert
           setSignupStep={setSignupStep}
           register={register}
-          email={getValues("email")}
+          watchFields={watchFields}
           dirty={dirtyFields.emailSert}
           error={errors.emailSert}
+          showToast={showToast}
+          toast={toast}
         />
       )}
 
@@ -79,10 +110,11 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
           setSignupStep={setSignupStep}
           register={register}
           resetField={resetField}
-          password={watchPassword}
-          passwordConfirm={watchPasswordConfirm}
+          watchFields={watchFields}
           dirtyFields={dirtyFields}
           errors={errors}
+          showToast={showToast}
+          toast={toast}
         />
       )}
 
@@ -90,7 +122,6 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
         <StepProfile
           register={register}
           resetField={resetField}
-          image={watchImage}
           dirty={dirtyFields.nickname}
           error={errors.nickname}
         />

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 import styles from "./Step.module.scss";
@@ -6,14 +7,18 @@ import AuthButton from "@/components/Auth/Button/AuthButton";
 
 import validationForm from "@/utils/inputValidation";
 
+import AuthToast from "../Toast/AuthToast";
+
 import { StepEmailSertProps } from "@/types/auth";
 
 function StepEmailSert({
   setSignupStep,
   register,
-  email,
+  watchFields: { email, emailSert },
   dirty,
   error,
+  showToast,
+  toast,
 }: StepEmailSertProps) {
   const [due, setDue] = useState<number>(1800);
 
@@ -29,26 +34,43 @@ function StepEmailSert({
     return () => clearInterval(timer);
   }, [due]);
 
-  const onClickEmailSert = () => {
-    setSignupStep("password");
+  const onClickEmailSert = async () => {
+    try {
+      const res = await axios.post(
+        "https://api.tripvote.site/auth/register/check-token",
+        {
+          email,
+          token: emailSert,
+        },
+      );
+      console.log(res);
 
-    /*api 요청
-    성공 {
-    setSignupStep("password");
-    
-    } 실패 {
-    
-    
+      if (res.data.response_code === 403) {
+        showToast("인증코드가 일치하지 않습니다.");
+        return;
+      }
+
+      setSignupStep("password");
+    } catch (error) {
+      console.log(error);
     }
-    */
   };
 
-  const onClickEmailResert = () => {
-    // 이메일 요청 인증코드 재전송 API
-    //
-    //
-    // 성공하면 시간 초기화
-    setDue(1800);
+  const onClickResert = async () => {
+    try {
+      const res = await axios.post(
+        "https://api.tripvote.site/auth/register/send-email",
+        {
+          email,
+        },
+      );
+      console.log(res);
+
+      showToast("인증코드가 재전송 되었습니다.");
+      setDue(1800);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -106,7 +128,7 @@ function StepEmailSert({
         <button
           className={styles.emailResert__btn}
           type="button"
-          onClick={onClickEmailResert}
+          onClick={onClickResert}
         >
           인증 코드 재전송
         </button>
@@ -118,6 +140,8 @@ function StepEmailSert({
         type="button"
         onClick={onClickEmailSert}
       />
+
+      {toast && <AuthToast content={toast} />}
     </section>
   );
 }
