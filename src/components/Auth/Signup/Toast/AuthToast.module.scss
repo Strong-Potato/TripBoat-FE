@@ -1,0 +1,36 @@
+@use "@/sass" as *;
+
+.container {
+  position: absolute;
+  top: 4px;
+  z-index: 100;
+  width: 100%;
+
+  @include animate(
+    showToast,
+    0.3s,
+    cubic-bezier(0, 1.04, 0.11, 0.99),
+    forwards
+  );
+
+  .toast {
+    background: $neutral800;
+    padding: 14px 16px;
+    border-radius: 8px;
+    margin: 0 20px;
+
+    @include typography(button);
+    color: $neutral0;
+  }
+}
+
+@include keyframes(showToast) {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

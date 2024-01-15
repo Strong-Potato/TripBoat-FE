@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import styles from "./Step.module.scss";
 
 import AuthButton from "@/components/Auth/Button/AuthButton";
@@ -5,17 +7,24 @@ import AuthButton from "@/components/Auth/Button/AuthButton";
 import InputRemove from "@/assets/icons/InputRemove.svg?react";
 import validationForm from "@/utils/inputValidation";
 
+import AuthToast from "../Toast/AuthToast";
+
 import { StepPasswordProps } from "@/types/auth";
 
 function StepPassword({
   setSignupStep,
   register,
   resetField,
-  password,
-  passwordConfirm,
+  watchFields: { password, passwordConfirm },
   dirtyFields,
   errors,
+  showToast,
+  toast,
 }: StepPasswordProps) {
+  useEffect(() => {
+    showToast("인증이 완료되었습니다.");
+  }, []);
+
   const resetPassword = () => {
     resetField("password");
   };
@@ -117,6 +126,8 @@ function StepPassword({
         type="button"
         onClick={onClickPassword}
       />
+
+      {toast && <AuthToast content={toast} />}
     </section>
   );
 }
