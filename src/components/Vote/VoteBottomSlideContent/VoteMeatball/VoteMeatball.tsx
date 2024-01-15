@@ -9,12 +9,14 @@ import CheckIcon from "@/assets/voteIcons/vote_check.svg?react";
 import EditIcon from "@/assets/voteIcons/vote_edit.svg?react";
 import RepeatIcon from "@/assets/voteIcons/vote_repeat.svg?react";
 import TrashIcon from "@/assets/voteIcons/vote_trash.svg?react";
-import { isModalOpenState } from "@/recoil/vote/alertModal";
+import {
+  isCandidateSelectingState,
+  isModalOpenState,
+} from "@/recoil/vote/alertModal";
 import { isBottomSlideOpenState } from "@/recoil/vote/bottomSlide";
 
 import {
   confirmVoteContent,
-  deleteCandidateContent,
   deleteVoteContent,
   retryVoteContent,
 } from "./modalContent";
@@ -24,6 +26,7 @@ import { AlertModalProps, VoteMeatballProps } from "@/types/vote";
 const VoteMeatball = ({ state, isZeroCandidates }: VoteMeatballProps) => {
   const setIsBTOpen = useSetRecoilState(isBottomSlideOpenState);
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
+  const setIsCandidateSelecting = useSetRecoilState(isCandidateSelectingState);
   const [modalProps, setModalProps] = useState<AlertModalProps | null>(
     retryVoteContent,
   );
@@ -35,6 +38,12 @@ const VoteMeatball = ({ state, isZeroCandidates }: VoteMeatballProps) => {
   const showAlertModal = ({ ...content }: AlertModalProps) => {
     setIsModalOpen(true);
     setModalProps({ ...content });
+    setIsBTOpen(false);
+  };
+
+  const changeToCandidateSelecting = () => {
+    setIsCandidateSelecting(true);
+    console.log("체체체체인지");
     setIsBTOpen(false);
   };
 
@@ -68,18 +77,21 @@ const VoteMeatball = ({ state, isZeroCandidates }: VoteMeatballProps) => {
         <EditIcon />
         <p>투표 제목 수정</p>
       </button>
+
       <button
         disabled={isZeroCandidates}
-        onClick={() =>
-          showAlertModal({
-            onClickAction: modalConsole,
-            ...deleteCandidateContent,
-          })
+        onClick={
+          changeToCandidateSelecting
+          // showAlertModal({
+          //   onClickAction: modalConsole,
+          //   ...deleteCandidateContent,
+          // })
         }
       >
         <TrashIcon />
         <p>후보 삭제</p>
       </button>
+
       <button
         onClick={() =>
           showAlertModal({ onClickAction: modalConsole, ...deleteVoteContent })

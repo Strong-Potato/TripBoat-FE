@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 
 import styles from "./CandidateCard.module.scss";
 
@@ -8,6 +9,7 @@ import FirstIcon from "@/assets/voteIcons/rank_1.svg?react";
 import SecondIcon from "@/assets/voteIcons/rank_2.svg?react";
 import ThirdIcon from "@/assets/voteIcons/rank_3.svg?react";
 import AddDayIcon from "@/assets/voteIcons/vote_addDay.svg?react";
+import { isCandidateSelectingState } from "@/recoil/vote/alertModal";
 
 import VotedUserList from "../../VoteBottomSlideContent/VotedUserList/VotedUserList";
 
@@ -20,6 +22,7 @@ const CandidateCard = ({
   index,
 }: CandidateCardProps) => {
   const [isVoted, setIsVoted] = useState(false);
+  const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
   const voteCounts = candidate.voteCounts;
 
   const getRankClassName = (index: number) => {
@@ -92,7 +95,11 @@ const CandidateCard = ({
             </button>
           )}
         </div>
-        <button className={styles.main__voteBox} onClick={onVoteBoxClick}>
+        <button
+          className={styles.main__voteBox}
+          onClick={onVoteBoxClick}
+          disabled={isCandidateSelecting}
+        >
           <div className={styles.main__voteBox__star}>
             {isVoted ? <FaStar style={{ color: "#fee500" }} /> : <FaRegStar />}
           </div>
