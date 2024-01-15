@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import { IoMdCheckmark } from "react-icons/io";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 import styles from "./RegistrationTripSpace.module.scss";
 
@@ -16,10 +16,9 @@ function RegistrationTripSpace({
   const [isSelected, setIsSelected] = useState<boolean>(false);
   const [isDropped, setIsDropped] = useState<boolean>(false);
   const [selectItem, setSelectItem] = useState<string>("여행을 선택해주세요");
-  const [isValuedArray, setIsValuedArray] = useRecoilState<string[]>(
+  const setIsValuedArray = useSetRecoilState<string[]>(
     isRegistrationSelectedState,
   );
-
   return (
     <div
       className={`${styles.container} ${
