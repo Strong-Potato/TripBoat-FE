@@ -5,7 +5,7 @@ import { IoShareSocialOutline } from "react-icons/io5";
 
 import styles from "./MeatballBottomSlide.module.scss";
 
-import useToastCustom from "@/components/useToastCustom/useToastCustom";
+import useToastCustom from "@/hooks/useToastCustom/useToastCustom";
 
 import CloseIcon from "@/assets/close.svg?react";
 
