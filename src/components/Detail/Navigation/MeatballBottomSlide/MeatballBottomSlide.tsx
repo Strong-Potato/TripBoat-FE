@@ -5,11 +5,15 @@ import { IoShareSocialOutline } from "react-icons/io5";
 
 import styles from "./MeatballBottomSlide.module.scss";
 
+import useToastCustom from "@/components/useToastCustom/useToastCustom";
+
 import CloseIcon from "@/assets/close.svg?react";
 
 import { NavigationMeatballProps } from "@/types/detail";
 
 const MeatballBottomSlide = ({ onClose }: NavigationMeatballProps) => {
+  const showToast = useToastCustom();
+
   return (
     <div className={styles.container}>
       <button
@@ -21,7 +25,13 @@ const MeatballBottomSlide = ({ onClose }: NavigationMeatballProps) => {
       >
         <CloseIcon width="2rem" height="2rem" />
       </button>
-      <button>
+      <button
+        onClick={() => {
+          showToast("찜 목록에 저장되었습니다.", true, "바로가기", () =>
+            console.log(1),
+          );
+        }}
+      >
         <div className={styles.container__iconWrapper}>
           <FaRegHeart fontSize="1.6rem" />
         </div>
@@ -39,7 +49,11 @@ const MeatballBottomSlide = ({ onClose }: NavigationMeatballProps) => {
         </div>
         <p>리뷰 쓰기</p>
       </button>
-      <button>
+      <button
+        onClick={() => {
+          showToast("링크가 복사되었습니다.");
+        }}
+      >
         <div className={styles.container__iconWrapper}>
           <IoShareSocialOutline fontSize="1.6rem" />
         </div>
