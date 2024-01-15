@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "http://api.TripVote",
+  baseURL: "http://api.tripvote",
   //headers :
   //timeout :
 });
