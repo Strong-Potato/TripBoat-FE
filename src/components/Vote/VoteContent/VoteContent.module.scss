@@ -30,30 +30,4 @@
       color: $neutral900;
     }
   }
-  &__candidateList {
-    margin-bottom: 50px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-}
-
-.candidateBox {
-  &__memo {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-
-    margin-top: 16px;
-    &__text {
-      height: 2.2rem;
-      @include typography(bodySmall);
-      color: $neutral900;
-      background-color: $neutral100;
-
-      padding: 0 16px;
-      border-radius: 8px;
-    }
-  }
 }
