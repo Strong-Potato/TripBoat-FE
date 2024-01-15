@@ -12,7 +12,13 @@ import { NavigationMeatballProps } from "@/types/detail";
 const MeatballBottomSlide = ({ onClose }: NavigationMeatballProps) => {
   return (
     <div className={styles.container}>
-      <button onClick={onClose} className={styles.container__top}>
+      <button
+        onClick={() => {
+          onClose();
+          document.body.style.removeProperty("overflow");
+        }}
+        className={styles.container__top}
+      >
         <CloseIcon width="2rem" height="2rem" />
       </button>
       <button>

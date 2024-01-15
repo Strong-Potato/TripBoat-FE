@@ -20,6 +20,7 @@ function Detail() {
   const onBottomSlideOpen = (content: ReactNode) => {
     setBottomSlideContent(content);
     onOpen();
+    document.body.style.overflow = "hidden";
   };
 
   return (

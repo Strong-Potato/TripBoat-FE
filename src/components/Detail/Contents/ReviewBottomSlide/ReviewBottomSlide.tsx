@@ -18,7 +18,13 @@ function ReviewBottomSlide({ onClose }: ReviewBottomSlideProps) {
   return (
     <div className={styles.container}>
       <div className={styles.container__top}>
-        <button onClick={onClose} className={styles.container__top__icon}>
+        <button
+          onClick={() => {
+            onClose();
+            document.body.style.removeProperty("overflow");
+          }}
+          className={styles.container__top__icon}
+        >
           <CloseIcon width="2rem" height="2rem" />
         </button>
         <div className={styles.container__top__title}>롯데시티 호텔</div>

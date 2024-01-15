@@ -8,15 +8,20 @@ import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { BottomSlideProps } from "@/types/bottomSlide";
 
 function BottomSlideDetail({ isOpen, onClose, children }: BottomSlideProps) {
-  const containerStyle = {
-    display: isOpen ? "block" : "none",
-  };
-
   const slideRef = useRef(null);
   useOnClickOutside(slideRef, onClose);
 
   return (
-    <div className={styles.slideContainer} style={containerStyle}>
+    <>
+      <div
+        className={styles.slideContainer}
+        style={{
+          visibility: isOpen ? "visible" : "hidden",
+        }}
+        onClick={() => {
+          document.body.style.removeProperty("overflow");
+        }}
+      ></div>
       <Slide
         ref={slideRef}
         className={styles.slide}
@@ -25,7 +30,7 @@ function BottomSlideDetail({ isOpen, onClose, children }: BottomSlideProps) {
       >
         <div className={styles.slide__content}>{children}</div>
       </Slide>
-    </div>
+    </>
   );
 }
 

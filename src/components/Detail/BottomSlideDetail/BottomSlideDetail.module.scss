@@ -9,26 +9,29 @@
   background-color: rgba(20, 20, 20, 0.8);
   z-index: 3;
 
-  .slide {
+  visibility: visible;
+  transition: all 0.2s ease-out;
+}
+
+.slide {
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  max-height: 80rem;
+
+  &__content {
+    width: 45rem;
+    overflow: scroll;
+    border-radius: 16px 16px 0px 0px;
+    background-color: $neutral0;
+    padding: 24px 24px 40px 24px;
     display: flex;
-    justify-content: center;
-    z-index: 10;
-    max-height: 80rem;
+    flex-direction: column;
 
-    &__content {
-      width: 45rem;
-      overflow: scroll;
-      border-radius: 16px 16px 0px 0px;
-      background-color: $neutral0;
-      padding: 24px 24px 40px 24px;
-      display: flex;
-      flex-direction: column;
+    position: relative;
 
-      position: relative;
-
-      &::-webkit-scrollbar {
-        display: none;
-      }
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 }
