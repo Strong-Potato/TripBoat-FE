@@ -24,7 +24,7 @@ function MainRouter() {
         <Route path="/user" element={<Home />} />
       </Route>
       <Route path="/login" element={<Login />} />
-      <Route path="/vote" element={<Vote />} />
+      <Route path="/vote/:id" element={<Vote />} />
       <Route path="/detail/:id" element={<Detail />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/signup/agreePrivacy" element={<AgreePrivacy />} />
