@@ -2,7 +2,9 @@
 
 .container {
   z-index: 4;
-  height: 63.8rem;
+  min-height: 63.8rem;
+
+  padding-bottom: 66px;
 
   &__createBtn {
     width: 100%;

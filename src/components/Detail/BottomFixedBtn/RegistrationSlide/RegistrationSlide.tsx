@@ -20,7 +20,12 @@ function RegistrationSlide({ onClose }: RegistrationSlideProps) {
 
   return (
     <div className={styles.container}>
-      <button onClick={onClose}>
+      <button
+        onClick={() => {
+          onClose();
+          document.body.style.removeProperty("overflow");
+        }}
+      >
         <CloseIcon width="2rem" height="2rem" />
       </button>
       <div className={styles.container__createBtn}>
