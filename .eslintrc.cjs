@@ -17,7 +17,6 @@ module.exports = {
     "@tanstack/eslint-plugin-query",
   ],
   rules: {
-    "@typescript-eslint/no-explicit-any": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": [
       "warn",
