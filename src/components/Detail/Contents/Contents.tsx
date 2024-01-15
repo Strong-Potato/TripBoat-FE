@@ -5,7 +5,9 @@ import styles from "./Contents.module.scss";
 import Information from "./Information/Information";
 import Reviews from "./Reviews/Reviews";
 
-function Contents() {
+import { ContentsProps } from "@/types/detail";
+
+function Contents({ onOpen }: ContentsProps) {
   return (
     <Tabs isFitted className={styles.container}>
       <TabList>
@@ -33,10 +35,10 @@ function Contents() {
 
       <TabPanels>
         <TabPanel padding="0">
-          <Information />
+          <Information onOpen={onOpen} />
         </TabPanel>
         <TabPanel padding="0">
-          <Reviews />
+          <Reviews onOpen={onOpen} />
         </TabPanel>
       </TabPanels>
     </Tabs>

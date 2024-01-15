@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 import styles from "./Others.module.scss";
 
 import useComponentSize from "@/hooks/useComponetSize";
+
+import SlideButton from "@/components/SlideButton/SlideButton";
 
 import OtherCard from "./OtherCard/OtherCard";
 
@@ -60,34 +61,29 @@ function Others() {
         <h3>주변 다른 숙소</h3>
       </div>
       <div className={styles.container__slideContainer}>
-        <button
-          className={styles.container__slideContainer__leftBtn}
-          style={{ display: slideLocation === 0 ? "none" : "block" }}
-          onClick={() => {
-            setSlideLocation(slideLocation + 160);
-          }}
-        >
-          <AiOutlineLeft
-            className={styles.container__slideContainer__leftBtn__icon}
+        {othersData && (
+          <SlideButton
+            // ref의 left값 state
+            slideLocation={slideLocation}
+            // left값 setState
+            setSlideLocation={setSlideLocation}
+            // 리스트 목록 아이템의 width
+            itemWidth={144}
+            // 리스트의 갭
+            flexGap={16}
+            // 아이템 갯수
+            itemNumber={othersData.length}
+            // 목록 전체 넓이
+            slideSize={size}
           />
-        </button>
-        <button
-          className={styles.container__slideContainer__rightBtn}
-          style={{
-            display: -slideLocation >= 160 * 4 - size.width ? "none" : "block",
-          }}
-          onClick={() => {
-            setSlideLocation(slideLocation - 160);
-          }}
-        >
-          <AiOutlineRight
-            className={styles.container__slideContainer__rightBtn__icon}
-          />
-        </button>
+        )}
         <div
           className={styles.container__slideContainer__slide}
-          style={{ left: slideLocation + "px" }}
           ref={componentRef}
+          style={{
+            overflow: size.width < 410 ? "scroll" : "visible",
+            left: slideLocation + "px",
+          }}
         >
           {othersData.map((data) => (
             <OtherCard

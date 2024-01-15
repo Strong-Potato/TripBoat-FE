@@ -1,0 +1,20 @@
+@use "@/sass" as *;
+
+.container {
+  margin-top: 32px;
+  padding: 20px 16px;
+  border: 1px solid $neutral200;
+  border-radius: 8px;
+
+  width: 100%;
+
+  cursor: pointer;
+  &__dateWrapper {
+    @include typography(tabLabel);
+    color: $neutral900;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}

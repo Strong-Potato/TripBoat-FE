@@ -13,67 +13,11 @@
 
   &__slideContainer {
     padding: 0 20px;
-    position: relative;
-
-    overflow: hidden;
-
-    &:hover {
-      button {
-        visibility: visible;
-      }
-    }
-
-    &__leftBtn {
-      visibility: hidden;
-
-      position: absolute;
-      top: 50%;
-      left: 10px;
-      transform: translate(10px, -50%);
-
-      width: 2.4rem;
-      height: 2.4rem;
-      border-radius: 1.2rem;
-
-      background-color: #ffffff;
-      z-index: 2;
-      &__icon {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-    }
-
-    &__rightBtn {
-      visibility: hidden;
-
-      position: absolute;
-      top: 50%;
-      right: 10px;
-      transform: translate(-10px, -50%);
-
-      width: 2.4rem;
-      height: 2.4rem;
-      border-radius: 1.2rem;
-
-      background-color: #ffffff;
-      z-index: 2;
-
-      &__icon {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-    }
+    @include slide_button_container;
 
     &__slide {
-      position: relative;
-      display: flex;
+      @include slide_list_container;
       gap: 16px;
-
-      transition: all 1s;
     }
   }
 }
