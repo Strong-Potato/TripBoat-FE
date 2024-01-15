@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 import styles from "./ReviewImageSlider.module.scss";
 
 import useComponentSize from "@/hooks/useComponetSize";
+
+import SlideButton from "@/components/SlideButton/SlideButton";
 
 function ReviewImageSlider({ images }: { images: string[] }) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
@@ -11,33 +12,29 @@ function ReviewImageSlider({ images }: { images: string[] }) {
 
   return (
     <div className={styles.container}>
-      <button
-        className={styles.container__leftBtn}
-        style={{ display: slideLocation === 0 ? "none" : "block" }}
-        onClick={() => {
-          setSlideLocation(slideLocation + 84);
-        }}
-      >
-        <AiOutlineLeft className={styles.container__leftBtn__icon} />
-      </button>
-      <button
-        className={styles.container__rightBtn}
-        style={{
-          display:
-            -slideLocation >= 84 * images.length - 1 - size.width
-              ? "none"
-              : "block",
-        }}
-        onClick={() => {
-          setSlideLocation(slideLocation - 84);
-        }}
-      >
-        <AiOutlineRight className={styles.container__rightBtn__icon} />
-      </button>
+      {images && (
+        <SlideButton
+          // ref의 left값 state
+          slideLocation={slideLocation}
+          // left값 setState
+          setSlideLocation={setSlideLocation}
+          // 리스트 목록 아이템의 width
+          itemWidth={76}
+          // 리스트의 갭
+          flexGap={8}
+          // 아이템 갯수
+          itemNumber={images.length}
+          // 목록 전체 넓이
+          slideSize={size}
+        />
+      )}
       <div
         className={styles.container__imgWrapper}
-        style={{ left: slideLocation + "px" }}
         ref={componentRef}
+        style={{
+          overflow: size.width < 382 ? "scroll" : "visible",
+          left: slideLocation + "px",
+        }}
       >
         {images.map((data) => (
           <img src={data} />
