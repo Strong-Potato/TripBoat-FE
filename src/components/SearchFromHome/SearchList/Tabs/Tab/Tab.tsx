@@ -17,7 +17,7 @@ function Tab({
     setCategoryChange(true);
     setTimeout(() => {
       setCategoryChange(false);
-    }, 200);
+    }, 150);
     setCategory(key);
   }
 

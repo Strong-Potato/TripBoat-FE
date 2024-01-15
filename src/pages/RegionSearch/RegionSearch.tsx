@@ -108,8 +108,8 @@ function RegionSearch() {
       <div
         className={
           isInputFocused || regionValue
-            ? styles.contentsContainer__focus
-            : styles.contentsContainer
+            ? styles.regionListsContainer__focus
+            : styles.regionListsContainer
         }
       >
         {regions.length ? (

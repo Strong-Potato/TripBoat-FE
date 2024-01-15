@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import "./SelectHeader.module.scss";
+import styles from "./SelectHeader.module.scss";
 
 import BackIcon from "@/assets/back.svg?react";
 
@@ -10,7 +10,7 @@ function SelectHeader({ title }: SelectHeaderProps) {
   const navigate = useNavigate();
 
   return (
-    <header>
+    <header className={styles.titleHeader}>
       <nav>
         <button onClick={() => navigate(-1)}>
           <BackIcon />

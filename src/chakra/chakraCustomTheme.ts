@@ -1,6 +1,7 @@
 import { extendTheme } from "@chakra-ui/react";
 
 import { avatarTheme } from "./avatarCustom";
+import { modalTheme } from "./modalCustom";
 import { tabsTheme } from "./tabsCustom";
 import { tagTheme } from "./tagCustom";
 
@@ -61,7 +62,7 @@ export const customTheme = extendTheme({
 
         "&__current-month": {
           display: "flex",
-          paddingLeft: "5.5rem",
+          paddingLeft: "calc((100% - 30rem)/2)",
           fontSize: "1.6rem",
           fontStyle: "normal",
           fontWeight: "700",
@@ -214,7 +215,7 @@ export const customTheme = extendTheme({
     Avatar: avatarTheme,
     Tabs: tabsTheme,
     Tag: tagTheme,
-
+    Modal: modalTheme,
     Button: {
       baseStyle: {
         _disabled: {

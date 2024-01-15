@@ -6,13 +6,13 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import { BsCalendarCheck as CalendarIcon } from "react-icons/bs";
 
 import "react-datepicker/dist/react-datepicker.css";
-import styles from "./CalendarModal.module.scss";
+import styles from "./Calendar.module.scss";
+
+import SelectHeader from "@/components/TripSpace/SelectHeader/SelectHeader";
 
 import { printDayNight } from "@/utils/printDayNight";
 
-import SelectHeader from "../SelectHeader/SelectHeader";
-
-function CalendarModal() {
+function Calendar() {
   registerLocale("ko", ko);
   const today = new Date();
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -83,4 +83,4 @@ function CalendarModal() {
   );
 }
 
-export default CalendarModal;
+export default Calendar;

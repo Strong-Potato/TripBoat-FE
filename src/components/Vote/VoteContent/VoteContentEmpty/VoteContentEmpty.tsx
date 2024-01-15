@@ -1,6 +1,6 @@
-import styles from "./VoteDetailsFieldZero.module.scss";
+import styles from "./VoteContentEmpty.module.scss";
 
-const VoteDetailsFieldZero = () => {
+const VoteContentEmpty = () => {
   return (
     <div className={styles.container}>
       <div className={styles.container__zeroTextBox}>
@@ -15,4 +15,4 @@ const VoteDetailsFieldZero = () => {
   );
 };
 
-export default VoteDetailsFieldZero;
+export default VoteContentEmpty;

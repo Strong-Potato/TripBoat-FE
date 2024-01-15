@@ -14,10 +14,10 @@ function GlobalNavigationBar() {
       <Link to="/">
         <AiOutlineHome fontSize="24px" color={!pathname && "#0086ff"} />
       </Link>
-      <Link to="/carryout">
+      <Link to="/trip">
         <AiOutlineCarryOut
           fontSize="24px"
-          color={pathname === "carryout" && "#0086ff"}
+          color={pathname === "trip" && "#0086ff"}
         />
       </Link>
       <Link to="/heart">
