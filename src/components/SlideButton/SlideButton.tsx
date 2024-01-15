@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import styles from "./SlideButton.module.scss";
 
 import LeftButton from "./LeftButton/LeftButton";
@@ -16,9 +14,6 @@ function SlideButton({
   flexGap,
   buttonSize,
 }: SlideButtonPropsType) {
-  useEffect(() => {
-    console.log(slideSize);
-  }, [slideSize]);
   return (
     <div
       className={styles.container}

@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./Onboarding.module.scss";
 
-import { closeButton, fireIcon, rank1, rank2, snowIcon } from "./Icons";
+import CloseButton from "@/assets/homeIcons/home/closeButton.svg?react";
+import FireIcon from "@/assets/homeIcons/home/fireIcon.svg?react";
+import Rank1 from "@/assets/homeIcons/home/rank1.svg?react";
+import Rank2 from "@/assets/homeIcons/home/rank2.svg?react";
+import SnowIcon from "@/assets/homeIcons/home/snowIcon.svg?react";
 
 interface PropsType {
   set: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,15 +20,15 @@ function Onboarding({ set }: PropsType) {
   const data = [
     {
       title: "뜨끈한 온천탕",
-      icon: fireIcon,
+      icon: <FireIcon />,
       percent: "60%",
-      rank: rank1,
+      rank: <Rank1 />,
     },
     {
       title: "눈 내린 스키장",
-      icon: snowIcon,
+      icon: <SnowIcon />,
       percent: "40%",
-      rank: rank2,
+      rank: <Rank2 />,
     },
   ];
 
@@ -40,7 +44,7 @@ function Onboarding({ set }: PropsType) {
     <div className={styles.container}>
       <div className={styles.modal}>
         <button className={styles.modal__closeButton} onClick={exit}>
-          {closeButton}
+          <CloseButton />
         </button>
         <img
           src="/onboardingBag.png"

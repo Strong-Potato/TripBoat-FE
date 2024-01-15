@@ -20,7 +20,7 @@ function SearchItem({ data, categoryChange }: PropsType) {
       <p className={styles.text} style={{ opacity: categoryChange ? 0 : 1 }}>
         <span className={styles.title}>{data.title}</span>
         <span className={styles.info}>
-          {data.category}·{data.location}
+          {data.category}·{data.location.address}
         </span>
       </p>
     </Link>
