@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CiEdit } from "react-icons/ci";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 import styles from "./RegistrationSlide.module.scss";
 
@@ -13,9 +13,7 @@ import RegistrationTripSpace from "./RegistrationTripSpace/RegistrationTripSpace
 import { RegistrationSlideProps } from "@/types/detail";
 
 function RegistrationSlide({ onClose }: RegistrationSlideProps) {
-  const [isValuedArray, setIsValuedArray] = useRecoilState<string[]>(
-    isRegistrationSelectedState,
-  );
+  const isValuedArray = useRecoilValue<string[]>(isRegistrationSelectedState);
   const [isTripSelected, setIsTripSelected] = useState<boolean>(false);
 
   return (
