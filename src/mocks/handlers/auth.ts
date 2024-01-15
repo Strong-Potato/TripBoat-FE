@@ -1,21 +1,42 @@
-import { http, HttpResponse } from "msw";
+import { http, HttpResponse, PathParams } from "msw";
+
+interface LoginBody {
+  email: string;
+  password: string;
+}
 
 const UserDummy = [
-  { id: "elonmusk", nickname: "Elon Musk" },
-  { id: "vbghdl", nickname: "남궁종민" },
+  { email: "test@naver.com", password: "asdasd123#", nickname: "테스트계정" },
 ];
 
 export const auth = [
-  http.get("/api/login", () => {
-    console.log("로그인", UserDummy[1]);
+  http.post<PathParams, LoginBody>(
+    "https://api.tripvote.site/login",
+    async ({ request }) => {
+      const { email, password } = await request.json();
 
-    return HttpResponse.json(UserDummy[1], {
-      status: 200,
-      headers: {
-        "Set-Cookie": "tmpToken=abc;",
-      },
-    });
-  }),
+      if (email === UserDummy[0].email && password === UserDummy[0].password) {
+        return HttpResponse.json(null, {
+          status: 200,
+          headers: {
+            "Set-Cookie": "access-token=msw-access, refresh-token=msw-refresh",
+          },
+        });
+      } else {
+        return HttpResponse.json(
+          {
+            status: 400,
+            response_code: 401,
+            detail: "이메일 또는 비밀번호를 확인해주세요.",
+            issue: "tripvote.site/error",
+          },
+          {
+            status: 400,
+          },
+        );
+      }
+    },
+  ),
 
   http.post("/api/logout", () => {
     console.log("로그아웃");
