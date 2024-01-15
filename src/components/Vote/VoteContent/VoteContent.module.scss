@@ -16,8 +16,14 @@
 
     &__state {
       @include typography(captionSmall);
-      color: $primary200;
-      //color:$neutral400;
+
+      display: flex;
+      gap: 4px;
+      align-items: center;
+
+      & > svg {
+        font-size: 1.5rem;
+      }
     }
     &__addCandidate {
       @include typography(button);
@@ -29,6 +35,25 @@
 
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 32px;
+  }
+}
+
+.candidateBox {
+  &__memo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    margin-top: 16px;
+    &__text {
+      height: 2.2rem;
+      @include typography(bodySmall);
+      color: $neutral900;
+      background-color: $neutral100;
+
+      padding: 0 16px;
+      border-radius: 8px;
+    }
   }
 }

@@ -18,7 +18,7 @@ import styles from "./Trip.module.scss";
 
 import BottomSlide from "@/components/BottomSlide/BottomSlide";
 import SlideBar from "@/components/SideBar/SideBar";
-import EditBottomSlideContent from "@/components/TripSpace/EditBottomSlideContent/EditBottomSlideContent";
+import EditTripSpace from "@/components/TripSpace/EditTripSpace/EditTripSpace";
 import FriendList from "@/components/TripSpace/FriendList/FriendList";
 import InviteFriends from "@/components/TripSpace/InviteFriends/InviteFriends";
 import VoteTabPanel from "@/components/VoteTabPanel/VoteTabPanel";
@@ -34,43 +34,6 @@ function Trip() {
     { name: "라철수", src: "https://bit.ly/prosper-baba" },
     { name: "마철수", src: "https://bit.ly/code-beast" },
   ];
-
-  const user = {
-    name: "김철수",
-    src: "https://bit.ly/prosper-baba",
-    travelList: [
-      {
-        name: ["서울"],
-        startDate: "2024.1.17",
-        endDate: "2024.1.19",
-        id: "1234",
-      },
-      {
-        name: ["강릉", "여수", "전주", "부산", "대전"],
-        startDate: "2024.1.17",
-        endDate: "2024.1.19",
-        id: "1234",
-      },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      {
-        name: ["강릉", "여수", "전주", "부산", "대전"],
-        startDate: "2024.1.17",
-        endDate: "2024.1.19",
-        id: "1234",
-      },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "2024.1.17", endDate: "2024.1.19", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-    ],
-  };
 
   const {
     isOpen: isBottomSlideOpen,
@@ -189,7 +152,7 @@ function Trip() {
         <BottomSlide
           isOpen={isBottomSlideOpen}
           onClose={onBottomSlideClose}
-          children={<EditBottomSlideContent />}
+          children={<EditTripSpace />}
         />
         <BottomSlide
           isOpen={isInviteOpen}
@@ -205,7 +168,7 @@ function Trip() {
       <SlideBar
         isSideOpen={isSlideBarOpen}
         sideClose={onSlideBarClose}
-        user={user}
+        users={users[0]}
       />
     </>
   );

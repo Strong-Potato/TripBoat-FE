@@ -1,0 +1,13 @@
+@use "@/sass" as *;
+
+.container {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+
+  button {
+    @include typography(bodySmall);
+    color: $primary200;
+  }
+}

@@ -1,6 +1,8 @@
 import styles from "./BottomFixedBtn.module.scss";
 
-function BottomFixedBtn() {
+import { BottomFixedBtnProps } from "@/types/detail";
+
+function BottomFixedBtn({ onOpen }: BottomFixedBtnProps) {
   return (
     <div className={styles.container}>
       <div
@@ -8,6 +10,7 @@ function BottomFixedBtn() {
         style={{
           backgroundColor: "#2388FF",
         }}
+        onClick={onOpen}
       >
         <span>이 장소 후보로 등록하기</span>
       </div>
