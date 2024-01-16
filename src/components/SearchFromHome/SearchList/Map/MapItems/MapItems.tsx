@@ -46,7 +46,7 @@ function MapItems({ data, categoryChange, setCurrentPin }: PropsType) {
       setThrottle(true);
       setTimeout(async () => {
         setThrottle(false);
-      }, 1000);
+      }, 500);
     }
   };
 

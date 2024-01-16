@@ -24,6 +24,7 @@ function Map({ data, categoryChange }: PropsType) {
   const [currentpin, setCurrentPin] = useState<number | undefined>();
   const [map, setMap] = useState<any>(null);
   const [markers, setMarkers] = useState<any[]>([]);
+  const [pin, setPin] = useState<any[]>([]);
 
   function addPin(data: SearchItemType[]) {
     const currentMarkers: any[] = [];
@@ -66,12 +67,22 @@ function Map({ data, categoryChange }: PropsType) {
       });
       if (i == currentpin) {
         marker.setZIndex(10);
+        setPin([marker]);
       }
       marker.setMap(map);
       currentMarkers.push(marker);
     });
     setMarkers([...currentMarkers]);
   }
+  function changePin() {
+    if (pin.length > 1) {
+      pin[pin.length - 2].setMap(null);
+      pin[pin.length - 1].setMap(map);
+    } else {
+      pin[0].setMap(map);
+    }
+  }
+
   function removePin(marker: any[]) {
     marker.map((marker) => {
       marker.setMap(null);
@@ -82,6 +93,7 @@ function Map({ data, categoryChange }: PropsType) {
   // 컴포넌트 마운트, 카테고리 전환 시 새로운 맵 생성
   useEffect(() => {
     const container = document.getElementById("map");
+    setPin([]);
 
     // React.StrictMode로 인해 map이 두 번 중첩되어 겹치는 현상 방지
     if (container) {
@@ -114,10 +126,10 @@ function Map({ data, categoryChange }: PropsType) {
     }
   }, [map]);
 
-  // 현재 화면에 보이는 아이템의 아이콘 변경
+  // 슬라이드 스크롤, 슬라이드 버튼 클릭 시 아이템의 핀 변경
   useEffect(() => {
     if (map) {
-      removePin(markers);
+      // removePin(markers);
       addPin(data);
     }
   }, [currentpin]);
