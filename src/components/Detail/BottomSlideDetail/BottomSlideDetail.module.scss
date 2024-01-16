@@ -1,0 +1,37 @@
+@use "@/sass" as *;
+
+.slideContainer {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(20, 20, 20, 0.8);
+  z-index: 3;
+
+  visibility: visible;
+  transition: all 0.2s ease-out;
+}
+
+.slide {
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  max-height: 80rem;
+
+  &__content {
+    width: 45rem;
+    overflow: scroll;
+    border-radius: 16px 16px 0px 0px;
+    background-color: $neutral0;
+    padding: 24px 24px 40px 24px;
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

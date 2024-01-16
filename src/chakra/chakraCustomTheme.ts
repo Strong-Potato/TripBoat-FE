@@ -63,7 +63,7 @@ export const customTheme = extendTheme({
 
         "&__current-month": {
           display: "flex",
-          paddingLeft: "5.5rem",
+          paddingLeft: "calc((100% - 30rem)/2)",
           fontSize: "1.6rem",
           fontStyle: "normal",
           fontWeight: "700",

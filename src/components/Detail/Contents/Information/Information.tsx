@@ -2,11 +2,13 @@ import BasicInformation from "./BasicInformation/BasicInformation";
 import Others from "./Others/Others";
 import ShortReviews from "./ShortReveiws/ShortReviews";
 
-function Information() {
+import { ContentsInformationProps } from "@/types/detail";
+
+function Information({ onOpen }: ContentsInformationProps) {
   return (
     <div>
       <BasicInformation />
-      <ShortReviews />
+      <ShortReviews onOpen={onOpen} />
       <Others />
     </div>
   );

@@ -13,6 +13,8 @@
     flex-direction: column;
     gap: 4px;
 
+    overflow: hidden;
+
     &__name {
       @include typography(button);
     }

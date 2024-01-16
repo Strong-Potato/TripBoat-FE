@@ -18,7 +18,7 @@ import styles from "./Trip.module.scss";
 
 import BottomSlide from "@/components/BottomSlide/BottomSlide";
 import SlideBar from "@/components/SideBar/SideBar";
-import EditBottomSlideContent from "@/components/TripSpace/EditBottomSlideContent/EditBottomSlideContent";
+import EditTripSpace from "@/components/TripSpace/EditTripSpace/EditTripSpace";
 import FriendList from "@/components/TripSpace/FriendList/FriendList";
 import InviteFriends from "@/components/TripSpace/InviteFriends/InviteFriends";
 import VoteTabPanel from "@/components/VoteTabPanel/VoteTabPanel";
@@ -34,43 +34,6 @@ function Trip() {
     { name: "라철수", src: "https://bit.ly/prosper-baba" },
     { name: "마철수", src: "https://bit.ly/code-beast" },
   ];
-
-  const user = {
-    name: "김철수",
-    src: "https://bit.ly/prosper-baba",
-    travelList: [
-      {
-        name: ["서울"],
-        startDate: "2024.1.17",
-        endDate: "2024.1.19",
-        id: "1234",
-      },
-      {
-        name: ["강릉", "여수", "전주", "부산", "대전"],
-        startDate: "2024.1.17",
-        endDate: "2024.1.19",
-        id: "1234",
-      },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      {
-        name: ["강릉", "여수", "전주", "부산", "대전"],
-        startDate: "2024.1.17",
-        endDate: "2024.1.19",
-        id: "1234",
-      },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "2024.1.17", endDate: "2024.1.19", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-      { name: [], startDate: "", endDate: "", id: "1234" },
-    ],
-  };
 
   const {
     isOpen: isBottomSlideOpen,
@@ -96,108 +59,118 @@ function Trip() {
   } = useDisclosure();
 
   return (
-    <div className={styles.container}>
-      <div className={styles.iconTab}>
-        <button onClick={() => navigate("/alarm")}>
-          <AlarmIcon size="24px" color="white" />
-        </button>
-        <button onClick={onSlideBarOpen}>
-          <MenuIcon size="24px" color="white" />
-        </button>
-      </div>
+    <>
+      <div className={styles.container}>
+        <div className={styles.iconTab}>
+          <button onClick={() => navigate("/alarm")}>
+            <AlarmIcon size="24px" color="white" />
+          </button>
+          <button onClick={onSlideBarOpen}>
+            <MenuIcon size="24px" color="white" />
+          </button>
+        </div>
 
-      <header className={styles.header}>
-        <div className={styles.titleContainer}>
-          <div className={styles.titleContainer__dDayTitle}>D-day</div>
-          <div className={styles.titleContainer__placeTitle}>
-            여행지를 정해주세요
+        <header className={styles.header}>
+          <div className={styles.titleContainer}>
+            <div className={styles.titleContainer__dDayTitle}>D-day</div>
+            <div className={styles.titleContainer__placeTitle}>
+              여행지를 정해주세요
+            </div>
+            <div className={styles.dateContainer}>
+              <span className={styles.dateContainer__dateTitle}>
+                날짜를 정해주세요
+              </span>
+              <button
+                className={styles.dateContainer__editButton}
+                onClick={onBottomSlideOpen}
+              >
+                편집
+              </button>
+            </div>
           </div>
-          <div className={styles.dateContainer}>
-            <span className={styles.dateContainer__dateTitle}>
-              날짜를 정해주세요
-            </span>
+          <div className={styles.userContainer}>
             <button
-              className={styles.dateContainer__editButton}
-              onClick={onBottomSlideOpen}
+              className={styles.avatarContainer}
+              onClick={onFriendListOpen}
             >
-              편집
+              <AvatarGroup
+                className={styles.avatarContainer__group}
+                spacing="-8px"
+                max={3}
+              >
+                {users.map((user) => (
+                  <Avatar
+                    w="2.6rem"
+                    h="2.6rem"
+                    name={user.name}
+                    src={user.src}
+                  />
+                ))}
+              </AvatarGroup>
+              <span>외 {users.length - 3}명</span>
+            </button>
+            <button className={styles.addPersonButton} onClick={onInviteOpen}>
+              <PlusIcon />
+              <span>일행추가</span>
             </button>
           </div>
-        </div>
-        <div className={styles.userContainer}>
-          <button className={styles.avatarContainer} onClick={onFriendListOpen}>
-            <AvatarGroup
-              className={styles.avatarContainer__group}
-              spacing="-8px"
-              max={3}
-            >
-              {users.map((user) => (
-                <Avatar w="2.6rem" h="2.6rem" name={user.name} src={user.src} />
-              ))}
-            </AvatarGroup>
-            <span>외 {users.length - 3}명</span>
-          </button>
-          <button className={styles.addPersonButton} onClick={onInviteOpen}>
-            <PlusIcon />
-            <span>일행추가</span>
-          </button>
-        </div>
-      </header>
+        </header>
 
-      <div className={styles.contents}>
-        <Tabs isFitted variant="voteTab">
-          {/* variant 추가 */}
-          <div className={styles.contents__stickyTabList}>
-            <TabList className={styles.contents__tabList}>
-              <Tab
-                fontSize="tabLabel"
-                padding="0"
-                borderColor="transparent"
-                _selected={{ color: "#1D2433", fontWeight: "700" }}
-              >
-                투표
-              </Tab>
-              <Tab
-                fontSize="tabLabel"
-                padding="0"
-                _selected={{ color: "#1D2433", fontWeight: "700" }}
-              >
-                일정
-              </Tab>
-            </TabList>
-            <TabIndicator className={styles.contents__tabIndicator} />
-          </div>
-          <TabPanels bg="#fff">
-            <TabPanel className={styles.contents__tabContent}>
-              <VoteTabPanel />
-            </TabPanel>
-            <TabPanel className={styles.contents__tabContent}>
-              <>일정 탭 컴포넌트</>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+        <div className={styles.contents}>
+          <Tabs isFitted variant="voteTab">
+            {/* variant 추가 */}
+            <div className={styles.contents__stickyTabList}>
+              <TabList className={styles.contents__tabList}>
+                <Tab
+                  fontSize="tabLabel"
+                  padding="0"
+                  borderColor="transparent"
+                  _selected={{ color: "#1D2433", fontWeight: "700" }}
+                >
+                  투표
+                </Tab>
+                <Tab
+                  fontSize="tabLabel"
+                  padding="0"
+                  _selected={{ color: "#1D2433", fontWeight: "700" }}
+                >
+                  일정
+                </Tab>
+              </TabList>
+              <TabIndicator className={styles.contents__tabIndicator} />
+            </div>
+            <TabPanels bg="#fff">
+              <TabPanel className={styles.contents__tabContent}>
+                <VoteTabPanel />
+              </TabPanel>
+              <TabPanel className={styles.contents__tabContent}>
+                <>일정 탭 컴포넌트</>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </div>
+        <BottomSlide
+          isOpen={isBottomSlideOpen}
+          onClose={onBottomSlideClose}
+          children={<EditTripSpace />}
+        />
+        <BottomSlide
+          isOpen={isInviteOpen}
+          onClose={onInviteClose}
+          children={<InviteFriends />}
+        />
+        <BottomSlide
+          isOpen={isFriendListOpen}
+          onClose={onFriendListClose}
+          children={<FriendList users={users} />}
+        />
       </div>
       <SlideBar
         isSideOpen={isSlideBarOpen}
         sideClose={onSlideBarClose}
-        user={user}
+        users={users[0]}
       />
-      <BottomSlide
-        isOpen={isBottomSlideOpen}
-        onClose={onBottomSlideClose}
-        children={<EditBottomSlideContent />}
-      />
-      <BottomSlide
-        isOpen={isInviteOpen}
-        onClose={onInviteClose}
-        children={<InviteFriends />}
-      />
-      <BottomSlide
-        isOpen={isFriendListOpen}
-        onClose={onFriendListClose}
-        children={<FriendList users={users} />}
-      />
-    </div>
+    </>
   );
 }
 

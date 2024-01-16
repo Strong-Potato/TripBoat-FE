@@ -56,7 +56,7 @@ interface SignupForm {
   emailSert: string;
   password: string;
   passwordConfirm: string;
-  image: FileList;
+  image?: FileList | undefined;
   nickname: string;
 }
 
@@ -78,32 +78,37 @@ interface StepEmailProps {
   setSignupStep: React.Dispatch<React.SetStateAction<string>>;
   dirty?: boolean;
   error?: FieldError;
+  watchFields: Partial<SignupForm>;
   register: UseFormRegister<SignupForm>;
   resetField: UseFormResetField<SignupForm>;
+  showToast: (message: string) => void;
+  toast: string | null;
 }
 
 interface StepEmailSertProps {
   setSignupStep: React.Dispatch<React.SetStateAction<string>>;
   register: UseFormRegister<SignupForm>;
+  watchFields: Partial<SignupForm>;
   dirty?: boolean;
   error?: FieldError;
-  email: string;
+  showToast: (message: string) => void;
+  toast: string | null;
 }
 
 interface StepPasswordProps {
   setSignupStep: React.Dispatch<React.SetStateAction<string>>;
   register: UseFormRegister<SignupForm>;
   resetField: UseFormResetField<SignupForm>;
-  password: string;
-  passwordConfirm: string;
+  watchFields: Partial<SignupForm>;
   dirtyFields?: DirtyFields;
   errors?: FieldErrors<SignupForm>;
+  showToast: (message: string) => void;
+  toast: string | null;
 }
 
 interface StepProfileProps {
   register: UseFormRegister<SignupForm>;
   resetField: UseFormResetField<SignupForm>;
-  image: FileList;
   dirty?: boolean;
   error?: FieldError;
 }

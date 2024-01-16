@@ -30,7 +30,8 @@
       "@routes/*": ["src/routes/*"],
       "@types/*": ["src/types/*"],
       "@utils/*": ["src/utils/*"],
-      "@sass/*": ["src/sass/*"]
+      "@sass/*": ["src/sass/*"],
+      "@api/*": ["src/api/*"]
     }
   },
   "include": ["src", "svg.d.ts"],

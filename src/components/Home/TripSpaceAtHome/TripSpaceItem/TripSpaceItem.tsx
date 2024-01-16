@@ -12,7 +12,7 @@ interface PropsData {
 function TripSpaceItem(data: PropsData) {
   const imageAlt = `${data.data.tripTitle}의 사진`;
   return (
-    <Link to="/carryout" className={styles.container}>
+    <Link to="/trip" className={styles.container}>
       <div className={styles.img_box}>
         <img
           className={styles.trip_img}

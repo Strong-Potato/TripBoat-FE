@@ -1,20 +1,19 @@
+import { useState } from "react";
+
 import styles from "./Step.module.scss";
 
 import AuthButton from "@/components/Auth/Button/AuthButton";
 
 import Camera from "@/assets/icons/camera.svg?react";
 import InputRemove from "@/assets/icons/InputRemove.svg?react";
+import profileDefault from "@/assets/profile_default.svg";
 import validationForm from "@/utils/inputValidation";
 
 import { StepProfileProps } from "@/types/auth";
 
-function StepProfile({
-  register,
-  resetField,
-  image,
-  dirty,
-  error,
-}: StepProfileProps) {
+function StepProfile({ register, resetField, dirty, error }: StepProfileProps) {
+  const [imageUrl, setImageUrl] = useState(`${profileDefault}`);
+
   const resetNickname = () => {
     resetField("nickname");
   };
@@ -27,13 +26,7 @@ function StepProfile({
         <label
           htmlFor="image"
           className={styles.image__label}
-          style={
-            image
-              ? {
-                  backgroundImage: `url(${URL.createObjectURL(image[0])})`,
-                }
-              : undefined
-          }
+          style={{ backgroundImage: `url(${imageUrl})` }}
         >
           <div className={styles.image__label__camera}>
             <Camera width={16} height={16} />
@@ -45,7 +38,13 @@ function StepProfile({
           type="file"
           className={styles.image__input}
           accept="image/*"
-          {...register("image", {})}
+          {...register("image", {
+            onChange: (e) => {
+              const file = e.target.files[0];
+              const fileUrl = URL.createObjectURL(file);
+              setImageUrl(fileUrl);
+            },
+          })}
         />
       </section>
 
