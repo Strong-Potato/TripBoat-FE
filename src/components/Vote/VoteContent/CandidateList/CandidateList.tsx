@@ -1,9 +1,8 @@
 import { Avatar, Checkbox } from "@chakra-ui/react";
-import { useRecoilState } from "recoil";
 
 import styles from "./CandidateList.module.scss";
 
-import { selectedCandidatesState } from "@/recoil/vote/candidateList";
+import useGetSelectedCandidates from "@/hooks/useGetSelectedCandidates";
 
 import CandidateCard from "../CandidateCard/CandidateCard";
 import VoteContentEmpty from "../VoteContentEmpty/VoteContentEmpty";
@@ -16,22 +15,7 @@ const CandidateList = ({
   showResults,
   isCandidateSelecting,
 }: CandidateListProps) => {
-  const [selectedCandidates, setSelectedCandidates] = useRecoilState(
-    selectedCandidatesState,
-  );
-
-  const addCandidateInSelectedList = (id: number) => {
-    setSelectedCandidates((currentCandidatesSet) => {
-      const newSet = new Set(currentCandidatesSet);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
-      console.log("newSet", newSet);
-      return newSet;
-    });
-  };
+  const { addCandidateInSelectedList } = useGetSelectedCandidates();
 
   return (
     <div className={styles.container}>
@@ -40,6 +24,8 @@ const CandidateList = ({
           <div key={i} className={styles.candidateContainer}>
             {isCandidateSelecting && (
               <Checkbox
+                mr="12px"
+                mb="36px"
                 fontSize="2rem"
                 id={`${i}checkbox`}
                 variant="candidateCheckbox"

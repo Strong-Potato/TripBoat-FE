@@ -5,7 +5,6 @@ import Calendar from "@/pages/Calendar/Calendar";
 import Detail from "@/pages/Detail/Detail";
 import Home from "@/pages/Home/Home";
 import Login from "@/pages/Login/Login";
-
 import RegionSearch from "@/pages/RegionSearch/RegionSearch";
 import SearchFromHome from "@/pages/SearchFromHome/SearchFromHome";
 import AgreePrivacy from "@/pages/Signup/Agree/AgreePrivacy";
@@ -13,6 +12,7 @@ import AgreeService from "@/pages/Signup/Agree/AgreeService";
 import Signup from "@/pages/Signup/Signup";
 import Trip from "@/pages/Trip/Trip";
 import Vote from "@/pages/Vote/Vote";
+import VoteMemo from "@/pages/Vote/VoteMemo/VoteMemo";
 import Dashboard from "@/routes/Dashboard/Dashboard";
 
 function MainRouter() {
@@ -34,6 +34,7 @@ function MainRouter() {
       <Route path="/home/search" element={<SearchFromHome />} />
       <Route path="/trip/selectDate" element={<Calendar />} />
       <Route path="/trip/selectRegion" element={<RegionSearch />} />
+      <Route path="/votememo/:id" element={<VoteMemo />} />
     </Routes>
   );
 }

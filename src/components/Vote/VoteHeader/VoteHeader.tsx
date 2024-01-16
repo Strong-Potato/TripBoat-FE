@@ -2,7 +2,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { RiMap2Line } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import styles from "./VoteHeader.module.scss";
 
@@ -15,7 +15,8 @@ const VoteHeader = ({
 }: VoteHeaderProps) => {
   const navigate = useNavigate();
 
-  const memoPage = true;
+  const location = useLocation();
+  const path = location.pathname.split("/")[1];
 
   return (
     <div className={styles.container}>
@@ -30,8 +31,8 @@ const VoteHeader = ({
         <p className={styles.leftSide__title}>{title}</p>
       </div>
       <div className={styles.rightIconBox}>
-        {memoPage ? (
-          <button>
+        {path === "votememo" ? (
+          <button onClick={onBottomSlideOpen}>
             <AiOutlinePlus />
           </button>
         ) : (
