@@ -9,6 +9,7 @@ import CustomToast from "@/components/CustomToast/CustomToast";
 
 import CloseIcon from "@/assets/close.svg?react";
 
+import RegistrationSlide from "../../BottomFixedBtn/RegistrationSlide/RegistrationSlide";
 import ReviewBottomSlide from "../../Contents/ReviewBottomSlide/ReviewBottomSlide";
 
 import { NavigationMeatballProps } from "@/types/detail";
@@ -42,7 +43,10 @@ const MeatballBottomSlide = ({
       </button>
       <button
         onClick={() => {
-          showToast("이 장소로 후보에 등록되었습니다.");
+          onClose();
+          setTimeout(() => {
+            onBottomSlideOpen(<RegistrationSlide slideOnClose={onClose} />);
+          }, 300);
         }}
       >
         <div className={styles.container__iconWrapper}>
