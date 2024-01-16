@@ -10,6 +10,7 @@ import SearchList from "@/components/SearchFromHome/SearchList/SearchList";
 
 function SearchFromHome() {
   const [keyword, setKeyword] = useState<string>();
+  const [category, setCategory] = useState<string>("전체");
   const [moveMap, setMoveMap] = useState("false");
   const [searchParams] = useSearchParams();
   const vh = window.innerHeight;
@@ -18,10 +19,14 @@ function SearchFromHome() {
   useEffect(() => {
     const querystring = {
       keyword: searchParams.get("keyword"),
+      category: searchParams.get("category"),
       map: searchParams.get("map"),
     };
     if (querystring.keyword) {
       setKeyword(querystring.keyword);
+    }
+    if (querystring.category) {
+      setCategory(querystring.category);
     }
     if (querystring.map) {
       setMoveMap(querystring.map);
@@ -38,14 +43,20 @@ function SearchFromHome() {
       }}
     >
       {moveMap === "true" ? (
-        <MapHeader set={setMoveMap} keyword={keyword} />
+        <MapHeader set={setMoveMap} keyword={keyword} category={category} />
       ) : (
         <SearchBar set={setKeyword} keyword={keyword} />
       )}
       {!keyword ? (
         <SearchHome set={setKeyword} />
       ) : (
-        <SearchList keyword={keyword} moveMap={moveMap} set={setMoveMap} />
+        <SearchList
+          keyword={keyword}
+          moveMap={moveMap}
+          set={setMoveMap}
+          category={category}
+          setCategory={setCategory}
+        />
       )}
     </div>
   );

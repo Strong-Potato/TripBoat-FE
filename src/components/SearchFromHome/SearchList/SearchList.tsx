@@ -16,14 +16,21 @@ import { SearchItemType } from "@/types/home";
 
 interface PropsType {
   keyword: string | undefined;
+  category: string;
   moveMap: string;
   set: React.Dispatch<React.SetStateAction<string>>;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function SearchList({ keyword, set, moveMap }: PropsType) {
+function SearchList({
+  keyword,
+  set,
+  moveMap,
+  category,
+  setCategory,
+}: PropsType) {
   const [data, setData] = useState<SearchItemType[]>();
   const [filterData, setFilterData] = useState<SearchItemType[]>();
-  const [category, setCategory] = useState("전체");
   const [categoryChange, setCategoryChange] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -50,7 +57,9 @@ function SearchList({ keyword, set, moveMap }: PropsType) {
 
   function onMap() {
     set("true");
-    if (keyword) {
+    if (category) {
+      navigate(`/home/search?keyword=${keyword}&category${category}&map=true`);
+    } else {
       navigate(`/home/search?keyword=${keyword}&map=true`);
     }
   }
