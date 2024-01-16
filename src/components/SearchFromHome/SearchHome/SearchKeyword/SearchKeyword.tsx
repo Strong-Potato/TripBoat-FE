@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./SearchKeyword.module.scss";
 
@@ -17,6 +18,7 @@ function SearchKeyword({ set }: PropsType) {
   const [listWidth, setListWidth] = useState<number>(0);
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getData<string[] | undefined>("home/search/keyword", setData);
@@ -73,13 +75,14 @@ function SearchKeyword({ set }: PropsType) {
               key={keyword + i}
               onClick={() => {
                 searchKeyword(keyword);
+                navigate(`/home/search?keyword=${keyword}&category=전체`);
               }}
             >
               {keyword}
             </p>
           ))
         ) : (
-          <p>키워드가 없습니다.</p>
+          <p>.</p>
         )}
       </div>
     </div>

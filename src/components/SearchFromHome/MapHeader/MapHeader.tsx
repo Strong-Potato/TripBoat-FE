@@ -1,15 +1,20 @@
-import styles from "./MapHeadet.module.scss";
+import { useNavigate } from "react-router-dom";
+
+import styles from "./MapHeader.module.scss";
 
 import BackIcon from "@/assets/homeIcons/search/backInHome.svg?react";
 
 interface PropsType {
   keyword: string | undefined;
-  set: React.Dispatch<React.SetStateAction<boolean>>;
+  set: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function MapHeader({ keyword, set }: PropsType) {
+  const navigate = useNavigate();
+
   function offMap() {
-    set(false);
+    set("false");
+    navigate(`/home/search?keyword=${keyword}`);
   }
 
   return (

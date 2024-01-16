@@ -12,9 +12,15 @@ interface PropsType {
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   setCategoryChange: React.Dispatch<React.SetStateAction<boolean>>;
   category: string;
+  keyword: string | undefined;
 }
 
-function Tabs({ setCategory, setCategoryChange, category }: PropsType) {
+function Tabs({
+  setCategory,
+  setCategoryChange,
+  category,
+  keyword,
+}: PropsType) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
   const thisCategory = [
@@ -53,6 +59,7 @@ function Tabs({ setCategory, setCategoryChange, category }: PropsType) {
             category={category}
             thisCategory={thisCategory}
             key={thisCategory}
+            keyword={keyword}
           />
         ))}
       </div>
