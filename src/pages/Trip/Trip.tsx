@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Trip.module.scss";
 
 import BottomSlide from "@/components/BottomSlide/BottomSlide";
+import RouteTabPanel from "@/components/Route/RouteTabPanel/RouteTabPanel";
 import SlideBar from "@/components/SideBar/SideBar";
 import EditTripSpace from "@/components/TripSpace/EditTripSpace/EditTripSpace";
 import FriendList from "@/components/TripSpace/FriendList/FriendList";
@@ -144,7 +145,7 @@ function Trip() {
                 <VoteTabPanel />
               </TabPanel>
               <TabPanel className={styles.contents__tabContent}>
-                <>일정 탭 컴포넌트</>
+                <RouteTabPanel />
               </TabPanel>
             </TabPanels>
           </Tabs>

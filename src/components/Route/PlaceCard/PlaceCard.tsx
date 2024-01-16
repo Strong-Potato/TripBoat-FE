@@ -1,6 +1,6 @@
 import styles from "./PlaceCard.module.scss";
 
-import { PlaceCardProps } from "@/types/\broute";
+import { PlaceCardProps } from "@/types/route";
 
 function PlaceCard({ index, name, category, address }: PlaceCardProps) {
   return (
