@@ -20,7 +20,7 @@
 
   &__isSelected {
     @include typography(captionSmall);
-    color: $neutral400;
+    color: $neutral300;
   }
 }
 
@@ -32,8 +32,8 @@
 }
 
 .isSelectedProps {
-  background-color: $neutral200;
-  color: $neutral400;
+  color: $neutral300;
+  border: 1px solid $neutral200;
 
   cursor: auto;
 }

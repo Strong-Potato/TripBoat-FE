@@ -11,7 +11,7 @@ import { isRegistrationSelectedState } from "@/recoil/detail/detail";
 import { RegistrationTripSpaceProps } from "@/types/detail";
 
 function RegistrationTripSpace({
-  setIsTripSelected,
+  setTripSelected,
 }: RegistrationTripSpaceProps) {
   const [isSelected, setIsSelected] = useState<boolean>(false);
   const [isDropped, setIsDropped] = useState<boolean>(false);
@@ -60,7 +60,7 @@ function RegistrationTripSpace({
             setIsDropped(!isDropped);
             setIsSelected(true);
             setSelectItem("강릉 여행");
-            setIsTripSelected(true);
+            setTripSelected("강릉 여행");
             setIsValuedArray([]);
           }}
         >
@@ -84,7 +84,7 @@ function RegistrationTripSpace({
             setIsDropped(!isDropped);
             setIsSelected(true);
             setSelectItem("부산 여행");
-            setIsTripSelected(true);
+            setTripSelected("부산 여행");
             setIsValuedArray([]);
           }}
         >
@@ -108,7 +108,7 @@ function RegistrationTripSpace({
             setIsDropped(!isDropped);
             setIsSelected(true);
             setSelectItem("여행 스페이스 1");
-            setIsTripSelected(true);
+            setTripSelected("여행 스페이스 1");
             setIsValuedArray([]);
           }}
         >
