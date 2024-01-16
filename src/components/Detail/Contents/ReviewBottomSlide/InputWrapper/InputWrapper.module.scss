@@ -13,12 +13,16 @@
 
   &__input {
     @include typography(button);
-
+    color: $neutral900;
     outline: none;
     resize: none;
 
     width: 100%;
     height: 100%;
+
+    &::placeholder {
+      color: $neutral300;
+    }
   }
 
   &__count {
@@ -27,6 +31,7 @@
     bottom: 16px;
     span {
       @include typography(bodySmall);
+      color: $neutral900;
     }
   }
 }
