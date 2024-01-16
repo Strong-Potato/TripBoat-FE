@@ -52,8 +52,8 @@ const Vote = () => {
     <>
       {data && (
         <div className={styles.container}>
-          {/* 투표 확정상태일때 "투표 재진행"*/}
           <VoteHeader
+            isNoCandidate={data.candidates.length === 0}
             title={data.title as string}
             onBottomSlideOpen={() =>
               BottomSlideOpen(

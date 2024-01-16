@@ -1,3 +1,4 @@
+import { AiOutlinePlus } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { RiMap2Line } from "react-icons/ri";
@@ -7,27 +8,42 @@ import styles from "./VoteHeader.module.scss";
 
 import { VoteHeaderProps } from "@/types/vote";
 
-const VoteHeader = ({ onBottomSlideOpen, title }: VoteHeaderProps) => {
+const VoteHeader = ({
+  onBottomSlideOpen,
+  title,
+  isNoCandidate,
+}: VoteHeaderProps) => {
   const navigate = useNavigate();
 
-  //상태에 따른 아이콘 disabled
-  // 또는 없애기
+  const memoPage = true;
 
   return (
     <div className={styles.container}>
-      <button onClick={() => navigate(-1)} className={styles.leftBackIcon}>
-        <MdOutlineArrowBackIosNew />
-      </button>
-      <p className={styles.title}>{title}</p>
-
-      <div className={styles.iconBox}>
-        <button>
-          <RiMap2Line />
+      <div className={styles.leftSide}>
+        <button
+          onClick={() => navigate(-1)}
+          className={styles.leftSide__backIcon}
+          disabled={isNoCandidate}
+        >
+          <MdOutlineArrowBackIosNew />
         </button>
-
-        <button onClick={onBottomSlideOpen}>
-          <BsThreeDots />
-        </button>
+        <p className={styles.leftSide__title}>{title}</p>
+      </div>
+      <div className={styles.rightIconBox}>
+        {memoPage ? (
+          <button>
+            <AiOutlinePlus />
+          </button>
+        ) : (
+          <>
+            <button>
+              <RiMap2Line />
+            </button>
+            <button onClick={onBottomSlideOpen}>
+              <BsThreeDots />
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

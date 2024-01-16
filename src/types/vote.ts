@@ -81,6 +81,7 @@ export interface VoteContentProps {
 export interface VoteHeaderProps {
   onBottomSlideOpen: () => void;
   title: string;
+  isNoCandidate: boolean;
 }
 
 export interface CandidateCardProps {
