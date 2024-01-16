@@ -48,14 +48,15 @@ function LoginForm() {
     showError(email, password);
 
     try {
-      const res = await axios.post("https://api.tripvote.site/login", {
+      const res = await axios.post("/api/login", {
         email,
         password,
       });
-      console.log(res);
+      console.log(res.data);
 
       navigate("/", { replace: true });
-    } catch {
+    } catch (error) {
+      console.log(error);
       console.log("이메일 또는 비밀번호가 일치하지 않습니다.");
     }
   };
