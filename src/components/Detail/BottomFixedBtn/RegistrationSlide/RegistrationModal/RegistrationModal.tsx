@@ -31,7 +31,7 @@ const RegistrationModal = ({ isOpen, onClose }: RegistrationMoalProps) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="2.5xl">
+    <Modal isOpen={isOpen} onClose={onClose} size="addVote">
       <ModalOverlay maxWidth="45rem" left="50%" transform="translateX(-50%)" />
       <ModalContent
         px="24px"
@@ -40,7 +40,7 @@ const RegistrationModal = ({ isOpen, onClose }: RegistrationMoalProps) => {
         alignSelf="center"
         boxSizing="border-box"
       >
-        <ModalCloseButton />
+        <ModalCloseButton fontSize="2rem" mt="16px" mr="20px" />
 
         <ModalBody p="0">
           <p className={styles.title}>투표 제목을 정해주세요</p>
