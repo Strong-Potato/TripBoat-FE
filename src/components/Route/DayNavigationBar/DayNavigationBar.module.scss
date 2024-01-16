@@ -1,10 +1,13 @@
 @use "@/sass" as *;
 
 nav {
-  height: 3.8rem;
+  height: 7rem;
   display: flex;
   justify-content: space-between;
-  margin: 16px 0;
+  padding: 16px 20px;
+  position: sticky;
+  top: 25.5rem;
+  background-color: $neutral0;
 
   .dayButtonContainer {
     display: flex;
