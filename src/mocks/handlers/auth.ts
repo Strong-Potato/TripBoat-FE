@@ -38,7 +38,7 @@ const FormDummy = [
 export const auth = [
   /* ----------------------------------- <로그인> ---------------------------------- */
 
-  http.post<PathParams, LoginBody>("api/login", async ({ request }) => {
+  http.post<PathParams, LoginBody>("/api/login", async ({ request }) => {
     const { email, password } = await request.json();
 
     // 로그인 유저 정보 일치
@@ -69,7 +69,7 @@ export const auth = [
 
   /* -------------------------------- 이메일 인증 요청 ------------------------------- */
   http.post<PathParams, Email>(
-    "api/auth/register/send-email",
+    "/api/auth/register/send-email",
     async ({ request }) => {
       const { email } = await request.json();
 
@@ -90,7 +90,7 @@ export const auth = [
 
   /* ------------------------------ 이메일 인증 완료 버튼 ------------------------------ */
   http.post<PathParams, Sert>(
-    "api/auth/register/check-token",
+    "/api/auth/register/check-token",
     async ({ request }) => {
       const { email, token } = await request.json();
 
