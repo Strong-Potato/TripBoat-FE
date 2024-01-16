@@ -1,0 +1,39 @@
+@use "@/sass" as *;
+
+.dayRouteContainer {
+  .dayHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.7rem;
+
+    .dayContainer {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+
+      .dayTitle {
+        @include typography(titleLarge);
+        color: $neutral900;
+      }
+
+      .dayDate {
+        @include typography(captionSmall);
+        color: $neutral400;
+      }
+    }
+  }
+
+  .optimizationButton {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.6rem;
+    color: $primary300;
+    margin-bottom: 16px;
+  }
+
+  .placeListContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+}
