@@ -1,5 +1,5 @@
 import { Box, useToast } from "@chakra-ui/react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 import styles from "./CustomToast.module.scss";
 
@@ -30,6 +30,7 @@ const CustomToast = () => {
     linkText: string = "",
     callback?: () => void,
   ): UseToastCustomProps => {
+    toast.closeAll();
     toast({
       position: "top",
       render: () => (
