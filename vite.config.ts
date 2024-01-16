@@ -23,6 +23,7 @@ export default defineConfig({
     watch: {
       usePolling: true,
     },
+    // vite 프록시 설정
     proxy: {
       "/api": {
         target: "https://api.tripvote.site/",
