@@ -38,7 +38,7 @@ function Detail() {
       />
       <BottomFixedBtn
         onOpen={() =>
-          onBottomSlideOpen(<RegistrationSlide onClose={onClose} />)
+          onBottomSlideOpen(<RegistrationSlide slideOnClose={onClose} />)
         }
       />
       <BottomSlideDetail
