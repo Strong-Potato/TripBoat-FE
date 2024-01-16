@@ -3,6 +3,7 @@ import styles from "./RouteTabPanel.module.scss";
 import DayNavigationBar from "../DayNavigationBar/DayNavigationBar";
 import DayRoute from "../DayRoute/DayRoute";
 import EmptyDate from "../EmptyDate/EmptyDate";
+import MapInTrip from "../MapInTrip/MapInTrip";
 
 import { DateItem } from "@/types/route";
 
@@ -109,7 +110,9 @@ function RouteTabPanel() {
 
   return (
     <div className={styles.panelContainer}>
-      <div className={styles.mapContainer}>Map</div>
+      <div className={styles.mapContainer}>
+        <MapInTrip />
+      </div>
       <div className={styles.routeContainer}>
         <DayNavigationBar dateList={dateList} />
         <div className={styles.journeysContainer}>
