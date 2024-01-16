@@ -38,41 +38,38 @@ const FormDummy = [
 export const auth = [
   /* ----------------------------------- <로그인> ---------------------------------- */
 
-  http.post<PathParams, LoginBody>(
-    "https://api.tripvote.site/login",
-    async ({ request }) => {
-      const { email, password } = await request.json();
+  http.post<PathParams, LoginBody>("/api/login", async ({ request }) => {
+    const { email, password } = await request.json();
 
-      // 로그인 유저 정보 일치
-      if (email === UserDummy[0].email && password === UserDummy[0].password) {
-        return HttpResponse.json(null, {
-          status: 200,
-          headers: {
-            "Set-Cookie": "access-token=msw-access, refresh-token=msw-refresh",
-          },
-        });
-      }
+    // 로그인 유저 정보 일치
+    if (email === UserDummy[0].email && password === UserDummy[0].password) {
+      return HttpResponse.json(null, {
+        status: 200,
+        headers: {
+          "Set-Cookie": "access-token=msw-access, refresh-token=msw-refresh",
+        },
+      });
+    }
 
-      // 로그인 유저 정보 불일치
-      return HttpResponse.json(
-        {
-          status: 400,
-          response_code: 401,
-          detail: "이메일 또는 비밀번호를 확인해주세요.",
-          issue: "tripvote.site/error",
-        },
-        {
-          status: 400,
-        },
-      );
-    },
-  ),
+    // 로그인 유저 정보 불일치
+    return HttpResponse.json(
+      {
+        status: 400,
+        response_code: 401,
+        detail: "이메일 또는 비밀번호를 확인해주세요.",
+        issue: "tripvote.site/error",
+      },
+      {
+        status: 400,
+      },
+    );
+  }),
 
   /* ------------------------------------ <회원가입> ----------------------------------- */
 
   /* -------------------------------- 이메일 인증 요청 ------------------------------- */
   http.post<PathParams, Email>(
-    "https://api.tripvote.site/auth/register/send-email",
+    "/api/auth/register/send-email",
     async ({ request }) => {
       const { email } = await request.json();
 
@@ -93,7 +90,7 @@ export const auth = [
 
   /* ------------------------------ 이메일 인증 완료 버튼 ------------------------------ */
   http.post<PathParams, Sert>(
-    "https://api.tripvote.site/auth/register/check-token",
+    "/api/auth/register/check-token",
     async ({ request }) => {
       const { email, token } = await request.json();
 
@@ -115,15 +112,12 @@ export const auth = [
   ),
 
   /* ------------------------------ 시작하기 버튼 (form 제출) ----------------------------- */
-  http.post<PathParams, Form>(
-    "https://api.tripvote.site/auth/register",
-    async () => {
-      // 회원가입 성공
-      return HttpResponse.json({
-        status: 200,
-      });
-    },
-  ),
+  http.post<PathParams, Form>("api/auth/register", async () => {
+    // 회원가입 성공
+    return HttpResponse.json({
+      status: 200,
+    });
+  }),
 
   /* --------------------------------- <로그아웃> --------------------------------- */
 

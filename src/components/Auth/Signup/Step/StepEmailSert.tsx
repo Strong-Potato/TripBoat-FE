@@ -36,13 +36,10 @@ function StepEmailSert({
 
   const onClickEmailSert = async () => {
     try {
-      const res = await axios.post(
-        "https://api.tripvote.site/auth/register/check-token",
-        {
-          email,
-          token: emailSert,
-        },
-      );
+      const res = await axios.post("/api/auth/register/check-token", {
+        email,
+        token: emailSert,
+      });
       console.log(res);
 
       if (res.data.response_code === 403) {
@@ -58,12 +55,9 @@ function StepEmailSert({
 
   const onClickResert = async () => {
     try {
-      const res = await axios.post(
-        "https://api.tripvote.site/auth/register/send-email",
-        {
-          email,
-        },
-      );
+      const res = await axios.post("/api/auth/register/send-email", {
+        email,
+      });
       console.log(res);
 
       showToast("인증코드가 재전송 되었습니다.");
