@@ -29,6 +29,7 @@ import { AlertModalProps } from "@/types/vote";
 const AlertModal = ({
   title,
   subText,
+  cancelText,
   actionButton,
   isSmallSize,
   onClickAction,
@@ -57,7 +58,7 @@ const AlertModal = ({
             onClick={() => setIsModalOpen(false)}
             className={styles.buttons__cancel}
           >
-            취소
+            {cancelText ? cancelText : "취소"}
           </button>
           <button onClick={onClickAction} className={styles.buttons__action}>
             {actionButton}
