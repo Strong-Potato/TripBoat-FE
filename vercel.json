@@ -3,13 +3,7 @@
     {
       "source": "/api/:path*",
       "destination": "https://api.example.com/:path*"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/[^.]+",
-      "dest": "/",
-      "status": 200
-    }
+    },
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
