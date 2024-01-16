@@ -58,12 +58,9 @@ function StepEmailSert({
 
   const onClickResert = async () => {
     try {
-      const res = await axios.post(
-        "https://api.tripvote.site/auth/register/send-email",
-        {
-          email,
-        },
-      );
+      const res = await axios.post("/api/register/send-email", {
+        email,
+      });
       console.log(res);
 
       showToast("인증코드가 재전송 되었습니다.");

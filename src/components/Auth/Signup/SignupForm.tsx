@@ -48,7 +48,7 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
 
     try {
       const { email, emailSert, password, image, nickname } = data;
-      const res = await axios.post("https://api.tripvote.site/auth/register", {
+      const res = await axios.post("/api/auth/register", {
         email,
         password,
         nickname,

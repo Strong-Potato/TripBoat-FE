@@ -27,12 +27,9 @@ function StepEmail({
 
   const onClickEmail = async () => {
     try {
-      const res = await axios.post(
-        "https://api.tripvote.site/auth/register/send-email",
-        {
-          email,
-        },
-      );
+      const res = await axios.post("/api/auth/register/send-email", {
+        email,
+      });
       console.log(res);
 
       if (res.data.response_code === 401) {
