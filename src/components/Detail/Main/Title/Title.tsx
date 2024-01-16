@@ -17,12 +17,8 @@ function Title() {
         </span>
       </div>
       <div className={styles.container__positionAbsoluteIcons}>
-        <FaRegHeart fontSize="24px" cursor="pointer" onclick={() => {}} />
-        <IoShareSocialOutline
-          fontSize="2.4rem"
-          cursor="pointer"
-          onclick={() => {}}
-        />
+        <FaRegHeart fontSize="2.4rem" cursor="pointer" />
+        <IoShareSocialOutline fontSize="2.4rem" cursor="pointer" />
       </div>
     </div>
   );

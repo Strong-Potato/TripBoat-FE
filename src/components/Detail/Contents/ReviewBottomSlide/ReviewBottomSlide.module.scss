@@ -1,0 +1,42 @@
+@use "@/sass" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-top: 1rem;
+
+  z-index: 4;
+
+  padding-bottom: 50px;
+
+  &__top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &__icon {
+      width: 2rem;
+      height: 2rem;
+    }
+    &__title {
+      @include typography(button);
+    }
+  }
+
+  &__addBtn {
+    padding: 12px 0;
+    width: 100%;
+    max-width: 40.2rem;
+
+    position: fixed;
+    bottom: 26px;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    @include typography(button);
+
+    border-radius: 16px;
+  }
+}

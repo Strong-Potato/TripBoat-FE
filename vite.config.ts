@@ -23,5 +23,15 @@ export default defineConfig({
     watch: {
       usePolling: true,
     },
+    // vite 프록시 설정
+    proxy: {
+      "/api": {
+        target: "https://api.tripvote.site/",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+        secure: false,
+        ws: true,
+      },
+    },
   },
 });
