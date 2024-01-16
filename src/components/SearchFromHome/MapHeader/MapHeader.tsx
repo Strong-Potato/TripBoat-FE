@@ -6,15 +6,16 @@ import BackIcon from "@/assets/homeIcons/search/backInHome.svg?react";
 
 interface PropsType {
   keyword: string | undefined;
+  category: string;
   set: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function MapHeader({ keyword, set }: PropsType) {
+function MapHeader({ keyword, set, category }: PropsType) {
   const navigate = useNavigate();
 
   function offMap() {
     set("false");
-    navigate(`/home/search?keyword=${keyword}`);
+    navigate(`/home/search?keyword=${keyword}&category=${category}`);
   }
 
   return (
