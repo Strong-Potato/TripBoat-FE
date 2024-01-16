@@ -27,7 +27,12 @@ function Detail() {
     <div className={styles.container}>
       <Navigation
         onOpen={() =>
-          onBottomSlideOpen(<MeatballBottomSlide onClose={onClose} />)
+          onBottomSlideOpen(
+            <MeatballBottomSlide
+              onBottomSlideOpen={onBottomSlideOpen}
+              onClose={onClose}
+            />,
+          )
         }
       />
       <Main />
@@ -38,9 +43,7 @@ function Detail() {
       />
       <BottomFixedBtn
         onOpen={() =>
-          onBottomSlideOpen(
-            <RegistrationSlide slideIsOpen={isOpen} slideOnClose={onClose} />,
-          )
+          onBottomSlideOpen(<RegistrationSlide slideOnClose={onClose} />)
         }
       />
       <BottomSlideDetail
