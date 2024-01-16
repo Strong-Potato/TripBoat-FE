@@ -32,7 +32,7 @@ function ReviewImageSlider({ images }: { images: string[] }) {
         className={styles.container__imgWrapper}
         ref={componentRef}
         style={{
-          overflow: size.width < 382 ? "scroll" : "visible",
+          overflow: window.innerWidth < 450 ? "scroll" : "visible",
           left: slideLocation + "px",
         }}
       >
