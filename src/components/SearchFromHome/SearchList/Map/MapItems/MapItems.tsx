@@ -32,7 +32,7 @@ function MapItems({ data, categoryChange, setCurrentPin }: PropsType) {
         criterion &&
         item.getBoundingClientRect().x - criterion.getBoundingClientRect().x;
       if (currentLeft) {
-        if (0 < currentLeft && currentLeft < 335) {
+        if (0 < currentLeft && currentLeft < 150) {
           const index = childrenArray.indexOf(item);
           setCurrentPin(index);
         }
@@ -46,7 +46,7 @@ function MapItems({ data, categoryChange, setCurrentPin }: PropsType) {
       setThrottle(true);
       setTimeout(async () => {
         setThrottle(false);
-      }, 500);
+      }, 200);
     }
   };
 
@@ -61,14 +61,11 @@ function MapItems({ data, categoryChange, setCurrentPin }: PropsType) {
   useEffect(() => {
     if (size.width > 449) {
       if (firstPin) {
-        setTimeout(() => {
-          setCurrentPin(0);
-        }, 200);
         setFirstPin(false);
       } else {
         setTimeout(() => {
           setCurrentIndex();
-        }, 600);
+        }, 500);
       }
     }
   }, [slideLocation]);
@@ -76,9 +73,6 @@ function MapItems({ data, categoryChange, setCurrentPin }: PropsType) {
   useEffect(() => {
     if (size.width < 449) {
       if (firstPin) {
-        setTimeout(() => {
-          setCurrentPin(0);
-        }, 300);
         setFirstPin(false);
       } else {
         if (throttle) {

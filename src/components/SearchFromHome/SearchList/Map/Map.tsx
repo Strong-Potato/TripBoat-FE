@@ -23,7 +23,6 @@ interface PropsType {
 function Map({ data, categoryChange }: PropsType) {
   const [currentpin, setCurrentPin] = useState<number | undefined>();
   const [map, setMap] = useState<any>(null);
-  // const [markers, setMarkers] = useState<any[]>([]);
   const [pin, setPin] = useState<any[]>([]);
 
   function setSmallPin(data: SearchItemType[]) {
@@ -37,7 +36,7 @@ function Map({ data, categoryChange }: PropsType) {
             ? forkMarker
             : flagMarker;
       const imageSize = new window.kakao.maps.Size(32, 32);
-      const imageOption = { offset: new window.kakao.maps.Point(-6, -10) };
+      const imageOption = { offset: new window.kakao.maps.Point(-6, -8) };
 
       const markerImage = new window.kakao.maps.MarkerImage(
         image,
@@ -54,7 +53,6 @@ function Map({ data, categoryChange }: PropsType) {
       marker.setMap(map);
       currentMarkers.push(marker);
     });
-    // setMarkers([...currentMarkers]);
   }
   function setBigPin(data: SearchItemType[]) {
     const currentMarkers: any[] = [];
@@ -109,7 +107,7 @@ function Map({ data, categoryChange }: PropsType) {
 
     const options = {
       center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-      level: 3,
+      level: 4,
     };
     setMap(new window.kakao.maps.Map(container, options));
   }, [data]);
