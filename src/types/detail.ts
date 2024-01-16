@@ -70,7 +70,7 @@ export interface BottomFixedBtnProps {
 }
 
 export interface RegistrationSlideProps {
-  onClose: () => void;
+  slideOnClose: () => void;
 }
 
 export interface RegistrationTripSpaceProps {
@@ -80,4 +80,9 @@ export interface RegistrationTripSpaceProps {
 export interface RegistrationListItemProps {
   title: string;
   isSelectedProps: boolean;
+}
+
+export interface RegistrationModalProps {
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
