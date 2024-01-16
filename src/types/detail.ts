@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface OtherCardPropsType {
   image: string;
   name: string;
@@ -31,6 +33,7 @@ export interface NavigationProps {
 }
 
 export interface NavigationMeatballProps {
+  onBottomSlideOpen: (content: ReactNode) => void;
   onClose: () => void;
 }
 
