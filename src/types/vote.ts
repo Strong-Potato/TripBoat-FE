@@ -27,11 +27,11 @@ export interface SSCandidateData {
   placeId: number; //
   placeName: string;
   category: string;
-  tagline: string; //
+  tagline: string; //메모?
   amIVoted: boolean; //
   //imageURL: string;
   //location: string;
-  //voteUserId: string[];
+  //voteUserId: string[];   //이거 필요
   //voteCounts: number;
   //memo: string;
 }
