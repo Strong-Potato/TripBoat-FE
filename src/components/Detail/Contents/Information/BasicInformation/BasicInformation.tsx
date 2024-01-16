@@ -5,13 +5,13 @@ import { MdPlace } from "react-icons/md";
 
 import styles from "./BasicInformation.module.scss";
 
-import Map from "./Map/Map";
+import MapInDetail from "./MapInDetail/MapInDetail";
 
 function BasicInformation() {
   return (
     <div className={styles.container}>
       <div className={styles.container__title}>기본정보</div>
-      <Map />
+      <MapInDetail />
       <div className={styles.container__contents}>
         <div className={styles.container__contents__item}>
           <MdPlace color="#979C9E" fontSize="2.4rem" />
