@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./SearchBar.module.scss";
@@ -11,13 +11,21 @@ interface PropsType {
   keyword: string | undefined;
 }
 
+interface InputBarType extends HTMLInputElement {
+  focus: () => void;
+}
+
 function SearchBar({ set, keyword }: PropsType) {
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
+  const inputBar = useRef<InputBarType | null>(null);
 
   useEffect(() => {
     if (keyword) {
       setInputValue(keyword);
+    }
+    if (inputBar.current) {
+      inputBar.current.focus();
     }
   }, [keyword]);
 
@@ -27,13 +35,17 @@ function SearchBar({ set, keyword }: PropsType) {
 
   function search() {
     set(inputValue);
+    navigate(`/home/search?keyword=${inputValue}&category=전체`);
   }
 
   function removeValue() {
     if (!keyword) {
       navigate("/");
+    } else {
+      navigate("/home/search");
+      setInputValue("");
+      set(undefined);
     }
-    set(undefined);
   }
 
   return (
@@ -51,6 +63,7 @@ function SearchBar({ set, keyword }: PropsType) {
                 search();
               }
             }}
+            ref={inputBar}
           />
         </div>
         <button className={styles.return} onClick={removeValue}>
