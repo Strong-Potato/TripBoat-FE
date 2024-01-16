@@ -74,7 +74,7 @@ export interface RegistrationSlideProps {
 }
 
 export interface RegistrationTripSpaceProps {
-  setIsTripSelected: React.Dispatch<React.SetStateAction<boolean>>;
+  setTripSelected: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface RegistrationListItemProps {
