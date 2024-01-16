@@ -1,5 +1,5 @@
 import { Avatar, Checkbox } from "@chakra-ui/react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 import styles from "./CandidateList.module.scss";
 
@@ -16,9 +16,7 @@ const CandidateList = ({
   showResults,
   isCandidateSelecting,
 }: CandidateListProps) => {
-  const [selectedCandidates, setSelectedCandidates] = useRecoilState(
-    selectedCandidatesState,
-  );
+  const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
 
   const addCandidateInSelectedList = (id: number) => {
     setSelectedCandidates((currentCandidatesSet) => {
