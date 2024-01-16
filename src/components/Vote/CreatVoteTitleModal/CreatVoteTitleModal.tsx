@@ -14,6 +14,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./CreatVoteTitleModal.module.scss";
 
@@ -22,6 +23,17 @@ import VoteIcon from "@/assets/voteIcons/ic_vote.svg?react";
 const CreatVoteTitleModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [inputCount, setInputCount] = useState<number>(0);
+  const navigate = useNavigate();
+
+  const newClose = () => {
+    setInputCount(0);
+    onClose();
+  };
+
+  const createNewVote = () => {
+    newClose();
+    // navigate(`/vote/${data.id}`)
+  };
 
   return (
     <div className={styles.container}>
@@ -30,12 +42,8 @@ const CreatVoteTitleModal = () => {
         투표 만들기
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose} size={"lg"}>
-        <ModalOverlay
-        // maxWidth="45rem"
-        // left="50%"
-        // transform="translateX(-50%)"
-        />
+      <Modal isOpen={isOpen} onClose={newClose}>
+        <ModalOverlay />
         <ModalContent
           px="20px"
           py="40px"
@@ -83,7 +91,7 @@ const CreatVoteTitleModal = () => {
           <ModalFooter p="0" mt="24px">
             <Button
               type="submit"
-              onClick={onClose}
+              onClick={createNewVote}
               variant="blueButton"
               w="100%"
               h="48px"
