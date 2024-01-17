@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./FindPasswordForm.module.scss";
 
+import CustomToast from "@/components/CustomToast/CustomToast";
+
 import StepEmail from "./Step/StepEmail";
 import StepEmailSert from "./Step/StepEmailSert";
 import StepPassword from "./Step/StepPassword";
@@ -31,6 +33,7 @@ function FindPasswordForm() {
 
   const [findPasswordStep, setFindPasswordStep] = useState<string>("email");
   const navigate = useNavigate();
+  const showToast = CustomToast();
 
   const onSubmit: SubmitHandler<AuthForm> = async (data) => {
     if (Object.keys(dirtyFields).length < 4) return;
@@ -45,10 +48,12 @@ function FindPasswordForm() {
       });
       console.log(res);
 
+      showToast("비밀번호가 변경되었습니다.");
       setFindPasswordStep("email");
       navigate("/auth/login", { replace: true });
     } catch (error) {
       console.log(error);
+      showToast("이전에 사용했던 비밀번호입니다.");
     }
   };
 

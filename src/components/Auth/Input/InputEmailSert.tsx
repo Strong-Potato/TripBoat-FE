@@ -2,6 +2,8 @@ import axios from "axios";
 
 import styles from "./Input.module.scss";
 
+import CustomToast from "@/components/CustomToast/CustomToast";
+
 import validationForm from "@/utils/inputValidation";
 
 import { InputEmailSertProps } from "@/types/auth";
@@ -13,6 +15,7 @@ function InputEmailSert({
   setDue,
   type,
 }: InputEmailSertProps) {
+  const showToast = CustomToast();
   const sendEmailPath =
     type === "signup"
       ? "/api/auth/register/send-email"
@@ -25,7 +28,7 @@ function InputEmailSert({
       });
       console.log(res);
 
-      // showToast "인증코드가 재전송 되었습니다."
+      showToast("인증코드가 재전송 되었습니다.");
       setDue(1800);
     } catch (error) {
       console.log(error);

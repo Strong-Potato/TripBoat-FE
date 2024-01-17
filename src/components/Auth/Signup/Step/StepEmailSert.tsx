@@ -5,6 +5,7 @@ import styles from "./Step.module.scss";
 
 import AuthButton from "@/components/Auth/Button/AuthButton";
 import InputEmailSert from "@/components/Auth/Input/InputEmailSert";
+import CustomToast from "@/components/CustomToast/CustomToast";
 
 import { StepEmailSertProps } from "@/types/auth";
 
@@ -16,6 +17,7 @@ function StepEmailSert({
   error,
 }: StepEmailSertProps) {
   const [due, setDue] = useState<number>(1800);
+  const showToast = CustomToast();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -38,7 +40,7 @@ function StepEmailSert({
       console.log(res);
 
       if (res.data.response_code === 403) {
-        // showToast "인증코드가 일치하지 않습니다."
+        showToast("인증코드가 일치하지 않습니다.");
         return;
       }
 

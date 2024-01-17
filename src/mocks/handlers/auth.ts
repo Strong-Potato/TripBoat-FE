@@ -84,7 +84,7 @@ export const auth = [
         return HttpResponse.json({
           status: 200,
           response_code: 401,
-          detail: "이미 가입된 이메일 입니다.",
+          detail: "이미 가입된 이메일입니다.",
           issue: "tripvote.site/error",
         });
       }
@@ -130,7 +130,7 @@ export const auth = [
   /* -------------------------- 비밀번호 찾기 (이메일 인증코드 발송)송------------------------- */
   http.post<PathParams, Find>(
     "/api/auth/modify/lost-password/send-email",
-    () => {
+    async () => {
       return HttpResponse.json({
         status: 200,
       });
@@ -147,6 +147,13 @@ export const auth = [
         return HttpResponse.json({
           status: 200,
         });
+
+      return HttpResponse.json({
+        status: 200,
+        response_code: 403,
+        detail: "인증코드가 올바르지 않습니다.",
+        issue: "tripvote.site/error",
+      });
     },
   ),
 
