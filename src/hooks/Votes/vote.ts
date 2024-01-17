@@ -1,6 +1,7 @@
-import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 
-import {postVoteTitle} from '@/api/vote';
+import {PostNewVote} from '@/api/vote';
+import {getVoteInfo} from '@/mocks/handlers/vote';
 
 import {postVoteTitleProps} from './../../types/vote';
 
@@ -23,11 +24,18 @@ import {postVoteTitleProps} from './../../types/vote';
 //   });
 // };
 
+export const useGetVotesInfoQuery = (voteId: string) => {
+  return useQuery({
+    queryKey: ['votes', voteId],
+    queryFn: () => getVoteInfo(voteId),
+  });
+};
+
 export const usePostVoteTitle = ({spaceId, title}: postVoteTitleProps) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: () => postVoteTitle({spaceId, title}),
+    mutationFn: () => PostNewVote({spaceId, title}),
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['votes']});
     },

@@ -2,6 +2,8 @@ import axios from 'axios';
 import {http, HttpResponse} from 'msw';
 import {Dispatch} from 'react';
 
+import {VoteInfo} from '@/types/vote';
+
 const candidateData = [
   {
     id: 111,
@@ -157,3 +159,15 @@ export async function getVoteData<T>(id: string, setter: Dispatch<React.SetState
     console.error(error);
   }
 }
+
+//단일vote
+export const getVoteInfo = async (voteId: string): Promise<VoteInfo> => {
+  const response = await axios.get(`/api/votes/${voteId}`);
+  return response.data;
+};
+
+//여러 vote in space
+export const getVoteListInfo = async (spaceId: string) => {
+  const response = await axios.get(`/api/votes/${spaceId}`);
+  return response.data.data;
+};

@@ -63,7 +63,7 @@ export interface VoteInfo {
     nickName?: string;
     profile: string;
   };
-  votedMemberProfiles: VotedMemberProfiles[];
+  votedMemberProfiles?: VotedMemberProfiles[]; //빠짐
   voteStatus: string; //status요청하기,,
   candidates: CandidatesInfo[];
 }
@@ -87,7 +87,7 @@ export interface VoteHeaderProps {
 }
 
 export interface CandidateCardProps {
-  onBottomSlideOpen: (content: ReactNode) => void;
+  onBottomSlideOpen?: (content: ReactNode) => void | undefined;
   candidate: CandidatesInfo;
   showResults: boolean;
   index: number;
@@ -121,4 +121,11 @@ export interface postVoteTitleProps {
 export interface postVoteTitleProps {
   spaceId: number;
   title: string;
+}
+
+//get아니고 후보메모post
+export interface postTaglineProps {
+  voteId: string;
+  placeId: number;
+  tagline: string;
 }

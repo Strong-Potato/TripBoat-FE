@@ -27,11 +27,6 @@ const Vote = () => {
   const [data, setData] = useState<VoteInfo>();
   const param = useParams().id as string;
 
-  const cookieString = document.cookie;
-  const cookies = cookieString.split(';').map((cookie) => cookie.trim());
-
-  console.log('cookieString:', cookieString, 'cookies:', cookies);
-
   useEffect(() => {
     getVoteData(param, setData);
     setIsCandidateSelecting(false);

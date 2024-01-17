@@ -1,9 +1,9 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   position: relative;
 
-  width: 100%; //335?
+  width: 33.5rem; //335?
   min-width: 33.5rem;
   height: 10rem;
   padding-right: 16px;
@@ -11,6 +11,7 @@
   border-radius: 16px;
   // border: 2px solid $neutral200;
   box-shadow: $shadow200;
+  background-color: $neutral0;
 
   display: flex;
   gap: 12px;

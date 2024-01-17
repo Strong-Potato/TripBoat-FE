@@ -50,7 +50,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index}: Candi
   const RankIcon = showResults && getRankIcon(index);
 
   const onVoteBoxClick = () => {
-    if (showResults) {
+    if (showResults && onBottomSlideOpen) {
       onBottomSlideOpen(<VotedUserList />);
     } else {
       setIsVoted(!isVoted);
