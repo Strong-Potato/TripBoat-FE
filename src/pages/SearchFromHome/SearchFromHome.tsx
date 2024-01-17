@@ -14,7 +14,6 @@ function SearchFromHome() {
   const [moveMap, setMoveMap] = useState("false");
   const [searchParams] = useSearchParams();
   const vh = window.innerHeight;
-  console.log(window.innerHeight);
 
   useEffect(() => {
     const querystring = {

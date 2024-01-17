@@ -13,13 +13,23 @@ import { SearchItemType } from "@/types/home";
 interface PropsType {
   data: SearchItemType[];
   categoryChange: boolean;
+  slideLocation: number;
+  throttle: boolean;
   setCurrentPin: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setSlideLocation: React.Dispatch<React.SetStateAction<number>>;
+  setThrottle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function MapItems({ data, categoryChange, setCurrentPin }: PropsType) {
-  const [slideLocation, setSlideLocation] = useState<number>(0);
+function MapItems({
+  data,
+  categoryChange,
+  slideLocation,
+  throttle,
+  setCurrentPin,
+  setSlideLocation,
+  setThrottle,
+}: PropsType) {
   const [componentRef, size] = useComponentSize();
-  const [throttle, setThrottle] = useState(false);
   const [firstPin, setFirstPin] = useState(true);
 
   function setCurrentIndex() {
@@ -41,12 +51,13 @@ function MapItems({ data, categoryChange, setCurrentPin }: PropsType) {
   }
 
   const handleScroll = () => {
-    if (throttle) return;
-    if (!throttle) {
+    if (throttle) {
+      setThrottle(false);
+    } else {
       setThrottle(true);
       setTimeout(async () => {
         setThrottle(false);
-      }, 200);
+      }, 100);
     }
   };
 

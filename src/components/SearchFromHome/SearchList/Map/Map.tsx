@@ -21,6 +21,8 @@ interface PropsType {
 }
 
 function Map({ data, categoryChange }: PropsType) {
+  const [slideLocation, setSlideLocation] = useState<number>(0);
+  const [throttle, setThrottle] = useState(true);
   const [currentpin, setCurrentPin] = useState<number | undefined>();
   const [map, setMap] = useState<any>(null);
   const [pin, setPin] = useState<any[]>([]);
@@ -28,7 +30,7 @@ function Map({ data, categoryChange }: PropsType) {
   function setSmallPin(data: SearchItemType[]) {
     const currentMarkers: any[] = [];
 
-    data.map((data) => {
+    data.map((data, i) => {
       const image =
         data.category === "숙소"
           ? homeMarker
@@ -49,6 +51,19 @@ function Map({ data, categoryChange }: PropsType) {
           data.location.longtitude,
         ),
         image: markerImage,
+      });
+      new window.kakao.maps.event.addListener(marker, "click", function () {
+        setCurrentPin(i);
+        if (window.innerWidth < 450) {
+          setThrottle(true);
+          const slide = document.querySelector("#map_slide");
+          slide?.scrollTo({
+            left: 343 * i - 20,
+            behavior: "smooth",
+          });
+        } else {
+          setSlideLocation(-343 * i + 20);
+        }
       });
       marker.setMap(map);
       currentMarkers.push(marker);
@@ -78,8 +93,12 @@ function Map({ data, categoryChange }: PropsType) {
           data.location.longtitude,
         ),
         image: markerImage,
+        clickable: true,
       });
       marker.setZIndex(10);
+      new window.kakao.maps.event.addListener(marker, "click", function () {
+        console.log(data.title);
+      });
       currentMarkers.push(marker);
     });
     currentMarkers[0].setMap(map);
@@ -147,7 +166,11 @@ function Map({ data, categoryChange }: PropsType) {
         <MapItems
           data={data}
           categoryChange={categoryChange}
+          slideLocation={slideLocation}
+          throttle={throttle}
           setCurrentPin={setCurrentPin}
+          setSlideLocation={setSlideLocation}
+          setThrottle={setThrottle}
         />
       </div>
     </div>

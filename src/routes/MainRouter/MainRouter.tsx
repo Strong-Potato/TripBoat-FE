@@ -5,7 +5,6 @@ import Calendar from "@/pages/Calendar/Calendar";
 import Detail from "@/pages/Detail/Detail";
 import Home from "@/pages/Home/Home";
 import Login from "@/pages/Login/Login";
-
 import RegionSearch from "@/pages/RegionSearch/RegionSearch";
 import SearchFromHome from "@/pages/SearchFromHome/SearchFromHome";
 import AgreePrivacy from "@/pages/Signup/Agree/AgreePrivacy";

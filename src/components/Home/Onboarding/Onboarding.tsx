@@ -48,7 +48,10 @@ function Onboarding({ set }: PropsType) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.modal}>
+      <div
+        className={styles.modal}
+        style={{ paddingBottom: isVote ? "40px" : "64px" }}
+      >
         <button className={styles.modal__closeButton} onClick={exit}>
           <CloseButton />
         </button>
@@ -57,45 +60,47 @@ function Onboarding({ set }: PropsType) {
           alt="온보딩 아이콘"
           className={styles.modal__bag}
         />
-        <p className={styles.modal__title}>
-          <span>겨울여행 어디로 갈까?</span>
-        </p>
-        <div className={styles.voteBox}>
-          {data.map((data) => {
-            return (
-              <div className={styles.voteBox__item} key={data.title}>
-                {isVote && (
-                  <>
-                    <div
-                      className={styles.voteBox__item__graph}
-                      style={{ width: data.percent }}
+        <div className={styles.modal__gap}>
+          <p className={styles.modal__title}>
+            <span>겨울여행 어디로 갈까?</span>
+          </p>
+          <div className={styles.voteBox}>
+            {data.map((data) => {
+              return (
+                <div className={styles.voteBox__item} key={data.title}>
+                  {isVote && (
+                    <>
+                      <div
+                        className={styles.voteBox__item__graph}
+                        style={{ width: data.percent }}
+                      >
+                        <div />
+                      </div>
+                      <div className={styles.voteBox__item__rank}>
+                        {data.rank}
+                      </div>
+                    </>
+                  )}
+                  <p>
+                    {data.title}
+                    <span className={styles.voteBox__item__icon}>
+                      {data.icon}
+                    </span>
+                  </p>
+                  {isVote ? (
+                    <p className={styles.blue}>{data.percent}</p>
+                  ) : (
+                    <button
+                      className={styles.voteBox__item__button}
+                      onClick={vote}
                     >
-                      <div />
-                    </div>
-                    <div className={styles.voteBox__item__rank}>
-                      {data.rank}
-                    </div>
-                  </>
-                )}
-                <p>
-                  {data.title}
-                  <span className={styles.voteBox__item__icon}>
-                    {data.icon}
-                  </span>
-                </p>
-                {isVote ? (
-                  <p className={styles.blue}>{data.percent}</p>
-                ) : (
-                  <button
-                    className={styles.voteBox__item__button}
-                    onClick={vote}
-                  >
-                    <span className={styles.blue}>투표</span>
-                  </button>
-                )}
-              </div>
-            );
-          })}
+                      <span className={styles.blue}>투표</span>
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
         <button
           className={styles.modal__voteButton}
@@ -103,7 +108,10 @@ function Onboarding({ set }: PropsType) {
             vote();
             navigate("/vote");
           }}
-          style={{ height: isVote ? "4.6rem" : 0 }}
+          style={{
+            height: isVote ? "4.6rem" : 0,
+            marginTop: isVote ? "32px" : 0,
+          }}
         >
           나도 투표만들러 가기
         </button>
