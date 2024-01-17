@@ -1,16 +1,15 @@
 import axios from "axios";
-import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./SignupForm.module.scss";
 
-import StepEmail from "./Step/StepEmail";
-import StepEmailSert from "./Step/StepEmailSert";
-import StepPassword from "./Step/StepPassword";
-import StepProfile from "./Step/StepProfile";
+import StepEmail from "@/components/Auth/Step/StepEmail";
+import StepEmailSert from "@/components/Auth/Step/StepEmailSert";
+import StepPassword from "@/components/Auth/Step/StepPassword";
+import StepProfile from "@/components/Auth/Step/StepProfile";
 
-import { SignupForm, SignupFormProps } from "@/types/auth";
+import { AuthForm, SignupFormProps } from "@/types/auth";
 
 function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
   const {
@@ -19,7 +18,7 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
     handleSubmit,
     watch,
     formState: { errors, dirtyFields },
-  } = useForm<SignupForm>({
+  } = useForm<AuthForm>({
     mode: "onChange",
     defaultValues: {
       email: "",
@@ -32,17 +31,9 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
   });
 
   const navigate = useNavigate();
-  const [toast, setToast] = useState<string | null>(null);
   const watchFields = watch();
 
-  const showToast = (message: string) => {
-    setToast(message);
-    setTimeout(() => {
-      setToast(null);
-    }, 1500);
-  };
-
-  const onSubmit: SubmitHandler<SignupForm> = async (data) => {
+  const onSubmit: SubmitHandler<AuthForm> = async (data) => {
     if (Object.keys(dirtyFields).length < 5) return;
     console.log(data);
 
@@ -88,8 +79,6 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
           resetField={resetField}
           dirty={dirtyFields.email}
           error={errors.email}
-          showToast={showToast}
-          toast={toast}
         />
       )}
 
@@ -100,8 +89,6 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
           watchFields={watchFields}
           dirty={dirtyFields.emailSert}
           error={errors.emailSert}
-          showToast={showToast}
-          toast={toast}
         />
       )}
 
@@ -113,8 +100,6 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
           watchFields={watchFields}
           dirtyFields={dirtyFields}
           errors={errors}
-          showToast={showToast}
-          toast={toast}
         />
       )}
 

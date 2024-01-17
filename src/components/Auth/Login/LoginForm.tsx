@@ -9,10 +9,10 @@ import AuthButton from "@/components/Auth/Button/AuthButton";
 
 import validationForm from "@/utils/inputValidation";
 
-import InputEmail from "./Input/InputEmail";
-import InputPassword from "./Input/InputPassword";
+import InputEmail from "./LoginInput/InputEmail";
+import InputPassword from "./LoginInput/InputPassword";
 
-import { LoginForm } from "@/types/auth";
+import { AuthForm } from "@/types/auth";
 
 function LoginForm() {
   const {
@@ -21,7 +21,7 @@ function LoginForm() {
     getValues,
     handleSubmit,
     formState: { dirtyFields },
-  } = useForm<LoginForm>({
+  } = useForm<AuthForm>({
     defaultValues: {
       email: "",
       password: "",
@@ -38,14 +38,16 @@ function LoginForm() {
 
     if (!isValid) {
       setValidationError(true);
-      return;
+      return true;
     }
+
+    return false;
   };
 
   const onSubmit = async () => {
     const { email, password } = getValues();
 
-    showError(email, password);
+    if (showError(email as string, password as string)) return;
 
     try {
       const res = await axios.post("/api/login", {

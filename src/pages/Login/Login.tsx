@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 import styles from "./Login.module.scss";
@@ -8,6 +9,17 @@ import KakaoIcon from "@/assets/kakao/kakao_path.svg?react";
 import Logo from "@/assets/logo.svg?react";
 
 function Login() {
+  const onClickKakao = async () => {
+    try {
+      const res = axios.post("/api/oauth2/authorization/kakao");
+      console.log(res);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <div className={styles.container}>
       <h1 aria-hidden="true">
@@ -29,7 +41,11 @@ function Login() {
           <div className={styles.row_bar}></div>
         </h2>
 
-        <button type="button" className={styles.snsLogin__btn}>
+        <button
+          type="button"
+          className={styles.snsLogin__btn}
+          onClick={onClickKakao}
+        >
           <KakaoIcon />
           <span className={styles.kakao_text}>카카오 로그인</span>
           <span className={styles.kakao_space} aria-hidden></span>

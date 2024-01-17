@@ -1,0 +1,33 @@
+@use "@/sass" as *;
+
+.container {
+  position: relative;
+
+  label {
+    display: block;
+
+    @include typography(tabLabel);
+    color: $neutral900;
+  }
+
+  small {
+    width: 100%;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+
+    @include typography(captionSmall);
+    color: $danger300;
+  }
+
+  .userEmail {
+    &__label {
+      @include typography(tabLabel);
+      color: $neutral900;
+    }
+
+    &__email {
+      @include typography(titleSmall);
+    }
+  }
+}
