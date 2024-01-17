@@ -1,7 +1,13 @@
 @use "@/sass" as *;
 
 .container {
-  position: relative;
+  .desc {
+    margin-top: -16px;
+    margin-bottom: 40px;
+
+    @include typography(captionSmall);
+    color: $neutral400;
+  }
 
   label {
     display: block;

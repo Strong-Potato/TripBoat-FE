@@ -2,8 +2,8 @@ import { useState } from "react";
 
 import styles from "./Signup.module.scss";
 
+import Header from "@/components/Auth/Header/Header";
 import AgreeForm from "@/components/Auth/Signup/AgreeForm";
-import Header from "@/components/Auth/Signup/Header/Header";
 import SignupForm from "@/components/Auth/Signup/SignupForm";
 
 function Signup() {
