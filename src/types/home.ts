@@ -50,20 +50,30 @@ export interface SlideButtonPropsType extends LeftButtonPropsType {
 // 홈 검색 타입
 export interface SearchItemLocationType {
   address: string;
+  addressDetail: string;
+  phone: string;
+  areaCode: number;
+  sigunguCode: number;
+  zipCode: number;
   latitude: number;
   longtitude: number;
 }
 
 export interface SearchHotItemType {
   title: string;
-  imageURL: string;
-  location: string;
+  thumbnail: string;
+  areaCode: number;
+  sigunguCode: number;
+  category: string;
   id: number;
+  contentTypeId: number;
 }
 
 export interface SearchItemType {
+  id: number;
+  contentTypeId: number;
   title: string;
-  imageURL: string;
+  thumbnail: string;
   location: SearchItemLocationType;
   category: string;
 }

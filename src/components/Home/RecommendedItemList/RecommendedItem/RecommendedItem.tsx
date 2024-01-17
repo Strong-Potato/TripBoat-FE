@@ -27,7 +27,6 @@ function RecommendedItem(data: PropsType) {
             </span>
             <span>{data.data.score}</span>
           </p>
-          <span className={styles.gray}>({data.data.reviewNumber})</span>
         </div>
       </div>
     </Link>

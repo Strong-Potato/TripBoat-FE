@@ -34,10 +34,16 @@ function Onboarding({ set }: PropsType) {
 
   function vote() {
     setIsVote(true);
+    window.localStorage.setItem("onboarding", "true");
   }
 
   function exit() {
     set(true);
+  }
+
+  function immotalExit() {
+    set(true);
+    window.localStorage.setItem("onboarding", "true");
   }
 
   return (
@@ -101,7 +107,7 @@ function Onboarding({ set }: PropsType) {
         >
           나도 투표만들러 가기
         </button>
-        <button className={styles.modal__removeButton} onClick={exit}>
+        <button className={styles.modal__removeButton} onClick={immotalExit}>
           다시 보지 않기
         </button>
       </div>

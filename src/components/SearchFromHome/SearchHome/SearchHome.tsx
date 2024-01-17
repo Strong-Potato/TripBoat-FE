@@ -19,7 +19,7 @@ function SearchHome({ set }: PropsType) {
         <HotItems type="place" />
       </div>
       <div className={styles.column_8px}>
-        <p className={styles.title}>최근 30일간 인기 장소</p>
+        <p className={styles.title}>최근 30일간 인기 숙소</p>
         <HotItems type="hotel" />
       </div>
     </div>
