@@ -2,13 +2,13 @@ import axios from "axios";
 
 import styles from "./Step.module.scss";
 
-import AuthButton from "@/components/Auth/Button/AuthButton";
-import InputEmail from "@/components/Auth/Input/InputEmail";
+import AuthButton from "../../Button/AuthButton";
+import InputEmail from "../../Input/InputEmail";
 
 import { StepEmailProps } from "@/types/auth";
 
 function StepEmail({
-  setSignupStep,
+  setFindPasswordStep,
   register,
   watchFields: { email },
   dirty,
@@ -17,17 +17,15 @@ function StepEmail({
 }: StepEmailProps) {
   const onClickEmail = async () => {
     try {
-      const res = await axios.post("/api/auth/register/send-email", {
-        email,
-      });
+      const res = await axios.post(
+        "/api/auth/modify/lost-password/send-email",
+        {
+          email,
+        },
+      );
       console.log(res);
 
-      if (res.data.response_code === 401) {
-        // showToast "이미 가입된 이메일입니다."
-        return;
-      }
-
-      setSignupStep!("emailSert");
+      setFindPasswordStep!("emailSert");
     } catch (error) {
       console.log(error);
     }
@@ -35,11 +33,13 @@ function StepEmail({
 
   return (
     <section className={styles.container}>
-      <h2>
-        로그인에 사용할
+      <h2>비밀번호를 잊으셨나요?</h2>
+
+      <div className={styles.desc}>
+        트립보트에 가입했던 이메일을 입력해주세요.
         <br />
-        이메일을 입력해주세요
-      </h2>
+        비밀번호 재설정을 위한 인증 코드를 보내드릴게요.
+      </div>
 
       <InputEmail
         register={register}

@@ -6,10 +6,21 @@ import validationForm from "@/utils/inputValidation";
 
 import { InputEmailSertProps } from "@/types/auth";
 
-function InputEmailSert({ register, email, due, setDue }: InputEmailSertProps) {
+function InputEmailSert({
+  register,
+  email,
+  due,
+  setDue,
+  type,
+}: InputEmailSertProps) {
+  const sendEmailPath =
+    type === "signup"
+      ? "/api/auth/register/send-email"
+      : "/api/auth/modify/lost-password/send-email";
+
   const onClickResert = async () => {
     try {
-      const res = await axios.post("/api/auth/register/send-email", {
+      const res = await axios.post(sendEmailPath, {
         email,
       });
       console.log(res);

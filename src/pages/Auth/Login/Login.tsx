@@ -29,7 +29,7 @@ function Login() {
       <LoginForm />
 
       <section className={styles.aboutAuth}>
-        <Link to={""}>비밀번호를 잊으셨나요?</Link>
+        <Link to={"/auth/findpassword"}>비밀번호를 잊으셨나요?</Link>
         <div className={styles.col_bar}></div>
         <Link to={"/auth/signup"}>회원가입</Link>
       </section>

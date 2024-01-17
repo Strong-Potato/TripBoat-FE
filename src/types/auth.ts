@@ -38,6 +38,7 @@ export interface InputEmailSertProps {
   email?: string;
   due: number;
   setDue: React.Dispatch<React.SetStateAction<number>>;
+  type: string;
 }
 
 export interface InputPasswordProps {
@@ -117,7 +118,8 @@ export interface SignupFormProps {
 }
 
 export interface StepEmailProps {
-  setSignupStep: React.Dispatch<React.SetStateAction<string>>;
+  setSignupStep?: React.Dispatch<React.SetStateAction<string>>;
+  setFindPasswordStep?: React.Dispatch<React.SetStateAction<string>>;
   dirty?: boolean;
   error?: FieldError;
   watchFields: Partial<AuthForm>;
@@ -126,7 +128,8 @@ export interface StepEmailProps {
 }
 
 export interface StepEmailSertProps {
-  setSignupStep: React.Dispatch<React.SetStateAction<string>>;
+  setSignupStep?: React.Dispatch<React.SetStateAction<string>>;
+  setFindPasswordStep?: React.Dispatch<React.SetStateAction<string>>;
   register: UseFormRegister<AuthForm>;
   watchFields: Partial<AuthForm>;
   dirty?: boolean;
@@ -134,7 +137,7 @@ export interface StepEmailSertProps {
 }
 
 export interface StepPasswordProps {
-  setSignupStep: React.Dispatch<React.SetStateAction<string>>;
+  setSignupStep?: React.Dispatch<React.SetStateAction<string>>;
   register: UseFormRegister<AuthForm>;
   resetField: UseFormResetField<AuthForm>;
   watchFields: Partial<AuthForm>;

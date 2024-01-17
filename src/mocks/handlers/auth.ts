@@ -21,6 +21,12 @@ interface Form {
   token: string;
 }
 
+interface Find {
+  token: string;
+  email: string;
+  newPassword: string;
+}
+
 const UserDummy = [
   { email: "test@naver.com", password: "asdasd123#", nickname: "테스트계정" },
 ];
@@ -112,8 +118,40 @@ export const auth = [
   ),
 
   /* ------------------------------ 시작하기 버튼 (form 제출) ----------------------------- */
-  http.post<PathParams, Form>("api/auth/register", async () => {
+  http.post<PathParams, Form>("/api/auth/register", async () => {
     // 회원가입 성공
+    return HttpResponse.json({
+      status: 200,
+    });
+  }),
+
+  /* --------------------------------- 비밀번호 찾기 -------------------------------- */
+
+  /* -------------------------- 비밀번호 찾기 (이메일 인증코드 발송)송------------------------- */
+  http.post<PathParams, Find>(
+    "/api/auth/modify/lost-password/send-email",
+    () => {
+      return HttpResponse.json({
+        status: 200,
+      });
+    },
+  ),
+
+  /* ---------------------------- 비밀번호 찾기 (인증코드 제출)출--------------------------- */
+  http.post<PathParams, Find>(
+    "/api/auth/modify/lost-password/check-token",
+    async ({ request }) => {
+      const { token } = await request.json();
+
+      if (token === "asdf1234")
+        return HttpResponse.json({
+          status: 200,
+        });
+    },
+  ),
+
+  /* ------------------------- 비밀번호 찾기 (새로운 비밀번호로 변경)경------------------------- */
+  http.post<PathParams, Find>("/api/auth/modify/lost-password", () => {
     return HttpResponse.json({
       status: 200,
     });

@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
 import Alarm from "@/pages/Alarm/Alarm";
+import FindPassword from "@/pages/Auth/FindPassword/FindPassword";
 import Login from "@/pages/Auth/Login/Login";
 import AgreePrivacy from "@/pages/Auth/Signup/Agree/AgreePrivacy";
 import AgreeService from "@/pages/Auth/Signup/Agree/AgreeService";
@@ -29,6 +30,7 @@ function MainRouter() {
       <Route path="/auth/signup" element={<Signup />} />
       <Route path="/auth/signup/agreePrivacy" element={<AgreePrivacy />} />
       <Route path="/auth/signup/agreeService" element={<AgreeService />} />
+      <Route path="/auth/findpassword" element={<FindPassword />} />
       <Route path="/alarm" element={<Alarm />} />
       <Route path="/home/search" element={<SearchFromHome />} />
       <Route path="/trip/selectDate" element={<Calendar />} />

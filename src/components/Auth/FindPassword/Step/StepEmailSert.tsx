@@ -9,7 +9,7 @@ import InputEmailSert from "@/components/Auth/Input/InputEmailSert";
 import { StepEmailSertProps } from "@/types/auth";
 
 function StepEmailSert({
-  setSignupStep,
+  setFindPasswordStep,
   register,
   watchFields: { email, emailSert },
   dirty,
@@ -31,10 +31,13 @@ function StepEmailSert({
 
   const onClickEmailSert = async () => {
     try {
-      const res = await axios.post("/api/auth/register/check-token", {
-        email,
-        token: emailSert,
-      });
+      const res = await axios.post(
+        "/api/auth/modify/lost-password/check-token",
+        {
+          email,
+          token: emailSert,
+        },
+      );
       console.log(res);
 
       if (res.data.response_code === 403) {
@@ -42,7 +45,7 @@ function StepEmailSert({
         return;
       }
 
-      setSignupStep!("password");
+      setFindPasswordStep!("password");
     } catch (error) {
       console.log(error);
     }
@@ -51,9 +54,9 @@ function StepEmailSert({
   return (
     <section className={styles.container}>
       <h2>
-        이메일로 받은
+        비밀번호 재설정을 위해
         <br />
-        인증코드를 입력해주세요
+        이메일 인증을 해주세요
       </h2>
 
       <div className={styles.userEmail}>
@@ -66,7 +69,7 @@ function StepEmailSert({
         email={email}
         due={due}
         setDue={setDue}
-        type="signup"
+        type="findPassword"
       />
 
       <AuthButton
