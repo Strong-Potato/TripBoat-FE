@@ -3,11 +3,8 @@ import axios from "axios";
 import styles from "./Step.module.scss";
 
 import AuthButton from "@/components/Auth/Button/AuthButton";
-
-import InputRemove from "@/assets/icons/InputRemove.svg?react";
-import validationForm from "@/utils/inputValidation";
-
-import AuthToast from "../Toast/AuthToast";
+import InputEmail from "@/components/Auth/Input/InputEmail";
+import CustomToast from "@/components/CustomToast/CustomToast";
 
 import { StepEmailProps } from "@/types/auth";
 
@@ -18,12 +15,8 @@ function StepEmail({
   dirty,
   error,
   resetField,
-  showToast,
-  toast,
 }: StepEmailProps) {
-  const resetEmail = () => {
-    resetField("email");
-  };
+  const showToast = CustomToast();
 
   const onClickEmail = async () => {
     try {
@@ -37,7 +30,7 @@ function StepEmail({
         return;
       }
 
-      setSignupStep("emailSert");
+      setSignupStep!("emailSert");
     } catch (error) {
       console.log(error);
     }
@@ -51,36 +44,12 @@ function StepEmail({
         이메일을 입력해주세요
       </h2>
 
-      <section className={styles.email}>
-        <label htmlFor="email">아이디(이메일 주소)</label>
-
-        <input
-          id="email"
-          className={`${styles.input} ${dirty && error ? styles.error : ""}`}
-          type="text"
-          placeholder="이메일 주소를 입력해주세요"
-          {...register("email", {
-            required: true,
-            pattern: {
-              value: validationForm.email,
-              message: "이메일 형식이 올바르지 않습니다.",
-            },
-          })}
-        />
-
-        {dirty && (
-          <button
-            type="button"
-            className={styles.removeBtn}
-            onClick={resetEmail}
-            tabIndex={-1}
-          >
-            <InputRemove className={styles.svg} />
-          </button>
-        )}
-
-        {!dirty || error ? <small>{error?.message}</small> : null}
-      </section>
+      <InputEmail
+        register={register}
+        dirty={dirty}
+        error={error}
+        resetField={resetField}
+      />
 
       <AuthButton
         content="이메일 인증 요청"
@@ -88,8 +57,6 @@ function StepEmail({
         type="button"
         onClick={onClickEmail}
       />
-
-      {toast && <AuthToast content={toast} />}
     </section>
   );
 }

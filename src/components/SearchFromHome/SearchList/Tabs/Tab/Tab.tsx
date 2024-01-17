@@ -1,3 +1,5 @@
+import { useNavigate, useSearchParams } from "react-router-dom";
+
 import styles from "./Tab.module.scss";
 
 interface PropsType {
@@ -5,6 +7,7 @@ interface PropsType {
   setCategoryChange: React.Dispatch<React.SetStateAction<boolean>>;
   category: string;
   thisCategory: string;
+  keyword: string | undefined;
 }
 
 function Tab({
@@ -12,13 +15,22 @@ function Tab({
   setCategoryChange,
   category,
   thisCategory,
+  keyword,
 }: PropsType) {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
   function handleCategory(key: string) {
     setCategoryChange(true);
     setTimeout(() => {
       setCategoryChange(false);
     }, 150);
     setCategory(key);
+    if (searchParams.get("map")) {
+      navigate(`/home/search?keyword=${keyword}&category=${key}&map=true`);
+    } else {
+      navigate(`/home/search?keyword=${keyword}&category=${key}`);
+    }
   }
 
   return (

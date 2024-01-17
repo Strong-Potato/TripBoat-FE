@@ -1,4 +1,5 @@
 import { Box, useToast } from "@chakra-ui/react";
+import { useEffect } from "react";
 
 import styles from "./CustomToast.module.scss";
 
@@ -11,12 +12,25 @@ interface UseToastCustomProps {
 const CustomToast = () => {
   const toast = useToast();
 
+  const toastSize = () => {
+    if (window.innerWidth > 450) {
+      return "410px";
+    } else {
+      return `${window.innerWidth - 40}px`;
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", toastSize);
+  }, []);
+
   const showToast = (
     text: string,
     isLinked: boolean = false,
     linkText: string = "",
     callback?: () => void,
   ): UseToastCustomProps => {
+    toast.closeAll();
     toast({
       position: "top",
       render: () => (
@@ -28,8 +42,7 @@ const CustomToast = () => {
           fontWeight="button"
           lineHeight="button"
           borderRadius="8px"
-          width="450px"
-          maxWidth="410px"
+          width={toastSize()}
           className={styles.container}
         >
           <span>{text}</span>

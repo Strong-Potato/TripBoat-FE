@@ -1,6 +1,7 @@
 import styles from "./Input.module.scss";
 
 import InputRemove from "@/assets/icons/InputRemove.svg?react";
+import validationForm from "@/utils/inputValidation";
 
 import { LoginInput } from "@/types/auth";
 
@@ -24,10 +25,10 @@ function InputPassword({
         type="password"
         placeholder="비밀번호를 입력해주세요"
         {...register("password", {
-          // pattern: {
-          //   value: validationForm.password,
-          //   message: "비밀번호 형식이 올바르지 않습니다.",
-          // },
+          pattern: {
+            value: validationForm.password,
+            message: "비밀번호 형식이 올바르지 않습니다.",
+          },
         })}
       />
 

@@ -9,9 +9,15 @@ import CustomToast from "@/components/CustomToast/CustomToast";
 
 import CloseIcon from "@/assets/close.svg?react";
 
+import RegistrationSlide from "../../BottomFixedBtn/RegistrationSlide/RegistrationSlide";
+import ReviewBottomSlide from "../../Contents/ReviewBottomSlide/ReviewBottomSlide";
+
 import { NavigationMeatballProps } from "@/types/detail";
 
-const MeatballBottomSlide = ({ onClose }: NavigationMeatballProps) => {
+const MeatballBottomSlide = ({
+  onBottomSlideOpen,
+  onClose,
+}: NavigationMeatballProps) => {
   const showToast = CustomToast();
 
   return (
@@ -27,9 +33,7 @@ const MeatballBottomSlide = ({ onClose }: NavigationMeatballProps) => {
       </button>
       <button
         onClick={() => {
-          showToast("찜 목록에 저장되었습니다.", true, "바로가기", () =>
-            console.log(1),
-          );
+          showToast("찜 목록에 저장되었습니다.");
         }}
       >
         <div className={styles.container__iconWrapper}>
@@ -37,13 +41,27 @@ const MeatballBottomSlide = ({ onClose }: NavigationMeatballProps) => {
         </div>
         <p>찜하기</p>
       </button>
-      <button>
+      <button
+        onClick={() => {
+          onClose();
+          setTimeout(() => {
+            onBottomSlideOpen(<RegistrationSlide slideOnClose={onClose} />);
+          }, 300);
+        }}
+      >
         <div className={styles.container__iconWrapper}>
           <BiTask fontSize="1.6rem" />
         </div>
         <p>후보에 추가</p>
       </button>
-      <button>
+      <button
+        onClick={() => {
+          onClose();
+          setTimeout(() => {
+            onBottomSlideOpen(<ReviewBottomSlide onClose={onClose} />);
+          }, 300);
+        }}
+      >
         <div className={styles.container__iconWrapper}>
           <CiEdit fontSize="1.6rem" />
         </div>

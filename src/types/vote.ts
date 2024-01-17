@@ -101,6 +101,7 @@ export interface VoteMeatballProps {
 export interface AlertModalProps {
   title: string;
   subText?: string;
+  cancelText?: string;
   actionButton: string;
   isSmallSize: boolean;
   onClickAction?: () => void;

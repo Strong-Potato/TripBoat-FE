@@ -23,34 +23,20 @@ interface PropsType {
 function Map({ data, categoryChange }: PropsType) {
   const [currentpin, setCurrentPin] = useState<number | undefined>();
   const [map, setMap] = useState<any>(null);
-  const [markers, setMarkers] = useState<any[]>([]);
+  const [pin, setPin] = useState<any[]>([]);
 
-  function addPin(data: SearchItemType[]) {
+  function setSmallPin(data: SearchItemType[]) {
     const currentMarkers: any[] = [];
 
-    data.map((data, i) => {
-      let image;
-      let imageSize;
-      let imageOption;
-      if (i === currentpin) {
-        image =
-          data.category === "숙소"
-            ? bigHomeMarker
-            : data.category === "맛집"
-              ? bigForkMarker
-              : bigFlagMarker;
-        imageSize = new window.kakao.maps.Size(44, 52);
-        imageOption = { offset: new window.kakao.maps.Point(0, 0) };
-      } else {
-        image =
-          data.category === "숙소"
-            ? homeMarker
-            : data.category === "맛집"
-              ? forkMarker
-              : flagMarker;
-        imageSize = new window.kakao.maps.Size(32, 32);
-        imageOption = { offset: new window.kakao.maps.Point(-6, -10) };
-      }
+    data.map((data) => {
+      const image =
+        data.category === "숙소"
+          ? homeMarker
+          : data.category === "맛집"
+            ? forkMarker
+            : flagMarker;
+      const imageSize = new window.kakao.maps.Size(32, 32);
+      const imageOption = { offset: new window.kakao.maps.Point(-6, -8) };
 
       const markerImage = new window.kakao.maps.MarkerImage(
         image,
@@ -64,14 +50,42 @@ function Map({ data, categoryChange }: PropsType) {
         ),
         image: markerImage,
       });
-      if (i == currentpin) {
-        marker.setZIndex(10);
-      }
       marker.setMap(map);
       currentMarkers.push(marker);
     });
-    setMarkers([...currentMarkers]);
   }
+  function setBigPin(data: SearchItemType[]) {
+    const currentMarkers: any[] = [];
+
+    data.map((data) => {
+      const image =
+        data.category === "숙소"
+          ? bigHomeMarker
+          : data.category === "맛집"
+            ? bigForkMarker
+            : bigFlagMarker;
+      const imageSize = new window.kakao.maps.Size(44, 52);
+      const imageOption = { offset: new window.kakao.maps.Point(0, 0) };
+
+      const markerImage = new window.kakao.maps.MarkerImage(
+        image,
+        imageSize,
+        imageOption,
+      );
+      const marker = new window.kakao.maps.Marker({
+        position: new window.kakao.maps.LatLng(
+          data.location.latitude,
+          data.location.longtitude,
+        ),
+        image: markerImage,
+      });
+      marker.setZIndex(10);
+      currentMarkers.push(marker);
+    });
+    currentMarkers[0].setMap(map);
+    setPin([...currentMarkers]);
+  }
+
   function removePin(marker: any[]) {
     marker.map((marker) => {
       marker.setMap(null);
@@ -82,6 +96,7 @@ function Map({ data, categoryChange }: PropsType) {
   // 컴포넌트 마운트, 카테고리 전환 시 새로운 맵 생성
   useEffect(() => {
     const container = document.getElementById("map");
+    setPin([]);
 
     // React.StrictMode로 인해 map이 두 번 중첩되어 겹치는 현상 방지
     if (container) {
@@ -92,7 +107,7 @@ function Map({ data, categoryChange }: PropsType) {
 
     const options = {
       center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-      level: 3,
+      level: 4,
     };
     setMap(new window.kakao.maps.Map(container, options));
   }, [data]);
@@ -101,7 +116,8 @@ function Map({ data, categoryChange }: PropsType) {
   useEffect(() => {
     if (map) {
       const bounds = new window.kakao.maps.LatLngBounds();
-      addPin(data);
+      setSmallPin(data);
+      setBigPin(data);
       data.map((data) => {
         bounds.extend(
           new window.kakao.maps.LatLng(
@@ -114,11 +130,13 @@ function Map({ data, categoryChange }: PropsType) {
     }
   }, [map]);
 
-  // 현재 화면에 보이는 아이템의 아이콘 변경
+  // 슬라이드 스크롤, 슬라이드 버튼 클릭 시 아이템의 핀 변경
   useEffect(() => {
-    if (map) {
-      removePin(markers);
-      addPin(data);
+    if (map && currentpin !== undefined) {
+      console.log(pin);
+
+      removePin(pin);
+      pin[currentpin].setMap(map);
     }
   }, [currentpin]);
 

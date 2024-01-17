@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface OtherCardPropsType {
   image: string;
   name: string;
@@ -31,6 +33,7 @@ export interface NavigationProps {
 }
 
 export interface NavigationMeatballProps {
+  onBottomSlideOpen: (content: ReactNode) => void;
   onClose: () => void;
 }
 
@@ -70,14 +73,19 @@ export interface BottomFixedBtnProps {
 }
 
 export interface RegistrationSlideProps {
-  onClose: () => void;
+  slideOnClose: () => void;
 }
 
 export interface RegistrationTripSpaceProps {
-  setIsTripSelected: React.Dispatch<React.SetStateAction<boolean>>;
+  setTripSelected: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface RegistrationListItemProps {
   title: string;
   isSelectedProps: boolean;
+}
+
+export interface RegistrationModalProps {
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
