@@ -43,4 +43,7 @@ const alertModal = definePartsStyle({
 export const modalTheme = defineMultiStyleConfig({
   baseStyle,
   variants: { alertModal },
+  sizes: {
+    addVote: { dialog: { w: "100%", maxW: "41rem", mx: "24px" } },
+  },
 });

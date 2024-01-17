@@ -1,0 +1,11 @@
+@use "@/sass" as *;
+
+.title {
+  @include typography(subTitle);
+  color: $neutral900;
+  text-align: center;
+}
+.subText {
+  @include typography(tabLabel);
+  color: $neutral400;
+}

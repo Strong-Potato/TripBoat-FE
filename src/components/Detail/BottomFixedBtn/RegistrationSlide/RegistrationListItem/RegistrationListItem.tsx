@@ -30,20 +30,14 @@ function RegistrationListItem({
         if (!isSelectedProps) {
           if (!isValuedArray.includes(title)) {
             setIsValuedArray([...isValuedArray, title]);
-            console.log(1);
           } else {
-            console.log(5);
             const arr = [...isValuedArray];
-            console.log(arr);
             arr.splice(isValuedArray.indexOf(title), 1);
 
             setIsValuedArray([...arr]);
-            console.log(isValuedArray.indexOf(title));
-            console.log(isValuedArray);
           }
 
           setIsSelected(!isSelected);
-          console.log(3);
         }
       }}
     >
