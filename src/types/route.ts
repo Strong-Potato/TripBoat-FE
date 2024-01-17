@@ -63,3 +63,8 @@ export interface PlaceListProps {
   category: string;
   onSelect: (name: string) => void;
 }
+
+export interface VoteCardProps {
+  id: number;
+  title: string;
+}
