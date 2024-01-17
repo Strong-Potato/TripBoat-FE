@@ -1,29 +1,24 @@
-import { useState } from "react";
-import { FaRegStar, FaStar } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import {useState} from 'react';
+import {FaRegStar, FaStar} from 'react-icons/fa';
+import {Link} from 'react-router-dom';
+import {useRecoilValue} from 'recoil';
 
-import styles from "./CandidateCard.module.scss";
+import styles from './CandidateCard.module.scss';
 
-import FirstIcon from "@/assets/voteIcons/rank_1.svg?react";
-import SecondIcon from "@/assets/voteIcons/rank_2.svg?react";
-import ThirdIcon from "@/assets/voteIcons/rank_3.svg?react";
-import AddDayIcon from "@/assets/voteIcons/vote_addDay.svg?react";
-import { isCandidateSelectingState } from "@/recoil/vote/alertModal";
+import FirstIcon from '@/assets/voteIcons/rank_1.svg?react';
+import SecondIcon from '@/assets/voteIcons/rank_2.svg?react';
+import ThirdIcon from '@/assets/voteIcons/rank_3.svg?react';
+import AddDayIcon from '@/assets/voteIcons/vote_addDay.svg?react';
+import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
 
-import VotedUserList from "../../VoteBottomSlideContent/VotedUserList/VotedUserList";
+import VotedUserList from '../../VoteBottomSlideContent/VotedUserList/VotedUserList';
 
-import { CandidateCardProps } from "@/types/vote";
+import {CandidateCardProps} from '@/types/vote';
 
-const CandidateCard = ({
-  onBottomSlideOpen,
-  candidate,
-  showResults,
-  index,
-}: CandidateCardProps) => {
+const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index}: CandidateCardProps) => {
   const [isVoted, setIsVoted] = useState(false);
   const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
-  const voteCounts = candidate.voteCounts;
+  const voteCounts = candidate.voteUserId.length;
 
   const getRankClassName = (index: number) => {
     switch (index) {
@@ -34,7 +29,7 @@ const CandidateCard = ({
       case 3:
         return styles.thirdBorder;
       default:
-        return "";
+        return '';
     }
   };
 
@@ -64,7 +59,7 @@ const CandidateCard = ({
 
   return (
     <div className={`${styles.container} ${rankClassName}`}>
-      <img src={candidate.imageURL} alt={candidate.name} />
+      <img src={candidate.imageURL} alt={candidate.placeName} />
       {RankIcon && (
         <div className={styles.rankTag}>
           <RankIcon />
@@ -73,13 +68,13 @@ const CandidateCard = ({
 
       <div className={styles.main}>
         <div className={styles.main__contextBox}>
-          <Link to="" className={styles.main__contextBox__name}>
-            {candidate.name} {">"}
+          <Link to='' className={styles.main__contextBox__name}>
+            {candidate.placeName} {'>'}
           </Link>
 
           <div className={styles.main__contextBox__category}>
             {candidate.category}
-            {"ꞏ"}
+            {'ꞏ'}
             {candidate.location}
           </div>
 
@@ -95,17 +90,11 @@ const CandidateCard = ({
             </button>
           )}
         </div>
-        <button
-          className={styles.main__voteBox}
-          onClick={onVoteBoxClick}
-          disabled={isCandidateSelecting}
-        >
+        <button className={styles.main__voteBox} onClick={onVoteBoxClick} disabled={isCandidateSelecting}>
           <div className={styles.main__voteBox__star}>
-            {isVoted ? <FaStar style={{ color: "#fee500" }} /> : <FaRegStar />}
+            {isVoted ? <FaStar style={{color: '#fee500'}} /> : <FaRegStar />}
           </div>
-          <div className={styles.main__voteBox__vote}>
-            {showResults ? voteCounts : "투표"}
-          </div>
+          <div className={styles.main__voteBox__vote}>{showResults ? voteCounts : '투표'}</div>
         </button>
       </div>
     </div>

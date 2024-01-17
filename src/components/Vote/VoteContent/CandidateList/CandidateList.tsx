@@ -1,21 +1,16 @@
-import { Avatar, Checkbox } from "@chakra-ui/react";
+import {Avatar, Checkbox} from '@chakra-ui/react';
 
-import styles from "./CandidateList.module.scss";
+import styles from './CandidateList.module.scss';
 
-import useGetSelectedCandidates from "@/hooks/useGetSelectedCandidates";
+import useGetSelectedCandidates from '@/hooks/useGetSelectedCandidates';
 
-import CandidateCard from "../CandidateCard/CandidateCard";
-import VoteContentEmpty from "../VoteContentEmpty/VoteContentEmpty";
+import CandidateCard from '../CandidateCard/CandidateCard';
+import VoteContentEmpty from '../VoteContentEmpty/VoteContentEmpty';
 
-import { CandidateListProps } from "@/types/vote";
+import {CandidateListProps} from '@/types/vote';
 
-const CandidateList = ({
-  candidates,
-  onBottomSlideOpen,
-  showResults,
-  isCandidateSelecting,
-}: CandidateListProps) => {
-  const { addCandidateInSelectedList } = useGetSelectedCandidates();
+const CandidateList = ({candidates, onBottomSlideOpen, showResults, isCandidateSelecting}: CandidateListProps) => {
+  const {addCandidateInSelectedList} = useGetSelectedCandidates();
 
   return (
     <div className={styles.container}>
@@ -24,11 +19,11 @@ const CandidateList = ({
           <div key={i} className={styles.candidateContainer}>
             {isCandidateSelecting && (
               <Checkbox
-                mr="12px"
-                mb="36px"
-                fontSize="2rem"
+                mr='12px'
+                mb='36px'
+                fontSize='2rem'
                 id={`${i}checkbox`}
-                variant="candidateCheckbox"
+                variant='candidateCheckbox'
                 onChange={() => addCandidateInSelectedList(candidate.id)}
               />
             )}
@@ -42,10 +37,8 @@ const CandidateList = ({
                 />
               </label>
               <div className={styles.candidateBox__memo}>
-                <Avatar boxSize="24px" />
-                <div className={styles.candidateBox__memo__text}>
-                  {candidate.memo}
-                </div>
+                <Avatar boxSize='24px' />
+                <div className={styles.candidateBox__memo__text}>{candidate.tagline}</div>
               </div>
             </div>
           </div>

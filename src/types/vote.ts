@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import {ReactNode} from 'react';
 
 export interface CandidateData {
   name: string;
@@ -22,48 +22,50 @@ export interface VoteListData {
 }
 
 ////////////////스웨거//////////////////
-export interface SSCandidateData {
+export interface CandidatesInfo {
   id: number;
-  placeId: number; //
+  placeId: number;
   placeName: string;
   category: string;
-  tagline: string; //메모?
-  amIVoted: boolean; //
-  //imageURL: string;
-  //location: string;
-  //voteUserId: string[];   //이거 필요
-  //voteCounts: number;
-  //memo: string;
+  tagline: string;
+  amIVoted: boolean;
+  //
+  imageURL: string;
+  location: string;
+  voteUserId: string[]; //이거 필요
 }
 [];
-export interface SSVoteData {
+
+interface VotedMemberProfiles {
+  id: number;
+  nickName: string;
+  profile: string;
+}
+[];
+
+export interface VoteListInfo {
+  voteId: string;
+  title: string;
+  voteStatus: string;
+  ownerProfile: {
+    id: number;
+    nickName?: string;
+    profile: string;
+  };
+  votedMemberProfiles: VotedMemberProfiles[];
+}
+
+export interface VoteInfo {
   id: string;
   title: string;
   ownerProfile: {
     id: number;
-    nickName: string;
+    nickName?: string;
     profile: string;
   };
-  candidates: CandidateData[];
-  // state: string;
-  // voteUserId: string[];
-}
-
-export interface SSVoteCardData {
-  voteId: string;
-  title: string;
-  ownerProfile: {
-    id: number;
-    nickName: string;
-    profile: string;
-  };
-  votedMemberProfiles: [
-    {
-      id: 0; //props으로 내려줄게 아니라면 사진만 있어도 됨, 배열로
-      nickName: string;
-      profile: string;
-    },
-  ];
+  votedMemberProfiles: VotedMemberProfiles[];
+  voteStatus: string; //status요청하기,,
+  candidates: CandidatesInfo[];
 }
 ////////////////스웨거//////////////////
 
@@ -74,19 +76,19 @@ export interface VoteBottomButtonProps {
 
 export interface VoteContentProps {
   onBottomSlideOpen: (content: ReactNode) => void;
-  data: VoteListData;
+  data: VoteInfo;
   showResults: boolean;
 }
 
 export interface VoteHeaderProps {
-  onBottomSlideOpen: () => void;
+  onBottomSlideOpen?: () => void;
   title: string;
   isNoCandidate?: boolean;
 }
 
 export interface CandidateCardProps {
   onBottomSlideOpen: (content: ReactNode) => void;
-  candidate: CandidateData;
+  candidate: CandidatesInfo;
   showResults: boolean;
   index: number;
 }
@@ -105,8 +107,18 @@ export interface AlertModalProps {
 }
 
 export interface CandidateListProps {
-  candidates: CandidateData[];
+  candidates: CandidatesInfo[];
   onBottomSlideOpen: (content: ReactNode) => void;
   showResults: boolean;
   isCandidateSelecting: boolean;
+}
+
+export interface postVoteTitleProps {
+  spaceId: number;
+  title: string;
+}
+
+export interface postVoteTitleProps {
+  spaceId: number;
+  title: string;
 }

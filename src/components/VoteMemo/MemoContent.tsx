@@ -1,15 +1,15 @@
-import { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
+import {useEffect} from 'react';
+import {useSetRecoilState} from 'recoil';
 
-import styles from "./MemoContent.module.scss";
+import styles from './MemoContent.module.scss';
 
-import { selectedCandidatesState } from "@/recoil/vote/candidateList";
+import {selectedCandidatesState} from '@/recoil/vote/candidateList';
 
-import MemoItem from "./MemoItem/MemoItem";
+import MemoItem from './MemoItem/MemoItem';
 
-import { VoteListData } from "@/types/vote";
+import {VoteInfo} from '@/types/vote';
 
-const MemoContent = ({ data }: { data: VoteListData }) => {
+const MemoContent = ({data}: {data: VoteInfo}) => {
   const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
   const candidates = data.candidates;
 
@@ -24,7 +24,7 @@ const MemoContent = ({ data }: { data: VoteListData }) => {
 
   return (
     <div className={styles.container}>
-      {candidates?.map((item, i) => <MemoItem candidate={item} key={i} />)}
+      {candidates?.map((candidate) => <MemoItem candidate={candidate} key={candidate.id} />)}
     </div>
   );
 };
