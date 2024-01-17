@@ -66,7 +66,6 @@ const sizes = {
 };
 
 export const modalTheme = defineMultiStyleConfig({
-  sizes,
   baseStyle,
   variants: { alertModal },
   sizes: {
