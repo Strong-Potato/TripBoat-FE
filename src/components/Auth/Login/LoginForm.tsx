@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./LoginForm.module.scss";
@@ -18,7 +18,6 @@ function LoginForm() {
   const {
     register,
     resetField,
-    getValues,
     handleSubmit,
     formState: { dirtyFields },
   } = useForm<AuthForm>({
@@ -44,8 +43,8 @@ function LoginForm() {
     return false;
   };
 
-  const onSubmit = async () => {
-    const { email, password } = getValues();
+  const onSubmit: SubmitHandler<AuthForm> = async (data) => {
+    const { email, password } = data;
 
     if (showError(email as string, password as string)) return;
 

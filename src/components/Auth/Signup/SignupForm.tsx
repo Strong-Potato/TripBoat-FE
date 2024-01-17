@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./SignupForm.module.scss";
 
-import StepEmail from "@/components/Auth/Step/StepEmail";
-import StepEmailSert from "@/components/Auth/Step/StepEmailSert";
-import StepPassword from "@/components/Auth/Step/StepPassword";
-import StepProfile from "@/components/Auth/Step/StepProfile";
+import StepEmail from "@/components/Auth/Signup/Step/StepEmail";
+import StepEmailSert from "@/components/Auth/Signup/Step/StepEmailSert";
+import StepPassword from "@/components/Auth/Signup/Step/StepPassword";
+import StepProfile from "@/components/Auth/Signup/Step/StepProfile";
 
 import { AuthForm, SignupFormProps } from "@/types/auth";
 

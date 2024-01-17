@@ -2,8 +2,8 @@ import styles from "./Step.module.scss";
 
 import AuthButton from "@/components/Auth/Button/AuthButton";
 
-import InputImage from "../Input/InputImage";
-import InputNickname from "../Input/InputNickname";
+import InputImage from "../../Input/InputImage";
+import InputNickname from "../../Input/InputNickname";
 
 import { StepProfileProps } from "@/types/auth";
 
