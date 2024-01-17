@@ -32,30 +32,31 @@ const CreatVoteTitleModal = () => {
 
       <Modal isOpen={isOpen} onClose={onClose} size={"lg"}>
         <ModalOverlay
-          maxWidth="45rem"
-          left="50%"
-          transform="translateX(-50%)"
+        // maxWidth="45rem"
+        // left="50%"
+        // transform="translateX(-50%)"
         />
         <ModalContent
-          px="10px"
-          py="20px"
-          borderRadius="20px"
+          px="20px"
+          py="40px"
+          mx="24px"
+          maxWidth="100%"
+          borderRadius="16px"
           alignSelf="center"
-          w="32.7rem"
-          h="23.6rem"
           boxSizing="border-box"
         >
           <ModalHeader
             fontWeight="titleSmall"
             fontSize="titleSmall"
             textAlign="center"
-            mt="5px"
+            p="0"
+            mb="32px"
           >
             투표 제목을 정해주세요
           </ModalHeader>
           <ModalCloseButton />
 
-          <ModalBody>
+          <ModalBody p="0">
             <FormControl justifyContent={"center"}>
               <Input
                 onChange={(e) => setInputCount(e.target.value.length)}
@@ -65,7 +66,6 @@ const CreatVoteTitleModal = () => {
                 variant="flushed"
                 placeholder=" 숙소 정하자, 카페 정하자"
                 fontSize="subTitle"
-                mt="5%"
               />
               <FormLabel
                 display="flex"
@@ -80,7 +80,7 @@ const CreatVoteTitleModal = () => {
             </FormControl>
           </ModalBody>
 
-          <ModalFooter>
+          <ModalFooter p="0" mt="24px">
             <Button
               type="submit"
               onClick={onClose}

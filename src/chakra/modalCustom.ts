@@ -1,28 +1,49 @@
 import { modalAnatomy } from "@chakra-ui/anatomy";
-import { createMultiStyleConfigHelpers } from "@chakra-ui/styled-system";
+import {
+  createMultiStyleConfigHelpers,
+  defineStyle,
+} from "@chakra-ui/styled-system";
 
 const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(modalAnatomy.keys);
 
 const baseStyle = definePartsStyle({
-  overlay: {
-    bg: "rgba(20, 20, 20, 0.8)",
+  //dialog 부모 박스, 가로 사이즈 정하고 가운데 정렬
+  dialogContainer: {
+    width: "100%",
+    maxWidth: "45rem",
+    minWidth: "36rem",
+    left: "50%",
+    transform: "translateX(-50%)",
   },
+  closeButton: {
+    fontSize: "1.5rem",
+    top: "16px",
+    right: "16px",
+  },
+  overlay: {
+    bg: "rgba(0, 0, 0, 0.6)",
+  },
+});
+
+const alertSizeForDialog = defineStyle({
+  mx: "20px",
 });
 
 const alertModal = definePartsStyle({
   dialogContainer: {
-    width: "45rem",
+    width: "100%",
+    maxWidth: "45rem",
     minWidth: "36rem",
     left: "50%",
     transform: "translateX(-50%)",
-    px: "0",
   },
   dialog: {
-    w: "31.1rem",
+    w: "100%",
+    maxWidth: "45rem",
     mt: "264px",
-    mx: "0",
-    p: "32px 20px",
+    mx: "32px",
+    p: "32px 24px",
 
     borderRadius: "16px",
     gap: "24px",
@@ -40,7 +61,12 @@ const alertModal = definePartsStyle({
   },
 });
 
+const sizes = {
+  xl: definePartsStyle({ dialog: alertSizeForDialog }),
+};
+
 export const modalTheme = defineMultiStyleConfig({
+  sizes,
   baseStyle,
   variants: { alertModal },
   sizes: {

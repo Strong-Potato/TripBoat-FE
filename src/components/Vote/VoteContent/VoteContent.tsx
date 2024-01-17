@@ -1,12 +1,15 @@
-import { Avatar, Icon } from "@chakra-ui/react";
+import { Icon } from "@chakra-ui/react";
 import { GoDotFill } from "react-icons/go";
 import { IoMdCheckmark } from "react-icons/io";
+import { useRecoilValue } from "recoil";
 
 import styles from "./VoteContent.module.scss";
 
-import CandidateCard from "./CandidateCard/CandidateCard";
-import VoteContentEmpty from "./VoteContentEmpty/VoteContentEmpty";
+import { isCandidateSelectingState } from "@/recoil/vote/alertModal";
+
+import CandidateList from "./CandidateList/CandidateList";
 import VoteRecommendList from "./VoteRecommendList/VoteRecommendList";
+import DeleteCandidatesButton from "../DeleteCandidatesButton/DeleteCandidatesButton";
 import AddCandidate from "../VoteBottomSlideContent/AddCandidate/AddCandidate";
 
 import { VoteContentProps } from "@/types/vote";
@@ -17,9 +20,7 @@ const VoteContent = ({
   showResults,
 }: VoteContentProps) => {
   const candidates = data.candidates;
-
-  //결과보기 클릭(showResults) 이후
-  // 득표 순으로 재정렬
+  const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
 
   // 결정완료 상태 -> stateBar 결정완료 / CTA버튼 삭제 / 추천슬라이드 후보추가->일정에담기
   // 결정완료는... voteData에서
@@ -46,30 +47,16 @@ const VoteContent = ({
           + 후보 추가({candidates.length}/15)
         </button>
       </div>
-      <div className={styles.container__candidateList}>
-        {candidates ? (
-          candidates.map((candidate, i) => (
-            <div key={i} className={styles.candidateBox}>
-              <CandidateCard
-                onBottomSlideOpen={onBottomSlideOpen}
-                candidate={candidate}
-                showResults={showResults}
-                index={i + 1}
-              />
-              <div className={styles.candidateBox__memo}>
-                <Avatar boxSize="24px" />
-                <div className={styles.candidateBox__memo__text}>
-                  {candidate.memo}
-                </div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <VoteContentEmpty />
-        )}
-      </div>
+
+      <CandidateList
+        candidates={candidates}
+        onBottomSlideOpen={onBottomSlideOpen}
+        showResults={showResults}
+        isCandidateSelecting={isCandidateSelecting}
+      />
       {/* 후보지&여행지 X -> 상품 추천 없음 */}
       <VoteRecommendList state={data.state} />
+      {isCandidateSelecting && <DeleteCandidatesButton />}
     </div>
   );
 };
