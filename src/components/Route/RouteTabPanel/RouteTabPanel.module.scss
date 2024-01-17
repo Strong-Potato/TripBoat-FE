@@ -1,0 +1,28 @@
+@use "@/sass" as *;
+
+.panelContainer {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mapContainer {
+    position: sticky;
+    top: 9.6rem;
+    width: 100%;
+    min-width: 36rem;
+    max-width: 45rem;
+    height: 16rem;
+  }
+
+  .routeContainer {
+    .journeysContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 6.3rem;
+      padding: 0 20px;
+      padding-bottom: 12rem;
+    }
+  }
+}

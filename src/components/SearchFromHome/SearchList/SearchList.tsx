@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import styles from "./SearchList.module.scss";
 
@@ -15,20 +16,33 @@ import { SearchItemType } from "@/types/home";
 
 interface PropsType {
   keyword: string | undefined;
-  moveMap: boolean;
-  set: React.Dispatch<React.SetStateAction<boolean>>;
+  category: string;
+  moveMap: string;
+  set: React.Dispatch<React.SetStateAction<string>>;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function SearchList({ keyword, set, moveMap }: PropsType) {
+function SearchList({
+  keyword,
+  set,
+  moveMap,
+  category,
+  setCategory,
+}: PropsType) {
   const [data, setData] = useState<SearchItemType[]>();
   const [filterData, setFilterData] = useState<SearchItemType[]>();
-  const [category, setCategory] = useState("전체");
   const [categoryChange, setCategoryChange] = useState(false);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    setCategory("전체");
     getData<SearchItemType[] | undefined>("home/search/search", setData);
-  }, [keyword]);
+
+    const querystring = searchParams.get("category");
+    if (querystring) {
+      setCategory(querystring);
+    }
+  }, [keyword, searchParams]);
 
   useEffect(() => {
     if (data) {
@@ -42,17 +56,26 @@ function SearchList({ keyword, set, moveMap }: PropsType) {
   }, [data, category]);
 
   function onMap() {
-    set(true);
+    set("true");
+    if (category) {
+      navigate(`/home/search?keyword=${keyword}&category${category}&map=true`);
+    } else {
+      navigate(`/home/search?keyword=${keyword}&map=true`);
+    }
   }
 
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      style={{ height: moveMap === "true" ? "100%" : "calc(100% - 72px)" }}
+    >
       <Tabs
         setCategory={setCategory}
         category={category}
         setCategoryChange={setCategoryChange}
+        keyword={keyword}
       />
-      {moveMap && filterData ? (
+      {moveMap === "true" && filterData ? (
         <Map data={filterData} categoryChange={categoryChange} />
       ) : (
         <>
@@ -60,7 +83,7 @@ function SearchList({ keyword, set, moveMap }: PropsType) {
             <LocationFilter />
             <DateFilter />
           </div>
-          <ul>
+          <ul className={styles.slide}>
             {filterData &&
               filterData.map((data, i) => (
                 <SearchItem

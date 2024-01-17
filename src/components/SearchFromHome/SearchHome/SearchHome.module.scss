@@ -5,6 +5,12 @@
   flex-direction: column;
   gap: 48px;
 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
   .title {
     @include typography(titleMedium);
     color: #1d2433;

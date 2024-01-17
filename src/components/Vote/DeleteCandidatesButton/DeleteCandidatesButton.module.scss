@@ -1,0 +1,43 @@
+@use "@/sass" as *;
+
+.container {
+  width: 100%;
+  max-width: 45rem;
+  min-width: 36rem;
+  height: 7rem;
+
+  background: $primary300;
+
+  display: flex;
+
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+
+  z-index: 3;
+
+  color: $neutral0;
+
+  .cancelButton,
+  .deleteButton {
+    @include typography(button);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+
+    gap: 4px;
+
+    & > svg {
+      width: 2.2rem;
+      height: 2.2rem;
+      color: $neutral0;
+    }
+
+    &:disabled {
+      background: $neutral200;
+    }
+  }
+}
