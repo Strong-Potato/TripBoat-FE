@@ -12,7 +12,7 @@ const candidateData = [
     voteUserId: ["Id123", "Id234", "Id345"],
     voteCounts: 3,
     memo: "예쁨~~~~~~~~~",
-    id: 1,
+    id: 111,
   },
   {
     name: "니은펜션",
@@ -23,7 +23,7 @@ const candidateData = [
     voteUserId: ["Id123", "Id345"],
     voteCounts: 2,
     memo: "여기 개쩔드라",
-    id: 2,
+    id: 222,
   },
   {
     name: "기역호텔",
@@ -34,7 +34,7 @@ const candidateData = [
     voteUserId: ["Id123", "Id234", "Id345"],
     voteCounts: 3,
     memo: "예쁨~~~~~~~~~",
-    id: 4,
+    id: 333,
   },
   {
     name: "니은펜션",
@@ -45,7 +45,7 @@ const candidateData = [
     voteUserId: ["Id123", "Id345"],
     voteCounts: 2,
     memo: "여기 개쩔드라",
-    id: 3,
+    id: 444,
   },
 ];
 

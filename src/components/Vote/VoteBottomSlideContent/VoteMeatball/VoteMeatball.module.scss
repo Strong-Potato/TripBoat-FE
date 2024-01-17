@@ -13,5 +13,9 @@
 
     display: flex;
     gap: 10px;
+
+    &:disabled {
+      color: $neutral400;
+    }
   }
 }

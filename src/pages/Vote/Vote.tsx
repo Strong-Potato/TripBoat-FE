@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { ReactNode, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 import styles from "./Vote.module.scss";
 
@@ -12,12 +12,18 @@ import VoteContentEmpty from "@/components/Vote/VoteContent/VoteContentEmpty/Vot
 import VoteHeader from "@/components/Vote/VoteHeader/VoteHeader";
 
 import { getVoteData } from "@/mocks/handlers/vote";
+import { isCandidateSelectingState } from "@/recoil/vote/alertModal";
 import { isBottomSlideOpenState } from "@/recoil/vote/bottomSlide";
+import { selectedCandidatesState } from "@/recoil/vote/candidateList";
 
 import { VoteListData } from "@/types/vote";
 
 const Vote = () => {
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
+  const [isCandidateSelecting, setIsCandidateSelecting] = useRecoilState(
+    isCandidateSelectingState,
+  );
+  const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
   const [showResults, setShowResults] = useState(false);
   const [bottomSlideContent, setBottomSlideContent] =
     useState<ReactNode | null>(null);
@@ -26,32 +32,21 @@ const Vote = () => {
 
   useEffect(() => {
     getVoteData(param, setData);
+    setIsCandidateSelecting(false);
+    setShowResults(false);
+    setSelectedCandidates(new Set());
   }, []);
 
   const BottomSlideOpen = (content: ReactNode) => {
     setBottomSlideContent(content);
     setIsBTOpen(true);
+    setSelectedCandidates(new Set());
+    setIsCandidateSelecting(false);
   };
 
   const handleShowResultsClick = () => {
     setShowResults(!showResults);
   };
-
-  // const showBottomButton = () => {
-  //   if(data?.state === "진행 중") {
-  //     <Button
-  //     variant="CTAButton"
-  //     onClick={handleShowResultsClick}
-  //     isDisabled={data.candidates.length === 0}
-  //   >
-  //     {showResults ? "다시 투표하기" : "결과보기"}
-  //   </Button>
-  //   } else if ("리코일 후보삭제") {
-  //     //새로운 버튼 컴포넌트 <DeleteCandidateBottomButton/>
-  //   } else {
-  //     null
-  //   }
-  // }
 
   return (
     <>
@@ -61,7 +56,12 @@ const Vote = () => {
           <VoteHeader
             title={data.title as string}
             onBottomSlideOpen={() =>
-              BottomSlideOpen(<VoteMeatball state={data.state} />)
+              BottomSlideOpen(
+                <VoteMeatball
+                  state={data.state}
+                  isZeroCandidates={data.candidates.length === 0}
+                />,
+              )
             }
           />
 
@@ -74,8 +74,7 @@ const Vote = () => {
           ) : (
             <VoteContentEmpty />
           )}
-
-          {data.state === "진행 중" && (
+          {!isCandidateSelecting && data.state === "진행 중" && (
             <Button
               variant="CTAButton"
               onClick={handleShowResultsClick}
@@ -84,7 +83,6 @@ const Vote = () => {
               {showResults ? "다시 투표하기" : "결과보기"}
             </Button>
           )}
-
           <BottomSlide
             isOpen={isBTOpen}
             onClose={() => setIsBTOpen(false)}
