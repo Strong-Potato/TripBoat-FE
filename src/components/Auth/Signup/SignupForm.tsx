@@ -48,7 +48,7 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
       });
       console.log(res);
 
-      navigate("/login", { replace: true });
+      navigate("/auth/login", { replace: true });
     } catch (error) {
       console.log(error);
     }

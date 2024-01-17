@@ -31,7 +31,7 @@ function Login() {
       <section className={styles.aboutAuth}>
         <Link to={""}>비밀번호를 잊으셨나요?</Link>
         <div className={styles.col_bar}></div>
-        <Link to={"/signup"}>회원가입</Link>
+        <Link to={"/auth/signup"}>회원가입</Link>
       </section>
 
       <section className={styles.snsLogin}>

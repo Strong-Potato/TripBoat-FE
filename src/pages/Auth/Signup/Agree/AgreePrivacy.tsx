@@ -1,6 +1,6 @@
 import styles from "./Agree.module.scss";
 
-import Header from "@/components/Auth/Signup/Header/Header";
+import Header from "@/components/Auth/Header/Header";
 
 function AgreePrivacy() {
   return (
