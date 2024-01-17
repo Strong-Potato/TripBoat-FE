@@ -1,4 +1,3 @@
-import { useState } from "react";
 import DatePicker from "react-mobile-datepicker";
 import { useRecoilState } from "recoil";
 
@@ -21,7 +20,6 @@ interface DateConfig {
 function DateScrollPicker({ slideOnClose }: DateScrollPickerProps) {
   const [time, setTime] = useRecoilState<Date>(DatePickerState);
   const [isValued, setIsValued] = useRecoilState<boolean>(DatePickerIsValued);
-  const [isOpen, setIsOpen] = useState(false);
 
   const handleCancel = () => {
     slideOnClose();
@@ -57,7 +55,6 @@ function DateScrollPicker({ slideOnClose }: DateScrollPickerProps) {
         value={time}
         min={new Date(1999, 0, 1)}
         max={new Date()}
-        isOpen={isOpen}
         onSelect={handleSelect}
         onCancel={handleCancel}
         isPopup={false}
