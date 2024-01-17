@@ -1,12 +1,14 @@
 // 홈 타입
 
 export interface RecommendedItemDataType {
+  id: number;
+  contentTypeId: number;
   title: string;
-  imageURL: string;
-  location: string;
-  score: string;
-  reviewNumber: string;
-  id: string;
+  thumbnail: string;
+  areaCode: number;
+  sigunguCode: number;
+  category: string;
+  rating: string;
 }
 
 export interface LocationDataType {

@@ -11,7 +11,8 @@ interface PropsData {
 }
 
 function HotItem({ data }: PropsData) {
-  const location = areas[data.areaCode - 1].name;
+  const location = areas.filter((area) => area.areaCode === data.areaCode)[0]
+    .name;
 
   return (
     <Link to={`/detail/${data.title}`} className={styles.container}>

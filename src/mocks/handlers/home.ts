@@ -6,150 +6,215 @@ const recommendedItem = [
   // 홈
   [
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 loft",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "제주",
-      score: "4.4",
-      reviewNumber: "484",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.4",
     },
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 loft",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "제주",
-      score: "4.4",
-      reviewNumber: "484",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.4",
     },
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 loft",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "제주",
-      score: "4.4",
-      reviewNumber: "484",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.4",
     },
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 loft",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "제주",
-      score: "4.4",
-      reviewNumber: "484",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.4",
     },
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 loft",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "제주",
-      score: "4.4",
-      reviewNumber: "484",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.4",
     },
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 loft",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "제주",
-      score: "4.4",
-      reviewNumber: "484",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.4",
     },
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 loft",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "제주",
-      score: "4.4",
-      reviewNumber: "484",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.4",
     },
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 loft",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "제주",
-      score: "4.4",
-      reviewNumber: "484",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.4",
     },
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 loft",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "제주",
-      score: "4.4",
-      reviewNumber: "484",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.4",
+    },
+    {
+      id: 1,
+      contentTypeId: 1,
+      title: "호텔 loft",
+      thumbnail:
+        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.4",
     },
   ],
   [
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 lee",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "서울",
-      score: "4.8",
-      reviewNumber: "184",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.8",
     },
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 lee",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "서울",
-      score: "4.8",
-      reviewNumber: "184",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.8",
     },
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 lee",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "서울",
-      score: "4.8",
-      reviewNumber: "184",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.8",
     },
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 lee",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "서울",
-      score: "4.8",
-      reviewNumber: "184",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.8",
     },
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 lee",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "서울",
-      score: "4.8",
-      reviewNumber: "184",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.8",
     },
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 lee",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "서울",
-      score: "4.8",
-      reviewNumber: "184",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.8",
     },
     {
+      id: 1,
+      contentTypeId: 1,
       title: "호텔 lee",
-      imageURL:
+      thumbnail:
         "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      location: "서울",
-      score: "4.8",
-      reviewNumber: "184",
-      id: "1",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.8",
+    },
+    {
+      id: 1,
+      contentTypeId: 1,
+      title: "호텔 lee",
+      thumbnail:
+        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.8",
+    },
+    {
+      id: 1,
+      contentTypeId: 1,
+      title: "호텔 lee",
+      thumbnail:
+        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
+      areaCode: 39,
+      sigunguCode: 1,
+      category: "숙소",
+      rating: "4.8",
     },
   ],
 ];
@@ -182,21 +247,21 @@ const userVoteData = [
     date: "1.17-1.19",
     profile: "https://avatars.githubusercontent.com/u/154430298?s=48&v=4",
     discussion: "첫째 날 카페 어디갈래?",
-    voteURL: "/vote/1",
+    voteURL: "/vote/11",
   },
   {
     title: "부산, 여수 여행",
     date: "1.17-1.19",
     profile: "https://avatars.githubusercontent.com/u/154430298?s=48&v=4",
     discussion: "둘째 날 카페 어디갈래?",
-    voteURL: "/vote/1",
+    voteURL: "/vote/11",
   },
   {
     title: "부산, 여수 여행",
     date: "1.17-1.19",
     profile: "https://avatars.githubusercontent.com/u/154430298?s=48&v=4",
     discussion: "셋째 날 카페 어디갈래?",
-    voteURL: "/vote/1",
+    voteURL: "/vote/11",
   },
 ];
 const tripSpaceData = [

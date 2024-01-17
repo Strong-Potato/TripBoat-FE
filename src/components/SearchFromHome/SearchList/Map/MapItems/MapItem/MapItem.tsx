@@ -12,7 +12,9 @@ interface PropsType {
 }
 
 function MapItem({ data, categoryChange }: PropsType) {
-  const location = areas[data.location.areaCode - 1].name;
+  const location = areas.filter(
+    (area) => area.areaCode === data.location.areaCode,
+  )[0].name;
   const category =
     data.category === "관광지" ||
     data.category === "문화시설" ||

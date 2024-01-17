@@ -9,7 +9,7 @@ interface PropsType {
 }
 
 function RecommendedLocation(data: PropsType) {
-  const link = `/search/${data.data.location}`;
+  const link = `/home/search`;
   const imageAlt = `${data.data.location}의 사진`;
 
   return (
