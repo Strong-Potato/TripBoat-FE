@@ -7,24 +7,15 @@ import InputPasswordConfirm from "@/components/Auth/Input/InputPasswordConfirm";
 import { StepPasswordProps } from "@/types/auth";
 
 function StepPassword({
-  setSignupStep,
   register,
   resetField,
   watchFields: { password, passwordConfirm },
   dirtyFields,
   errors,
 }: StepPasswordProps) {
-  const onClickPassword = () => {
-    setSignupStep!("profile");
-  };
-
   return (
     <section className={styles.container}>
-      <h2>
-        로그인에 사용할
-        <br />
-        비밀번호를 입력해주세요
-      </h2>
+      <h2>새로운 비밀번호를 설정해주세요</h2>
 
       <InputPassword
         register={register}
@@ -51,8 +42,7 @@ function StepPassword({
             ? true
             : false
         }
-        type="button"
-        onClick={onClickPassword}
+        type="submit"
       />
     </section>
   );

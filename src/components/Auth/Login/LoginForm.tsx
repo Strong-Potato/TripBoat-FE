@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./LoginForm.module.scss";
@@ -9,19 +9,18 @@ import AuthButton from "@/components/Auth/Button/AuthButton";
 
 import validationForm from "@/utils/inputValidation";
 
-import InputEmail from "./Input/InputEmail";
-import InputPassword from "./Input/InputPassword";
+import InputEmail from "./LoginInput/InputEmail";
+import InputPassword from "./LoginInput/InputPassword";
 
-import { LoginForm } from "@/types/auth";
+import { AuthForm } from "@/types/auth";
 
 function LoginForm() {
   const {
     register,
     resetField,
-    getValues,
     handleSubmit,
     formState: { dirtyFields },
-  } = useForm<LoginForm>({
+  } = useForm<AuthForm>({
     defaultValues: {
       email: "",
       password: "",
@@ -38,14 +37,16 @@ function LoginForm() {
 
     if (!isValid) {
       setValidationError(true);
-      return;
+      return true;
     }
+
+    return false;
   };
 
-  const onSubmit = async () => {
-    const { email, password } = getValues();
+  const onSubmit: SubmitHandler<AuthForm> = async (data) => {
+    const { email, password } = data;
 
-    showError(email, password);
+    if (showError(email as string, password as string)) return;
 
     try {
       const res = await axios.post("/api/login", {
