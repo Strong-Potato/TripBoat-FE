@@ -9,9 +9,11 @@ import {
   Tabs,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useEffect, useRef, useState } from "react";
 import { AiOutlineBell as AlarmIcon } from "react-icons/ai";
 import { AiOutlineMenu as MenuIcon } from "react-icons/ai";
 import { FiPlus as PlusIcon } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./Trip.module.scss";
 
@@ -24,6 +26,8 @@ import FriendList from "@/components/TripSpace/FriendList/FriendList";
 import InviteFriends from "@/components/TripSpace/InviteFriends/InviteFriends";
 import VoteTabPanel from "@/components/VoteTabPanel/VoteTabPanel";
 
+import { LatLng } from "@/types/route";
+
 function Trip() {
   // 임시 데이터
   const users = [
@@ -33,6 +37,11 @@ function Trip() {
     { name: "라철수", src: "https://bit.ly/prosper-baba" },
     { name: "마철수", src: "https://bit.ly/code-beast" },
   ];
+
+  const navigate = useNavigate();
+  const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+  const mapRef = useRef<kakao.maps.Map>(null);
+  const [center, setCenter] = useState<LatLng>({ lat: 37, lng: 131 }); // 기준: 독도
 
   const {
     isOpen: isBottomSlideOpen,
@@ -62,6 +71,15 @@ function Trip() {
     onOpen: onAlarmOpen,
     onClose: onAlarmClose,
   } = useDisclosure();
+
+  useEffect(() => {
+    const map = mapRef.current;
+
+    if (map) {
+      map.relayout();
+      setCenter({ lat: 37.76437082535426, lng: 128.87675285339355 });
+    }
+  }, [selectedTabIndex]);
 
   return (
     <>
@@ -122,8 +140,12 @@ function Trip() {
         </header>
 
         <div className={styles.contents}>
-          <Tabs isFitted variant="voteTab">
-            {/* variant 추가 */}
+          <Tabs
+            isFitted
+            variant="voteTab"
+            index={selectedTabIndex}
+            onChange={(index) => setSelectedTabIndex(index)}
+          >
             <div className={styles.contents__stickyTabList}>
               <TabList className={styles.contents__tabList}>
                 <Tab
@@ -149,7 +171,7 @@ function Trip() {
                 <VoteTabPanel />
               </TabPanel>
               <TabPanel className={styles.contents__tabContent}>
-                <RouteTabPanel />
+                <RouteTabPanel mapRef={mapRef} center={center} />
               </TabPanel>
             </TabPanels>
           </Tabs>

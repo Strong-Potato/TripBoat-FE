@@ -56,3 +56,13 @@ export interface DateItem {
 export interface DayNavigationBarProps {
   dateList: DateItem[];
 }
+
+export interface LatLng {
+  lat: number;
+  lng: number;
+}
+
+export interface MapInTripProps {
+  mapRef: React.RefObject<kakao.maps.Map>;
+  center: LatLng;
+}

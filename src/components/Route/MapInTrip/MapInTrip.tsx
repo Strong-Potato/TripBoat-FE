@@ -6,7 +6,9 @@ import Marker1 from "@/assets/tripIcons/marker1.svg?react";
 import Marker2 from "@/assets/tripIcons/marker2.svg?react";
 import Marker3 from "@/assets/tripIcons/marker3.svg?react";
 
-function MapInTrip() {
+import { MapInTripProps } from "@/types/route";
+
+function MapInTrip({ mapRef, center }: MapInTripProps) {
   const linePath = [
     { lat: 37.76437082535426, lng: 128.87675285339355 },
     { lat: 37.7911054, lng: 128.9149116 },
@@ -17,8 +19,9 @@ function MapInTrip() {
     <>
       <Map
         className={styles.mapInTripContainer}
-        center={{ lat: linePath[0].lat, lng: linePath[0].lng }}
+        center={center}
         level={10}
+        ref={mapRef}
       >
         <Polyline
           path={linePath}
