@@ -8,7 +8,7 @@ export const getVoteInfo = async (voteId: string) => {
   return response.data.data;
 };
 
-//여러 vote in space
+//voteList in space
 export const getVoteListInfo = async (spaceId: string): Promise<VoteListInfo> => {
   const response = await axios.get(`/api/votes/${spaceId}`);
   return response.data.data;
