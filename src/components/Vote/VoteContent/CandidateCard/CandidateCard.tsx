@@ -59,7 +59,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapS
 
   return (
     <div
-      className={`${styles.container} ${rankClassName}`}
+      className={`${styles.container} ${rankClassName} candidateCard`}
       style={isMapStyle ? {width: '33.5rem', height: '12rem'} : {}}
     >
       <img src={candidate.imageURL} alt={candidate.placeName} />

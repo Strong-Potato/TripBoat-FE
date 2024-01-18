@@ -1,23 +1,44 @@
-import {useEffect} from 'react';
+import {useEffect, useRef, useState} from 'react';
+import {CustomOverlayMap, Map} from 'react-kakao-maps-sdk';
 
 import styles from './CandidatesMapBody.module.scss';
 
-const CandidatesMapBody = () => {
-  useEffect(() => {
-    // 카카오 맵 초기화
-    const container = document.getElementById('map');
-    const options = {
-      center: new window.kakao.maps.LatLng(37.5665, 126.978), // 초기 중심 좌표
-      level: 5, // 초기 줌 레벨
-    };
-    const map = new window.kakao.maps.Map(container, options);
+import CandidatesSlide from '../CandidatesSlide/CandidatesSlide';
+import MapPinActive from '../MapPins/MapPinActive';
+import MapPinNumber from '../MapPins/MapPinNumber';
 
-    // 추가적인 맵 기능 또는 이벤트 등을 여기에 추가할 수 있습니다.
+import {CandidatesInfo, Latlng} from '@/types/vote';
+
+const CandidatesMapBody = ({candidates}: {candidates: CandidatesInfo[]}) => {
+  const [centerMarker, setCenterMarker] = useState(candidates[0].latlng);
+  const [selectedPinIndex, setSelectedPinIndex] = useState(0);
+  const swiperRef = useRef<any>(null);
+
+  useEffect(() => {
+    setCenterMarker(candidates[0].latlng);
   }, []);
+
+  const handleMapMarkerClick = (latlng: Latlng, i: number) => {
+    setCenterMarker(latlng);
+    swiperRef.current?.swiper.slideTo(i);
+    setSelectedPinIndex(i);
+  };
 
   return (
     <div className={styles.container}>
-      <div id='map' className={styles.map}></div>
+      <Map className={styles.map} center={centerMarker}>
+        {candidates.map((candidate, i) => (
+          <CustomOverlayMap key={`${candidate.placeName}-${candidate.latlng}-${i}`} position={candidate.latlng}>
+            <div
+              className={`pin ${selectedPinIndex === i ? 'active' : ''}`}
+              onClick={() => handleMapMarkerClick(candidate.latlng, i)}
+            >
+              {selectedPinIndex === i ? <MapPinActive number={i + 1} /> : <MapPinNumber number={i + 1} />}
+            </div>
+          </CustomOverlayMap>
+        ))}
+      </Map>
+      <CandidatesSlide candidates={candidates} setCenterMarker={setCenterMarker} swiperRef={swiperRef} />
     </div>
   );
 };

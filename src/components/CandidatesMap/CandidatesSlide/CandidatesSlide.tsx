@@ -6,21 +6,28 @@ import styles from './CandidatesSlide.module.scss';
 
 import CandidateCard from '@/components/Vote/VoteContent/CandidateCard/CandidateCard';
 
-import {CandidatesInfo} from '@/types/vote';
+import {CandidatesSlideProps} from '@/types/vote';
 
-const CandidatesSlide = ({candidates}: {candidates: CandidatesInfo[]}) => {
+const CandidatesSlide = ({candidates, setCenterMarker, swiperRef}: CandidatesSlideProps) => {
+  const handleSlideChange = (swiper) => {
+    const activeCandidate = candidates[swiper.activeIndex];
+    console.log('스와이퍼', activeCandidate);
+    setCenterMarker(activeCandidate.latlng);
+  };
+
   return (
     <div className={styles.container}>
-      <Swiper centeredSlides={true} spaceBetween={8} slidesPerView={1} breakpoints={{400: {slidesPerView: 1.2}}}>
+      <Swiper
+        ref={swiperRef}
+        centeredSlides={true}
+        spaceBetween={8}
+        slidesPerView={1}
+        onSlideChange={handleSlideChange}
+        breakpoints={{400: {slidesPerView: 1.2}}}
+      >
         {candidates.map((candidate, i) => (
-          <SwiperSlide>
-            <CandidateCard
-              isMapStyle={true}
-              candidate={candidate}
-              key={candidate.id}
-              index={i + 1}
-              showResults={false}
-            />
+          <SwiperSlide key={`${candidate.id}-${i}`}>
+            <CandidateCard isMapStyle={true} candidate={candidate} index={i + 1} showResults={false} />
           </SwiperSlide>
         ))}
       </Swiper>

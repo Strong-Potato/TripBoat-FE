@@ -15,6 +15,7 @@ const candidateData = [
     voteUserId: ['Id123', 'Id234', 'Id345'],
     tagline: '예쁨~~~~~~~~~',
     amIVoted: true,
+    latlng: {lat: 33.450705, lng: 126.570677},
   },
   {
     id: 222,
@@ -26,6 +27,7 @@ const candidateData = [
     voteUserId: ['Id123', 'Id345'],
     tagline: '여기 개쩔드라',
     amIVoted: false,
+    latlng: {lat: 33.450936, lng: 126.569477},
   },
   {
     id: 333,
@@ -37,6 +39,7 @@ const candidateData = [
     voteUserId: ['Id123', 'Id234', 'Id345'],
     tagline: '예쁨~~~~~~~~~',
     amIVoted: true,
+    latlng: {lat: 33.450879, lng: 126.56994},
   },
   {
     id: 444,
@@ -48,6 +51,7 @@ const candidateData = [
     voteUserId: ['Id123', 'Id345'],
     tagline: '여기 개쩔드라',
     amIVoted: false,
+    latlng: {lat: 33.451393, lng: 126.570738},
   },
 ];
 

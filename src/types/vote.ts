@@ -1,4 +1,4 @@
-import {ReactNode} from 'react';
+import {Dispatch, ReactNode} from 'react';
 
 export interface CandidateData {
   name: string;
@@ -21,6 +21,11 @@ export interface VoteListData {
   id: string;
 }
 
+export interface Latlng {
+  lat: number;
+  lng: number;
+}
+
 ////////////////스웨거//////////////////
 export interface CandidatesInfo {
   id: number;
@@ -33,6 +38,7 @@ export interface CandidatesInfo {
   imageURL: string;
   location: string;
   voteUserId: string[]; //이거 필요
+  latlng: Latlng;
 }
 [];
 
@@ -130,4 +136,10 @@ export interface postTaglineProps {
   voteId: string;
   placeId: number;
   tagline: string;
+}
+
+export interface CandidatesSlideProps {
+  candidates: CandidatesInfo[];
+  setCenterMarker: Dispatch<React.SetStateAction<Latlng>>;
+  swiperRef: any;
 }
