@@ -1,6 +1,6 @@
 import {Route, Routes} from 'react-router-dom';
 
-import Alarm from '@/pages/Alarm/Alarm';
+import AddPlaceFromVote from '@/pages/AddPlaceFromVote/AddPlaceFromVote';
 import FindPassword from '@/pages/Auth/FindPassword/FindPassword';
 import Login from '@/pages/Auth/Login/Login';
 import AgreePrivacy from '@/pages/Auth/Signup/Agree/AgreePrivacy';
@@ -22,7 +22,7 @@ function MainRouter() {
     <Routes>
       <Route element={<Dashboard />}>
         <Route index element={<Home />} />
-        <Route path='/trip' element={<Trip />} />
+        <Route path='/trip/:id' element={<Trip />} />
         <Route path='/heart' element={<Home />} />
         <Route path='/user' element={<Home />} />
       </Route>
@@ -35,10 +35,10 @@ function MainRouter() {
       <Route path='/auth/signup/agreePrivacy' element={<AgreePrivacy />} />
       <Route path='/auth/signup/agreeService' element={<AgreeService />} />
       <Route path='/auth/findpassword' element={<FindPassword />} />
-      <Route path='/alarm' element={<Alarm />} />
       <Route path='/home/search' element={<SearchFromHome />} />
       <Route path='/trip/selectDate' element={<Calendar />} />
       <Route path='/trip/selectRegion' element={<RegionSearch />} />
+      <Route path='/trip/add/vote' element={<AddPlaceFromVote />} />
     </Routes>
   );
 }
