@@ -12,19 +12,28 @@ function GlobalNavigationBar() {
   return (
     <div className={styles.container}>
       <Link to="/">
-        <AiOutlineHome fontSize="24px" color={!pathname && "#0086ff"} />
+        <AiOutlineHome
+          fontSize="24px"
+          color={!pathname ? "#0086ff" : "rgba(35, 39, 47, 1)"}
+        />
       </Link>
       <Link to="/trip">
         <AiOutlineCarryOut
           fontSize="24px"
-          color={pathname === "trip" && "#0086ff"}
+          color={pathname === "trip" ? "#0086ff" : "rgba(35, 39, 47, 1)"}
         />
       </Link>
       <Link to="/heart">
-        <FaRegHeart fontSize="24px" color={pathname === "heart" && "#0086ff"} />
+        <FaRegHeart
+          fontSize="24px"
+          color={pathname === "heart" ? "#0086ff" : "rgba(35, 39, 47, 1)"}
+        />
       </Link>
       <Link to="/user">
-        <LuUser2 fontSize="24px" color={pathname === "user" && "#0086ff"} />
+        <LuUser2
+          fontSize="24px"
+          color={pathname === "user" ? "#0086ff" : "rgba(35, 39, 47, 1)"}
+        />
       </Link>
     </div>
   );
