@@ -1,0 +1,36 @@
+@use "@/sass" as *;
+
+.completedVoteContainer {
+  padding: 8px 20px 36px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+
+    div,
+    button {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+
+      h2 {
+        @include typography(titleMedium);
+        color: $neutral900;
+      }
+
+      span {
+        @include typography(tabLabel);
+        color: $neutral800;
+      }
+    }
+  }
+
+  .voteListContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}

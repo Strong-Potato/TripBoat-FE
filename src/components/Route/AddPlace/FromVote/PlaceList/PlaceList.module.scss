@@ -1,0 +1,66 @@
+@use "@/sass" as *;
+
+.container,
+.clickedContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  gap: 1.2rem;
+
+  .imageContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    img {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 8px;
+      object-fit: contain no-repeat;
+      background:
+        linear-gradient(
+          0deg,
+          rgba(52, 51, 48, 0.3) 0%,
+          rgba(52, 51, 48, 0.3) 100%
+        ),
+        lightgray 50%;
+    }
+
+    p {
+      @include typography(captionSmall);
+      color: $neutral0;
+      position: absolute;
+      left: calc(50% - 0.6rem);
+    }
+  }
+
+  .textContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    h1,
+    h2 {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    h1 {
+      @include typography(button);
+      color: $neutral900;
+    }
+
+    h2 {
+      @include typography(captionSmall);
+      color: $neutral400;
+    }
+  }
+}
+
+.clickedContainer {
+  background-color: $primary100;
+}

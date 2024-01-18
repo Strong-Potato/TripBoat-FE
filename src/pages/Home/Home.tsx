@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-
+import { useCookies } from "react-cookie";
 import styles from "./Home.module.scss";
+
+import useLockBodyScroll from "@/hooks/useLockBodyScroll";
 
 import Onboarding from "@/components/Home/Onboarding/Onboarding";
 import RecommendedItemList from "@/components/Home/RecommendedItemList/RecommendedItemList";
@@ -9,15 +11,24 @@ import SearchBarAtHome from "@/components/Home/SearchBarAtHome/SearchBarAtHome";
 import TabBar from "@/components/Home/TabBar/TabBar";
 import TripSpaceAtHome from "@/components/Home/TripSpaceAtHome/TripSpaceAtHome";
 import VoteAtHome from "@/components/Home/VoteAtHome/VoteAtHome";
+import Invitation from "@/components/Modal/Invitation/Invitation";
 
 function Home() {
-  const [onboarding, setOnboarding] = useState(true);
-
   useEffect(() => {
     if (!window.localStorage.getItem("onboarding")) {
       setOnboarding(false);
     }
   }, []);
+
+  const [cookies] = useCookies(["inviteCode", "isLogin"]);
+  const [modal, setModal] = useState(false);
+  useLockBodyScroll(modal);
+
+  useEffect(() => {
+    if (cookies.inviteCode) {
+      setModal(true);
+    }
+  }, [cookies.inviteCode]);
 
   return (
     <div className={styles.container}>
@@ -64,6 +75,13 @@ function Home() {
         </div>
       </div>
       {!onboarding && <Onboarding set={setOnboarding} />}
+      {modal && (
+        <Invitation
+          inviteCode={cookies.inviteCode}
+          isLogin={cookies.isLogin}
+          modal={setModal}
+        />
+      )}
     </div>
   );
 }
