@@ -26,7 +26,7 @@ function Title() {
 
   useEffect(() => {
     setIsHeart(true);
-  }, []);
+  });
 
   return (
     <div className={styles.container}>

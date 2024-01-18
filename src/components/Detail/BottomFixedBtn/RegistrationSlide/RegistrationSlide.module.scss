@@ -20,6 +20,11 @@
         @include typography(tabLabel);
       }
     }
+
+    &__notValued {
+      cursor: auto;
+      color: $neutral300;
+    }
   }
 
   &__tripTitle {

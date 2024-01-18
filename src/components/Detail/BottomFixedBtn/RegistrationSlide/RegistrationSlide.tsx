@@ -36,18 +36,22 @@ function RegistrationSlide({ slideOnClose }: RegistrationSlideProps) {
           <CloseIcon width="2rem" height="2rem" />
         </button>
         <div className={styles.container__createBtn}>
-          <button
-            className={styles.container__CreateBtn}
-            onClick={() => {
-              if (TripSelected) {
+          {TripSelected ? (
+            <button
+              onClick={() => {
                 onOpen();
                 console.log(1);
-              }
-            }}
-          >
-            <CiEdit fontSize="2.2rem" />
-            <span>새 투표 생성</span>
-          </button>
+              }}
+            >
+              <CiEdit fontSize="2.2rem" />
+              <span>새 투표 생성</span>
+            </button>
+          ) : (
+            <button className={styles.container__createBtn__notValued} disabled>
+              <CiEdit fontSize="2.2rem" color="#CDCFD0" />
+              <span>새 투표 생성</span>
+            </button>
+          )}
         </div>
         <div className={styles.container__tripTitle}>여행 스페이스</div>
         <RegistrationTripSpace setTripSelected={setTripSelected} />
