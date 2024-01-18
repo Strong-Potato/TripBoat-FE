@@ -26,6 +26,19 @@
   }
 }
 
+.isMapStyle {
+  @extend .container;
+  width: 33.5rem;
+  height: 12rem;
+
+  padding: 12px;
+  & > img {
+    width: 9.6rem;
+    height: 9.6rem;
+    border-radius: 8px;
+  }
+}
+
 .firstBorder {
   border: 1px solid #e23774;
 }

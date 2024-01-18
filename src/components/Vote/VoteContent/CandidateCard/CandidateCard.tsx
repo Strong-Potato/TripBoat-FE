@@ -49,6 +49,12 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapS
   const rankClassName = showResults && getRankClassName(index);
   const RankIcon = showResults && getRankIcon(index);
 
+  const voteStarIcon = () => {
+    if (isVoted) return <FaStar style={{color: '#fee500'}} />;
+    else if (isMapStyle) return <FaStar style={{color: '#e3e5e5'}} />;
+    else return <FaRegStar />;
+  };
+
   const onVoteBoxClick = () => {
     if (showResults && onBottomSlideOpen) {
       onBottomSlideOpen(<VotedUserList />);
@@ -58,10 +64,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapS
   };
 
   return (
-    <div
-      className={`${styles.container} ${rankClassName} candidateCard`}
-      style={isMapStyle ? {width: '33.5rem', height: '12rem'} : {}}
-    >
+    <div className={`${styles.container} ${rankClassName} candidateCard ${isMapStyle ? styles.isMapStyle : ''}`}>
       <img src={candidate.imageURL} alt={candidate.placeName} />
       {RankIcon && (
         <div className={styles.rankTag}>
@@ -93,10 +96,8 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapS
             </button>
           )}
         </div>
-        <button className={styles.main__voteBox} onClick={onVoteBoxClick} disabled={isCandidateSelecting}>
-          <div className={styles.main__voteBox__star}>
-            {isVoted ? <FaStar style={{color: '#fee500'}} /> : <FaRegStar />}
-          </div>
+        <button className={styles.main__voteBox} onClick={onVoteBoxClick} disabled={isCandidateSelecting || isMapStyle}>
+          <div className={styles.main__voteBox__star}>{voteStarIcon()}</div>
           <div className={styles.main__voteBox__vote}>{showResults ? voteCounts : '투표'}</div>
         </button>
       </div>
