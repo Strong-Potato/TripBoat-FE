@@ -1,18 +1,19 @@
-import { useDisclosure } from "@chakra-ui/react";
-import { AiOutlinePlus as PlusIcon } from "react-icons/ai";
+import {useDisclosure} from '@chakra-ui/react';
+import {AiOutlinePlus as PlusIcon} from 'react-icons/ai';
 
-import styles from "./DayRoute.module.scss";
+import styles from './DayRoute.module.scss';
 
-import BottomSlide from "@/components/BottomSlide/BottomSlide";
+import BottomSlide from '@/components/BottomSlide/BottomSlide';
 
-import AddPlace from "../AddPlace/AddPlace";
-import EmptyRoute from "../EmptyRoute/EmptyRoute";
-import PlaceCard from "../PlaceCard/PlaceCard";
+import AddPlace from '../AddPlace/AddPlace';
+import EmptyRoute from '../EmptyRoute/EmptyRoute';
+import PlaceCard from '../PlaceCard/PlaceCard';
 
-import { DayRouteProps } from "@/types/route";
+import {DayRouteProps} from '@/types/route';
 
-function DayRoute({ day, date, placeList }: DayRouteProps) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSelection}: DayRouteProps) {
+  const {isOpen, onOpen, onClose} = useDisclosure();
+
   return (
     <>
       <div className={styles.dayRouteContainer}>
@@ -22,7 +23,7 @@ function DayRoute({ day, date, placeList }: DayRouteProps) {
             <span className={styles.dayDate}>{date}</span>
           </div>
           <button className={styles.editButton} onClick={onOpen}>
-            <PlusIcon size="2.4rem" />
+            <PlusIcon size='2.4rem' />
           </button>
         </header>
         <div>
@@ -36,6 +37,9 @@ function DayRoute({ day, date, placeList }: DayRouteProps) {
                   name={place.place.title}
                   category={place.place.category}
                   address={`${place.place.address}, ${place.place.addressDetail}`}
+                  editMode={editMode}
+                  selectedPlaces={selectedPlaces}
+                  onSelect={handlePlaceSelection}
                 />
               ))
             ) : (

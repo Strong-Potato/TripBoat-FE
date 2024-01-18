@@ -3,6 +3,9 @@ export interface PlaceCardProps {
   name: string;
   category: string;
   address: string;
+  editMode: boolean;
+  selectedPlaces: string[];
+  onSelect: (name: string) => void;
 }
 
 export interface Place {
@@ -43,6 +46,9 @@ export interface DayRouteProps {
       category: string;
     };
   }[];
+  editMode: boolean;
+  selectedPlaces: string[];
+  handlePlaceSelection: (name: string) => void;
 }
 
 export interface RouteTabPanelProps {
@@ -55,6 +61,8 @@ export interface DateItem {
 
 export interface DayNavigationBarProps {
   dateList: DateItem[];
+  editMode: boolean;
+  handleEditMode: () => void;
 }
 
 export interface PlaceListProps {

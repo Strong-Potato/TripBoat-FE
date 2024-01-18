@@ -1,10 +1,10 @@
-import { useState } from "react";
+import {useState} from 'react';
 
-import styles from "./DayNavigationBar.module.scss";
+import styles from './DayNavigationBar.module.scss';
 
-import { DayNavigationBarProps } from "@/types/route";
+import {DayNavigationBarProps} from '@/types/route';
 
-function DayNavigationBar({ dateList }: DayNavigationBarProps) {
+function DayNavigationBar({dateList, editMode, handleEditMode}: DayNavigationBarProps) {
   const [selectedDay, setSelectedDay] = useState(1);
 
   // TODO: 클릭 시 해당 day로 스크롤 이동
@@ -18,7 +18,7 @@ function DayNavigationBar({ dateList }: DayNavigationBarProps) {
         {dateList.map((_, index) => (
           <button
             key={index}
-            className={index + 1 === selectedDay ? styles.activeButton : ""}
+            className={index + 1 === selectedDay ? styles.activeButton : ''}
             onClick={() => handleDayClick(index + 1)}
           >
             Day {index + 1}
@@ -26,7 +26,9 @@ function DayNavigationBar({ dateList }: DayNavigationBarProps) {
         ))}
       </div>
       <div className={styles.wholeEditButtonContainer}>
-        <button className={styles.wholeEditButton}>편집</button>
+        <button className={editMode ? styles.wholeCompleteButton : styles.wholeEditButton} onClick={handleEditMode}>
+          {editMode ? '완료' : '편집'}
+        </button>
       </div>
     </nav>
   );
