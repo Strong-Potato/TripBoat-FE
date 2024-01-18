@@ -2,12 +2,12 @@ import { AiOutlineLeft } from "react-icons/ai";
 
 import styles from "./Back.module.scss";
 
-import useGoBack from "@/hooks/useGoBack";
-function Back() {
-  const goBack = useGoBack();
+import { BackProps } from "@/types/alarm";
+
+function Back({ alarmClose }: BackProps) {
   return (
     <div className={styles.container}>
-      <button onClick={goBack} className={styles.container__button}>
+      <button onClick={alarmClose} className={styles.container__button}>
         <div>
           <AiOutlineLeft />
         </div>

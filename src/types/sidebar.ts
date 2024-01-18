@@ -1,21 +1,32 @@
-interface User {
-  name: string;
-  src: string;
+interface Member {
+  nickname: string;
+  id: number;
+  profile: string;
+}
+
+export interface User {
+  nickname: string;
+  profile: string;
 }
 
 export type TravelListItem = {
   title: string;
   startDate: string;
   endDate: string;
-  id: string;
+  id: number;
+  members: Member[];
 };
 
 export type SideBarProps = {
   sideClose: () => void;
   isSideOpen: boolean;
-  users: User;
 };
 
 export type TravelListProps = {
-  travelList: TravelListItem[];
+  data: TravelListItem[];
+};
+
+export type spaceInfo = {
+  spaceId: number;
+  nickname: string;
 };

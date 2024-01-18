@@ -56,3 +56,15 @@ export interface DateItem {
 export interface DayNavigationBarProps {
   dateList: DateItem[];
 }
+
+export interface PlaceListProps {
+  id: number;
+  name: string;
+  category: string;
+  onSelect: (name: string) => void;
+}
+
+export interface VoteCardProps {
+  id: number;
+  title: string;
+}
