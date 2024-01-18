@@ -141,6 +141,7 @@ export interface postTaglineProps {
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface CandidatesSlideProps {
   candidates: CandidatesInfo[];
+  setSelectedPinIndex: Dispatch<React.SetStateAction<number>>;
   setCenterMarker: Dispatch<React.SetStateAction<Latlng>>;
   swiperRef: any;
 }

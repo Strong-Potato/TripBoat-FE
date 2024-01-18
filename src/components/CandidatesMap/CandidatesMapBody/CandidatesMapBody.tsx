@@ -27,7 +27,7 @@ const CandidatesMapBody = ({candidates}: {candidates: CandidatesInfo[]}) => {
 
   return (
     <div className={styles.container}>
-      <Map className={styles.map} center={centerMarker}>
+      <Map className={styles.map} center={centerMarker} level={2}>
         {candidates.map((candidate, i) => (
           <CustomOverlayMap key={`${candidate.placeName}-${candidate.latlng}-${i}`} position={candidate.latlng}>
             <div
@@ -39,7 +39,12 @@ const CandidatesMapBody = ({candidates}: {candidates: CandidatesInfo[]}) => {
           </CustomOverlayMap>
         ))}
       </Map>
-      <CandidatesSlide candidates={candidates} setCenterMarker={setCenterMarker} swiperRef={swiperRef} />
+      <CandidatesSlide
+        candidates={candidates}
+        setSelectedPinIndex={setSelectedPinIndex}
+        setCenterMarker={setCenterMarker}
+        swiperRef={swiperRef}
+      />
     </div>
   );
 };
