@@ -138,6 +138,7 @@ export interface postTaglineProps {
   tagline: string;
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface CandidatesSlideProps {
   candidates: CandidatesInfo[];
   setCenterMarker: Dispatch<React.SetStateAction<Latlng>>;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {useEffect, useRef, useState} from 'react';
 import {CustomOverlayMap, Map} from 'react-kakao-maps-sdk';
 
