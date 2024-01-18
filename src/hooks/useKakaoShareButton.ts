@@ -1,4 +1,4 @@
-function useKakaoShareButton() {
+function useKakaoShareButton(code: string) {
   const handleKakaoClick = () => {
     window.Kakao.init(import.meta.env.VITE_KAKAO_KEY);
     if (window.Kakao && window.Kakao.isInitialized()) {
@@ -11,16 +11,16 @@ function useKakaoShareButton() {
           imageUrl:
             "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FmefPK%2FbtsDhzDhoRo%2FjNgK9lkghZsrtwaB510jo1%2Fimg.png",
           link: {
-            mobileWebUrl: "http://localhost:5173",
-            webUrl: "http://localhost:5173",
+            mobileWebUrl: "https://tripvote.site",
+            webUrl: "https://tripvote.site",
           },
         },
         buttons: [
           {
             title: "같이 여행하기",
             link: {
-              mobileWebUrl: "http://localhost:5173",
-              webUrl: "http://localhost:5173",
+              mobileWebUrl: `https://api.tripvote.site/members/spaces/join/${code}`,
+              webUrl: `https://api.tripvote.site/members/spaces/join/${code}`,
             },
           },
         ],
