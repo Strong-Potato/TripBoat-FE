@@ -3,31 +3,36 @@ import { Link } from "react-router-dom";
 
 import styles from "./RecommendedItem.module.scss";
 
+import areas from "@/utils/areas.json";
+
 import { RecommendedItemDataType } from "@/types/home";
 
 interface PropsType {
   data: RecommendedItemDataType;
 }
 
-function RecommendedItem(data: PropsType) {
+function RecommendedItem({ data }: PropsType) {
+  const location = areas.filter((area) => area.areaCode === data.areaCode)[0]
+    .name;
+  console.log(data.thumbnail);
+
   return (
-    <Link to={`/detail/${data.data.id}`} className={styles.container}>
+    <Link to={`/detail/${data.id}`} className={styles.container}>
       <img
         className={styles.item_img}
-        src={data.data.imageURL}
-        alt={`${data.data.title}의 사진`}
+        src={data.thumbnail}
+        alt={`${data.title}의 사진`}
       />
       <div className={styles.text_box}>
-        <span className={styles.item_title}>{data.data.title}</span>
-        <span className={styles.gray}>{data.data.location}</span>
+        <span className={styles.item_title}>{data.title}</span>
+        <span className={styles.gray}>{location}</span>
         <div className={styles.item_score}>
           <p className={styles.score}>
             <span className={styles.star}>
               <FaStar />
             </span>
-            <span>{data.data.score}</span>
+            <span>{data.rating}</span>
           </p>
-          <span className={styles.gray}>({data.data.reviewNumber})</span>
         </div>
       </div>
     </Link>

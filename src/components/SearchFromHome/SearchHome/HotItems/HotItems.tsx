@@ -22,7 +22,7 @@ function HotItems({ type }: PropsType) {
   const [componentRef, size] = useComponentSize();
 
   useEffect(() => {
-    getData<SearchHotItemType[] | undefined>(`home/search/hot${type}`, setData);
+    getData<SearchHotItemType[] | undefined>(`places/popular`, setData);
   }, [type]);
 
   return (

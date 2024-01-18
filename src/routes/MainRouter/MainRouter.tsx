@@ -9,6 +9,7 @@ import Signup from "@/pages/Auth/Signup/Signup";
 import Calendar from "@/pages/Calendar/Calendar";
 import Detail from "@/pages/Detail/Detail";
 import Home from "@/pages/Home/Home";
+
 import RegionSearch from "@/pages/RegionSearch/RegionSearch";
 import SearchFromHome from "@/pages/SearchFromHome/SearchFromHome";
 import Trip from "@/pages/Trip/Trip";
