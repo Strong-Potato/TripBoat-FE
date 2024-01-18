@@ -76,3 +76,13 @@ export interface VoteCardProps {
   id: number;
   title: string;
 }
+
+export interface LatLng {
+  lat: number;
+  lng: number;
+}
+
+export interface MapInTripProps {
+  mapRef: React.RefObject<kakao.maps.Map>;
+  center: LatLng;
+}

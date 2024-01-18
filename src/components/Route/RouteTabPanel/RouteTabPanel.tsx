@@ -9,9 +9,9 @@ import DayRoute from '../DayRoute/DayRoute';
 import EmptyDate from '../EmptyDate/EmptyDate';
 import MapInTrip from '../MapInTrip/MapInTrip';
 
-import {DateItem} from '@/types/route';
+import {DateItem, MapInTripProps} from '@/types/route';
 
-function RouteTabPanel() {
+function RouteTabPanel({mapRef, center}: MapInTripProps) {
   const data = {
     journeys: [
       {
@@ -136,7 +136,7 @@ function RouteTabPanel() {
   return (
     <div className={styles.panelContainer}>
       <div className={styles.mapContainer}>
-        <MapInTrip />
+        <MapInTrip mapRef={mapRef} center={center} />
       </div>
       <div className={styles.routeContainer}>
         <DayNavigationBar dateList={dateList} editMode={isEditMode} handleEditMode={handleEditMode} />

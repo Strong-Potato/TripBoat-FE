@@ -1,22 +1,22 @@
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from 'react-router-dom';
 
-import styles from "./SelectHeader.module.scss";
+import styles from './SelectHeader.module.scss';
 
-import BackIcon from "@/assets/back.svg?react";
+import BackIcon from '@/assets/back.svg?react';
 
-import { SelectHeaderProps } from "@/types/selectHeader";
+import {SelectHeaderProps} from '@/types/selectHeader';
 
-function SelectHeader({ title }: SelectHeaderProps) {
+function SelectHeader({title}: SelectHeaderProps) {
   const navigate = useNavigate();
 
   return (
     <header className={styles.titleHeader}>
-      <nav>
+      <div className={styles.titleNavigation}>
         <button onClick={() => navigate(-1)}>
           <BackIcon />
         </button>
-      </nav>
-      <h1>{title}</h1>
+      </div>
+      <h1 className={styles.selectTitle}>{title}</h1>
     </header>
   );
 }
