@@ -20,6 +20,7 @@ function Home() {
     }
   }, []);
 
+  const [onboarding, setOnboarding] = useState(true);
   const [cookies] = useCookies(["inviteCode", "isLogin"]);
   const [modal, setModal] = useState(false);
   useLockBodyScroll(modal);
