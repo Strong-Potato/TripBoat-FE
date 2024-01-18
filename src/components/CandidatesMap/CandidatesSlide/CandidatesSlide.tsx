@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import {Swiper, SwiperSlide} from 'swiper/react';
+import {Swiper, SwiperClass, SwiperSlide} from 'swiper/react';
 import 'swiper/scss';
 import 'swiper/scss/navigation';
 
@@ -10,7 +9,7 @@ import CandidateCard from '@/components/Vote/VoteContent/CandidateCard/Candidate
 import {CandidatesSlideProps} from '@/types/vote';
 
 const CandidatesSlide = ({candidates, setSelectedPinIndex, setCenterMarker, swiperRef}: CandidatesSlideProps) => {
-  const handleSlideChange = (swiper) => {
+  const handleSlideChange = (swiper: SwiperClass) => {
     const activeCandidate = candidates[swiper.activeIndex];
     setCenterMarker(activeCandidate.latlng);
     setSelectedPinIndex(swiper.activeIndex);

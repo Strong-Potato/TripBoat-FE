@@ -1,4 +1,5 @@
 import {Dispatch, ReactNode} from 'react';
+import {SwiperRef} from 'swiper/react';
 
 export interface CandidateData {
   name: string;
@@ -138,10 +139,9 @@ export interface postTaglineProps {
   tagline: string;
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface CandidatesSlideProps {
   candidates: CandidatesInfo[];
   setSelectedPinIndex: Dispatch<React.SetStateAction<number>>;
   setCenterMarker: Dispatch<React.SetStateAction<Latlng>>;
-  swiperRef: any;
+  swiperRef: React.RefObject<SwiperRef>;
 }

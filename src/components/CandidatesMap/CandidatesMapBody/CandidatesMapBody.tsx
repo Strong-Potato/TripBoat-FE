@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {useEffect, useRef, useState} from 'react';
 import {CustomOverlayMap, Map} from 'react-kakao-maps-sdk';
+import {SwiperRef} from 'swiper/react';
 
 import styles from './CandidatesMapBody.module.scss';
 
@@ -13,7 +13,7 @@ import {CandidatesInfo, Latlng} from '@/types/vote';
 const CandidatesMapBody = ({candidates}: {candidates: CandidatesInfo[]}) => {
   const [centerMarker, setCenterMarker] = useState(candidates[0].latlng);
   const [selectedPinIndex, setSelectedPinIndex] = useState(0);
-  const swiperRef = useRef<any>(null);
+  const swiperRef = useRef<SwiperRef>(null);
 
   useEffect(() => {
     setCenterMarker(candidates[0].latlng);
