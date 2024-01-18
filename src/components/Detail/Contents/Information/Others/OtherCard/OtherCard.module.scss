@@ -40,11 +40,6 @@
         @include typography(captionSmall);
         margin-right: 4px;
       }
-
-      &__reviewsCount {
-        color: $neutral400;
-        @include typography(captionSmall);
-      }
     }
   }
 }

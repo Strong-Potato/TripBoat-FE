@@ -24,9 +24,6 @@ function OtherCard({
           <span className={styles.container__contents__reviews__point}>
             {point}
           </span>
-          <span className={styles.container__contents__reviews__reviewsCount}>
-            ({count})
-          </span>
         </div>
       </div>
     </div>
