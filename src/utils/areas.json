@@ -1,8 +1,13 @@
 [
   {
+    "name": "전국",
+    "districts": [{ "name": "전체 지역", "sigunguCode": 1253153514 }]
+  },
+  {
     "name": "서울",
     "areaCode": 1,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "강남구",
         "sigunguCode": 1
@@ -109,6 +114,7 @@
     "name": "인천",
     "areaCode": 2,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "강화군",
         "sigunguCode": 1
@@ -155,6 +161,7 @@
     "name": "대전",
     "areaCode": 3,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "대덕구",
         "sigunguCode": 1
@@ -181,6 +188,7 @@
     "name": "대구",
     "areaCode": 4,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "남구",
         "sigunguCode": 1
@@ -223,6 +231,7 @@
     "name": "광주",
     "areaCode": 5,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "광산구",
         "sigunguCode": 1
@@ -249,6 +258,7 @@
     "name": "부산",
     "areaCode": 6,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "강서구",
         "sigunguCode": 1
@@ -319,6 +329,7 @@
     "name": "울산",
     "areaCode": 7,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "중구",
         "sigunguCode": 1
@@ -345,6 +356,7 @@
     "name": "세종",
     "areaCode": 8,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "세종특별자치시",
         "sigunguCode": 1
@@ -355,6 +367,7 @@
     "name": "경기",
     "areaCode": 31,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "가평군",
         "sigunguCode": 1
@@ -485,6 +498,7 @@
     "name": "강원",
     "areaCode": 32,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "강릉시",
         "sigunguCode": 1
@@ -563,6 +577,7 @@
     "name": "충북",
     "areaCode": 33,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "괴산군",
         "sigunguCode": 1
@@ -617,6 +632,7 @@
     "name": "충남",
     "areaCode": 34,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "공주시",
         "sigunguCode": 1
@@ -683,6 +699,7 @@
     "name": "경북",
     "areaCode": 35,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "경산시",
         "sigunguCode": 1
@@ -777,6 +794,7 @@
     "name": "경남",
     "areaCode": 36,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "거제시",
         "sigunguCode": 1
@@ -863,6 +881,7 @@
     "name": "전북",
     "areaCode": 37,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "고창군",
         "sigunguCode": 1
@@ -925,6 +944,7 @@
     "name": "전남",
     "areaCode": 38,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "고흥군",
         "sigunguCode": 1
@@ -1019,6 +1039,7 @@
     "name": "제주",
     "areaCode": 39,
     "districts": [
+      { "name": "전체", "sigunguCode": 54314583 },
       {
         "name": "남제주군",
         "sigunguCode": 1

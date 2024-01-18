@@ -22,7 +22,7 @@ interface PropsType {
 
 function Map({ data, categoryChange }: PropsType) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
-  const [throttlePermission, setThrottlePermission] = useState(true);
+  const [throttlePermission, setThrottlePermission] = useState(false);
   const [currentpin, setCurrentPin] = useState<number | undefined>();
   const [map, setMap] = useState<any>(null);
   const [pin, setPin] = useState<any[]>([]);

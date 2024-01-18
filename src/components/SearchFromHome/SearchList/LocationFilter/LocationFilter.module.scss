@@ -17,6 +17,15 @@
 
   cursor: pointer;
 
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  .container {
+    position: absolute;
+    top: -88px;
+  }
+
   .icon {
     width: 2rem;
     height: 2rem;
