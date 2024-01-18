@@ -14,23 +14,22 @@ interface PropsType {
   data: SearchItemType[];
   categoryChange: boolean;
   slideLocation: number;
-  throttle: boolean;
+  throttlePermission: boolean;
   setCurrentPin: React.Dispatch<React.SetStateAction<number | undefined>>;
   setSlideLocation: React.Dispatch<React.SetStateAction<number>>;
-  setThrottle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function MapItems({
   data,
   categoryChange,
   slideLocation,
-  throttle,
+  throttlePermission,
   setCurrentPin,
   setSlideLocation,
-  setThrottle,
 }: PropsType) {
   const [componentRef, size] = useComponentSize();
   const [firstPin, setFirstPin] = useState(true);
+  const [throttle, setThrottle] = useState(true);
 
   function setCurrentIndex() {
     const criterion = document.querySelector("#map_slide_container");
@@ -51,6 +50,9 @@ function MapItems({
   }
 
   const handleScroll = () => {
+    if (throttlePermission) {
+      return;
+    }
     if (throttle) {
       setThrottle(false);
     } else {
