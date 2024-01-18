@@ -33,6 +33,9 @@ function VoteCard({ id, title }: VoteCardProps) {
     },
   ];
 
+  // 임시 코드
+  console.log(id);
+
   const [selectedPlaces, setSelectedPlaces] = useState<string[]>([]);
 
   const handlePlaceSelection = (placeName: string) => {

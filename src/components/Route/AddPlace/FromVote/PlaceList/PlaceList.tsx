@@ -12,6 +12,9 @@ function PlaceList({ id, name, category, onSelect }: PlaceListProps) {
     onSelect(name);
   };
 
+  // 임시 코드
+  console.log(id);
+
   return (
     <button
       className={isChecked ? styles.clickedContainer : styles.container}
