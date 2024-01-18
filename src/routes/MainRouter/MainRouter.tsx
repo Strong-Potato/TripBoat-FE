@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 
-import Alarm from "@/pages/Alarm/Alarm";
 import Calendar from "@/pages/Calendar/Calendar";
 import Detail from "@/pages/Detail/Detail";
 import Home from "@/pages/Home/Home";
@@ -19,7 +18,7 @@ function MainRouter() {
     <Routes>
       <Route element={<Dashboard />}>
         <Route index element={<Home />} />
-        <Route path="/trip" element={<Trip />} />
+        <Route path="/trip/:id" element={<Trip />} />
         <Route path="/heart" element={<Home />} />
         <Route path="/user" element={<Home />} />
       </Route>
@@ -29,7 +28,6 @@ function MainRouter() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/signup/agreePrivacy" element={<AgreePrivacy />} />
       <Route path="/signup/agreeService" element={<AgreeService />} />
-      <Route path="/alarm" element={<Alarm />} />
       <Route path="/home/search" element={<SearchFromHome />} />
       <Route path="/trip/selectDate" element={<Calendar />} />
       <Route path="/trip/selectRegion" element={<RegionSearch />} />

@@ -3,30 +3,51 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./TravelList.module.scss";
 
-import { TravelListProps } from "@/types/sidebar";
+import { useGetSpaces, usePostSpace } from "@/hooks/Spaces/useSpaces";
 
-function TravelList({ travelList }: TravelListProps) {
+interface TravelListProps {
+  isSideOpen: boolean;
+}
+
+function TravelList({ isSideOpen }: TravelListProps) {
+  const { mutate } = usePostSpace();
   const navigate = useNavigate();
 
+  const { data: spaces } = useGetSpaces(isSideOpen);
+
+  const handlePostSpace = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (spaces!.length >= 15) {
+      navigate("/mypage?full=true");
+    } else {
+      mutate();
+    }
+  };
+
+  if (!spaces) {
+    return <div>로딩 중...</div>;
+  }
   return (
     <section className={styles.travelSpaceList}>
-      <button className={styles.travelSpaceList__addButton}>
+      <button
+        className={styles.travelSpaceList__addButton}
+        onClick={handlePostSpace}
+      >
         <GoPlus className={styles.travelSpaceList__addButton__icon} />
         <p className={styles.travelSpaceList__addButton__text}>
           새 여행 스페이스 만들기
         </p>
       </button>
       <ul className={styles.travelSpaceList__items}>
-        {travelList.map((item, index) => (
+        {spaces.map((item, index) => (
           <li key={index}>
             <button
               className={styles.travelSpaceList__items__item}
-              onClick={() => navigate(`/carryout/${item.id}`)}
+              onClick={() => navigate(`/trip/${item.id}`)}
             >
               <p className={styles.travelSpaceList__items__item__name}>
-                {item.title[0]
-                  ? `${item.title} ${"여행"}`
-                  : `${"여행스페이스"} ${index + 1} ${"(여행지 미정)"}`}
+                {item.title}
               </p>
               <p className={styles.travelSpaceList__items__item__date}>
                 {item.startDate && item.endDate
