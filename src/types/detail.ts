@@ -5,7 +5,6 @@ export interface OtherCardPropsType {
   name: string;
   location: string;
   point: string;
-  count: number;
 }
 
 export interface ReviewPropsTypes {

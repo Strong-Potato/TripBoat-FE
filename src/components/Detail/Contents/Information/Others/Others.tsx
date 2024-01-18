@@ -91,7 +91,6 @@ function Others() {
               name={data.name}
               location={data.location}
               point={data.point}
-              count={data.count}
             />
           ))}
         </div>
