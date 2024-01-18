@@ -12,10 +12,10 @@ import {
 import { AiOutlineBell as AlarmIcon } from "react-icons/ai";
 import { AiOutlineMenu as MenuIcon } from "react-icons/ai";
 import { FiPlus as PlusIcon } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
 
 import styles from "./Trip.module.scss";
 
+import Alarm from "@/components/Alarm/Alarm";
 import BottomSlide from "@/components/BottomSlide/BottomSlide";
 import RouteTabPanel from "@/components/Route/RouteTabPanel/RouteTabPanel";
 import SlideBar from "@/components/SideBar/SideBar";
@@ -25,8 +25,6 @@ import InviteFriends from "@/components/TripSpace/InviteFriends/InviteFriends";
 import VoteTabPanel from "@/components/VoteTabPanel/VoteTabPanel";
 
 function Trip() {
-  const navigate = useNavigate();
-
   // 임시 데이터
   const users = [
     { name: "김철수", src: "" },
@@ -59,11 +57,17 @@ function Trip() {
     onClose: onFriendListClose,
   } = useDisclosure();
 
+  const {
+    isOpen: isAlarmOpen,
+    onOpen: onAlarmOpen,
+    onClose: onAlarmClose,
+  } = useDisclosure();
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.iconTab}>
-          <button onClick={() => navigate("/alarm")}>
+          <button onClick={onAlarmOpen}>
             <AlarmIcon size="24px" color="white" />
           </button>
           <button onClick={onSlideBarOpen}>
@@ -158,7 +162,7 @@ function Trip() {
         <BottomSlide
           isOpen={isInviteOpen}
           onClose={onInviteClose}
-          children={<InviteFriends />}
+          children={<InviteFriends isOpen={isInviteOpen} />}
         />
         <BottomSlide
           isOpen={isFriendListOpen}
@@ -166,11 +170,8 @@ function Trip() {
           children={<FriendList users={users} />}
         />
       </div>
-      <SlideBar
-        isSideOpen={isSlideBarOpen}
-        sideClose={onSlideBarClose}
-        users={users[0]}
-      />
+      <SlideBar isSideOpen={isSlideBarOpen} sideClose={onSlideBarClose} />
+      <Alarm isAlarmOpen={isAlarmOpen} alarmClose={onAlarmClose} />
     </>
   );
 }
