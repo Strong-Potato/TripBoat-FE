@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   width: 14.4rem;
@@ -66,10 +66,6 @@
         padding: 2px;
         color: $etc0;
       }
-    }
-    &__counts {
-      @include typography(captionSmall);
-      color: $neutral400;
     }
   }
 }
