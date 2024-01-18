@@ -25,7 +25,7 @@ function MapInTrip() {
           strokeWeight={3}
           strokeColor="#3F444D"
           strokeOpacity={1}
-          strokeStyle="longdash"
+          strokeStyle="dashed"
         />
         <CustomOverlayMap position={linePath[0]}>
           <Marker1 />
