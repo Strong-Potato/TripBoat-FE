@@ -15,7 +15,7 @@ import VotedUserList from '../../VoteBottomSlideContent/VotedUserList/VotedUserL
 
 import {CandidateCardProps} from '@/types/vote';
 
-const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index}: CandidateCardProps) => {
+const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapStyle}: CandidateCardProps) => {
   const [isVoted, setIsVoted] = useState(false);
   const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
   const voteCounts = candidate.voteUserId.length;
@@ -58,7 +58,10 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index}: Candi
   };
 
   return (
-    <div className={`${styles.container} ${rankClassName}`}>
+    <div
+      className={`${styles.container} ${rankClassName}`}
+      style={isMapStyle ? {width: '33.5rem', height: '12rem'} : {}}
+    >
       <img src={candidate.imageURL} alt={candidate.placeName} />
       {RankIcon && (
         <div className={styles.rankTag}>

@@ -91,6 +91,7 @@ export interface CandidateCardProps {
   candidate: CandidatesInfo;
   showResults: boolean;
   index: number;
+  isMapStyle?: boolean;
 }
 
 export interface VoteMeatballProps {
