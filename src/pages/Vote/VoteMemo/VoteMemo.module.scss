@@ -1,0 +1,13 @@
+@use "@/sass" as *;
+
+.container {
+  min-width: 36rem;
+  position: relative;
+  width: 100%;
+  padding: 5.4rem 0 10rem;
+
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+}

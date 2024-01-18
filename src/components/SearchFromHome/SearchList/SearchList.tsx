@@ -47,7 +47,14 @@ function SearchList({
   useEffect(() => {
     if (data) {
       if (category !== "전체") {
-        const filterData = data.filter((data) => data.category === category);
+        let filterData;
+        if (category === "맛집") {
+          filterData = data.filter(
+            (data) => data.category === "음식점" || data.category === "카페",
+          );
+        } else {
+          filterData = data.filter((data) => data.category === category);
+        }
         setFilterData(filterData);
       } else {
         setFilterData(data);

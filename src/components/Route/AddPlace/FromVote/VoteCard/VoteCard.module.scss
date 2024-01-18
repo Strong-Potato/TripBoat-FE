@@ -1,0 +1,67 @@
+@use "@/sass" as *;
+
+.container {
+  .openedContainer {
+    border-radius: 16px;
+    border: 1px solid $primary300;
+  }
+
+  .closedContainer {
+    border-radius: 16px;
+    border: none;
+  }
+
+  .closedItem {
+    display: flex;
+    width: 100%;
+    padding: 20px 16px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 16px;
+    border: 1px solid $neutral200;
+  }
+
+  .openedItem {
+    display: flex;
+    width: 100%;
+    padding: 20px 16px;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid transparent;
+  }
+
+  .titleContainer,
+  .placesContainer {
+    width: calc((100% - 2.4rem) / 2);
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding-right: 0.8rem;
+  }
+
+  .titleContainer {
+    justify-content: flex-start;
+  }
+
+  .placesContainer {
+    justify-content: flex-end;
+  }
+
+  h1,
+  h2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  h1 {
+    @include typography(subTitle);
+    color: $neutral900;
+  }
+
+  h2 {
+    @include typography(tabLabel);
+    color: $primary300;
+  }
+}

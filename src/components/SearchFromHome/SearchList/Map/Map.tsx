@@ -21,71 +21,112 @@ interface PropsType {
 }
 
 function Map({ data, categoryChange }: PropsType) {
+  const [slideLocation, setSlideLocation] = useState<number>(0);
+  const [throttlePermission, setThrottlePermission] = useState(true);
   const [currentpin, setCurrentPin] = useState<number | undefined>();
   const [map, setMap] = useState<any>(null);
   const [pin, setPin] = useState<any[]>([]);
+  // 핀 생성
+  function createPin(
+    homeMarker: string,
+    forkMarker: string,
+    flagMarker: string,
+    sizeWidth: number,
+    sizeHeight: number,
+    offSetWidth: number,
+    offSetHeight: number,
+    data: SearchItemType,
+  ) {
+    const image =
+      data.category === "숙소"
+        ? homeMarker
+        : data.category === "맛집"
+          ? forkMarker
+          : flagMarker;
+    const imageSize = new window.kakao.maps.Size(sizeWidth, sizeHeight);
+    const imageOption = {
+      offset: new window.kakao.maps.Point(offSetWidth, offSetHeight),
+    };
 
+    const markerImage = new window.kakao.maps.MarkerImage(
+      image,
+      imageSize,
+      imageOption,
+    );
+    const marker = new window.kakao.maps.Marker({
+      position: new window.kakao.maps.LatLng(
+        data.location.latitude,
+        data.location.longtitude,
+      ),
+      image: markerImage,
+    });
+    return marker;
+  }
+  // 핀 클릭 이벤트
+  function clickMarker(marker: any, index: number) {
+    new window.kakao.maps.event.addListener(marker, "click", function () {
+      let timeOutId;
+      if (window.innerWidth < 450) {
+        if (timeOutId) {
+          clearTimeout(timeOutId);
+        }
+        setThrottlePermission(true);
+        timeOutId = setTimeout(() => {
+          setThrottlePermission(false);
+        }, 2000);
+        const slide = document.querySelector("#map_slide");
+        slide?.scrollTo({
+          left: 343 * index - 20,
+          behavior: "smooth",
+        });
+      } else {
+        setSlideLocation(-343 * index + 20);
+      }
+      setCurrentPin(index);
+    });
+  }
+  // 기본 핀 지도에 설치
   function setSmallPin(data: SearchItemType[]) {
     const currentMarkers: any[] = [];
 
-    data.map((data) => {
-      const image =
-        data.category === "숙소"
-          ? homeMarker
-          : data.category === "맛집"
-            ? forkMarker
-            : flagMarker;
-      const imageSize = new window.kakao.maps.Size(32, 32);
-      const imageOption = { offset: new window.kakao.maps.Point(-6, -8) };
-
-      const markerImage = new window.kakao.maps.MarkerImage(
-        image,
-        imageSize,
-        imageOption,
+    data.map((data, i) => {
+      const marker = createPin(
+        homeMarker,
+        forkMarker,
+        flagMarker,
+        32,
+        32,
+        -6,
+        -8,
+        data,
       );
-      const marker = new window.kakao.maps.Marker({
-        position: new window.kakao.maps.LatLng(
-          data.location.latitude,
-          data.location.longtitude,
-        ),
-        image: markerImage,
-      });
+      clickMarker(marker, i);
       marker.setMap(map);
       currentMarkers.push(marker);
     });
   }
+  // 큰 핀 상태에 담아두고 1번 데이터의 핀 지도에 설치
   function setBigPin(data: SearchItemType[]) {
     const currentMarkers: any[] = [];
 
     data.map((data) => {
-      const image =
-        data.category === "숙소"
-          ? bigHomeMarker
-          : data.category === "맛집"
-            ? bigForkMarker
-            : bigFlagMarker;
-      const imageSize = new window.kakao.maps.Size(44, 52);
-      const imageOption = { offset: new window.kakao.maps.Point(0, 0) };
-
-      const markerImage = new window.kakao.maps.MarkerImage(
-        image,
-        imageSize,
-        imageOption,
+      const marker = createPin(
+        bigHomeMarker,
+        bigForkMarker,
+        bigFlagMarker,
+        44,
+        52,
+        0,
+        0,
+        data,
       );
-      const marker = new window.kakao.maps.Marker({
-        position: new window.kakao.maps.LatLng(
-          data.location.latitude,
-          data.location.longtitude,
-        ),
-        image: markerImage,
-      });
       marker.setZIndex(10);
       currentMarkers.push(marker);
     });
     currentMarkers[0].setMap(map);
     setPin([...currentMarkers]);
   }
-
+  // 핀 제거
   function removePin(marker: any[]) {
     marker.map((marker) => {
       marker.setMap(null);
@@ -133,8 +174,6 @@ function Map({ data, categoryChange }: PropsType) {
   // 슬라이드 스크롤, 슬라이드 버튼 클릭 시 아이템의 핀 변경
   useEffect(() => {
     if (map && currentpin !== undefined) {
-      console.log(pin);
-
       removePin(pin);
       pin[currentpin].setMap(map);
     }
@@ -147,7 +186,10 @@ function Map({ data, categoryChange }: PropsType) {
         <MapItems
           data={data}
           categoryChange={categoryChange}
+          slideLocation={slideLocation}
+          throttlePermission={throttlePermission}
           setCurrentPin={setCurrentPin}
+          setSlideLocation={setSlideLocation}
         />
       </div>
     </div>

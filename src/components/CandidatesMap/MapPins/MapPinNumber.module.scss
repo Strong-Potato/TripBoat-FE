@@ -1,0 +1,18 @@
+@use '@/sass' as *;
+
+.container {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: $secondary400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 3;
+  .number {
+    @include typography(titleSmall);
+
+    color: #fff;
+  }
+}
