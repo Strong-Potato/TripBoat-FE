@@ -58,7 +58,7 @@ const MeatballBottomSlide = ({
         onClick={() => {
           onClose();
           setTimeout(() => {
-            onBottomSlideOpen(<ReviewBottomSlide onClose={onClose} />);
+            onBottomSlideOpen(<ReviewBottomSlide slideOnClose={onClose} />);
           }, 300);
         }}
       >

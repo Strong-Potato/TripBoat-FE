@@ -1,8 +1,5 @@
 import { modalAnatomy } from "@chakra-ui/anatomy";
-import {
-  createMultiStyleConfigHelpers,
-  defineStyle,
-} from "@chakra-ui/styled-system";
+import { createMultiStyleConfigHelpers } from "@chakra-ui/styled-system";
 
 const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(modalAnatomy.keys);
@@ -24,10 +21,6 @@ const baseStyle = definePartsStyle({
   overlay: {
     bg: "rgba(0, 0, 0, 0.6)",
   },
-});
-
-const alertSizeForDialog = defineStyle({
-  mx: "20px",
 });
 
 const alertModal = definePartsStyle({
@@ -61,12 +54,7 @@ const alertModal = definePartsStyle({
   },
 });
 
-const sizes = {
-  xl: definePartsStyle({ dialog: alertSizeForDialog }),
-};
-
 export const modalTheme = defineMultiStyleConfig({
-  sizes,
   baseStyle,
   variants: { alertModal },
   sizes: {

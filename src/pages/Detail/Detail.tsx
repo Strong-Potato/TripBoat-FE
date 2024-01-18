@@ -38,7 +38,7 @@ function Detail() {
       <Main />
       <Contents
         onOpen={() =>
-          onBottomSlideOpen(<ReviewBottomSlide onClose={onClose} />)
+          onBottomSlideOpen(<ReviewBottomSlide slideOnClose={onClose} />)
         }
       />
       <BottomFixedBtn
