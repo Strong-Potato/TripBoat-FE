@@ -13,6 +13,7 @@ function Invitation({ inviteCode, isLogin, modal }: InvitationProps) {
   const [, , removeCookie] = useCookies(["inviteCode"]);
   const navigate = useNavigate();
   const parsedInviteCode = parseInviteCode(inviteCode);
+  console.log(parseInviteCode);
 
   const handleModalClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -27,7 +28,7 @@ function Invitation({ inviteCode, isLogin, modal }: InvitationProps) {
     const response = await inviteCodeJoin();
     if (response.status === 200) {
       removeCookie("inviteCode", { path: "/" });
-      navigate(`/trip/${parsedInviteCode.ID}`);
+      navigate(`/trip/${parsedInviteCode!.ID}`);
     } else {
       removeCookie("inviteCode", { path: "/" });
       modal(false);
@@ -36,7 +37,7 @@ function Invitation({ inviteCode, isLogin, modal }: InvitationProps) {
 
   return (
     <>
-      {parsedInviteCode.RESULT === "false" ? (
+      {parsedInviteCode!.RESULT === "false" ? (
         <>
           <div className={styles.background} onClick={handleBackgroundClick}>
             <div className={styles.containerDismiss} onClick={handleModalClick}>
@@ -69,7 +70,7 @@ function Invitation({ inviteCode, isLogin, modal }: InvitationProps) {
           <div className={styles.container} onClick={handleModalClick}>
             <div className={styles.wrapperText}>
               <p className={styles.wrapperText__title}>
-                {parsedInviteCode.PUBLISHER} 님이 여행에 초대했어요.
+                {parsedInviteCode!.PUBLISHER} 님이 여행에 초대했어요.
               </p>
               <p className={styles.wrapperText__body}>
                 초대를 수락하고 함께 즐거운 여행을

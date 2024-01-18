@@ -5,7 +5,7 @@ export type InvitationProps = {
 };
 
 export interface InviteCode {
-  RESULT?: string;
-  PUBLISHER?: string;
-  ID?: string;
+  RESULT: string;
+  PUBLISHER: string;
+  ID: string;
 }
