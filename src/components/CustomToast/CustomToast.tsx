@@ -33,6 +33,7 @@ const CustomToast = () => {
     toast.closeAll();
     toast({
       position: "top",
+      duration: 2230,
       render: () => (
         <Box
           p="14px 16px"
