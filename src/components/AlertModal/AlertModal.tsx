@@ -1,17 +1,11 @@
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalOverlay,
-} from "@chakra-ui/react";
-import { useRecoilState } from "recoil";
+import {Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay} from '@chakra-ui/react';
+import {useRecoilState} from 'recoil';
 
-import styles from "./AlertModal.module.scss";
+import styles from './AlertModal.module.scss';
 
-import { isModalOpenState } from "@/recoil/vote/alertModal";
+import {isModalOpenState} from '@/recoil/vote/alertModal';
 
-import { AlertModalProps } from "@/types/vote";
+import {AlertModalProps} from '@/types/vote';
 
 /** 사용방법
  * 1. 사용할 곳에 useRecoilState(isModalOpenState) 사용
@@ -26,39 +20,21 @@ import { AlertModalProps } from "@/types/vote";
  * 
  * 자세한 사용은 VoteMeatball.tsx 참고
  */
-const AlertModal = ({
-  title,
-  subText,
-  cancelText,
-  actionButton,
-  isSmallSize,
-  onClickAction,
-}: AlertModalProps) => {
+const AlertModal = ({title, subText, cancelText, actionButton, isSmallSize, onClickAction}: AlertModalProps) => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(isModalOpenState);
 
   return (
-    <Modal
-      isOpen={isModalOpen}
-      onClose={() => setIsModalOpen(false)}
-      variant="alertModal"
-    >
+    <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} variant='alertModal'>
       <ModalOverlay />
-      <ModalContent
-        style={
-          isSmallSize ? { margin: "288px 48px auto", padding: "auto 24px" } : {}
-        }
-      >
+      <ModalContent style={isSmallSize ? {margin: '288px 48px auto'} : {}}>
         <ModalBody>
           <p className={styles.title}>{title}</p>
           <span className={styles.subText}>{subText}</span>
         </ModalBody>
 
         <ModalFooter>
-          <button
-            onClick={() => setIsModalOpen(false)}
-            className={styles.buttons__cancel}
-          >
-            {cancelText ? cancelText : "취소"}
+          <button onClick={() => setIsModalOpen(false)} className={styles.buttons__cancel}>
+            {cancelText ? cancelText : '취소'}
           </button>
           <button onClick={onClickAction} className={styles.buttons__action}>
             {actionButton}

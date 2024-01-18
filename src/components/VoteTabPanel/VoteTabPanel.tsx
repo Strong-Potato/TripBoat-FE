@@ -1,18 +1,18 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import {Tab, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react';
+import {useEffect, useState} from 'react';
 
-import styles from "./VoteTabPanel.module.scss";
+import styles from './VoteTabPanel.module.scss';
 
-import { getVoteListData } from "@/mocks/handlers/vote";
+import {getVoteListData} from '@/mocks/handlers/vote';
 
-import TabsVoteCard from "./TabsVoteCard/TabsVoteCard";
-import VoteTabPanelEmpty from "./VoteTabPanelEmpty/VoteTabPanelEmpty";
-import CreatVoteTitleModal from "../Vote/CreatVoteTitleModal/CreatVoteTitleModal";
+import TabsVoteCard from './TabsVoteCard/TabsVoteCard';
+import VoteTabPanelEmpty from './VoteTabPanelEmpty/VoteTabPanelEmpty';
+import CreatVoteTitleModal from '../Vote/CreatVoteTitleModal/CreatVoteTitleModal';
 
-import { VoteListData } from "@/types/vote";
+import {VoteListInfo} from '@/types/vote';
 
 const VoteTabPanel = () => {
-  const [data, setData] = useState<VoteListData[]>([]);
+  const [data, setData] = useState<VoteListInfo[]>([]);
 
   useEffect(() => {
     getVoteListData(setData);
@@ -20,7 +20,7 @@ const VoteTabPanel = () => {
 
   return (
     <div className={styles.container}>
-      <Tabs variant="voteFilter">
+      <Tabs variant='voteFilter'>
         <div className={styles.header}>
           <TabList>
             <Tab>전체</Tab>
@@ -31,8 +31,7 @@ const VoteTabPanel = () => {
         </div>
         <TabPanels className={styles.content}>
           <TabPanel className={styles.content__tabPanel}>
-            {data &&
-              data.map((item) => <TabsVoteCard data={item} key={item.id} />)}
+            {data && data.map((item) => <TabsVoteCard data={item} key={item.voteId} />)}
 
             {/* // : (
             //   <VoteTabPanelEmpty />

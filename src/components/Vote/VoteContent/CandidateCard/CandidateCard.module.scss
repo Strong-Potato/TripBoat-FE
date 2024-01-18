@@ -1,9 +1,9 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   position: relative;
 
-  width: 100%; //335?
+  width: 100%;
   min-width: 33.5rem;
   height: 10rem;
   padding-right: 16px;
@@ -11,6 +11,7 @@
   border-radius: 16px;
   // border: 2px solid $neutral200;
   box-shadow: $shadow200;
+  background-color: $neutral0;
 
   display: flex;
   gap: 12px;
@@ -22,6 +23,19 @@
     width: 8rem;
     border-radius: 16px 0 0 16px;
     object-fit: cover;
+  }
+}
+
+.isMapStyle {
+  @extend .container;
+  width: 33.5rem;
+  height: 12rem;
+
+  padding: 12px;
+  & > img {
+    width: 9.6rem;
+    height: 9.6rem;
+    border-radius: 8px;
   }
 }
 

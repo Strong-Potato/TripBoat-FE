@@ -10,6 +10,7 @@ const baseStyle = defineStyle({
   _disabled: {
     backgroundColor: "neutral.200",
     color: "neutral.400",
+    opacity: "1",
   },
 });
 
