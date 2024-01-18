@@ -57,7 +57,7 @@ export interface ContentsReviewsProps {
 }
 
 export interface ReviewBottomSlideProps {
-  onClose: () => void;
+  slideOnClose: () => void;
 }
 
 export interface InputWrapperProps {
@@ -88,4 +88,8 @@ export interface RegistrationListItemProps {
 export interface RegistrationModalProps {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface DateScrollPickerProps {
+  slideOnClose: () => void;
 }
