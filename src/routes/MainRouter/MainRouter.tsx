@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
+import AddPlaceFromVote from "@/pages/AddPlaceFromVote/AddPlaceFromVote";
 import FindPassword from "@/pages/Auth/FindPassword/FindPassword";
 import Login from "@/pages/Auth/Login/Login";
 import AgreePrivacy from "@/pages/Auth/Signup/Agree/AgreePrivacy";
@@ -33,6 +34,7 @@ function MainRouter() {
       <Route path="/home/search" element={<SearchFromHome />} />
       <Route path="/trip/selectDate" element={<Calendar />} />
       <Route path="/trip/selectRegion" element={<RegionSearch />} />
+      <Route path="/trip/add/vote" element={<AddPlaceFromVote />} />
     </Routes>
   );
 }
