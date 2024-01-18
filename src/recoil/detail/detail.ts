@@ -14,3 +14,8 @@ export const DatePickerIsValued = atom<boolean>({
   key: "DatePickerIsValued",
   default: false,
 });
+
+export const IsHeartValued = atom<boolean>({
+  key: "IsHeartValued",
+  default: false,
+});

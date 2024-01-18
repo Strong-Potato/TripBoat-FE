@@ -2,12 +2,14 @@ import { BiTask } from "react-icons/bi";
 import { CiEdit } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
+import { useRecoilState } from "recoil";
 
 import styles from "./MeatballBottomSlide.module.scss";
 
 import CustomToast from "@/components/CustomToast/CustomToast";
 
 import CloseIcon from "@/assets/close.svg?react";
+import { IsHeartValued } from "@/recoil/detail/detail";
 
 import RegistrationSlide from "../../BottomFixedBtn/RegistrationSlide/RegistrationSlide";
 import ReviewBottomSlide from "../../Contents/ReviewBottomSlide/ReviewBottomSlide";
@@ -18,8 +20,17 @@ const MeatballBottomSlide = ({
   onBottomSlideOpen,
   onClose,
 }: NavigationMeatballProps) => {
+  const [isHeart, setIsHeart] = useRecoilState(IsHeartValued);
+
   const showToast = CustomToast();
 
+  const handleHeartClick = () => {
+    if (!isHeart) {
+      showToast("찜 목록에 저장되었습니다.");
+    }
+
+    setIsHeart(!isHeart);
+  };
   return (
     <div className={styles.container}>
       <button
@@ -33,7 +44,9 @@ const MeatballBottomSlide = ({
       </button>
       <button
         onClick={() => {
-          showToast("찜 목록에 저장되었습니다.");
+          handleHeartClick();
+          onClose();
+          document.body.style.removeProperty("overflow");
         }}
       >
         <div className={styles.container__iconWrapper}>
@@ -70,6 +83,8 @@ const MeatballBottomSlide = ({
       <button
         onClick={() => {
           showToast("링크가 복사되었습니다.");
+          onClose();
+          document.body.style.removeProperty("overflow");
         }}
       >
         <div className={styles.container__iconWrapper}>
