@@ -1,13 +1,13 @@
-import styles from "./SearchHome.module.scss";
+import styles from './SearchHome.module.scss';
 
-import HotItems from "./HotItems/HotItems";
-import SearchKeyword from "./SearchKeyword/SearchKeyword";
+import HotItems from './HotItems/HotItems';
+import SearchKeyword from './SearchKeyword/SearchKeyword';
 
 interface PropsType {
-  set: React.Dispatch<React.SetStateAction<string | undefined>>;
+  set: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function SearchHome({ set }: PropsType) {
+function SearchHome({set}: PropsType) {
   return (
     <div className={styles.lists_box}>
       <div className={styles.column_4px}>
@@ -16,11 +16,11 @@ function SearchHome({ set }: PropsType) {
       </div>
       <div className={styles.column_8px}>
         <p className={styles.title}>최근 30일간 인기 장소</p>
-        <HotItems type="place" />
+        <HotItems type='place' />
       </div>
       <div className={styles.column_8px}>
         <p className={styles.title}>최근 30일간 인기 숙소</p>
-        <HotItems type="hotel" />
+        <HotItems type='hotel' />
       </div>
     </div>
   );

@@ -1,13 +1,16 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import {useNavigate} from 'react-router-dom';
 
-import styles from "./Tab.module.scss";
+import styles from './Tab.module.scss';
 
 interface PropsType {
   setCategory: React.Dispatch<React.SetStateAction<string>>;
   setCategoryChange: React.Dispatch<React.SetStateAction<boolean>>;
   category: string;
   thisCategory: string;
-  keyword: string | undefined;
+  keyword: string;
+  moveMap: string;
+  searchLocation: string;
+  sort: string;
 }
 
 function Tab({
@@ -16,8 +19,10 @@ function Tab({
   category,
   thisCategory,
   keyword,
+  moveMap,
+  sort,
+  searchLocation,
 }: PropsType) {
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   function handleCategory(key: string) {
@@ -26,11 +31,7 @@ function Tab({
       setCategoryChange(false);
     }, 150);
     setCategory(key);
-    if (searchParams.get("map")) {
-      navigate(`/home/search?keyword=${keyword}&category=${key}&map=true`);
-    } else {
-      navigate(`/home/search?keyword=${keyword}&category=${key}`);
-    }
+    navigate(`/home/search?keyword=${keyword}&category=${key}&map=${moveMap}&location=${searchLocation}&sort=${sort}`);
   }
 
   return (
@@ -38,8 +39,8 @@ function Tab({
       className={styles.container}
       id={thisCategory}
       style={{
-        color: category === thisCategory ? "#1d2433" : "#cdcfd0",
-        borderBottom: category === thisCategory ? "2px solid #1d2433" : "none",
+        color: category === thisCategory ? '#1d2433' : '#cdcfd0',
+        borderBottom: category === thisCategory ? '2px solid #1d2433' : 'none',
       }}
       onClick={() => {
         handleCategory(thisCategory);

@@ -6,11 +6,15 @@ import styles from './LocationFilter.module.scss';
 import LocationFliterPage from './LocationFliterPage/LocationFliterPage';
 
 interface PropsType {
+  keyword: string;
+  category: string;
+  moveMap: string;
   searchLocation: string;
+  sort: string;
   setSearchLocation: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function LocationFilter({searchLocation, setSearchLocation}: PropsType) {
+function LocationFilter({keyword, category, moveMap, searchLocation, sort, setSearchLocation}: PropsType) {
   const [click, setClick] = useState(true);
   const [buttonName, setButtonName] = useState('전체 지역');
 
@@ -43,7 +47,10 @@ function LocationFilter({searchLocation, setSearchLocation}: PropsType) {
       </div>
       <LocationFliterPage
         click={click}
-        searchLocation={searchLocation}
+        keyword={keyword}
+        category={category}
+        moveMap={moveMap}
+        sort={sort}
         handleClick={handleClick}
         setSearchLocation={setSearchLocation}
       />

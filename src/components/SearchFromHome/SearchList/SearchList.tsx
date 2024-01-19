@@ -15,24 +15,33 @@ import Tabs from './Tabs/Tabs';
 import {SearchItemType} from '@/types/home';
 
 interface PropsType {
-  keyword: string | undefined;
+  keyword: string;
   category: string;
   moveMap: string;
-  set: React.Dispatch<React.SetStateAction<string>>;
+  searchLocation: string;
+  sort: string;
+  setMoveMap: React.Dispatch<React.SetStateAction<string>>;
   setCategory: React.Dispatch<React.SetStateAction<string>>;
+  setSearchLocation: React.Dispatch<React.SetStateAction<string>>;
+  setSort: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function SearchList({keyword, set, moveMap, category, setCategory}: PropsType) {
+function SearchList({
+  keyword,
+  moveMap,
+  category,
+  searchLocation,
+  sort,
+  setMoveMap,
+  setCategory,
+  setSearchLocation,
+  setSort,
+}: PropsType) {
   const [data, setData] = useState<SearchItemType[]>();
   const [filterData, setFilterData] = useState<SearchItemType[]>();
   const [categoryChange, setCategoryChange] = useState(false);
-  const [searchLocation, setSearchLocation] = useState('전국');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-
-  useEffect(() => {
-    console.log(searchLocation);
-  }, [searchLocation]);
 
   useEffect(() => {
     getData<SearchItemType[] | undefined>('home/search/search', setData);
@@ -60,23 +69,34 @@ function SearchList({keyword, set, moveMap, category, setCategory}: PropsType) {
   }, [data, category]);
 
   function onMap() {
-    set('true');
-    if (category) {
-      navigate(`/home/search?keyword=${keyword}&category${category}&map=true`);
-    } else {
-      navigate(`/home/search?keyword=${keyword}&map=true`);
-    }
+    setMoveMap('true');
+    navigate(`/home/search?keyword=${keyword}&category=${category}&map=true&location=${searchLocation}&sort=${sort}`);
   }
 
   return (
     <div className={styles.container} style={{height: moveMap === 'true' ? '100%' : 'calc(100% - 72px)'}}>
-      <Tabs setCategory={setCategory} category={category} setCategoryChange={setCategoryChange} keyword={keyword} />
+      <Tabs
+        setCategory={setCategory}
+        category={category}
+        setCategoryChange={setCategoryChange}
+        keyword={keyword}
+        moveMap={moveMap}
+        searchLocation={searchLocation}
+        sort={sort}
+      />
       {moveMap === 'true' && filterData ? (
         <Map data={filterData} categoryChange={categoryChange} />
       ) : (
         <>
           <div className={styles.filter}>
-            <LocationFilter searchLocation={searchLocation} setSearchLocation={setSearchLocation} />
+            <LocationFilter
+              keyword={keyword}
+              moveMap={moveMap}
+              category={category}
+              searchLocation={searchLocation}
+              sort={sort}
+              setSearchLocation={setSearchLocation}
+            />
             <DateFilter />
           </div>
           <ul className={styles.slide}>

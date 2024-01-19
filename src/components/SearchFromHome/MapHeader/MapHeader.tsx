@@ -1,21 +1,23 @@
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from 'react-router-dom';
 
-import styles from "./MapHeader.module.scss";
+import styles from './MapHeader.module.scss';
 
-import BackIcon from "@/assets/homeIcons/search/backInHome.svg?react";
+import BackIcon from '@/assets/homeIcons/search/backInHome.svg?react';
 
 interface PropsType {
-  keyword: string | undefined;
+  keyword: string;
   category: string;
-  set: React.Dispatch<React.SetStateAction<string>>;
+  searchLocation: string;
+  sort: string;
+  setMoveMap: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function MapHeader({ keyword, set, category }: PropsType) {
+function MapHeader({keyword, setMoveMap, category, searchLocation, sort}: PropsType) {
   const navigate = useNavigate();
 
   function offMap() {
-    set("false");
-    navigate(`/home/search?keyword=${keyword}&category=${category}`);
+    setMoveMap('false');
+    navigate(`/home/search?keyword=${keyword}&category=${category}&map=false&location=${searchLocation}&sort=${sort}`);
   }
 
   return (

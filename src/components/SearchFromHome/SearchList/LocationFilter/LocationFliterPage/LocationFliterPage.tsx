@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 import styles from './LocationFliterPage.module.scss';
 
@@ -9,7 +10,10 @@ import SelectLocation from './SelectLocation/SelectLocation';
 
 interface PropsType {
   click: boolean;
-  searchLocation: string;
+  keyword: string;
+  category: string;
+  moveMap: string;
+  sort: string;
   handleClick: () => void;
   setSearchLocation: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -19,16 +23,20 @@ interface AreaDataType {
   sigunguCode: number;
 }
 
-function LocationFliterPage({click, handleClick, setSearchLocation}: PropsType) {
+function LocationFliterPage({click, keyword, category, moveMap, sort, handleClick, setSearchLocation}: PropsType) {
   const [area, setArea] = useState('전국');
   const [areaData, setAreaData] = useState<AreaDataType[]>();
   const [sigungu, setSigungu] = useState('전체 지역');
   const [pick, setPick] = useState('');
+  const navigate = useNavigate();
 
   const vh = window.innerHeight / 100;
 
   function submit() {
     setSearchLocation(`${area} ${sigungu}`);
+    navigate(
+      `/home/search?keyword=${keyword}&category=${category}&map=${moveMap}&location=${area} ${sigungu}&sort=${sort}`,
+    );
     handleClick();
   }
 
