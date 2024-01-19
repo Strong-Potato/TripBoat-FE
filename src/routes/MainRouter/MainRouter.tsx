@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Alarm from "@/pages/Alarm/Alarm";
 import FindPassword from "@/pages/Auth/FindPassword/FindPassword";
 import Login from "@/pages/Auth/Login/Login";
+import ModifyPassword from "@/pages/Auth/ModifyPassword/ModifyPassword";
 import AgreePrivacy from "@/pages/Auth/Signup/Agree/AgreePrivacy";
 import AgreeService from "@/pages/Auth/Signup/Agree/AgreeService";
 import Signup from "@/pages/Auth/Signup/Signup";
@@ -27,15 +28,16 @@ function MainRouter() {
         <Route path="/heart" element={<Home />} />
         <Route path="/user" element={<User />} />
         <Route path="/user/privacy" element={<UserPrivacy />} />
-        <Route path="/user/edit/profile" element={<ModifyProfile />} />
+        <Route path="/user/profile/edit" element={<ModifyProfile />} />
       </Route>
       <Route path="/auth/login" element={<Login />} />
       <Route path="/vote/:id" element={<Vote />} />
       <Route path="/detail/:id" element={<Detail />} />
       <Route path="/auth/signup" element={<Signup />} />
-      <Route path="/auth/signup/agreePrivacy" element={<AgreePrivacy />} />
-      <Route path="/auth/signup/agreeService" element={<AgreeService />} />
-      <Route path="/auth/findpassword" element={<FindPassword />} />
+      <Route path="/auth/signup/agree/privacy" element={<AgreePrivacy />} />
+      <Route path="/auth/signup/agree/service" element={<AgreeService />} />
+      <Route path="/auth/password/find" element={<FindPassword />} />
+      <Route path="/auth/password/modify" element={<ModifyPassword />} />
       <Route path="/alarm" element={<Alarm />} />
       <Route path="/home/search" element={<SearchFromHome />} />
       <Route path="/trip/selectDate" element={<Calendar />} />

@@ -11,7 +11,9 @@ import Logo from "@/assets/logo.svg?react";
 function Login() {
   const onClickKakao = async () => {
     try {
-      const res = axios.post("/api/oauth2/authorization/kakao");
+      const res = axios.post("/api/oauth2/authorization/kakao", null, {
+        withCredentials: true,
+      });
       console.log(res);
     } catch (error) {
       if (axios.isAxiosError(error)) {

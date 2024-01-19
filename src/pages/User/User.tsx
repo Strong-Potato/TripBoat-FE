@@ -44,7 +44,7 @@ function User() {
           <button
             className={styles.profile__image__edit}
             onClick={() => {
-              navigate("/user/edit/profile");
+              navigate("/user/profile/edit");
             }}
           >
             <Pencil width={16} height={16} />

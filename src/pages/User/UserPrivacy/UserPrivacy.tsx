@@ -21,7 +21,7 @@ function UserPrivacy() {
 
         <li className={styles.userPrivacy__password}>
           <div>비밀번호</div>
-          <Link to="/">재설정</Link>
+          <Link to="/auth/password/modify">재설정</Link>
         </li>
 
         <li

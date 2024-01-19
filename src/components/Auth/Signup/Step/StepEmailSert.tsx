@@ -15,6 +15,7 @@ function StepEmailSert({
   watchFields: { email, emailSert },
   dirty,
   error,
+  setCode,
 }: StepEmailSertProps) {
   const [due, setDue] = useState<number>(1800);
   const showToast = CustomToast();
@@ -35,7 +36,7 @@ function StepEmailSert({
     try {
       const res = await axios.post("/api/auth/register/check-token", {
         email,
-        token: emailSert,
+        code: emailSert,
       });
       console.log(res);
 
@@ -44,6 +45,8 @@ function StepEmailSert({
         return;
       }
 
+      console.log(await res.data.data.token);
+      setCode!(await res.data.data.token);
       setSignupStep!("password");
     } catch (error) {
       console.log(error);

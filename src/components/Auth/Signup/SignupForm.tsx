@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -30,20 +31,22 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
     },
   });
 
+  const [code, setCode] = useState<string>("");
   const navigate = useNavigate();
   const watchFields = watch();
 
   const onSubmit: SubmitHandler<AuthForm> = async (data) => {
+    console.log(code);
     if (Object.keys(dirtyFields).length < 5) return;
     console.log(data);
 
     try {
-      const { email, emailSert, password, image, nickname } = data;
+      const { email, password, image, nickname } = data;
       const res = await axios.post("/api/auth/register", {
         email,
         password,
         nickname,
-        token: emailSert,
+        token: code,
       });
       console.log(res);
 
@@ -88,6 +91,7 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
           watchFields={watchFields}
           dirty={dirtyFields.emailSert}
           error={errors.emailSert}
+          setCode={setCode}
         />
       )}
 

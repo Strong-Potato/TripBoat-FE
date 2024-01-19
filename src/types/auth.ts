@@ -22,6 +22,7 @@ export interface AuthForm {
   emailSert?: string;
   password?: string;
   passwordConfirm?: string;
+  oldPassword?: string;
   image?: FileList | undefined;
   nickname?: string;
 }
@@ -108,6 +109,7 @@ export interface DirtyFields {
   emailSert?: boolean;
   password?: boolean;
   passwordConfirm?: boolean;
+  oldPassword?: boolean;
   image?: boolean;
   nickname?: boolean;
 }
@@ -134,16 +136,21 @@ export interface StepEmailSertProps {
   watchFields: Partial<AuthForm>;
   dirty?: boolean;
   error?: FieldError;
+  setCode?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface StepPasswordProps {
   setSignupStep?: React.Dispatch<React.SetStateAction<string>>;
+  setStep?: React.Dispatch<React.SetStateAction<string>>;
+  setToken?: React.Dispatch<React.SetStateAction<string>>;
   register: UseFormRegister<AuthForm>;
   resetField: UseFormResetField<AuthForm>;
   watchFields: Partial<AuthForm>;
   dirtyFields?: DirtyFields;
   errors?: FieldErrors<AuthForm>;
 }
+
+export type StepOldPasswordProps = Partial<StepPasswordProps>;
 
 export interface StepProfileProps {
   register: UseFormRegister<AuthForm>;
