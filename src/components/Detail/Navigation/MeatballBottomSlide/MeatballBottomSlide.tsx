@@ -80,7 +80,10 @@ const MeatballBottomSlide = ({
         onClick={() => {
           onClose();
           setTimeout(() => {
-            onBottomSlideOpen(<RegistrationSlide slideOnClose={onClose} />);
+            onBottomSlideOpen(
+              <RegistrationSlide slideOnClose={onClose} />,
+              false,
+            );
           }, 300);
         }}
       >
@@ -93,7 +96,10 @@ const MeatballBottomSlide = ({
         onClick={() => {
           onClose();
           setTimeout(() => {
-            onBottomSlideOpen(<ReviewBottomSlide slideOnClose={onClose} />);
+            onBottomSlideOpen(
+              <ReviewBottomSlide slideOnClose={onClose} />,
+              true,
+            );
           }, 300);
         }}
       >

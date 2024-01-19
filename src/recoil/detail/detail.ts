@@ -22,5 +22,5 @@ export const IsHeartValued = atom<boolean>({
 
 export const IsLoginState = atom<boolean>({
   key: "IsLoginState",
-  default: false,
+  default: true,
 });

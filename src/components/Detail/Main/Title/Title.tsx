@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { GoStarFill } from "react-icons/go";
@@ -44,10 +43,6 @@ function Title() {
       showNotLoginModal();
     }
   };
-
-  useEffect(() => {
-    setIsHeart(true);
-  });
 
   return (
     <div className={styles.container}>

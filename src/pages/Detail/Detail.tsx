@@ -21,8 +21,10 @@ function Detail() {
   const [bottomSlideContent, setBottomSlideContent] =
     useState<ReactNode | null>(null);
   const modalContent = useRecoilValue(modalContentState);
+  const [isReviewModal, setIsReviewModal] = useState<boolean>(false);
 
-  const onBottomSlideOpen = (content: ReactNode) => {
+  const onBottomSlideOpen = (content: ReactNode, isReview: boolean) => {
+    setIsReviewModal(isReview);
     setBottomSlideContent(content);
     onOpen();
     document.body.style.overflow = "hidden";
@@ -37,24 +39,26 @@ function Detail() {
               onBottomSlideOpen={onBottomSlideOpen}
               onClose={onClose}
             />,
+            false,
           )
         }
       />
       <Main />
       <Contents
         onOpen={() =>
-          onBottomSlideOpen(<ReviewBottomSlide slideOnClose={onClose} />)
+          onBottomSlideOpen(<ReviewBottomSlide slideOnClose={onClose} />, true)
         }
       />
       <BottomFixedBtn
         onOpen={() =>
-          onBottomSlideOpen(<RegistrationSlide slideOnClose={onClose} />)
+          onBottomSlideOpen(<RegistrationSlide slideOnClose={onClose} />, false)
         }
       />
       <BottomSlideDetail
         isOpen={isOpen}
         onClose={onClose}
         children={bottomSlideContent}
+        isReviewModal={isReviewModal}
       />
       <AlertModal {...modalContent} />
     </div>
