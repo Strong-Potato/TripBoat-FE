@@ -1,0 +1,142 @@
+@use "@/sass" as *;
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: $neutral900;
+
+  h1 {
+    padding: 16px 20px;
+
+    @include typography(button);
+  }
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    &__image {
+      position: relative;
+      width: 7.2rem;
+      height: 7.2rem;
+      border-radius: 50%;
+
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+      &__edit {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+        background-color: $neutral100;
+        border: 1px solid $neutral200;
+        border-radius: 50%;
+
+        width: 2.6rem;
+        height: 2.6rem;
+        padding: 4px;
+      }
+    }
+
+    &__userName {
+      @include typography(headline);
+    }
+  }
+
+  .mywork {
+    display: flex;
+    gap: 8px;
+    padding: 0 20px;
+    margin-bottom: 8px;
+
+    button {
+      border: 1px solid $primary100;
+      border-radius: 16px;
+      padding: 16px;
+      flex: 1;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+
+      &:hover {
+        border-color: $primary200;
+
+        .myworkTitle {
+          font-weight: 600;
+        }
+      }
+    }
+
+    .myworkTitle {
+      @include typography(subTitle);
+    }
+  }
+
+  .infoDetail {
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 24px 20px;
+      border-bottom: 1px solid $neutral200;
+      cursor: pointer;
+
+      @include typography(tabLabel);
+
+      &:hover {
+        font-weight: 600;
+        border-color: $neutral300;
+      }
+
+      svg {
+        fill: $neutral400;
+      }
+    }
+
+    &__alert {
+      position: relative;
+      width: 5.6rem;
+      height: 3.2rem;
+      border-radius: 32px;
+
+      .alertState {
+        position: absolute;
+        top: 0;
+        width: 3.2rem;
+        height: 3.2rem;
+
+        background-color: $neutral0;
+        border-radius: 50%;
+        transition: all 0.2s ease-in;
+      }
+
+      &.on {
+        background-color: $success300;
+        .alertState {
+          left: calc(100% - 3.2rem);
+          border: 2px solid $success300;
+        }
+      }
+      &.off {
+        background-color: $neutral200;
+        .alertState {
+          left: 0;
+          border: 2px solid $neutral200;
+        }
+      }
+    }
+
+    .version {
+      color: $neutral400;
+    }
+  }
+}

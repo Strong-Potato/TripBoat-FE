@@ -49,10 +49,14 @@ function LoginForm() {
     if (showError(email as string, password as string)) return;
 
     try {
-      const res = await axios.post("/api/login", {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        "/api/login",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true },
+      );
       console.log(res.data);
 
       navigate("/", { replace: true });

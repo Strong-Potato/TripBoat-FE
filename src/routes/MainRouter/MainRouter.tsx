@@ -12,6 +12,7 @@ import Home from "@/pages/Home/Home";
 import RegionSearch from "@/pages/RegionSearch/RegionSearch";
 import SearchFromHome from "@/pages/SearchFromHome/SearchFromHome";
 import Trip from "@/pages/Trip/Trip";
+import User from "@/pages/User/User";
 import Vote from "@/pages/Vote/Vote";
 import Dashboard from "@/routes/Dashboard/Dashboard";
 
@@ -22,7 +23,7 @@ function MainRouter() {
         <Route index element={<Home />} />
         <Route path="/trip" element={<Trip />} />
         <Route path="/heart" element={<Home />} />
-        <Route path="/user" element={<Home />} />
+        <Route path="/user" element={<User />} />
       </Route>
       <Route path="/auth/login" element={<Login />} />
       <Route path="/vote/:id" element={<Vote />} />

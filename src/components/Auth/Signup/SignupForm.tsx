@@ -43,7 +43,6 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
         email,
         password,
         nickname,
-        profile: image,
         token: emailSert,
       });
       console.log(res);
