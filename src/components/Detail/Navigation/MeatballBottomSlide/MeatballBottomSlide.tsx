@@ -2,14 +2,15 @@ import { BiTask } from "react-icons/bi";
 import { CiEdit } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import styles from "./MeatballBottomSlide.module.scss";
 
 import CustomToast from "@/components/CustomToast/CustomToast";
 
 import CloseIcon from "@/assets/close.svg?react";
-import { IsHeartValued } from "@/recoil/detail/detail";
+import { IsHeartValued, IsLoginState } from "@/recoil/detail/detail";
+import { isModalOpenState, modalContentState } from "@/recoil/vote/alertModal";
 
 import RegistrationSlide from "../../BottomFixedBtn/RegistrationSlide/RegistrationSlide";
 import ReviewBottomSlide from "../../Contents/ReviewBottomSlide/ReviewBottomSlide";
@@ -21,7 +22,22 @@ const MeatballBottomSlide = ({
   onClose,
 }: NavigationMeatballProps) => {
   const [isHeart, setIsHeart] = useRecoilState(IsHeartValued);
+  const setIsModalOpen = useSetRecoilState(isModalOpenState);
+  const setModalContent = useSetRecoilState(modalContentState);
+  const isLogin = useRecoilValue(IsLoginState);
 
+  const notLoginContent = {
+    title: "로그인이 필요한 기능입니다.",
+    subText: "로그인하고 모든 서비스를 이용해 보세요! ",
+    cancelText: "닫기",
+    actionButton: "로그인하기",
+    isSmallSize: true,
+  };
+
+  const showNotLoginModal = () => {
+    setIsModalOpen(true);
+    setModalContent({ ...notLoginContent });
+  };
   const showToast = CustomToast();
 
   const handleHeartClick = () => {
@@ -31,6 +47,7 @@ const MeatballBottomSlide = ({
 
     setIsHeart(!isHeart);
   };
+
   return (
     <div className={styles.container}>
       <button
@@ -44,9 +61,14 @@ const MeatballBottomSlide = ({
       </button>
       <button
         onClick={() => {
-          handleHeartClick();
-          onClose();
-          document.body.style.removeProperty("overflow");
+          // 비로그인
+          if (isLogin) {
+            handleHeartClick();
+            onClose();
+            document.body.style.removeProperty("overflow");
+          } else {
+            showNotLoginModal();
+          }
         }}
       >
         <div className={styles.container__iconWrapper}>

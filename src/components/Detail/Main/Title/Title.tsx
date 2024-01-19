@@ -3,25 +3,46 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { GoStarFill } from "react-icons/go";
 import { IoShareSocialOutline } from "react-icons/io5";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import styles from "./Title.module.scss";
 
 import CustomToast from "@/components/CustomToast/CustomToast";
 
-import { IsHeartValued } from "@/recoil/detail/detail";
+import { IsHeartValued, IsLoginState } from "@/recoil/detail/detail";
+import { isModalOpenState, modalContentState } from "@/recoil/vote/alertModal";
 
 function Title() {
   const [isHeart, setIsHeart] = useRecoilState(IsHeartValued);
+  const setIsModalOpen = useSetRecoilState(isModalOpenState);
+  const setModalContent = useSetRecoilState(modalContentState);
+
+  const isLogin = useRecoilValue(IsLoginState);
+
+  const notLoginContent = {
+    title: "로그인이 필요한 기능입니다.",
+    subText: "로그인하고 모든 서비스를 이용해 보세요! ",
+    cancelText: "닫기",
+    actionButton: "로그인하기",
+    isSmallSize: true,
+  };
+
+  const showNotLoginModal = () => {
+    setIsModalOpen(true);
+    setModalContent({ ...notLoginContent });
+  };
 
   const showToast = CustomToast();
 
   const handleHeartClick = () => {
-    if (!isHeart) {
-      showToast("찜 목록에 저장되었습니다.");
+    if (isLogin) {
+      if (!isHeart) {
+        showToast("찜 목록에 저장되었습니다.");
+      }
+      setIsHeart(!isHeart);
+    } else {
+      showNotLoginModal();
     }
-
-    setIsHeart(!isHeart);
   };
 
   useEffect(() => {
