@@ -3,14 +3,14 @@ import {useNavigate} from 'react-router-dom';
 
 import styles from './EditTripSpace.module.scss';
 
+import {getSpaceId} from '@/utils/getSpaceId';
+
 import LeaveTripModal from '../LeaveTripModal/LeaveTripModal';
 
 function EditTripSpace() {
   const navigate = useNavigate();
   const {isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose} = useDisclosure();
-
-  const splitUrl = window.location.pathname.split('/');
-  const spaceId = splitUrl[splitUrl.length - 1];
+  const spaceId = getSpaceId();
 
   return (
     <>
