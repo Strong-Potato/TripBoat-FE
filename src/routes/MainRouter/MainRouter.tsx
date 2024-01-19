@@ -12,6 +12,7 @@ import Home from "@/pages/Home/Home";
 import RegionSearch from "@/pages/RegionSearch/RegionSearch";
 import SearchFromHome from "@/pages/SearchFromHome/SearchFromHome";
 import Trip from "@/pages/Trip/Trip";
+import ModifyProfile from "@/pages/User/ModifyProfile/ModifyProfile";
 import User from "@/pages/User/User";
 import UserPrivacy from "@/pages/User/UserPrivacy/UserPrivacy";
 import Vote from "@/pages/Vote/Vote";
@@ -26,6 +27,7 @@ function MainRouter() {
         <Route path="/heart" element={<Home />} />
         <Route path="/user" element={<User />} />
         <Route path="/user/privacy" element={<UserPrivacy />} />
+        <Route path="/user/edit/profile" element={<ModifyProfile />} />
       </Route>
       <Route path="/auth/login" element={<Login />} />
       <Route path="/vote/:id" element={<Vote />} />

@@ -23,10 +23,6 @@ function User() {
   );
   const navigate = useNavigate();
 
-  const onClickPencil = () => {
-    // 프로필 수정 페이지 이동
-  };
-
   const onClickAlert = () => {
     if (Notification.permission === "denied") {
       //브라우저 알림 설정이 해제되어있습니다 alert
@@ -47,7 +43,9 @@ function User() {
         >
           <button
             className={styles.profile__image__edit}
-            onClick={onClickPencil}
+            onClick={() => {
+              navigate("/user/edit/profile");
+            }}
           >
             <Pencil width={16} height={16} />
           </button>
