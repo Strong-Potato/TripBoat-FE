@@ -1,14 +1,15 @@
-import { useState } from "react";
+import {useState} from 'react';
 
-import styles from "./LocationFliterPage.module.scss";
+import styles from './LocationFliterPage.module.scss';
 
-import BackIcon from "@/assets/homeIcons/search/backInHome.svg?react";
+import BackIcon from '@/assets/homeIcons/search/backInHome.svg?react';
 
-import PopularList from "./PopularList/PopularList";
-import SelectLocation from "./SelectLocation/SelectLocation";
+import PopularList from './PopularList/PopularList';
+import SelectLocation from './SelectLocation/SelectLocation';
 
 interface PropsType {
   click: boolean;
+  searchLocation: string;
   handleClick: () => void;
   setSearchLocation: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -18,14 +19,11 @@ interface AreaDataType {
   sigunguCode: number;
 }
 
-function LocationFliterPage({
-  click,
-  handleClick,
-  setSearchLocation,
-}: PropsType) {
-  const [area, setArea] = useState("전국");
+function LocationFliterPage({click, handleClick, setSearchLocation}: PropsType) {
+  const [area, setArea] = useState('전국');
   const [areaData, setAreaData] = useState<AreaDataType[]>();
-  const [sigungu, setSigungu] = useState("전체 지역");
+  const [sigungu, setSigungu] = useState('전체 지역');
+  const [pick, setPick] = useState('');
 
   const vh = window.innerHeight / 100;
 
@@ -37,7 +35,12 @@ function LocationFliterPage({
   return (
     <div
       className={styles.container}
-      style={{ right: click ? "-100%" : 0, height: `${vh * 100}px` }}
+      style={{
+        position: window.innerWidth > 450 ? 'absolute' : 'fixed',
+        top: window.innerWidth > 450 ? '-88px' : 0,
+        right: click ? '-100%' : 0,
+        height: `${vh * 100}px`,
+      }}
     >
       <div className={styles.exitSection}>
         <button onClick={handleClick}>
@@ -48,12 +51,13 @@ function LocationFliterPage({
       <div className={styles.popularSection}>
         <p>인기 지역</p>
       </div>
-      <PopularList setArea={setArea} setSigungu={setSigungu} />
-      <div style={{ marginTop: "24px" }}>
+      <PopularList pick={pick} setPick={setPick} setArea={setArea} setSigungu={setSigungu} />
+      <div style={{marginTop: '24px'}}>
         <SelectLocation
           area={area}
           areaData={areaData}
           sigungu={sigungu}
+          setPick={setPick}
           setArea={setArea}
           setAreaData={setAreaData}
           setSigungu={setSigungu}
