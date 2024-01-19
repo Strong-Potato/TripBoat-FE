@@ -69,7 +69,11 @@ function User() {
       </section>
 
       <ul className={styles.infoDetail}>
-        <li>
+        <li
+          onClick={() => {
+            navigate("/user/privacy");
+          }}
+        >
           <div>계정 관리</div>
           <RiArrowRightSLine size="24" />
         </li>
