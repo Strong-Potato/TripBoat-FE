@@ -24,3 +24,13 @@ export const IsLoginState = atom<boolean>({
   key: "IsLoginState",
   default: true,
 });
+
+export const TabIndexState = atom<number>({
+  key: "TabIndexState",
+  default: 0,
+});
+
+export const TabYPosition = atom<number>({
+  key: "TabYPosition",
+  default: 0,
+});

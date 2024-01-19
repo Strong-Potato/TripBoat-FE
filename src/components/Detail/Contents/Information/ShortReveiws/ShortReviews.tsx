@@ -6,7 +6,11 @@ import styles from "./ShortReviews.module.scss";
 
 import Review from "@/components/Detail/Contents/Review/Review";
 
-import { IsLoginState } from "@/recoil/detail/detail";
+import {
+  IsLoginState,
+  TabIndexState,
+  TabYPosition,
+} from "@/recoil/detail/detail";
 import { isModalOpenState, modalContentState } from "@/recoil/vote/alertModal";
 
 import { ContentsShortReviewsProps } from "@/types/detail";
@@ -15,6 +19,8 @@ function ShortReviews({ onOpen }: ContentsShortReviewsProps) {
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
   const isLogin = useRecoilValue(IsLoginState);
+  const setTabIndex = useSetRecoilState(TabIndexState);
+  const tabPosition = useRecoilValue(TabYPosition);
 
   const notLoginContent = {
     title: "로그인이 필요한 기능입니다.",
@@ -95,7 +101,13 @@ function ShortReviews({ onOpen }: ContentsShortReviewsProps) {
           />
         ))}
       </div>
-      <div className={styles.container__allBtn}>
+      <div
+        className={styles.container__allBtn}
+        onClick={() => {
+          setTabIndex(1);
+          window.scrollTo(0, tabPosition);
+        }}
+      >
         <span>리뷰 전체보기</span>
       </div>
     </div>
