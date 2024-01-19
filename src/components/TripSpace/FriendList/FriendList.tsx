@@ -2,7 +2,7 @@ import { Avatar } from "@chakra-ui/react";
 
 import styles from "./FriendList.module.scss";
 
-import { FriendListProps } from "@/types/FriendList";
+import { FriendListProps } from "@/types/friendList";
 function FriendList({ users }: FriendListProps) {
   return (
     <div className={styles.container}>

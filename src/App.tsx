@@ -2,6 +2,7 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {Suspense} from 'react';
 import {CookiesProvider} from 'react-cookie';
 import {BrowserRouter} from 'react-router-dom';
+import './firebase/messaging-init-in-sw';
 
 import './sass/index.scss';
 
