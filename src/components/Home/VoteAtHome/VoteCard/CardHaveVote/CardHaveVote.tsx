@@ -14,7 +14,7 @@ interface PropsType {
   data: VoteDataType[];
 }
 
-function CardHaveVote(data: PropsType) {
+function CardHaveVote({ data }: PropsType) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
   return (
@@ -24,7 +24,7 @@ function CardHaveVote(data: PropsType) {
         setSlideLocation={setSlideLocation}
         itemWidth={308}
         flexGap={8}
-        itemNumber={data.data.length}
+        itemNumber={data.length}
         slideSize={size}
       />
       <div
@@ -36,7 +36,7 @@ function CardHaveVote(data: PropsType) {
         }}
       >
         {data &&
-          data.data.map((data, i) => {
+          data.map((data, i) => {
             const imageAlt = `${data.title}의 사진`;
             return (
               <div className={styles.vote_box} key={data.profile + i}>
