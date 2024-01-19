@@ -24,6 +24,8 @@ function RegistrationSlide({ slideOnClose }: RegistrationSlideProps) {
 
   // useEffect fetchData
 
+  const exArray = [];
+
   return (
     <>
       <div className={styles.container}>
@@ -57,26 +59,37 @@ function RegistrationSlide({ slideOnClose }: RegistrationSlideProps) {
         <RegistrationTripSpace setTripSelected={setTripSelected} />
         <div className={styles.container__voteTitle}>투표리스트</div>
         {TripSelected ? (
-          <div>
-            <div className={styles.container__voteSelected}>
-              <span>후보로 등록할 투표 제목을 선택해주세요</span>
+          exArray.length > 0 ? (
+            <div>
+              <div className={styles.container__voteSelected}>
+                <span>후보로 등록할 투표 제목을 선택해주세요</span>
+              </div>
+              <div className={styles.container__voteList}>
+                <RegistrationListItem
+                  title="맛집 어디갈까"
+                  isSelectedProps={true}
+                />
+                {/*  초과 글씨 ... 처리 해야함*/}
+                <RegistrationListItem
+                  title="둘째 날 숙소 어디서 묵지?"
+                  isSelectedProps={false}
+                />
+                <RegistrationListItem
+                  title="루프탑 카페 정하자~"
+                  isSelectedProps={false}
+                />
+              </div>
             </div>
-            <div className={styles.container__voteList}>
-              <RegistrationListItem
-                title="맛집 어디갈까"
-                isSelectedProps={true}
-              />
-              {/*  초과 글씨 ... 처리 해야함*/}
-              <RegistrationListItem
-                title="둘째 날 숙소 어디서 묵지?"
-                isSelectedProps={false}
-              />
-              <RegistrationListItem
-                title="루프탑 카페 정하자~"
-                isSelectedProps={false}
-              />
+          ) : (
+            <div className={styles.container__voteNotValued}>
+              <p className={styles.container__voteNotValued__top}>
+                생성된 투표가 없습니다.
+              </p>
+              <p className={styles.container__voteNotValued__bottom}>
+                투표 생성을 눌러 새로운 투표를 만들어주세요!
+              </p>
             </div>
-          </div>
+          )
         ) : (
           <div className={styles.container__voteUnSelected}>
             <span>여행을 먼저 선택해주세요</span>
