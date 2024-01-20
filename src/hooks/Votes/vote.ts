@@ -1,6 +1,6 @@
 import {useMutation, useQueryClient, useSuspenseQuery} from '@tanstack/react-query';
 
-import {deleteVote, editVoteTitle, getVoteInfo, getVoteListInfo, PostNewVote} from '@/api/vote';
+import {deleteCandidates, deleteVote, editVoteTitle, getVoteInfo, getVoteListInfo, PostNewVote} from '@/api/vote';
 
 /* ----------------------------------- Q U E R Y ---------------------------------- */
 
@@ -47,9 +47,14 @@ export const useEditVoteTitle = () => {
   return useCustomMutation(editVoteTitle, ['vote']);
 };
 
-//voteTitle 수정 PUT
+//vote 삭제 DELETE  -> 쿼리 무효화 필요없는지 확인하기
 export const useDeleteVote = () => {
   return useCustomMutation(deleteVote, ['votes']);
+};
+
+//candidate 삭제- api 미정
+export const useDeleteCandidates = () => {
+  return useCustomMutation(deleteCandidates, ['votes']);
 };
 
 //커스텀 mutation 사용 전
@@ -74,7 +79,7 @@ export const useDeleteVote = () => {
 //   });
 // };
 
-//voteTitle 수정 PUT
+//vote 삭제 DELETE
 // export const useDeleteVote = () => {
 //   const queryClient = useQueryClient();
 //   return useMutation({

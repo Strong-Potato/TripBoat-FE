@@ -108,10 +108,12 @@ export interface PostVoteTitleProps {
 }
 
 //get아니고 후보메모post
-export interface PostTaglineProps {
+export interface PostNewCandidateProps {
   voteId: number;
-  placeId: number;
-  tagline: string;
+  candidates: {
+    placeId: number;
+    tagline: string;
+  }[];
 }
 
 export interface CandidatesSlideProps {
@@ -128,4 +130,8 @@ export interface CreateVoteModalProps {
 export interface EditVoteTitleProps {
   title: string;
   voteId: number;
+}
+export interface DeleteCandidatesProps {
+  voteId: number;
+  candidateId: number[];
 }

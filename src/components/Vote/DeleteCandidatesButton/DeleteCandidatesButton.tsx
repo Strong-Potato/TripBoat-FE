@@ -1,50 +1,48 @@
-import { HiOutlineTrash } from "react-icons/hi";
-import { IoMdClose } from "react-icons/io";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import {HiOutlineTrash} from 'react-icons/hi';
+import {IoMdClose} from 'react-icons/io';
+import {useParams} from 'react-router-dom';
+import {useRecoilState, useSetRecoilState} from 'recoil';
 
-import styles from "./DeleteCandidatesButton.module.scss";
+import styles from './DeleteCandidatesButton.module.scss';
 
-import AlertModal from "@/components/AlertModal/AlertModal";
+import {useDeleteCandidates} from '@/hooks/Votes/vote';
 
-// import useSetAlertModalContent from "@/hooks/useSetAlertModalContent";
-import {
-  isCandidateSelectingState,
-  isModalOpenState,
-  modalContentState,
-} from "@/recoil/vote/alertModal";
-import { selectedCandidatesState } from "@/recoil/vote/candidateList";
+import AlertModal from '@/components/AlertModal/AlertModal';
 
-import { deleteCandidateContent } from "../VoteBottomSlideContent/VoteMeatball/modalContent";
+import {isCandidateSelectingState, isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
+import {selectedCandidatesState} from '@/recoil/vote/candidateList';
+
+import {deleteCandidateContent} from '../VoteBottomSlideContent/VoteMeatball/modalContent';
 
 const DeleteCandidatesButton = () => {
-  const [selectedCandidates, setSelectedCandidates] = useRecoilState(
-    selectedCandidatesState,
-  );
+  const {id: voteId} = useParams();
+  const [selectedCandidates, setSelectedCandidates] = useRecoilState(selectedCandidatesState);
+  const [modalContent, setModalContent] = useRecoilState(modalContentState);
   const setIsCandidateSelecting = useSetRecoilState(isCandidateSelectingState);
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
-  const [modalContent, setModalContent] = useRecoilState(modalContentState);
+
+  const deleteCandidateMutation = useDeleteCandidates();
+
+  const deleteCandidate = () => {
+    deleteCandidateMutation.mutate({voteId: Number(voteId), candidateId: [...selectedCandidates]});
+  };
 
   const showDeleteCandidateModal = () => {
-    //삭제api
-    console.log("삭제하기모달오픈");
     setIsModalOpen(true);
     setModalContent({
       ...deleteCandidateContent,
-      onClickAction: () => console.log("삭제됨~~~", selectedCandidates),
+      onClickAction: deleteCandidate,
     });
   };
 
-  const cancelSelectingCandidate = () => {
+  const cancelSelecting = () => {
     setIsCandidateSelecting(false);
     setSelectedCandidates(new Set());
   };
 
   return (
     <div className={styles.container}>
-      <button
-        className={styles.cancelButton}
-        onClick={cancelSelectingCandidate}
-      >
+      <button className={styles.cancelButton} onClick={cancelSelecting}>
         <IoMdClose /> 취소
       </button>
       <button

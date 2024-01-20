@@ -156,6 +156,11 @@ export const vote = [
   http.delete('/api/votes/11', () => {
     return HttpResponse.json({data: '투표 삭제 성공'}, {status: 200});
   }),
+
+  //candidate 삭제 DELETE
+  http.delete('/api/votes/11/candidates/11', () => {
+    return HttpResponse.json({data: '투표 삭제 성공'}, {status: 200});
+  }),
 ];
 
 //vote 제목 수정 PUT
