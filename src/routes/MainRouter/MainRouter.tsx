@@ -14,6 +14,7 @@ import RegionSearch from "@/pages/RegionSearch/RegionSearch";
 import SearchFromHome from "@/pages/SearchFromHome/SearchFromHome";
 import Trip from "@/pages/Trip/Trip";
 import ModifyProfile from "@/pages/User/ModifyProfile/ModifyProfile";
+import MySpace from "@/pages/User/MySpace/MySpace";
 import User from "@/pages/User/User";
 import UserPrivacy from "@/pages/User/UserPrivacy/UserPrivacy";
 import Vote from "@/pages/Vote/Vote";
@@ -29,6 +30,7 @@ function MainRouter() {
         <Route path="/user" element={<User />} />
         <Route path="/user/privacy" element={<UserPrivacy />} />
         <Route path="/user/profile/edit" element={<ModifyProfile />} />
+        <Route path="/user/myspace" element={<MySpace />} />
       </Route>
       <Route path="/auth/login" element={<Login />} />
       <Route path="/vote/:id" element={<Vote />} />

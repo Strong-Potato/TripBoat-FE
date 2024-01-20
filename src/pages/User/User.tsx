@@ -56,7 +56,12 @@ function User() {
       </section>
 
       <section className={styles.mywork}>
-        <button className={styles.mywork__space}>
+        <button
+          className={styles.mywork__space}
+          onClick={() => {
+            navigate("/user/myspace");
+          }}
+        >
           <MapPin />
           <div className={styles.myworkTitle}>내 여행 스페이스</div>
         </button>

@@ -1,0 +1,97 @@
+@use "@/sass" as *;
+
+.container {
+  margin-top: 80px;
+  margin-bottom: 72px;
+  color: $neutral900;
+
+  .myspace {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    &__tab {
+      position: relative;
+      top: 0;
+      display: flex;
+      justify-content: space-around;
+      height: auto;
+      padding: 0;
+      padding-bottom: 12px;
+
+      @include typography(tabLabel);
+
+      &__target {
+        color: $neutral300;
+        width: 50%;
+        text-align: center;
+
+        &.selected {
+          font-weight: 700;
+          color: $neutral900;
+        }
+      }
+
+      .bar {
+        position: absolute;
+        bottom: 0;
+
+        width: 50%;
+        height: 2px;
+        background-color: $primary300;
+
+        transition: all 0.2s ease-out;
+
+        &.left {
+          left: 0;
+        }
+        &.right {
+          left: 50%;
+        }
+      }
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 0 20px;
+
+      & > li {
+        display: flex;
+        gap: 16px;
+
+        height: 9rem;
+        border: 1px solid $neutral200;
+        border-radius: 16px;
+      }
+
+      &__img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 6.6rem;
+        background-position: center;
+        background-size: cover;
+        border-radius: 16px 0px 0px 16px;
+
+        @include typography(button);
+        color: $neutral0;
+      }
+      &__content {
+        flex: 1;
+        padding: 20px 0;
+
+        &__title {
+          @include typography(titleSmall);
+          margin-bottom: 4px;
+        }
+        &__date {
+          @include typography(bodySmall);
+          color: $neutral400;
+        }
+      }
+    }
+  }
+}
