@@ -41,16 +41,16 @@ const CreateVoteModal = ({isEditMode, existingTitle}: CreateVoteModalProps) => {
     setIsCreateModalOpen(false);
   };
 
-  const handleCreateVote = (inputValue: string) => {
-    const res = postNewVoteMutation.mutate({spaceId: path, title: inputValue});
+  const handleCreateVote = async (inputValue: string) => {
+    const res = await postNewVoteMutation.mutateAsync({spaceId: path, title: inputValue});
     newClose();
+    console.log('만들기~~', res);
     // navigate(`/vote/${data.id}`)
   };
 
   const handleEditVoteTitle = (inputValue: string) => {
     setIsCreateModalOpen(false);
-    console.log('inputValue', inputValue);
-    const res = editTitleMutation.mutate({voteId: path, title: inputValue});
+    editTitleMutation.mutate({voteId: path, title: inputValue});
   };
 
   return (

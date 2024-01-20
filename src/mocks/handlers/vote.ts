@@ -130,22 +130,16 @@ const postVotesRes = {
 export const vote = [
   //voteList
   http.get('/api/votes/1', () => {
-    return HttpResponse.json(voteListData, {
-      status: 200,
-    });
+    return HttpResponse.json(voteListData, {status: 200});
   }),
 
   //vote id:11
   http.get(`/api/votes/11`, () => {
-    return HttpResponse.json(voteData, {
-      status: 200,
-    });
+    return HttpResponse.json(voteData, {status: 200});
   }),
   //vote id:22
   http.get(`/api/votes/22`, () => {
-    return HttpResponse.json(voteData, {
-      status: 200,
-    });
+    return HttpResponse.json(voteData, {status: 200});
   }),
   //vote 결과보기 GET /votes/{voteId}/result
 
@@ -159,8 +153,10 @@ export const vote = [
   //votes/{voteId}/candidates/{candidatesId} 별 투표하기 POST
 
   //vote 삭제 DELETE /votes/{voteId}
+  http.delete('/api/votes/11', () => {
+    return HttpResponse.json({data: '투표 삭제 성공'}, {status: 200});
+  }),
 ];
 
 //vote 제목 수정 PUT
-
 //candidate 삭제 DELETE

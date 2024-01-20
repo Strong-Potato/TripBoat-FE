@@ -1,7 +1,10 @@
 // import { useState } from "react";
+import {useParams} from 'react-router-dom';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './VoteMeatball.module.scss';
+
+import {useDeleteVote} from '@/hooks/Votes/vote';
 
 import AlertModal from '@/components/AlertModal/AlertModal';
 
@@ -19,31 +22,38 @@ import CreateVoteModal from '../../CreateVoteModal/CreateVoteModal';
 import {AlertModalProps, VoteMeatballProps} from '@/types/vote';
 
 const VoteMeatball = ({state, title, isZeroCandidates}: VoteMeatballProps) => {
+  const {id: voteId} = useParams();
   const setIsCreateModalOpen = useSetRecoilState(isCreateModalOpenState);
   const setIsBTOpen = useSetRecoilState(isBottomSlideOpenState);
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const [modalContent, setModalContent] = useRecoilState(modalContentState);
   const setIsCandidateSelecting = useSetRecoilState(isCandidateSelectingState);
 
+  const deleteVoteMutation = useDeleteVote();
+
   const modalConsole = () => {
     console.log('변경');
   };
 
   const showAlertModal = ({...content}: AlertModalProps) => {
+    setIsBTOpen(false);
     setIsModalOpen(true);
     setModalContent({...content});
-    setIsBTOpen(false);
   };
 
   const changeToCandidateSelecting = () => {
     setIsCandidateSelecting(true);
-    console.log('체체체체인지');
     setIsBTOpen(false);
   };
 
   const showEditTitleModal = () => {
     setIsBTOpen(false);
     setIsCreateModalOpen(true);
+  };
+
+  const deleteVote = async () => {
+    const res = await deleteVoteMutation.mutateAsync(Number(voteId));
+    console.log('delete 결과:', res);
   };
 
   return (
@@ -78,7 +88,7 @@ const VoteMeatball = ({state, title, isZeroCandidates}: VoteMeatballProps) => {
         <p>후보 삭제</p>
       </button>
 
-      <button onClick={() => showAlertModal({onClickAction: modalConsole, ...deleteVoteContent})}>
+      <button onClick={() => showAlertModal({onClickAction: deleteVote, ...deleteVoteContent})}>
         <TrashIcon />
         <p>투표 전체 삭제</p>
       </button>
