@@ -1,50 +1,28 @@
-import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
+import {useMutation, useQueryClient, useSuspenseQuery} from '@tanstack/react-query';
 
-import {PostNewVote} from '@/api/vote';
-import {getVoteInfo} from '@/mocks/handlers/vote';
+import {getVoteInfo, getVoteListInfo, PostNewVote} from '@/api/vote';
 
-import {postVoteTitleProps} from './../../types/vote';
-
-// export const useAccommodationInfoQuery = () => {
-//   return useQuery({
-//     queryKey: [],
-//     queryFn:
-//   });
-// };
-
-// export const usePostCart = () => {
-//   const queryClient = useQueryClient();
-
-//   return useMutation({
-//     mutationFn:
-//     onSuccess: () => {
-//       queryClient.invalidateQueries({ queryKey: ["fetchCarts"] });
-//       setTimeout(() => setIsButtonDisabled(false), 3000);
-//     },
-//   });
-// };
-
-export const useGetVotesInfoQuery = (voteId: string) => {
-  return useQuery({
+//단일 보트 GET
+export const useGetVotesInfo = (voteId: number) => {
+  return useSuspenseQuery({
     queryKey: ['votes', voteId],
     queryFn: () => getVoteInfo(voteId),
   });
 };
 
-export const usePostVoteTitle = ({spaceId, title}: postVoteTitleProps) => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: () => PostNewVote({spaceId, title}),
-    onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['votes']});
-    },
+//보트 리스트 GET
+export const useGetVoteListInfo = (spaceId: number) => {
+  return useSuspenseQuery({
+    queryKey: ['votes', spaceId],
+    queryFn: () => getVoteListInfo(spaceId),
   });
 };
 
-// const { mutateAsync } = useMutation(updateData);
+export const usePostNewVote = () => {
+  const queryClient = useQueryClient();
 
-// // 비동기 함수를 직접 호출하지 않음
-// const handleUpdate = async () => {
-//   await mutateAsync();
-// };
+  return useMutation({
+    mutationFn: PostNewVote,
+    onSuccess: () => queryClient.invalidateQueries({queryKey: ['votes']}),
+  });
+};

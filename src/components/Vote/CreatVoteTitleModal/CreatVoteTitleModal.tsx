@@ -14,23 +14,32 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import {useState} from 'react';
+import {useLocation} from 'react-router-dom';
 
 import styles from './CreatVoteTitleModal.module.scss';
+
+import {usePostNewVote} from '@/hooks/Votes/vote';
 
 import VoteIcon from '@/assets/voteIcons/ic_vote.svg?react';
 
 const CreatVoteTitleModal = () => {
   const {isOpen, onOpen, onClose} = useDisclosure();
-  const [inputCount, setInputCount] = useState<number>(0);
+  const location = useLocation();
+  const spaceId = Number(location.pathname.split('/')[2]);
+  const [inputValue, setInputValue] = useState('');
+  const postNewVoteMutation = usePostNewVote();
   // const navigate = useNavigate();
 
   const newClose = () => {
-    setInputCount(0);
+    setInputValue('');
     onClose();
   };
 
-  const createNewVote = () => {
+  const handleCreateVote = (inputValue: string) => {
+    const res = postNewVoteMutation.mutate({spaceId: 1, title: inputValue});
     newClose();
+
+    console.log('res', res);
     // navigate(`/vote/${data.id}`)
   };
 
@@ -60,7 +69,7 @@ const CreatVoteTitleModal = () => {
           <ModalBody p='0'>
             <FormControl justifyContent={'center'}>
               <Input
-                onChange={(e) => setInputCount(e.target.value.length)}
+                onChange={(e) => setInputValue(e.target.value)}
                 maxLength={15}
                 borderColor='neutral.800'
                 focusBorderColor='primary.300'
@@ -76,7 +85,7 @@ const CreatVoteTitleModal = () => {
                 mt='4px'
                 mr='-1px'
               >
-                {inputCount}/15자
+                {inputValue.length}/15자
               </FormLabel>
             </FormControl>
           </ModalBody>
@@ -84,11 +93,11 @@ const CreatVoteTitleModal = () => {
           <ModalFooter p='0' mt='24px'>
             <Button
               type='submit'
-              onClick={createNewVote}
+              onClick={() => handleCreateVote}
               variant='blueButton'
               w='100%'
               h='48px'
-              isDisabled={inputCount === 0}
+              isDisabled={inputValue.length === 0}
             >
               완료
             </Button>

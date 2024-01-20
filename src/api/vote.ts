@@ -1,25 +1,30 @@
 import axios from 'axios';
 
-import {postTaglineProps, postVoteTitleProps, VoteListInfo} from '@/types/vote';
+import {postTaglineProps, postVoteTitleProps, VoteInfo, VoteListInfo} from '@/types/vote';
 
 //단일vote
-export const getVoteInfo = async (voteId: string) => {
+export const getVoteInfo = async (voteId: number): Promise<VoteInfo> => {
   const response = await axios.get(`/api/votes/${voteId}`);
-  return response.data.data;
+  return response.data;
 };
 
 //voteList in space
-export const getVoteListInfo = async (spaceId: string): Promise<VoteListInfo> => {
+export const getVoteListInfo = async (spaceId: number): Promise<VoteListInfo[]> => {
   const response = await axios.get(`/api/votes/${spaceId}`);
-  return response.data.data;
+  return response.data;
 };
 
 //getVotesResults
 
 //vote 추가
-export const PostNewVote = async ({spaceId, title}: postVoteTitleProps): Promise<void> => {
-  const response = await axios.post('/api/votes', {params: {spaceId, title}});
-  return response.data;
+export const PostNewVote = async ({spaceId, title}: postVoteTitleProps) => {
+  try {
+    const response = await axios.post('/api/votes', {params: {spaceId, title}});
+    console.log('response', response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 //후보 메모 후 추가

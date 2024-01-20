@@ -1,8 +1,4 @@
-import axios from 'axios';
 import {http, HttpResponse} from 'msw';
-import {Dispatch} from 'react';
-
-import {VoteInfo} from '@/types/vote';
 
 const candidateData = [
   {
@@ -57,7 +53,7 @@ const candidateData = [
 
 const voteListData = [
   {
-    voteId: '11',
+    voteId: 11,
     title: '호텔은 여기어때',
     voteStatus: '진행 중',
     ownerProfile: {
@@ -78,7 +74,7 @@ const voteListData = [
     ],
   },
   {
-    voteId: '22',
+    voteId: 22,
     title: '카페 고르자',
     voteStatus: '결정완료',
     ownerProfile: {
@@ -101,7 +97,7 @@ const voteListData = [
 ];
 
 const voteData = {
-  id: '11',
+  id: 11,
   title: '호텔은 여기어때',
   ownerProfile: {
     id: '1996',
@@ -110,12 +106,12 @@ const voteData = {
   votedMemberProfiles: [
     {
       id: 2323,
-      nickName: '제니',
+      nickName: '로제',
       profile: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
     },
     {
       id: 3333,
-      nickName: '리사',
+      nickName: '지수',
       profile: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
     },
   ],
@@ -127,7 +123,7 @@ const voteData = {
 //const foundObject = voteListData.find((item) => item.id === targetId);
 
 export const vote = [
-  http.get('/api/votes/', () => {
+  http.get('/api/votes/1', () => {
     return HttpResponse.json(voteListData, {
       status: 200,
     });
@@ -144,34 +140,14 @@ export const vote = [
       status: 200,
     });
   }),
+
+  //vote 만들기
+  http.post(`/api/votes`, () => {
+    return HttpResponse.json(
+      {data: 11, message: '투표 만들기 성공'},
+      {
+        status: 200,
+      },
+    );
+  }),
 ];
-
-export async function getVoteListData<T>(setter: Dispatch<React.SetStateAction<T>>) {
-  try {
-    const {data: res} = await axios.get('/api/votes/');
-    setter(res);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-export async function getVoteData<T>(id: string, setter: Dispatch<React.SetStateAction<T>>) {
-  try {
-    const {data: res} = await axios.get(`/api/votes/${id}`);
-    setter(res);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-//단일vote
-export const getVoteInfo = async (voteId: string): Promise<VoteInfo> => {
-  const response = await axios.get(`/api/votes/${voteId}`);
-  return response.data;
-};
-
-//여러 vote in space
-export const getVoteListInfo = async (spaceId: string) => {
-  const response = await axios.get(`/api/votes/${spaceId}`);
-  return response.data.data;
-};

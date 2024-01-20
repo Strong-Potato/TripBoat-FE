@@ -1,27 +1,6 @@
 import {Dispatch, ReactNode} from 'react';
 import {SwiperRef} from 'swiper/react';
 
-export interface CandidateData {
-  name: string;
-  imageURL: string;
-  category: string;
-  location: string;
-  voteUserId: string[];
-  voteCounts: number;
-  memo: string;
-  id: number;
-}
-[];
-
-export interface VoteListData {
-  title: string;
-  profile: string;
-  state: string;
-  voteUserId: string[];
-  candidates: CandidateData[];
-  id: string;
-}
-
 export interface Latlng {
   lat: number;
   lng: number;
@@ -51,7 +30,7 @@ interface VotedMemberProfiles {
 [];
 
 export interface VoteListInfo {
-  voteId: string;
+  voteId: number;
   title: string;
   voteStatus: string;
   ownerProfile: {
@@ -63,7 +42,7 @@ export interface VoteListInfo {
 }
 
 export interface VoteInfo {
-  id: string;
+  id: number;
   title: string;
   ownerProfile: {
     id: number;
@@ -134,7 +113,7 @@ export interface postVoteTitleProps {
 
 //get아니고 후보메모post
 export interface postTaglineProps {
-  voteId: string;
+  voteId: number;
   placeId: number;
   tagline: string;
 }
