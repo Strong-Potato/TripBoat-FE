@@ -1,18 +1,14 @@
-import {useNavigate} from 'react-router-dom';
+import './MapZoomIn.module.scss';
+import styles from './MapZoomIn.module.scss';
 
-import styles from './RouteTabPanel.module.scss';
+import useGoBack from '@/hooks/useGoBack';
 
-import ZoomInIcon from '@/assets/icons/zoomIn.svg?react';
-import {getSpaceId} from '@/utils/getSpaceId';
+import RouteMapBody from '@/components/MapZoomIn/RouteMapBody/RouteMapBody';
 
-import DayNavigationBar from '../DayNavigationBar/DayNavigationBar';
-import DayRoute from '../DayRoute/DayRoute';
-import EmptyDate from '../EmptyDate/EmptyDate';
-import MapInTrip from '../MapInTrip/MapInTrip';
+import BackIcon from '@/assets/back.svg?react';
 
-import {DateItem, MapInTripProps} from '@/types/route';
-
-function RouteTabPanel({mapRef, center}: MapInTripProps) {
+function MapZoomIn() {
+  const goBack = useGoBack();
   const data = {
     journeys: [
       {
@@ -105,36 +101,17 @@ function RouteTabPanel({mapRef, center}: MapInTripProps) {
     ],
   };
 
-  const navigate = useNavigate();
-  const spaceId = getSpaceId();
-
-  if (!data.journeys || data.journeys.length === 0) {
-    return <EmptyDate />;
-  }
-
-  const dateList: DateItem[] = data.journeys.map((journey) => ({
-    date: journey.date,
-  }));
-
   return (
-    <div className={styles.panelContainer}>
-      <div className={styles.mapContainer}>
-        <MapInTrip mapRef={mapRef} center={center} />
+    <div>
+      <div className={styles.navigationTitleContainer}>
+        <button onClick={goBack}>
+          <BackIcon />
+        </button>
+        <h1>스페이스 타이틀</h1>
       </div>
-      <button className={styles.zoomInbutton} onClick={() => navigate(`/trip/${spaceId}/map`)}>
-        <ZoomInIcon />
-      </button>
-      <div className={styles.routeContainer}>
-        <DayNavigationBar dateList={dateList} />
-        <div className={styles.journeysContainer}>
-          {data.journeys &&
-            data.journeys.map((journey, index) => (
-              <DayRoute key={index} day={index + 1} date={journey.date} placeList={journey.places} />
-            ))}
-        </div>
-      </div>
+      <RouteMapBody journeys={data.journeys} />
     </div>
   );
 }
 
-export default RouteTabPanel;
+export default MapZoomIn;

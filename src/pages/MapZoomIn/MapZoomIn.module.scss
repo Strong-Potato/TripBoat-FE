@@ -1,0 +1,19 @@
+@use '@/sass' as *;
+
+.navigationTitleContainer {
+  position: fixed;
+  top: 0;
+  display: flex;
+  gap: 1.2rem;
+  width: 100%;
+  min-width: 36rem;
+  max-width: 45rem;
+  padding: 16px 20px;
+  background-color: $neutral0;
+  z-index: 2;
+
+  h1 {
+    @include typography(button);
+    color: $neutral900;
+  }
+}

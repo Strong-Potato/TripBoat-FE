@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+
 import styles from "./Home.module.scss";
 
 import useLockBodyScroll from "@/hooks/useLockBodyScroll";
@@ -14,15 +15,16 @@ import VoteAtHome from "@/components/Home/VoteAtHome/VoteAtHome";
 import Invitation from "@/components/Modal/Invitation/Invitation";
 
 function Home() {
+  const [onboarding, setOnboarding] = useState(true);
+  const [cookies] = useCookies(["inviteCode", "isLogin"]);
+  const [modal, setModal] = useState(false);
+
   useEffect(() => {
     if (!window.localStorage.getItem("onboarding")) {
       setOnboarding(false);
     }
   }, []);
 
-  const [onboarding, setOnboarding] = useState(true);
-  const [cookies] = useCookies(["inviteCode", "isLogin"]);
-  const [modal, setModal] = useState(false);
   useLockBodyScroll(modal);
 
   useEffect(() => {
