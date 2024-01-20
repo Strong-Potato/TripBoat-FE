@@ -1,6 +1,6 @@
 import {useMutation, useQueryClient, useSuspenseQuery} from '@tanstack/react-query';
 
-import {getVoteInfo, getVoteListInfo, PostNewVote} from '@/api/vote';
+import {editVoteTitle, getVoteInfo, getVoteListInfo, PostNewVote} from '@/api/vote';
 
 //단일 보트 GET
 export const useGetVotesInfo = (voteId: number) => {
@@ -25,6 +25,17 @@ export const usePostNewVote = () => {
     mutationFn: PostNewVote,
     onSuccess: (data) => {
       console.log('투표 만들기 성공:', data), queryClient.invalidateQueries({queryKey: ['votes']});
+    },
+  });
+};
+
+export const useEditVoteTitle = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: editVoteTitle,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['votesTitle']});
     },
   });
 };

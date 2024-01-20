@@ -128,26 +128,39 @@ const postVotesRes = {
 };
 
 export const vote = [
+  //voteList
   http.get('/api/votes/1', () => {
     return HttpResponse.json(voteListData, {
       status: 200,
     });
   }),
 
+  //vote id:11
   http.get(`/api/votes/11`, () => {
     return HttpResponse.json(voteData, {
       status: 200,
     });
   }),
-
+  //vote id:22
   http.get(`/api/votes/22`, () => {
     return HttpResponse.json(voteData, {
       status: 200,
     });
   }),
+  //vote 결과보기 GET /votes/{voteId}/result
 
-  //vote 만들기
+  //vote 만들기 POST
   http.post('/api/votes', () => {
     return HttpResponse.json(postVotesRes, {status: 200});
   }),
+
+  ///votes/{voteId}/candidates candidate메모와 함께 추가 POST
+
+  //votes/{voteId}/candidates/{candidatesId} 별 투표하기 POST
+
+  //vote 삭제 DELETE /votes/{voteId}
 ];
+
+//vote 제목 수정 PUT
+
+//candidate 삭제 DELETE

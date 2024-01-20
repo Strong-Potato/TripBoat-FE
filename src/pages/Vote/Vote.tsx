@@ -48,10 +48,14 @@ const Vote = () => {
     <div className={styles.container}>
       <VoteHeader
         isNoCandidate={voteInfo.candidates.length === 0}
-        title={voteInfo.title as string}
+        title={voteInfo.title}
         onBottomSlideOpen={() =>
           BottomSlideOpen(
-            <VoteMeatball state={voteInfo.voteStatus} isZeroCandidates={voteInfo.candidates.length === 0} />,
+            <VoteMeatball
+              state={voteInfo.voteStatus}
+              title={voteInfo.title}
+              isZeroCandidates={voteInfo.candidates.length === 0}
+            />,
           )
         }
       />

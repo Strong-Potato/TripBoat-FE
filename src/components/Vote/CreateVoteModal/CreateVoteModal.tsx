@@ -11,36 +11,50 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 
-import {usePostNewVote} from '@/hooks/Votes/vote';
+import {useEditVoteTitle, usePostNewVote} from '@/hooks/Votes/vote';
 
 import {isCreateModalOpenState} from '@/recoil/vote/createVoteTitleModal';
 
-const CreateVoteModal = ({isEditMode}: {isEditMode: boolean}) => {
+import {CreateVoteModalProps} from '@/types/vote';
+
+const CreateVoteModal = ({isEditMode, existingTitle}: CreateVoteModalProps) => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useRecoilState(isCreateModalOpenState);
   const location = useLocation();
-  const spaceId = Number(location.pathname.split('/')[2]);
+  const path = Number(location.pathname.split('/')[2]);
   const [inputValue, setInputValue] = useState('');
   const postNewVoteMutation = usePostNewVote();
+  const editTitleMutation = useEditVoteTitle();
   // const navigate = useNavigate();
 
+  useEffect(() => {
+    if (existingTitle) {
+      setInputValue(existingTitle);
+    }
+  }, [existingTitle]);
+
   const newClose = () => {
-    setInputValue('');
-    setIsCreateModalOpen(true);
+    existingTitle ? setInputValue(existingTitle) : setInputValue('');
+    setIsCreateModalOpen(false);
   };
 
   const handleCreateVote = (inputValue: string) => {
-    const res = postNewVoteMutation.mutate({spaceId, title: inputValue});
+    const res = postNewVoteMutation.mutate({spaceId: path, title: inputValue});
     newClose();
-
     // navigate(`/vote/${data.id}`)
   };
 
+  const handleEditVoteTitle = (inputValue: string) => {
+    setIsCreateModalOpen(false);
+    console.log('inputValue', inputValue);
+    const res = editTitleMutation.mutate({voteId: path, title: inputValue});
+  };
+
   return (
-    <Modal isOpen={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)}>
+    <Modal isOpen={isCreateModalOpen} onClose={newClose}>
       <ModalOverlay />
       <ModalContent
         px='20px'
@@ -64,6 +78,7 @@ const CreateVoteModal = ({isEditMode}: {isEditMode: boolean}) => {
               borderColor='neutral.800'
               focusBorderColor='primary.300'
               variant='flushed'
+              value={inputValue}
               placeholder=' 숙소 정하자, 카페 정하자'
               fontSize='subTitle'
             />
@@ -83,7 +98,9 @@ const CreateVoteModal = ({isEditMode}: {isEditMode: boolean}) => {
         <ModalFooter p='0' mt='24px'>
           <Button
             type='submit'
-            onClick={() => handleCreateVote(inputValue)}
+            onClick={() => {
+              isEditMode ? handleEditVoteTitle(inputValue) : handleCreateVote(inputValue);
+            }}
             variant='blueButton'
             w='100%'
             h='48px'

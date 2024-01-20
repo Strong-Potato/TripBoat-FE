@@ -82,6 +82,7 @@ export interface CandidateCardProps {
 
 export interface VoteMeatballProps {
   state: string;
+  title: string;
   isZeroCandidates: boolean;
 }
 
@@ -101,18 +102,13 @@ export interface CandidateListProps {
   isCandidateSelecting: boolean;
 }
 
-export interface postVoteTitleProps {
-  spaceId: number;
-  title: string;
-}
-
-export interface postVoteTitleProps {
+export interface PostVoteTitleProps {
   spaceId: number;
   title: string;
 }
 
 //get아니고 후보메모post
-export interface postTaglineProps {
+export interface PostTaglineProps {
   voteId: number;
   placeId: number;
   tagline: string;
@@ -123,4 +119,13 @@ export interface CandidatesSlideProps {
   setSelectedPinIndex: Dispatch<React.SetStateAction<number>>;
   setCenterMarker: Dispatch<React.SetStateAction<Latlng>>;
   swiperRef: React.RefObject<SwiperRef>;
+}
+
+export interface CreateVoteModalProps {
+  isEditMode: boolean;
+  existingTitle?: string;
+}
+export interface EditVoteTitleProps {
+  title: string;
+  voteId: number;
 }
