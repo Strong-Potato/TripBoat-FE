@@ -25,6 +25,7 @@ const DeleteCandidatesButton = () => {
 
   const deleteCandidate = () => {
     deleteCandidateMutation.mutate({voteId: Number(voteId), candidateId: [...selectedCandidates]});
+    setSelectedCandidates(new Set());
   };
 
   const showDeleteCandidateModal = () => {

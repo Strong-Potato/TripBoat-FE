@@ -22,6 +22,9 @@ const VoteMemo = () => {
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const selectedCandidates = useRecoilValue(selectedCandidatesState);
 
+  //후보 추가하는 api, selectedCandidates 0으로 리셋, 내비게이트
+
+  //
   return (
     <div className={styles.container}>
       <VoteHeader title={voteInfo.title} onBottomSlideOpen={() => setIsBTOpen(true)} />
@@ -30,7 +33,7 @@ const VoteMemo = () => {
       <Button
         variant='CTAButton'
         isDisabled={selectedCandidates.size === 0}
-        onClick={() => navigate(`/vote/${voteInfo.id}`)}
+        onClick={() => navigate(`/votes/${voteInfo.id}`)}
       >
         {selectedCandidates.size}개 후보 등록하기
       </Button>
