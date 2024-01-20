@@ -22,7 +22,7 @@ import {usePostNewVote} from '@/hooks/Votes/vote';
 
 import VoteIcon from '@/assets/voteIcons/ic_vote.svg?react';
 
-const CreatVoteTitleModal = () => {
+const CreatVoteTitleModal = (isEditMode: boolean) => {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const location = useLocation();
   const spaceId = Number(location.pathname.split('/')[2]);
@@ -36,10 +36,9 @@ const CreatVoteTitleModal = () => {
   };
 
   const handleCreateVote = (inputValue: string) => {
-    const res = postNewVoteMutation.mutate({spaceId: 1, title: inputValue});
+    const res = postNewVoteMutation.mutate({spaceId, title: inputValue});
     newClose();
 
-    console.log('res', res);
     // navigate(`/vote/${data.id}`)
   };
 
@@ -93,7 +92,7 @@ const CreatVoteTitleModal = () => {
           <ModalFooter p='0' mt='24px'>
             <Button
               type='submit'
-              onClick={() => handleCreateVote}
+              onClick={() => handleCreateVote(inputValue)}
               variant='blueButton'
               w='100%'
               h='48px'

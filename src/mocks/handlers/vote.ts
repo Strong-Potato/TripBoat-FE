@@ -122,6 +122,11 @@ const voteData = {
 
 //const foundObject = voteListData.find((item) => item.id === targetId);
 
+const postVotesRes = {
+  message: '투표 만들기 성공',
+  data: 33,
+};
+
 export const vote = [
   http.get('/api/votes/1', () => {
     return HttpResponse.json(voteListData, {
@@ -142,12 +147,7 @@ export const vote = [
   }),
 
   //vote 만들기
-  http.post(`/api/votes`, () => {
-    return HttpResponse.json(
-      {data: 11, message: '투표 만들기 성공'},
-      {
-        status: 200,
-      },
-    );
+  http.post('/api/votes', () => {
+    return HttpResponse.json(postVotesRes, {status: 200});
   }),
 ];

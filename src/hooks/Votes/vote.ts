@@ -23,6 +23,8 @@ export const usePostNewVote = () => {
 
   return useMutation({
     mutationFn: PostNewVote,
-    onSuccess: () => queryClient.invalidateQueries({queryKey: ['votes']}),
+    onSuccess: (data) => {
+      console.log('투표 만들기 성공:', data), queryClient.invalidateQueries({queryKey: ['votes']});
+    },
   });
 };

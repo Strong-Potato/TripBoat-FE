@@ -19,8 +19,8 @@ export const getVoteListInfo = async (spaceId: number): Promise<VoteListInfo[]> 
 //vote 추가
 export const PostNewVote = async ({spaceId, title}: postVoteTitleProps) => {
   try {
-    const response = await axios.post('/api/votes', {params: {spaceId, title}});
-    console.log('response', response);
+    const response = await axios.post('/api/votes', {spaceId, title});
+    console.log('axios 성공', response);
     return response;
   } catch (error) {
     console.error(error);

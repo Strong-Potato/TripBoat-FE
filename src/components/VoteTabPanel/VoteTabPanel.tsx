@@ -42,7 +42,7 @@ const VoteTabPanel = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
-      <CreatVoteTitleModal />
+      <CreatVoteTitleModal isEditMode={false} />
     </div>
   );
 };
