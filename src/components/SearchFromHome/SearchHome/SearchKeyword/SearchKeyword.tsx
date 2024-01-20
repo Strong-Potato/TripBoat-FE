@@ -71,7 +71,7 @@ function SearchKeyword({set}: PropsType) {
               key={keyword + i}
               onClick={() => {
                 searchKeyword(keyword);
-                navigate(`/home/search?keyword=${keyword}&category=전체`);
+                navigate(`/home/search?keyword=${keyword}&category=전체&map=false&location=전국&sort=등록순`);
               }}
             >
               {keyword}

@@ -8,14 +8,11 @@ import SlideButton from '@/components/SlideButton/SlideButton';
 
 import RecommendedItem from './RecommendedItem/RecommendedItem';
 
-import {RecommendedItemDataType} from '@/types/home';
-
 interface PropsType {
   apiNum: number;
 }
 
 function RecommendedItemList({apiNum}: PropsType) {
-  const [data, setData] = useState<RecommendedItemDataType[]>();
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
 

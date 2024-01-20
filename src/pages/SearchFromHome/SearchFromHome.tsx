@@ -3,6 +3,8 @@ import {useSearchParams} from 'react-router-dom';
 
 import styles from './SearchFromHome.module.scss';
 
+import {search} from '@/hooks/Search/useSearch';
+
 import MapHeader from '@/components/SearchFromHome/MapHeader/MapHeader';
 import SearchBar from '@/components/SearchFromHome/SearchBar/SearchBar';
 import SearchHome from '@/components/SearchFromHome/SearchHome/SearchHome';
@@ -26,7 +28,12 @@ function SearchFromHome() {
       sort: searchParams.get('sort'),
     };
 
+    let queryKeyword = '';
+    let queryLocation = '전국';
+    let querySort = '등록순';
+
     if (querystring.keyword) {
+      queryKeyword = querystring.keyword;
       setKeyword(querystring.keyword);
     }
     if (querystring.category) {
@@ -36,11 +43,15 @@ function SearchFromHome() {
       setMoveMap(querystring.map);
     }
     if (querystring.location) {
+      queryLocation = querystring.location;
       setSearchLocation(querystring.location);
     }
     if (querystring.sort) {
+      querySort = querystring.sort;
       setSort(querystring.sort);
     }
+
+    console.log(search(queryKeyword, queryLocation, querySort));
   }, [searchParams]);
 
   return (
