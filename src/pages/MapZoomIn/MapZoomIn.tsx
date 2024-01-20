@@ -1,21 +1,14 @@
-import {useEffect, useState} from 'react';
-import {HiOutlineTrash as DeleteIcon} from 'react-icons/hi';
-import {RiArrowUpDownFill as MoveIcon} from 'react-icons/ri';
-import {useNavigate} from 'react-router-dom';
+import './MapZoomIn.module.scss';
+import styles from './MapZoomIn.module.scss';
 
-import styles from './RouteTabPanel.module.scss';
+import useGoBack from '@/hooks/useGoBack';
 
-import ZoomInIcon from '@/assets/icons/zoomIn.svg?react';
-import {getSpaceId} from '@/utils/getSpaceId';
+import RouteMapBody from '@/components/MapZoomIn/RouteMapBody/RouteMapBody';
 
-import DayNavigationBar from '../DayNavigationBar/DayNavigationBar';
-import DayRoute from '../DayRoute/DayRoute';
-import EmptyDate from '../EmptyDate/EmptyDate';
-import MapInTrip from '../MapInTrip/MapInTrip';
+import BackIcon from '@/assets/back.svg?react';
 
-import {DateItem, MapInTripProps} from '@/types/route';
-
-function RouteTabPanel({mapRef, center}: MapInTripProps) {
+function MapZoomIn() {
+  const goBack = useGoBack();
   const data = {
     journeys: [
       {
@@ -108,77 +101,17 @@ function RouteTabPanel({mapRef, center}: MapInTripProps) {
     ],
   };
 
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [selectedPlaces, setSelectedPlaces] = useState<string[]>([]);
-
-  const handleEditMode = () => {
-    setIsEditMode(!isEditMode);
-
-    // TODO: 완료 버튼 눌렀을 때 처리
-  };
-
-  const handlePlaceSelection = (placeName: string) => {
-    if (selectedPlaces.includes(placeName)) {
-      setSelectedPlaces((prevSelectedPlaces) => prevSelectedPlaces.filter((place) => place !== placeName));
-    } else {
-      setSelectedPlaces((prevSelectedPlaces) => [...prevSelectedPlaces, placeName]);
-    }
-  };
-
-  useEffect(() => {
-    console.log(selectedPlaces);
-  }, [selectedPlaces]);
-
-  const navigate = useNavigate();
-  const spaceId = getSpaceId();
-
-  if (!data.journeys || data.journeys.length === 0) {
-    return <EmptyDate />;
-  }
-
-  const dateList: DateItem[] = data.journeys.map((journey) => ({
-    date: journey.date,
-  }));
-
   return (
-    <div className={styles.panelContainer}>
-      <div className={styles.mapContainer}>
-        <MapInTrip mapRef={mapRef} center={center} />
+    <div>
+      <div className={styles.navigationTitleContainer}>
+        <button onClick={goBack}>
+          <BackIcon />
+        </button>
+        <h1>스페이스 타이틀</h1>
       </div>
-      <button className={styles.zoomInbutton} onClick={() => navigate(`/trip/${spaceId}/map`)}>
-        <ZoomInIcon />
-      </button>
-      <div className={styles.routeContainer}>
-        <DayNavigationBar dateList={dateList} editMode={isEditMode} handleEditMode={handleEditMode} />
-        <div className={styles.journeysContainer}>
-          {data.journeys &&
-            data.journeys.map((journey, index) => (
-              <DayRoute
-                key={index}
-                day={index + 1}
-                date={journey.date}
-                placeList={journey.places}
-                editMode={isEditMode}
-                selectedPlaces={selectedPlaces}
-                handlePlaceSelection={handlePlaceSelection}
-              />
-            ))}
-        </div>
-      </div>
-      {isEditMode && (
-        <div className={selectedPlaces.length > 0 ? styles.activeBottomButtonContainer : styles.bottomButtonContainer}>
-          <button>
-            <MoveIcon size='2rem' color='#FFFFFF' />
-            <span>날짜 이동</span>
-          </button>
-          <button>
-            <DeleteIcon size='2rem' color='#FFFFFF' />
-            <span>삭제하기</span>
-          </button>
-        </div>
-      )}
+      <RouteMapBody journeys={data.journeys} />
     </div>
   );
 }
 
-export default RouteTabPanel;
+export default MapZoomIn;

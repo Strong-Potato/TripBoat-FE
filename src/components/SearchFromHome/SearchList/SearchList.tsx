@@ -32,8 +32,13 @@ function SearchList({
   const [data, setData] = useState<SearchItemType[]>();
   const [filterData, setFilterData] = useState<SearchItemType[]>();
   const [categoryChange, setCategoryChange] = useState(false);
+  const [searchLocation, setSearchLocation] = useState("전체 지역");
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    console.log(searchLocation);
+  }, [searchLocation]);
 
   useEffect(() => {
     getData<SearchItemType[] | undefined>("home/search/search", setData);
@@ -87,7 +92,7 @@ function SearchList({
       ) : (
         <>
           <div className={styles.filter}>
-            <LocationFilter />
+            <LocationFilter setSearchLocation={setSearchLocation} />
             <DateFilter />
           </div>
           <ul className={styles.slide}>

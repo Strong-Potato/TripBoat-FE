@@ -16,6 +16,13 @@
     height: 16rem;
   }
 
+  .zoomInbutton {
+    position: absolute;
+    top: 16rem;
+    right: 2rem;
+    z-index: 10;
+  }
+
   .routeContainer {
     .journeysContainer {
       display: flex;

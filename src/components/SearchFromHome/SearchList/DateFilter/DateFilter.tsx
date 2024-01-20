@@ -6,7 +6,7 @@ function DateFilter() {
   return (
     <div className={styles.container}>
       <BsFilterLeft className={styles.icon} />
-      <span>등록순</span>
+      <span style={{ userSelect: "none" }}>등록순</span>
     </div>
   );
 }

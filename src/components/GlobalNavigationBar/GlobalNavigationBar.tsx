@@ -17,7 +17,7 @@ function GlobalNavigationBar() {
           color={!pathname ? "#0086ff" : "rgba(35, 39, 47, 1)"}
         />
       </Link>
-      <Link to="/trip">
+      <Link to="/trip/1">
         <AiOutlineCarryOut
           fontSize="24px"
           color={pathname === "trip" ? "#0086ff" : "rgba(35, 39, 47, 1)"}
