@@ -1,20 +1,20 @@
-import { Button } from "@chakra-ui/react";
+import {Button} from '@chakra-ui/react';
 
-import styles from "./AddPlaceFromVote.module.scss";
+import styles from './AddPlaceFromVote.module.scss';
 
-import useGoBack from "@/hooks/useGoBack";
+import useGoBack from '@/hooks/useGoBack';
 
-import CompletedVote from "@/components/Route/AddPlace/FromVote/CompletedVote/CompletedVote";
-import InProgressVote from "@/components/Route/AddPlace/FromVote/InProgressVote/InProgressVote";
+import CompletedVote from '@/components/Route/AddPlace/FromVote/CompletedVote/CompletedVote';
+import InProgressVote from '@/components/Route/AddPlace/FromVote/InProgressVote/InProgressVote';
 
-import BackIcon from "@/assets/back.svg?react";
+import BackIcon from '@/assets/back.svg?react';
 
 function AddPlaceFromVote() {
   const goBack = useGoBack();
 
   return (
     <div className={styles.FromVoteContainer}>
-      <nav className={styles.navContainer}>
+      <nav>
         <button onClick={goBack}>
           <BackIcon />
         </button>
@@ -22,7 +22,7 @@ function AddPlaceFromVote() {
       </nav>
       <CompletedVote />
       <InProgressVote />
-      <Button isDisabled={true} variant="CTAButton">
+      <Button isDisabled={true} variant='CTAButton'>
         장소를 선택해주세요
       </Button>
     </div>

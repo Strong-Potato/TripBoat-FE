@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .FromVoteContainer {
   -ms-overflow-style: none;
@@ -8,7 +8,7 @@
   }
   margin-top: 7rem;
 
-  .navContainer {
+  nav {
     position: fixed;
     top: 0;
     width: 100%;
@@ -18,6 +18,8 @@
     justify-content: flex-start;
     align-items: center;
     gap: 1.2rem;
+    background-color: $neutral0;
+    padding: 16px 20px;
 
     h1 {
       @include typography(button);
