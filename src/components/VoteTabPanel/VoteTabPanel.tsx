@@ -7,7 +7,8 @@ import {useGetVoteListInfo} from '@/hooks/Votes/vote';
 
 import TabsVoteCard from './TabsVoteCard/TabsVoteCard';
 import VoteTabPanelEmpty from './VoteTabPanelEmpty/VoteTabPanelEmpty';
-import CreatVoteTitleModal from '../Vote/CreatVoteTitleModal/CreatVoteTitleModal';
+import CreateVoteModal from '../Vote/CreateVoteModal/CreateVoteModal';
+import CreateVoteModalButton from '../Vote/CreateVoteModal/CreateVoteModalButton';
 
 const VoteTabPanel = () => {
   const {id: voteId} = useParams();
@@ -42,7 +43,8 @@ const VoteTabPanel = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
-      <CreatVoteTitleModal isEditMode={false} />
+      <CreateVoteModalButton />
+      <CreateVoteModal isEditMode={false} />
     </div>
   );
 };
