@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./User.module.scss";
 
+import AlertIcon from "@/assets/icons/error-warning-line.svg?react";
 import MapPin from "@/assets/icons/mapPin.svg?react";
 import Pencil from "@/assets/icons/pencil.svg?react";
 import Star from "@/assets/icons/star.svg?react";
@@ -76,11 +77,34 @@ function User() {
           <RiArrowRightSLine size="24" />
         </li>
 
-        <li>
-          <div>알림</div>
+        <li className={styles.infoDetail__alert}>
+          <div className={styles.infoDetail__alert__left}>
+            알림
+            <div className={styles.infoDetail__alert__left__tooltip}>
+              <button type="button">
+                <AlertIcon />
+              </button>
+
+              <ul className={styles.tooltipList}>
+                <li>
+                  <span>
+                    구글 크롬(Chrome) 브라우저에 최적화 되어 있어 크롬 브라우저
+                    사용을 권장합니다.
+                  </span>
+                </li>
+                <li>
+                  <span>
+                    브라우저의 알림 설정을 켜주셔야 서비스 알림을 받을 수
+                    있습니다.
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <button
             onClick={onClickAlert}
-            className={`${styles.infoDetail__alert} ${
+            className={`${styles.infoDetail__alert__button} ${
               alertOn ? styles.on : styles.off
             }`}
           >
