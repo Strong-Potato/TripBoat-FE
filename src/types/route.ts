@@ -2,13 +2,16 @@ import {Dispatch} from 'react';
 import {SwiperRef} from 'swiper/react';
 
 export interface PlaceCardProps {
-  index: number;
+  id: number;
+  order: number;
   name: string;
   category: string;
   address: string;
   editMode: boolean;
   selectedPlaces: string[];
   onSelect: (name: string) => void;
+  moveCard: (id: number, atIndex: number) => void;
+  findCard: (id: number) => {card: PlaceList; index: number};
 }
 
 export interface PlaceOrder {
@@ -34,23 +37,25 @@ export interface Journey {
   places: PlaceOrder[];
 }
 
+export interface PlaceList {
+  id: number;
+  Order: number;
+  place: {
+    id: number;
+    title: string;
+    thumbnail: string;
+    address: string;
+    addressDetail: string;
+    latitude: number;
+    longitude: number;
+    category: string;
+  };
+}
+
 export interface DayRouteProps {
   day: number;
   date: string;
-  placeList: {
-    id: number;
-    Order: number;
-    place: {
-      id: number;
-      title: string;
-      thumbnail: string;
-      address: string;
-      addressDetail: string;
-      latitude: number;
-      longitude: number;
-      category: string;
-    };
-  }[];
+  placeList: PlaceList[];
   editMode: boolean;
   selectedPlaces: string[];
   handlePlaceSelection: (name: string) => void;
