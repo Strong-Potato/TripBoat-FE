@@ -18,7 +18,8 @@ import {CandidateCardProps} from '@/types/vote';
 const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapStyle}: CandidateCardProps) => {
   const [isVoted, setIsVoted] = useState(false);
   const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
-  const voteCounts = candidate.voteUserId.length;
+
+  const placeInfo = candidate.placeInfo;
 
   const getRankClassName = (index: number) => {
     switch (index) {
@@ -50,7 +51,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapS
   const RankIcon = showResults && getRankIcon(index);
 
   const voteStarIcon = () => {
-    if (isVoted) return <FaStar style={{color: '#fee500'}} />;
+    if (isVoted || candidate.amIVoted) return <FaStar style={{color: '#fee500'}} />;
     else if (isMapStyle) return <FaStar style={{color: '#e3e5e5'}} />;
     else return <FaRegStar />;
   };
@@ -65,7 +66,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapS
 
   return (
     <div className={`${styles.container} ${rankClassName} candidateCard ${isMapStyle ? styles.isMapStyle : ''}`}>
-      <img src={candidate.imageURL} alt={candidate.placeName} />
+      <img src={placeInfo.placeImageURL} alt={placeInfo.placeName} />
       {RankIcon && (
         <div className={styles.rankTag}>
           <RankIcon />
@@ -75,13 +76,13 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapS
       <div className={styles.main}>
         <div className={styles.main__contextBox}>
           <Link to='' className={styles.main__contextBox__name}>
-            {candidate.placeName} {'>'}
+            {placeInfo.placeName} {'>'}
           </Link>
 
           <div className={styles.main__contextBox__category}>
-            {candidate.category}
+            {placeInfo.category}
             {'ꞏ'}
-            {candidate.location}
+            {placeInfo.location}
           </div>
 
           {/* 일정 담기
@@ -98,7 +99,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapS
         </div>
         <button className={styles.main__voteBox} onClick={onVoteBoxClick} disabled={isCandidateSelecting || isMapStyle}>
           <div className={styles.main__voteBox__star}>{voteStarIcon()}</div>
-          <div className={styles.main__voteBox__vote}>{showResults ? voteCounts : '투표'}</div>
+          <div className={styles.main__voteBox__vote}>{showResults ? candidate.voteCount : '투표'}</div>
         </button>
       </div>
     </div>

@@ -1,59 +1,69 @@
 import {Dispatch, ReactNode} from 'react';
 import {SwiperRef} from 'swiper/react';
 
+interface UserInfo {
+  id: number;
+  nickName?: string;
+  profileImageUrl: string;
+}
+
 export interface Latlng {
   lat: number;
   lng: number;
 }
 
-////////////////스웨거//////////////////
-export interface CandidatesInfo {
-  id: number;
+interface PlaceInfo {
   placeId: number;
   placeName: string;
   category: string;
-  tagline: string;
-  amIVoted: boolean;
-  //
-  imageURL: string;
-  location: string;
-  voteUserId: string[]; //이거 필요
+  location?: string; // 빠짐
+  placeImageURL: string;
   latlng: Latlng;
 }
-[];
 
-interface VotedMemberProfiles {
+////////////////INFO//////////////////
+export interface CandidatesInfo {
   id: number;
-  nickName: string;
-  profile: string;
+  placeInfo: PlaceInfo;
+  createdBy: UserInfo;
+  tagline: string;
+  amIVoted: boolean;
+  //임시
+  votedMemberProfiles?: UserInfo[];
+  voteCount?: number;
 }
-[];
+interface ResultCandidatesInfo extends CandidatesInfo {
+  votedMemberProfiles?: UserInfo[];
+  voteCount: number;
+}
 
 export interface VoteListInfo {
   voteId: number;
   title: string;
   voteStatus: string;
-  ownerProfile: {
-    id: number;
-    nickName?: string;
-    profile: string;
-  };
-  votedMemberProfiles: VotedMemberProfiles[];
+  createdBy: UserInfo;
+  votedMemberProfiles: UserInfo[];
 }
 
 export interface VoteInfo {
   id: number;
   title: string;
-  ownerProfile: {
-    id: number;
-    nickName?: string;
-    profile: string;
-  };
-  votedMemberProfiles?: VotedMemberProfiles[]; //빠짐
-  voteStatus: string; //status요청하기,,
+  voteStatus: string;
+  createdBy: UserInfo;
   candidates: CandidatesInfo[];
+  //
+  votedMemberProfiles?: UserInfo[]; //빠짐
 }
-////////////////스웨거//////////////////
+
+export interface VoteResultInfo {
+  id: number;
+  title: string;
+  voteStatus: string;
+  ownerProfile: UserInfo; // 이름 통일 요청
+  candidates: ResultCandidatesInfo[];
+}
+
+////////////////INFO//////////////////
 
 export interface VoteBottomButtonProps {
   onClick: () => void;

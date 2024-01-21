@@ -22,7 +22,7 @@ const TabsVoteCard = ({data}: {data: VoteListInfo}) => {
   return (
     <Link to={`/votes/${data.voteId}`} className={styles.container}>
       <div className={styles.container__titleBox}>
-        <Avatar boxSize='3.2rem' src={data.ownerProfile.profile} />
+        <Avatar boxSize='3.2rem' src={data.createdBy.profileImageUrl} />
         <p className={styles.container__titleBox__title}>{data.title}</p>
       </div>
       <div className={styles.container__stateBox}>
@@ -40,7 +40,7 @@ const TabsVoteCard = ({data}: {data: VoteListInfo}) => {
 
         <AvatarGroup variant='tabsVoteCard' max={3} spacing='0'>
           {users.map((user) => (
-            <Avatar name={String(user.id)} variant='tabsVoteCard' key={user.id} />
+            <Avatar name={user.nickName} variant='tabsVoteCard' key={user.id} />
           ))}
         </AvatarGroup>
       </div>

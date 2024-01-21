@@ -19,7 +19,7 @@ export const getVoteInfo = async (voteId: number): Promise<VoteInfo> => {
 
 //보트 리스트
 export const getVoteListInfo = async (spaceId: number): Promise<VoteListInfo[]> => {
-  const response = await axios.get(`/api/votes/${spaceId}`);
+  const response = await axios.get(`/api/votes`, {params: {spaceId, voteStatusOption: 'ALL'}});
   return response.data;
 };
 

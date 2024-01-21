@@ -11,9 +11,11 @@ import CreateVoteModal from '../Vote/CreateVoteModal/CreateVoteModal';
 import CreateVoteModalButton from '../Vote/CreateVoteModal/CreateVoteModalButton';
 
 const VoteTabPanel = () => {
-  const {id: voteId} = useParams();
-  const {data: voteInfo} = useGetVoteListInfo(Number(voteId));
+  const {id: spaceId} = useParams();
+  const {data: voteListData} = useGetVoteListInfo(Number(spaceId));
 
+  const inProgressVotes = voteListData.filter((vote) => vote.voteStatus === '진행 중');
+  const completeVotes = voteListData.filter((vote) => vote.voteStatus === '결정완료');
   return (
     <div className={styles.container}>
       <Tabs variant='voteFilter'>
@@ -23,23 +25,25 @@ const VoteTabPanel = () => {
             <Tab>진행 중</Tab>
             <Tab>결정 완료</Tab>
           </TabList>
-          <p className={styles.header__counts}>총 {voteInfo.length}개</p>
+          <p className={styles.header__counts}>총 {voteListData.length}개</p>
         </div>
         <TabPanels className={styles.content}>
           <TabPanel className={styles.content__tabPanel}>
-            {voteInfo.map((item) => (
-              <TabsVoteCard data={item} key={item.voteId} />
+            {voteListData.length === 0 ? (
+              <VoteTabPanelEmpty />
+            ) : (
+              voteListData.map((vote) => <TabsVoteCard data={vote} key={vote.voteId} />)
+            )}
+          </TabPanel>
+          <TabPanel>
+            {inProgressVotes.map((vote) => (
+              <TabsVoteCard data={vote} key={vote.voteId} />
             ))}
-
-            {/* // : (
-            //   <VoteTabPanelEmpty />
-            // )} */}
           </TabPanel>
           <TabPanel>
-            <VoteTabPanelEmpty />
-          </TabPanel>
-          <TabPanel>
-            <VoteTabPanelEmpty />
+            {completeVotes.map((vote) => (
+              <TabsVoteCard data={vote} key={vote.voteId} />
+            ))}
           </TabPanel>
         </TabPanels>
       </Tabs>
