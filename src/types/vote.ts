@@ -12,7 +12,7 @@ export interface Latlng {
   lng: number;
 }
 
-interface PlaceInfo {
+export interface PlaceInfo {
   placeId: number;
   placeName: string;
   category: string;
