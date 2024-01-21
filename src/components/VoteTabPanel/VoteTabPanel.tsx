@@ -1,22 +1,18 @@
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react';
-import {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
 
 import styles from './VoteTabPanel.module.scss';
 
-import {getVoteListData} from '@/mocks/handlers/vote';
+import {useGetVoteListInfo} from '@/hooks/Votes/vote';
 
 import TabsVoteCard from './TabsVoteCard/TabsVoteCard';
 import VoteTabPanelEmpty from './VoteTabPanelEmpty/VoteTabPanelEmpty';
-import CreatVoteTitleModal from '../Vote/CreatVoteTitleModal/CreatVoteTitleModal';
-
-import {VoteListInfo} from '@/types/vote';
+import CreateVoteModal from '../Vote/CreateVoteModal/CreateVoteModal';
+import CreateVoteModalButton from '../Vote/CreateVoteModal/CreateVoteModalButton';
 
 const VoteTabPanel = () => {
-  const [data, setData] = useState<VoteListInfo[]>([]);
-
-  useEffect(() => {
-    getVoteListData(setData);
-  }, []);
+  const {id: voteId} = useParams();
+  const {data: voteInfo} = useGetVoteListInfo(Number(voteId));
 
   return (
     <div className={styles.container}>
@@ -27,11 +23,13 @@ const VoteTabPanel = () => {
             <Tab>진행 중</Tab>
             <Tab>결정 완료</Tab>
           </TabList>
-          <p className={styles.header__counts}>총 {data.length}개</p>
+          <p className={styles.header__counts}>총 {voteInfo.length}개</p>
         </div>
         <TabPanels className={styles.content}>
           <TabPanel className={styles.content__tabPanel}>
-            {data && data.map((item) => <TabsVoteCard data={item} key={item.voteId} />)}
+            {voteInfo.map((item) => (
+              <TabsVoteCard data={item} key={item.voteId} />
+            ))}
 
             {/* // : (
             //   <VoteTabPanelEmpty />
@@ -45,7 +43,8 @@ const VoteTabPanel = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
-      <CreatVoteTitleModal />
+      <CreateVoteModalButton />
+      <CreateVoteModal isEditMode={false} />
     </div>
   );
 };
