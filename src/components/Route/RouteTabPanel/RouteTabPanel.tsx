@@ -144,10 +144,10 @@ function RouteTabPanel({mapRef, center}: MapInTripProps) {
     <div className={styles.panelContainer}>
       <div className={styles.mapContainer}>
         <MapInTrip mapRef={mapRef} center={center} />
+        <button className={styles.zoomInButton} onClick={() => navigate(`/trip/${spaceId}/map`)}>
+          <ZoomInIcon />
+        </button>
       </div>
-      <button className={styles.zoomInbutton} onClick={() => navigate(`/trip/${spaceId}/map`)}>
-        <ZoomInIcon />
-      </button>
       <div className={styles.routeContainer}>
         <DayNavigationBar dateList={dateList} editMode={isEditMode} handleEditMode={handleEditMode} />
         <div className={styles.journeysContainer}>
