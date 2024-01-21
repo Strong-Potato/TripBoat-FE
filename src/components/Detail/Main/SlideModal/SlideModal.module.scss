@@ -1,0 +1,26 @@
+@use "@/sass" as *;
+
+.slideIndex {
+  @include typography(button);
+  color: $neutral0;
+  position: absolute;
+  top: 17px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mainSlideContainer {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.bottomSlide {
+  .swiperSlide {
+    border: 1px solid $neutral0;
+  }
+
+  .swiperSlideActive {
+    border: 1px solid $primary300;
+  }
+}

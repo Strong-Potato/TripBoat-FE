@@ -59,5 +59,16 @@ export const modalTheme = defineMultiStyleConfig({
   variants: { alertModal },
   sizes: {
     addVote: { dialog: { w: "100%", maxW: "41rem", mx: "24px" } },
+    imageModal: {
+      dialog: {
+        w: "100%",
+        maxW: "45rem",
+        height: "100%",
+        my: 0,
+        bg: "#0A0D14",
+      },
+      body: {},
+      footer: {},
+    },
   },
 });
