@@ -14,11 +14,17 @@
 
     &__header {
       display: flex;
-      gap: 12px;
       padding: 0 20px;
+      justify-content: space-between;
+
+      & > div {
+        display: flex;
+        gap: 12px;
+      }
 
       &__img {
         width: 4rem;
+        height: 4rem;
         border-radius: 8px;
 
         background-position: center;
@@ -36,7 +42,7 @@
       }
 
       &__meatball {
-        flex: 1;
+        // flex: 1;
 
         display: flex;
         justify-content: end;

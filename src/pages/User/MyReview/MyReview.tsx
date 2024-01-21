@@ -1,14 +1,19 @@
+import { useDisclosure } from "@chakra-ui/react";
+import { useRef } from "react";
+
 import styles from "./MyReview.module.scss";
 
 import Header from "@/components/Auth/Header/Header";
+import BottomSlide from "@/components/BottomSlide/BottomSlide";
 import ReviewImageSlider from "@/components/Detail/Contents/Review/ReviewImageSlider/ReviewImageSlider";
+import ActionList from "@/components/MyReview/ActionList/ActionList";
 
 import Meatball from "@/assets/icons/meatball.svg?react";
 import Star from "@/assets/icons/star_fill.svg?react";
 
 const data = [
   {
-    id: "123",
+    id: "123a",
     place: {
       area: "대전",
       category: "맛집 · 서울",
@@ -31,7 +36,7 @@ const data = [
     ],
   },
   {
-    id: "123",
+    id: "123sd",
     place: {
       area: "대전",
       category: "맛집 · 서울",
@@ -52,7 +57,7 @@ const data = [
     ],
   },
   {
-    id: "123",
+    id: "123asaa",
     place: {
       area: "대전",
       category: "맛집 · 서울",
@@ -73,7 +78,7 @@ const data = [
     ],
   },
   {
-    id: "123",
+    id: "1231qa",
     place: {
       area: "대전",
       category: "맛집 · 서울",
@@ -94,7 +99,7 @@ const data = [
     ],
   },
   {
-    id: "123",
+    id: "123xcv",
     place: {
       area: "대전",
       category: "맛집 · 서울",
@@ -117,6 +122,14 @@ const data = [
 ];
 
 function MyReview() {
+  const {
+    isOpen: isBottomSlideOpen,
+    onOpen: onBottomSlideOpen,
+    onClose: onBottomSlideClose,
+  } = useDisclosure();
+
+  const clickedReviewId = useRef("");
+
   return (
     <div className={styles.container}>
       <Header content="내 리뷰" />
@@ -139,7 +152,13 @@ function MyReview() {
                 </div>
               </div>
 
-              <button className={styles.myreview__header__meatball}>
+              <button
+                className={styles.myreview__header__meatball}
+                onClick={() => {
+                  clickedReviewId.current = id;
+                  onBottomSlideOpen();
+                }}
+              >
                 <Meatball />
               </button>
             </div>
@@ -159,6 +178,12 @@ function MyReview() {
           </li>
         ))}
       </ul>
+
+      <BottomSlide
+        isOpen={isBottomSlideOpen}
+        onClose={onBottomSlideClose}
+        children={<ActionList reviewId={clickedReviewId} />}
+      />
     </div>
   );
 }

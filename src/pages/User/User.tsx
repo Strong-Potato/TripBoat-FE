@@ -26,7 +26,6 @@ function User() {
 
   const onClickAlert = () => {
     if (Notification.permission === "denied") {
-      //브라우저 알림 설정이 해제되어있습니다 alert
       return;
     }
 
