@@ -98,4 +98,5 @@ export interface BottomSlideDetailProps {
   onClose: () => void;
   children: ReactNode;
   isReviewModal: boolean;
+  setBottomSlideContent: React.Dispatch<React.SetStateAction<ReactNode | null>>;
 }

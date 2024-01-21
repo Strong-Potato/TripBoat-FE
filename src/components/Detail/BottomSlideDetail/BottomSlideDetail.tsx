@@ -12,6 +12,7 @@ function BottomSlideDetail({
   onClose,
   children,
   isReviewModal,
+  setBottomSlideContent,
 }: BottomSlideDetailProps) {
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
@@ -23,6 +24,7 @@ function BottomSlideDetail({
     actionButton: "나갈래요",
     isSmallSize: true,
     onClickAction: () => {
+      setBottomSlideContent(null);
       setIsModalOpen(false);
       onClose();
       document.body.style.removeProperty("overflow");
@@ -45,6 +47,7 @@ function BottomSlideDetail({
           if (isReviewModal) {
             showCheckBeforeExitModal();
           } else {
+            setBottomSlideContent(null);
             onClose();
           }
           document.body.style.removeProperty("overflow");

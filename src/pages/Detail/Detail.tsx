@@ -30,6 +30,11 @@ function Detail() {
     document.body.style.overflow = "hidden";
   };
 
+  const handleSlideOnClose = () => {
+    setBottomSlideContent(null);
+    onClose();
+  };
+
   return (
     <div className={styles.container}>
       <Navigation
@@ -37,7 +42,7 @@ function Detail() {
           onBottomSlideOpen(
             <MeatballBottomSlide
               onBottomSlideOpen={onBottomSlideOpen}
-              onClose={onClose}
+              onClose={handleSlideOnClose}
             />,
             false,
           )
@@ -46,12 +51,18 @@ function Detail() {
       <Main />
       <Contents
         onOpen={() =>
-          onBottomSlideOpen(<ReviewBottomSlide slideOnClose={onClose} />, true)
+          onBottomSlideOpen(
+            <ReviewBottomSlide slideOnClose={handleSlideOnClose} />,
+            true,
+          )
         }
       />
       <BottomFixedBtn
         onOpen={() =>
-          onBottomSlideOpen(<RegistrationSlide slideOnClose={onClose} />, false)
+          onBottomSlideOpen(
+            <RegistrationSlide slideOnClose={handleSlideOnClose} />,
+            false,
+          )
         }
       />
       <BottomSlideDetail
@@ -59,6 +70,7 @@ function Detail() {
         onClose={onClose}
         children={bottomSlideContent}
         isReviewModal={isReviewModal}
+        setBottomSlideContent={setBottomSlideContent}
       />
       <AlertModal {...modalContent} />
     </div>
