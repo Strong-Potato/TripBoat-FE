@@ -59,7 +59,6 @@ function SlideModal({
           <Swiper
             initialSlide={imageIndex}
             spaceBetween={10}
-            navigation={true}
             thumbs={{
               swiper:
                 thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
@@ -84,7 +83,7 @@ function SlideModal({
           <Swiper
             onSwiper={setThumbsSwiper}
             spaceBetween={8}
-            slidesPerView={5}
+            slidesPerView={"auto"}
             watchSlidesProgress={true}
             modules={[Thumbs]}
             className={styles.bottomSlide}
