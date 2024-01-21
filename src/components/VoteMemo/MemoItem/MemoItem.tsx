@@ -1,16 +1,21 @@
 import {Checkbox} from '@chakra-ui/react';
 import {useState} from 'react';
+import {useSetRecoilState} from 'recoil';
 
 import styles from './MemoItem.module.scss';
 
-import useGetSelectedCandidates from '@/hooks/useGetSelectedCandidates';
+import useGetSelectedSet from '@/hooks/useGetSelectedSet';
+
+import {selectedCandidatesState} from '@/recoil/vote/candidateList';
 
 import {CandidatesInfo} from '@/types/vote';
 
 const MemoItem = ({candidate}: {candidate: CandidatesInfo}) => {
   const [text, setText] = useState(0);
+  const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
+  const {addItemInNewSet} = useGetSelectedSet(setSelectedCandidates);
 
-  const {addCandidateInSelectedList} = useGetSelectedCandidates();
+  const placeInfo = candidate.placeInfo;
 
   return (
     <div className={styles.container}>
@@ -20,19 +25,19 @@ const MemoItem = ({candidate}: {candidate: CandidatesInfo}) => {
         m='0'
         alignItems='flex-start'
         value={candidate.id}
-        onChange={() => addCandidateInSelectedList(candidate.id)}
+        onChange={() => addItemInNewSet(candidate.id)}
       />
       <div className={styles.container__rightSide}>
         <div className={styles.candidateBox}>
           <div className={styles.candidateBox__image}>
-            <img src={candidate.imageURL} alt={candidate.placeName} />
+            <img src={placeInfo.placeImageURL} alt={placeInfo.placeName} />
           </div>
           <div className={styles.candidateBox__text}>
-            <p className={styles.candidateBox__text__name}>{candidate.placeName}</p>
+            <p className={styles.candidateBox__text__name}>{placeInfo.placeName}</p>
             <span className={styles.candidateBox__text__category}>
-              {candidate.category}
+              {placeInfo.category}
               {'ꞏ'}
-              {candidate.location}
+              {placeInfo.location}
             </span>
           </div>
         </div>
