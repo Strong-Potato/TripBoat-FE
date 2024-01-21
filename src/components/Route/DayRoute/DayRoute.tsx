@@ -8,8 +8,8 @@ import styles from './DayRoute.module.scss';
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
 
 import AddPlace from '../AddPlace/AddPlace';
+import DraggablePlaceCard from '../DraggablePlaceCard/DraggablePlaceCard';
 import EmptyRoute from '../EmptyRoute/EmptyRoute';
-import PlaceCard from '../PlaceCard/PlaceCard';
 
 import {DayRouteProps} from '@/types/route';
 
@@ -64,7 +64,7 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
           <div className={styles.placeListContainer}>
             {placeCards.length ? (
               placeCards.map((place) => (
-                <PlaceCard
+                <DraggablePlaceCard
                   key={place.id}
                   id={place.id}
                   order={place.Order + 1}

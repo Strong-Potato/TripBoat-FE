@@ -1,7 +1,7 @@
 import {Dispatch} from 'react';
 import {SwiperRef} from 'swiper/react';
 
-export interface PlaceCardProps {
+export interface DraggablePlaceCardProps {
   id: number;
   order: number;
   name: string;
@@ -13,6 +13,8 @@ export interface PlaceCardProps {
   moveCard: (id: number, atIndex: number) => void;
   findCard: (id: number) => {card: PlaceList; index: number};
 }
+
+export type PlaceCardProps = Pick<DraggablePlaceCardProps, 'order' | 'name' | 'category' | 'address'>;
 
 export interface PlaceOrder {
   id: number;
