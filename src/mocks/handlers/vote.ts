@@ -113,6 +113,16 @@ const voteListData = [
     },
     votedMemberProfiles,
   },
+  {
+    voteId: 33,
+    title: '카페 고르자',
+    voteStatus: '결정완료',
+    createdBy: {
+      id: '1922',
+      profileImageUrl: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
+    },
+    votedMemberProfiles,
+  },
 ];
 
 const voteData = {
