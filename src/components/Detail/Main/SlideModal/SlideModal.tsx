@@ -38,7 +38,7 @@ function SlideModal({
 
   useEffect(() => {
     setSwiperIndex(imageIndex);
-  });
+  }, [imageIndex]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="imageModal">
