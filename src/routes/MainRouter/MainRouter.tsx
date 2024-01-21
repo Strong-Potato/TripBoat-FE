@@ -7,6 +7,7 @@ import ModifyPassword from "@/pages/Auth/ModifyPassword/ModifyPassword";
 import AgreePrivacy from "@/pages/Auth/Signup/Agree/AgreePrivacy";
 import AgreeService from "@/pages/Auth/Signup/Agree/AgreeService";
 import Signup from "@/pages/Auth/Signup/Signup";
+import Withdrawal from "@/pages/Auth/Withdrawal/Withdrawal";
 import Calendar from "@/pages/Calendar/Calendar";
 import Detail from "@/pages/Detail/Detail";
 import Home from "@/pages/Home/Home";
@@ -42,6 +43,7 @@ function MainRouter() {
       <Route path="/auth/signup/agree/service" element={<AgreeService />} />
       <Route path="/auth/password/find" element={<FindPassword />} />
       <Route path="/auth/password/modify" element={<ModifyPassword />} />
+      <Route path="/auth/withdrawal" element={<Withdrawal />} />
       <Route path="/alarm" element={<Alarm />} />
       <Route path="/home/search" element={<SearchFromHome />} />
       <Route path="/trip/selectDate" element={<Calendar />} />

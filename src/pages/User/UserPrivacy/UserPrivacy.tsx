@@ -33,7 +33,7 @@ function UserPrivacy() {
         </li>
 
         <li>
-          <Link to="/">회원 탈퇴</Link>
+          <Link to="/auth/withdrawal">회원 탈퇴</Link>
         </li>
       </ul>
     </div>
