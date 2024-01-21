@@ -36,6 +36,8 @@ function MapInDetail() {
     <Map
       center={{ lat: coordinate.lat, lng: coordinate.lng }}
       className={styles.container}
+      draggable={false}
+      zoomable={false}
     >
       <CustomOverlayMap position={{ lat: coordinate.lat, lng: coordinate.lng }}>
         <BigHomeMarker />
