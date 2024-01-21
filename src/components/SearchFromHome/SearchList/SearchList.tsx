@@ -27,7 +27,11 @@ function SearchList({forSearch, keywordClick}: PropsType) {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    getData<SearchItemType[] | undefined>('api/home/search/search', setData);
+    if (!keywordClick) {
+      getData<SearchItemType[] | undefined>('api/home/search/search', setData);
+    } else {
+      getData<SearchItemType[] | undefined>('api/home/search/search', setData);
+    }
   }, [searchParams]);
 
   useEffect(() => {
