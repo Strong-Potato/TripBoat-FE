@@ -2,7 +2,7 @@ import { CiEdit } from "react-icons/ci";
 import { GoStarFill } from "react-icons/go";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import styles from "./Rviews.module.scss";
+import styles from "./Reviews.module.scss";
 
 import Review from "@/components/Detail/Contents/Review/Review";
 
