@@ -4,7 +4,7 @@ import styles from "./MySpace.module.scss";
 
 import Header from "@/components/Auth/Header/Header";
 
-const data = [
+const upcomming = [
   {
     id: "asdfasdf",
     title: "강릉, 속초, 전주, 여수 여행",
@@ -63,11 +63,71 @@ const data = [
   },
 ];
 
+const outdated = [
+  {
+    id: "asdfasdf1",
+    title: "강릉, 속초, 전주, 여수 여행",
+    startDate: "2023.12.15(수)",
+    endDate: "2023.12.19(일)",
+    dueDate: 0,
+  },
+  {
+    id: "asdfasds124",
+    title: "캐리비안베이, 로만바스 온천, 라마드 호텔, 에버랜드",
+    startDate: "2023.12.15(수)",
+    endDate: "2023.12.19(일)",
+    dueDate: 0,
+  },
+  {
+    id: "asdf123as15",
+    title: "강릉, 속초, 전주, 여수 여행",
+    startDate: "2023.12.15(수)",
+    endDate: "2023.12.19(일)",
+    dueDate: 0,
+  },
+  {
+    id: "asdd12dddddb",
+    title: "강릉, 속초, 전주, 여수 여행",
+    startDate: "2023.12.15(수)",
+    endDate: "2023.12.19(일)",
+    dueDate: 0,
+  },
+  {
+    id: "asd123d1d11dv",
+    title: "강릉, 속초, 전주, 여수 여행",
+    startDate: "2023.12.15(수)",
+    endDate: "2023.12.19(일)",
+    dueDate: 0,
+  },
+  {
+    id: "1234asdaaac",
+    title: "강릉, 속초, 전주, 여수 여행",
+    startDate: "2023.12.15(수)",
+    endDate: "2023.12.19(일)",
+    dueDate: 0,
+  },
+  {
+    id: "1234asda12s",
+    title: "강릉, 속초, 전주, 여수 여행",
+    startDate: "2023.12.15(수)",
+    endDate: "2023.12.19(일)",
+    dueDate: 0,
+  },
+  {
+    id: "1234asdazza",
+    title: "강릉, 속초, 전주, 여수 여행",
+    startDate: "2023.12.15(수)",
+    endDate: "2023.12.19(일)",
+    dueDate: 0,
+  },
+];
+
 const tmpImage =
   "https://media.istockphoto.com/id/1356118511/photo/smart-city-and-abstract-dot-point-connect-with-gradient-line.jpg?s=612x612&w=0&k=20&c=GJldTyxDEt0GodKxGONHz9PrN9QcQQAGKONUM0vBvYc=";
 
 function MySpace() {
   const [tab, setTab] = useState("upcomming");
+  const [data, setData] = useState(upcomming);
 
   return (
     <div className={styles.container}>
@@ -81,6 +141,7 @@ function MySpace() {
             }`}
             onClick={() => {
               setTab("upcomming");
+              setData(upcomming);
             }}
           >
             다가오는 여행
@@ -90,6 +151,7 @@ function MySpace() {
               tab === "outdated" ? styles.selected : ""
             }`}
             onClick={() => {
+              setData(outdated);
               setTab("outdated");
             }}
           >
@@ -112,7 +174,13 @@ function MySpace() {
                   backgroundImage: `url(${tmpImage})`,
                 }}
               >
-                {dueDate === 0 ? "여행 중" : `D-${dueDate}`}
+                <span>
+                  {dueDate === 0
+                    ? tab === "upcomming"
+                      ? "여행중"
+                      : ""
+                    : `D-${dueDate}`}
+                </span>
               </div>
 
               <div className={styles.myspace__list__content}>
