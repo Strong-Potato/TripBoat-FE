@@ -9,10 +9,9 @@ import {ForSearchType} from '@/types/home';
 
 interface PropsType {
   forSearch: ForSearchType;
-  setForSearch: React.Dispatch<React.SetStateAction<ForSearchType>>;
 }
 
-function LocationFilter({forSearch, setForSearch}: PropsType) {
+function LocationFilter({forSearch}: PropsType) {
   const [click, setClick] = useState(true);
   const [buttonName, setButtonName] = useState('전체 지역');
 
@@ -43,7 +42,7 @@ function LocationFilter({forSearch, setForSearch}: PropsType) {
         <span style={{userSelect: 'none'}}>{buttonName}</span>
         <MdOutlineKeyboardArrowDown className={styles.icon} />
       </div>
-      <LocationFliterPage click={click} forSearch={forSearch} setForSearch={setForSearch} handleClick={handleClick} />
+      <LocationFliterPage click={click} forSearch={forSearch} handleClick={handleClick} />
     </>
   );
 }

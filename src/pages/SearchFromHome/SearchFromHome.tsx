@@ -13,12 +13,13 @@ import SearchList from '@/components/SearchFromHome/SearchList/SearchList';
 function SearchFromHome() {
   const [forSearch, setForSearch] = useState({
     keyword: '',
-    category: '전체',
+    category: 0,
     map: 'false',
     location: '전국',
     sort: '등록순',
   });
   const [searchParams] = useSearchParams();
+  const [kewordClick, setKeywordClick] = useState(false);
   const vh = window.innerHeight;
 
   useEffect(() => {
@@ -33,7 +34,7 @@ function SearchFromHome() {
     if (querystring.keyword && querystring.category && querystring.location && querystring.map && querystring.sort) {
       setForSearch({
         keyword: querystring.keyword,
-        category: querystring.category,
+        category: parseInt(querystring.category),
         map: querystring.map,
         location: querystring.location,
         sort: querystring.sort,
@@ -57,9 +58,9 @@ function SearchFromHome() {
         <SearchBar forSearch={forSearch} setForSearch={setForSearch} />
       )}
       {forSearch.keyword === '' ? (
-        <SearchHome forSearch={forSearch} setForSearch={setForSearch} />
+        <SearchHome setKeywordClick={setKeywordClick} />
       ) : (
-        <SearchList forSearch={forSearch} setForSearch={setForSearch} />
+        <SearchList forSearch={forSearch} keywordClick={kewordClick} />
       )}
     </div>
   );

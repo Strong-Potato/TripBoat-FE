@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import styles from './LocationFliterPage.module.scss';
@@ -13,7 +13,6 @@ import {ForSearchType} from '@/types/home';
 interface PropsType {
   click: boolean;
   forSearch: ForSearchType;
-  setForSearch: React.Dispatch<React.SetStateAction<ForSearchType>>;
   handleClick: () => void;
 }
 
@@ -22,7 +21,7 @@ interface AreaDataType {
   sigunguCode: number;
 }
 
-function LocationFliterPage({forSearch, click, handleClick, setForSearch}: PropsType) {
+function LocationFliterPage({forSearch, click, handleClick}: PropsType) {
   const [area, setArea] = useState('전국');
   const [areaData, setAreaData] = useState<AreaDataType[]>();
   const [sigungu, setSigungu] = useState('전체 지역');
@@ -31,10 +30,13 @@ function LocationFliterPage({forSearch, click, handleClick, setForSearch}: Props
 
   const vh = window.innerHeight / 100;
 
+  useEffect(() => {
+    const locationData = forSearch.location.split(' ');
+    setArea(locationData[0]);
+    setSigungu(locationData[1]);
+  }, [forSearch.location]);
+
   function submit() {
-    const beforeData = forSearch;
-    beforeData.location = `${area} ${sigungu}`;
-    setForSearch(beforeData);
     navigate(
       `/home/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=${forSearch.map}&location=${area} ${sigungu}&sort=${forSearch.sort}`,
     );
@@ -52,7 +54,14 @@ function LocationFliterPage({forSearch, click, handleClick, setForSearch}: Props
       }}
     >
       <div className={styles.exitSection}>
-        <button onClick={handleClick}>
+        <button
+          onClick={() => {
+            handleClick();
+            const locationData = forSearch.location.split(' ');
+            setArea(locationData[0]);
+            setSigungu(locationData[1]);
+          }}
+        >
           <BackIcon />
         </button>
       </div>

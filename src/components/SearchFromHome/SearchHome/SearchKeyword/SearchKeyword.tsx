@@ -9,22 +9,19 @@ import SlideButton from '@/components/SlideButton/SlideButton';
 
 import {getData} from '@/mocks/handlers/home';
 
-import {ForSearchType} from '@/types/home';
-
-interface PropsType {
-  forSearch: ForSearchType;
-  setForSearch: React.Dispatch<React.SetStateAction<ForSearchType>>;
+interface Propstype {
+  setKeywordClick: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function SearchKeyword({forSearch, setForSearch}: PropsType) {
-  const [data, setData] = useState<string[] | undefined>();
+function SearchKeyword({setKeywordClick}: Propstype) {
+  const [data, setData] = useState<{name: string; code: string}[] | undefined>();
   const [listWidth, setListWidth] = useState<number>(0);
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
   const navigate = useNavigate();
 
   useEffect(() => {
-    getData<string[] | undefined>('home/search/keyword', setData);
+    getData<{name: string; code: string}[] | undefined>('api/places/popular/keywords', setData);
   }, []);
 
   // 각 키워드의 너비를 모두 더한 값을 구함
@@ -42,12 +39,6 @@ function SearchKeyword({forSearch, setForSearch}: PropsType) {
       }
     }, 100);
   }, [data, componentRef]);
-
-  function searchKeyword(keyword: string) {
-    const beforeData = forSearch;
-    beforeData.keyword = keyword;
-    setForSearch(beforeData);
-  }
 
   return (
     <div className={styles.container}>
@@ -73,13 +64,16 @@ function SearchKeyword({forSearch, setForSearch}: PropsType) {
         {data ? (
           data.map((keyword, i) => (
             <p
-              key={keyword + i}
+              key={keyword.name + i}
               onClick={() => {
-                searchKeyword(keyword);
-                navigate(`/home/search?keyword=${keyword}&category=전체&map=false&location=전국&sort=등록순`);
+                setKeywordClick(true);
+                setTimeout(() => {
+                  setKeywordClick(false);
+                }, 2000);
+                navigate(`/home/search?keyword=${keyword.name}&category=0&map=false&location=전국&sort=등록순`);
               }}
             >
-              {keyword}
+              {keyword.name}
             </p>
           ))
         ) : (

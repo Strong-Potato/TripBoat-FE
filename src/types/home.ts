@@ -82,7 +82,7 @@ export interface SearchItemType {
 
 export interface ForSearchType {
   keyword: string;
-  category: string;
+  category: number;
   map: string;
   location: string;
   sort: string;

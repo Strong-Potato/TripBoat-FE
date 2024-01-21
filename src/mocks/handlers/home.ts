@@ -51,14 +51,14 @@ const tripSpaceData = [
 ];
 // 홈 검색
 const searchKeywordData = [
-  '감자',
-  '강릉 감자',
-  '강릉 감자유원지',
-  '부산',
-  '울산 맛집',
-  '해운대 카페',
-  '광안리 횟집',
-  '깡통시장 깡돼후',
+  {name: '감자', code: ''},
+  {name: '강릉 감자', code: ''},
+  {name: '강릉 감자유원지', code: ''},
+  {name: '부산', code: ''},
+  {name: '울산 맛집', code: ''},
+  {name: '해운대 카페', code: ''},
+  {name: '광안리 횟집', code: ''},
+  {name: '깡통시장 깡돼후', code: ''},
 ];
 const hotPlaces = [
   {
@@ -152,102 +152,10 @@ const hotPlaces = [
     contentTypeId: 0,
   },
 ];
-const hotHotels = [
-  {
-    title: '호텔 loft',
-    thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    areaCode: 1,
-    sigumguCode: 0,
-    category: '숙소',
-    id: 1,
-    contentTypeId: 0,
-  },
-  {
-    title: '호텔 loft',
-    thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    areaCode: 1,
-    sigumguCode: 0,
-    category: '숙소',
-    id: 1,
-    contentTypeId: 0,
-  },
-  {
-    title: '호텔 loft',
-    thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    areaCode: 1,
-    sigumguCode: 0,
-    category: '숙소',
-    id: 1,
-    contentTypeId: 0,
-  },
-  {
-    title: '호텔 loft',
-    thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    areaCode: 1,
-    sigumguCode: 0,
-    category: '숙소',
-    id: 1,
-    contentTypeId: 0,
-  },
-  {
-    title: '호텔 loft',
-    thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    areaCode: 1,
-    sigumguCode: 0,
-    category: '숙소',
-    id: 1,
-    contentTypeId: 0,
-  },
-  {
-    title: '호텔 loft',
-    thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    areaCode: 1,
-    sigumguCode: 0,
-    category: '숙소',
-    id: 1,
-    contentTypeId: 0,
-  },
-  {
-    title: '호텔 loft',
-    thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    areaCode: 1,
-    sigumguCode: 0,
-    category: '숙소',
-    id: 1,
-    contentTypeId: 0,
-  },
-  {
-    title: '호텔 loft',
-    thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    areaCode: 1,
-    sigumguCode: 0,
-    category: '숙소',
-    id: 1,
-    contentTypeId: 0,
-  },
-  {
-    title: '호텔 loft',
-    thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    areaCode: 1,
-    sigumguCode: 0,
-    category: '숙소',
-    id: 1,
-    contentTypeId: 0,
-  },
-  {
-    title: '호텔 loft',
-    thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    areaCode: 1,
-    sigumguCode: 0,
-    category: '숙소',
-    id: 1,
-    contentTypeId: 0,
-  },
-];
 const searchItemData = [
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 32,
     title: '신라호텔',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -264,7 +172,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 32,
     title: '조선호텔',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -281,7 +189,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 32,
     title: '그랜드하얏트',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -298,7 +206,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 39,
     title: '모던 아시안 누들 서비스',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -315,7 +223,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 39,
     title: '더 타코부스',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -332,7 +240,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 39,
     title: '콴안다오',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -349,7 +257,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 39,
     title: '네로우 패스',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -366,7 +274,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 12,
     title: 'DDP',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -383,7 +291,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 12,
     title: '서울숲',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -400,7 +308,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 12,
     title: '롯데월드',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -417,7 +325,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 14,
     title: '국립중앙박물관',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -434,7 +342,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 15,
     title: '디큐브아트센터',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -451,7 +359,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 14,
     title: '인사아트프라자갤러리',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -468,7 +376,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 28,
     title: '한강',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -485,7 +393,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 28,
     title: '석호정',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -502,7 +410,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 28,
     title: '남산 케이블카',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -519,7 +427,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 38,
     title: '더 현대',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -536,7 +444,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 38,
     title: '타임스퀘어',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -553,7 +461,7 @@ const searchItemData = [
   },
   {
     id: 0,
-    contentTypeId: 0,
+    contentTypeId: 38,
     title: '스타필드',
     thumbnail: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
     location: {
@@ -572,33 +480,28 @@ const searchItemData = [
 
 export const home = [
   // 홈
-  http.get('/api/home/vote', () => {
+  http.get('api/home/vote', () => {
     return HttpResponse.json(userVoteData, {
       status: 200,
     });
   }),
-  http.get('/api/home/tripSpace', () => {
+  http.get('api/home/tripSpace', () => {
     return HttpResponse.json(tripSpaceData, {
       status: 200,
     });
   }),
   // 홈 검색
-  http.get('/api/home/search/keyword', () => {
+  http.get('api/places/popular/keywords', () => {
     return HttpResponse.json(searchKeywordData, {
       status: 200,
     });
   }),
-  http.get('/api/places/popular', () => {
+  http.get('api/places/popular', () => {
     return HttpResponse.json(hotPlaces, {
       status: 200,
     });
   }),
-  http.get('/api/home/search/hothotel', () => {
-    return HttpResponse.json(hotHotels, {
-      status: 200,
-    });
-  }),
-  http.get('/api/home/search/search', () => {
+  http.get('api/home/search/search', () => {
     return HttpResponse.json(searchItemData, {
       status: 200,
     });
@@ -608,7 +511,7 @@ export const home = [
 // 추후 api폴더가 생기면 함수를 옮기겠습니다.
 export async function getData<T>(apiURL: string, set: Dispatch<React.SetStateAction<T>>) {
   try {
-    const fetchData = await axios.get(`/api/${apiURL}`);
+    const fetchData = await axios.get(`${apiURL}`);
     set(fetchData.data);
   } catch (error) {
     console.log(error);

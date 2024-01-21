@@ -1,26 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from 'react';
 
-import styles from "./Map.module.scss";
+import styles from './Map.module.scss';
 
-import flagMarker from "@/assets/homeIcons/map/flag.svg";
-import bigFlagMarker from "@/assets/homeIcons/map/flag_big.svg";
-import homeMarker from "@/assets/homeIcons/map/house.svg";
-import bigHomeMarker from "@/assets/homeIcons/map/house_big.svg";
-import forkMarker from "@/assets/homeIcons/map/restaurant.svg";
-import bigForkMarker from "@/assets/homeIcons/map/restaurant_big.svg";
+import flagMarker from '@/assets/homeIcons/map/flag.svg';
+import bigFlagMarker from '@/assets/homeIcons/map/flag_big.svg';
+import homeMarker from '@/assets/homeIcons/map/house.svg';
+import bigHomeMarker from '@/assets/homeIcons/map/house_big.svg';
+import forkMarker from '@/assets/homeIcons/map/restaurant.svg';
+import bigForkMarker from '@/assets/homeIcons/map/restaurant_big.svg';
 
-import MapItems from "./MapItems/MapItems";
+import MapItems from './MapItems/MapItems';
 
-import { SearchItemType } from "@/types/home";
+import {SearchItemType} from '@/types/home';
 
 interface PropsType {
   data: SearchItemType[];
   categoryChange: boolean;
 }
 
-function Map({ data, categoryChange }: PropsType) {
+function Map({data, categoryChange}: PropsType) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [throttlePermission, setThrottlePermission] = useState(false);
   const [currentpin, setCurrentPin] = useState<number | undefined>();
@@ -37,34 +37,22 @@ function Map({ data, categoryChange }: PropsType) {
     offSetHeight: number,
     data: SearchItemType,
   ) {
-    const image =
-      data.category === "숙소"
-        ? homeMarker
-        : data.category === "맛집"
-          ? forkMarker
-          : flagMarker;
+    const image = data.contentTypeId === 32 ? homeMarker : data.contentTypeId === 39 ? forkMarker : flagMarker;
     const imageSize = new window.kakao.maps.Size(sizeWidth, sizeHeight);
     const imageOption = {
       offset: new window.kakao.maps.Point(offSetWidth, offSetHeight),
     };
 
-    const markerImage = new window.kakao.maps.MarkerImage(
-      image,
-      imageSize,
-      imageOption,
-    );
+    const markerImage = new window.kakao.maps.MarkerImage(image, imageSize, imageOption);
     const marker = new window.kakao.maps.Marker({
-      position: new window.kakao.maps.LatLng(
-        data.location.latitude,
-        data.location.longtitude,
-      ),
+      position: new window.kakao.maps.LatLng(data.location.latitude, data.location.longtitude),
       image: markerImage,
     });
     return marker;
   }
   // 핀 클릭 이벤트
   function clickMarker(marker: any, index: number) {
-    new window.kakao.maps.event.addListener(marker, "click", function () {
+    new window.kakao.maps.event.addListener(marker, 'click', function () {
       let timeOutId;
       if (window.innerWidth < 450) {
         if (timeOutId) {
@@ -74,10 +62,10 @@ function Map({ data, categoryChange }: PropsType) {
         timeOutId = setTimeout(() => {
           setThrottlePermission(false);
         }, 2000);
-        const slide = document.querySelector("#map_slide");
+        const slide = document.querySelector('#map_slide');
         slide?.scrollTo({
           left: 343 * index - 20,
-          behavior: "smooth",
+          behavior: 'smooth',
         });
       } else {
         setSlideLocation(-343 * index + 20);
@@ -90,16 +78,7 @@ function Map({ data, categoryChange }: PropsType) {
     const currentMarkers: any[] = [];
 
     data.map((data, i) => {
-      const marker = createPin(
-        homeMarker,
-        forkMarker,
-        flagMarker,
-        32,
-        32,
-        -6,
-        -8,
-        data,
-      );
+      const marker = createPin(homeMarker, forkMarker, flagMarker, 32, 32, -6, -8, data);
       clickMarker(marker, i);
       marker.setMap(map);
       currentMarkers.push(marker);
@@ -110,16 +89,7 @@ function Map({ data, categoryChange }: PropsType) {
     const currentMarkers: any[] = [];
 
     data.map((data) => {
-      const marker = createPin(
-        bigHomeMarker,
-        bigForkMarker,
-        bigFlagMarker,
-        44,
-        52,
-        0,
-        0,
-        data,
-      );
+      const marker = createPin(bigHomeMarker, bigForkMarker, bigFlagMarker, 44, 52, 0, 0, data);
       marker.setZIndex(10);
       currentMarkers.push(marker);
     });
@@ -136,7 +106,7 @@ function Map({ data, categoryChange }: PropsType) {
 
   // 컴포넌트 마운트, 카테고리 전환 시 새로운 맵 생성
   useEffect(() => {
-    const container = document.getElementById("map");
+    const container = document.getElementById('map');
     setPin([]);
 
     // React.StrictMode로 인해 map이 두 번 중첩되어 겹치는 현상 방지
@@ -160,12 +130,7 @@ function Map({ data, categoryChange }: PropsType) {
       setSmallPin(data);
       setBigPin(data);
       data.map((data) => {
-        bounds.extend(
-          new window.kakao.maps.LatLng(
-            data.location.latitude,
-            data.location.longtitude,
-          ),
-        );
+        bounds.extend(new window.kakao.maps.LatLng(data.location.latitude, data.location.longtitude));
       });
       map.setBounds(bounds);
     }
@@ -181,7 +146,7 @@ function Map({ data, categoryChange }: PropsType) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.map} id="map" />
+      <div className={styles.map} id='map' />
       <div className={styles.slide}>
         <MapItems
           data={data}

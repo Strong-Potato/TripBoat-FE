@@ -12,11 +12,10 @@ import {ForSearchType} from '@/types/home';
 
 interface PropsType {
   forSearch: ForSearchType;
-  setForSearch: React.Dispatch<React.SetStateAction<ForSearchType>>;
   setCategoryChange: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Tabs({forSearch, setForSearch, setCategoryChange}: PropsType) {
+function Tabs({forSearch, setCategoryChange}: PropsType) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
   const thisCategory = ['전체', '맛집', '숙소', '관광지', '문화시설', '레포츠', '쇼핑'];
@@ -43,7 +42,6 @@ function Tabs({forSearch, setForSearch, setCategoryChange}: PropsType) {
         {thisCategory.map((thisCategory) => (
           <Tab
             forSearch={forSearch}
-            setForSearch={setForSearch}
             setCategoryChange={setCategoryChange}
             thisCategory={thisCategory}
             key={thisCategory}

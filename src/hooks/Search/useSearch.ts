@@ -1,3 +1,4 @@
+import {getSearchData} from '@/api/search';
 import areaData from '@/utils/areas.json';
 
 function translateLocation(location: string) {
@@ -32,12 +33,77 @@ function translateSort(sort: string) {
   return sortCode;
 }
 
-export function search(keyword: string, location: string, sort: string) {
-  const inputData = {
-    keyword: keyword,
-    location: translateLocation(location),
-    sort: translateSort(sort),
-  };
+export function translateCategoryToNum(category: string) {
+  let categoryCode = 0;
+  switch (category) {
+    case '전체':
+      categoryCode = 0;
+      break;
+    case '맛집':
+      categoryCode = 39;
+      break;
+    case '관광지':
+      categoryCode = 12;
+      break;
+    case '문화시설':
+      categoryCode = 14;
+      break;
+    case '레포츠':
+      categoryCode = 28;
+      break;
+    case '숙소':
+      categoryCode = 32;
+      break;
+    case '쇼핑':
+      categoryCode = 38;
+      break;
+  }
 
-  return inputData;
+  return categoryCode;
+}
+export function translateCategoryToStr(category: number) {
+  let categoryCode = '전체';
+
+  if (category === 0) {
+    categoryCode = '전체';
+  }
+  if (category === 39) {
+    categoryCode = '맛집';
+  }
+  if (category === 12) {
+    categoryCode = '관광지';
+  }
+  if (category === 14) {
+    categoryCode = '문화시설';
+  }
+  if (category === 15) {
+    categoryCode = '문화시설';
+  }
+  if (category === 32) {
+    categoryCode = '숙소';
+  }
+  if (category === 28) {
+    categoryCode = '레포츠';
+  }
+  if (category === 38) {
+    categoryCode = '쇼핑';
+  }
+
+  return categoryCode;
+}
+
+export function search(keyword: string, location: string, sort: string) {
+  const searchLocation = translateLocation(location);
+
+  const searchData = getSearchData(
+    0,
+    searchLocation.areaCode,
+    searchLocation.sigunguCode,
+    0,
+    keyword,
+    translateSort(sort),
+    'A05020900',
+  );
+
+  return searchData;
 }
