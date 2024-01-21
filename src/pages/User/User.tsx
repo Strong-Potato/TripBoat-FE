@@ -66,6 +66,8 @@ function User() {
           <div className={styles.myworkTitle}>내 여행 스페이스</div>
         </button>
 
+        <div className={styles.colBar}></div>
+
         <button
           className={styles.mywork__review}
           onClick={() => {

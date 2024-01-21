@@ -51,13 +51,15 @@
 
   .mywork {
     display: flex;
+    align-items: center;
     gap: 8px;
-    padding: 0 20px;
+    margin: 0 20px;
     margin-bottom: 8px;
 
+    border: 1px solid $neutral200;
+    border-radius: 16px;
+
     button {
-      border: 1px solid $primary100;
-      border-radius: 16px;
       padding: 16px;
       flex: 1;
 
@@ -73,6 +75,12 @@
           font-weight: 600;
         }
       }
+    }
+
+    .colBar {
+      width: 1px;
+      height: 5rem;
+      background-color: $neutral200;
     }
 
     .myworkTitle {
