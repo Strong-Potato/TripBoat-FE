@@ -9,11 +9,14 @@ import SlideButton from '@/components/SlideButton/SlideButton';
 
 import {getData} from '@/mocks/handlers/home';
 
+import {ForSearchType} from '@/types/home';
+
 interface PropsType {
-  set: React.Dispatch<React.SetStateAction<string>>;
+  forSearch: ForSearchType;
+  setForSearch: React.Dispatch<React.SetStateAction<ForSearchType>>;
 }
 
-function SearchKeyword({set}: PropsType) {
+function SearchKeyword({forSearch, setForSearch}: PropsType) {
   const [data, setData] = useState<string[] | undefined>();
   const [listWidth, setListWidth] = useState<number>(0);
   const [slideLocation, setSlideLocation] = useState<number>(0);
@@ -41,7 +44,9 @@ function SearchKeyword({set}: PropsType) {
   }, [data, componentRef]);
 
   function searchKeyword(keyword: string) {
-    set(keyword);
+    const beforeData = forSearch;
+    beforeData.keyword = keyword;
+    setForSearch(beforeData);
   }
 
   return (

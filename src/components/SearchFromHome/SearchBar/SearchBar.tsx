@@ -6,48 +6,49 @@ import styles from './SearchBar.module.scss';
 import BackIcon from '@/assets/homeIcons/search/backInHome.svg?react';
 import SearchIcon from '@/assets/homeIcons/search/searchIcon.svg?react';
 
+import {ForSearchType} from '@/types/home';
+
 interface PropsType {
-  keyword: string;
-  category: string;
-  searchLocation: string;
-  sort: string;
-  setKeyword: React.Dispatch<React.SetStateAction<string>>;
+  forSearch: ForSearchType;
+  setForSearch: React.Dispatch<React.SetStateAction<ForSearchType>>;
 }
 
 interface InputBarType extends HTMLInputElement {
   focus: () => void;
 }
 
-function SearchBar({setKeyword, keyword, category, searchLocation, sort}: PropsType) {
+function SearchBar({forSearch, setForSearch}: PropsType) {
   const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
   const inputBar = useRef<InputBarType | null>(null);
 
   useEffect(() => {
-    setInputValue(keyword);
+    setInputValue(forSearch.keyword);
     if (inputBar.current) {
       inputBar.current.focus();
     }
-  }, [keyword]);
+  }, [forSearch.keyword]);
 
   function handleInputValue(e: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value);
   }
 
   function search() {
-    setKeyword(inputValue);
-    navigate(
-      `/home/search?keyword=${inputValue}&category=${category}&map=false&location=${searchLocation}&sort=${sort}`,
-    );
+    const beforeData = forSearch;
+    beforeData.keyword = inputValue;
+    setForSearch(beforeData);
+    navigate(`/home/search?keyword=${inputValue}&category=전체&map=false&location=전국&sort=등록순`);
   }
 
   function removeValue() {
-    if (keyword === '') {
+    if (forSearch.keyword === '') {
       navigate('/');
     } else {
       navigate('/home/search');
       setInputValue('');
-      setKeyword('');
+      const beforeData = forSearch;
+      beforeData.keyword = '';
+      setForSearch(beforeData);
     }
   }
 

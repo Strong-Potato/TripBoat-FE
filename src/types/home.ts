@@ -79,3 +79,11 @@ export interface SearchItemType {
   location: SearchItemLocationType;
   category: string;
 }
+
+export interface ForSearchType {
+  keyword: string;
+  category: string;
+  map: string;
+  location: string;
+  sort: string;
+}

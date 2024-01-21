@@ -8,14 +8,13 @@ import BackIcon from '@/assets/homeIcons/search/backInHome.svg?react';
 import PopularList from './PopularList/PopularList';
 import SelectLocation from './SelectLocation/SelectLocation';
 
+import {ForSearchType} from '@/types/home';
+
 interface PropsType {
   click: boolean;
-  keyword: string;
-  category: string;
-  moveMap: string;
-  sort: string;
+  forSearch: ForSearchType;
+  setForSearch: React.Dispatch<React.SetStateAction<ForSearchType>>;
   handleClick: () => void;
-  setSearchLocation: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface AreaDataType {
@@ -23,7 +22,7 @@ interface AreaDataType {
   sigunguCode: number;
 }
 
-function LocationFliterPage({click, keyword, category, moveMap, sort, handleClick, setSearchLocation}: PropsType) {
+function LocationFliterPage({forSearch, click, handleClick, setForSearch}: PropsType) {
   const [area, setArea] = useState('전국');
   const [areaData, setAreaData] = useState<AreaDataType[]>();
   const [sigungu, setSigungu] = useState('전체 지역');
@@ -33,9 +32,11 @@ function LocationFliterPage({click, keyword, category, moveMap, sort, handleClic
   const vh = window.innerHeight / 100;
 
   function submit() {
-    setSearchLocation(`${area} ${sigungu}`);
+    const beforeData = forSearch;
+    beforeData.location = `${area} ${sigungu}`;
+    setForSearch(beforeData);
     navigate(
-      `/home/search?keyword=${keyword}&category=${category}&map=${moveMap}&location=${area} ${sigungu}&sort=${sort}`,
+      `/home/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=${forSearch.map}&location=${area} ${sigungu}&sort=${forSearch.sort}`,
     );
     handleClick();
   }

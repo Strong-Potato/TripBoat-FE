@@ -11,11 +11,13 @@ import SearchHome from '@/components/SearchFromHome/SearchHome/SearchHome';
 import SearchList from '@/components/SearchFromHome/SearchList/SearchList';
 
 function SearchFromHome() {
-  const [keyword, setKeyword] = useState<string>('');
-  const [category, setCategory] = useState<string>('전체');
-  const [moveMap, setMoveMap] = useState('false');
-  const [searchLocation, setSearchLocation] = useState('전국');
-  const [sort, setSort] = useState('등록순');
+  const [forSearch, setForSearch] = useState({
+    keyword: '',
+    category: '전체',
+    map: 'false',
+    location: '전국',
+    sort: '등록순',
+  });
   const [searchParams] = useSearchParams();
   const vh = window.innerHeight;
 
@@ -28,30 +30,16 @@ function SearchFromHome() {
       sort: searchParams.get('sort'),
     };
 
-    let queryKeyword = '';
-    let queryLocation = '전국';
-    let querySort = '등록순';
-
-    if (querystring.keyword) {
-      queryKeyword = querystring.keyword;
-      setKeyword(querystring.keyword);
+    if (querystring.keyword && querystring.category && querystring.location && querystring.map && querystring.sort) {
+      setForSearch({
+        keyword: querystring.keyword,
+        category: querystring.category,
+        map: querystring.map,
+        location: querystring.location,
+        sort: querystring.sort,
+      });
+      console.log(search(querystring.keyword, querystring.location, querystring.sort));
     }
-    if (querystring.category) {
-      setCategory(querystring.category);
-    }
-    if (querystring.map) {
-      setMoveMap(querystring.map);
-    }
-    if (querystring.location) {
-      queryLocation = querystring.location;
-      setSearchLocation(querystring.location);
-    }
-    if (querystring.sort) {
-      querySort = querystring.sort;
-      setSort(querystring.sort);
-    }
-
-    console.log(search(queryKeyword, queryLocation, querySort));
   }, [searchParams]);
 
   return (
@@ -59,41 +47,19 @@ function SearchFromHome() {
       className={styles.container}
       style={{
         height: `${vh}px`,
-        gap: moveMap === 'true' ? '0' : '24px',
-        paddingTop: moveMap === 'true' ? '0' : '16px',
+        gap: forSearch.map === 'true' ? '0' : '24px',
+        paddingTop: forSearch.map === 'true' ? '0' : '16px',
       }}
     >
-      {moveMap === 'true' ? (
-        <MapHeader
-          setMoveMap={setMoveMap}
-          keyword={keyword}
-          category={category}
-          searchLocation={searchLocation}
-          sort={sort}
-        />
+      {forSearch.map === 'true' ? (
+        <MapHeader forSearch={forSearch} setForSearch={setForSearch} />
       ) : (
-        <SearchBar
-          setKeyword={setKeyword}
-          keyword={keyword}
-          category={category}
-          searchLocation={searchLocation}
-          sort={sort}
-        />
+        <SearchBar forSearch={forSearch} setForSearch={setForSearch} />
       )}
-      {keyword === '' ? (
-        <SearchHome set={setKeyword} />
+      {forSearch.keyword === '' ? (
+        <SearchHome forSearch={forSearch} setForSearch={setForSearch} />
       ) : (
-        <SearchList
-          keyword={keyword}
-          moveMap={moveMap}
-          searchLocation={searchLocation}
-          category={category}
-          sort={sort}
-          setMoveMap={setMoveMap}
-          setCategory={setCategory}
-          setSearchLocation={setSearchLocation}
-          setSort={setSort}
-        />
+        <SearchList forSearch={forSearch} setForSearch={setForSearch} />
       )}
     </div>
   );

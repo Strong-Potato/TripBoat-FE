@@ -2,27 +2,16 @@ import {useNavigate} from 'react-router-dom';
 
 import styles from './Tab.module.scss';
 
+import {ForSearchType} from '@/types/home';
+
 interface PropsType {
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
-  setCategoryChange: React.Dispatch<React.SetStateAction<boolean>>;
-  category: string;
+  forSearch: ForSearchType;
   thisCategory: string;
-  keyword: string;
-  moveMap: string;
-  searchLocation: string;
-  sort: string;
+  setCategoryChange: React.Dispatch<React.SetStateAction<boolean>>;
+  setForSearch: React.Dispatch<React.SetStateAction<ForSearchType>>;
 }
 
-function Tab({
-  setCategory,
-  setCategoryChange,
-  category,
-  thisCategory,
-  keyword,
-  moveMap,
-  sort,
-  searchLocation,
-}: PropsType) {
+function Tab({forSearch, thisCategory, setForSearch, setCategoryChange}: PropsType) {
   const navigate = useNavigate();
 
   function handleCategory(key: string) {
@@ -30,8 +19,12 @@ function Tab({
     setTimeout(() => {
       setCategoryChange(false);
     }, 150);
-    setCategory(key);
-    navigate(`/home/search?keyword=${keyword}&category=${key}&map=${moveMap}&location=${searchLocation}&sort=${sort}`);
+    const beforeData = forSearch;
+    beforeData.category = key;
+    setForSearch(beforeData);
+    navigate(
+      `/home/search?keyword=${forSearch.keyword}&category=${key}&map=${forSearch.map}&location=${forSearch.location}&sort=${forSearch.sort}`,
+    );
   }
 
   return (
@@ -39,8 +32,8 @@ function Tab({
       className={styles.container}
       id={thisCategory}
       style={{
-        color: category === thisCategory ? '#1d2433' : '#cdcfd0',
-        borderBottom: category === thisCategory ? '2px solid #1d2433' : 'none',
+        color: forSearch.category === thisCategory ? '#1d2433' : '#cdcfd0',
+        borderBottom: forSearch.category === thisCategory ? '2px solid #1d2433' : 'none',
       }}
       onClick={() => {
         handleCategory(thisCategory);

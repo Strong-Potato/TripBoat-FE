@@ -8,18 +8,15 @@ import SlideButton from '@/components/SlideButton/SlideButton';
 
 import Tab from './Tab/Tab';
 
-interface PropsType {
-  keyword: string;
-  category: string;
-  moveMap: string;
-  searchLocation: string;
-  sort: string;
+import {ForSearchType} from '@/types/home';
 
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
+interface PropsType {
+  forSearch: ForSearchType;
+  setForSearch: React.Dispatch<React.SetStateAction<ForSearchType>>;
   setCategoryChange: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Tabs({setCategory, setCategoryChange, category, keyword, moveMap, searchLocation, sort}: PropsType) {
+function Tabs({forSearch, setForSearch, setCategoryChange}: PropsType) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
   const thisCategory = ['전체', '맛집', '숙소', '관광지', '문화시설', '레포츠', '쇼핑'];
@@ -45,15 +42,11 @@ function Tabs({setCategory, setCategoryChange, category, keyword, moveMap, searc
       >
         {thisCategory.map((thisCategory) => (
           <Tab
-            setCategory={setCategory}
+            forSearch={forSearch}
+            setForSearch={setForSearch}
             setCategoryChange={setCategoryChange}
-            category={category}
             thisCategory={thisCategory}
             key={thisCategory}
-            keyword={keyword}
-            moveMap={moveMap}
-            searchLocation={searchLocation}
-            sort={sort}
           />
         ))}
       </div>
