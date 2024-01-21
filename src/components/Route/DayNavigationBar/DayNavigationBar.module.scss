@@ -1,61 +1,63 @@
 @use '@/sass' as *;
 
-nav {
-  height: 7rem;
-  display: flex;
-  justify-content: space-between;
-  padding: 16px 20px;
-  position: sticky;
-  top: 25.5rem;
-  background-color: $neutral0;
-  margin-bottom: 2rem;
-
-  .dayButtonContainer {
+.container {
+  nav {
+    height: 7rem;
     display: flex;
-    gap: 10px;
-    height: 3.8rem;
-    overflow-x: auto;
+    justify-content: space-between;
+    padding: 16px 20px;
+    position: sticky;
+    top: 25.5rem;
+    background-color: $neutral0;
+    margin-bottom: 2rem;
 
-    button {
-      @include typography(button);
-      border-radius: 8px;
-      padding: 8px 16px;
+    .dayButtonContainer {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: $neutral100;
-      color: $neutral800;
-      white-space: nowrap;
+      gap: 10px;
+      height: 3.8rem;
+      overflow-x: auto;
+
+      button {
+        @include typography(button);
+        border-radius: 8px;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $neutral100;
+        color: $neutral800;
+        white-space: nowrap;
+      }
+
+      .activeButton {
+        background-color: $primary300;
+        color: $neutral0;
+      }
     }
 
-    .activeButton {
-      background-color: $primary300;
-      color: $neutral0;
-    }
-  }
+    .wholeEditButtonContainer {
+      padding-left: 35px;
+      // FIXME: 그라데이션 수정
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0.2%, #fff 22.5%);
 
-  .wholeEditButtonContainer {
-    padding-left: 35px;
-    // FIXME: 그라데이션 수정
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0.2%, #fff 22.5%);
+      .wholeEditButton,
+      .wholeCompleteButton {
+        @include typography(button);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 8px;
+        gap: 0.8rem;
+        white-space: nowrap;
+      }
 
-    .wholeEditButton,
-    .wholeCompleteButton {
-      @include typography(button);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 8px;
-      gap: 0.8rem;
-      white-space: nowrap;
-    }
+      .wholeEditButton {
+        color: $neutral400;
+      }
 
-    .wholeEditButton {
-      color: $neutral400;
-    }
-
-    .wholeCompleteButton {
-      color: $primary300;
+      .wholeCompleteButton {
+        color: $primary300;
+      }
     }
   }
 }
