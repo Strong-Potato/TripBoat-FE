@@ -18,7 +18,7 @@
       height: auto;
       padding: 0;
       padding-bottom: 12px;
-
+      cursor: pointer;
       @include typography(tabLabel);
 
       &__target {

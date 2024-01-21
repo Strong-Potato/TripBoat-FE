@@ -1,0 +1,69 @@
+@use "@/sass" as *;
+
+.container {
+  margin-top: 80px;
+  margin-bottom: 72px;
+  color: $neutral900;
+
+  .myreview {
+    & > li {
+      padding-bottom: 32px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid $neutral200;
+    }
+
+    &__header {
+      display: flex;
+      gap: 12px;
+      padding: 0 20px;
+
+      &__img {
+        width: 4rem;
+        border-radius: 8px;
+
+        background-position: center;
+        background-size: cover;
+      }
+
+      &__text {
+        &__title {
+          @include typography(button);
+        }
+        &__category {
+          @include typography(captionSmall);
+          color: $neutral400;
+        }
+      }
+
+      &__meatball {
+        flex: 1;
+
+        display: flex;
+        justify-content: end;
+        align-items: center;
+      }
+    }
+
+    &__info {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin-top: 16px;
+      padding: 0 20px;
+
+      @include typography(captionSmall);
+
+      &__visited {
+        padding-left: 6px;
+        color: $primary300;
+      }
+    }
+
+    &__content {
+      padding: 0 20px;
+      margin: 8px 0;
+
+      @include typography(bodySmall);
+    }
+  }
+}

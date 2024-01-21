@@ -66,7 +66,12 @@ function User() {
           <div className={styles.myworkTitle}>내 여행 스페이스</div>
         </button>
 
-        <button className={styles.mywork__review}>
+        <button
+          className={styles.mywork__review}
+          onClick={() => {
+            navigate("/user/myreview");
+          }}
+        >
           <Star />
           <div className={styles.myworkTitle}>내 리뷰</div>
         </button>
