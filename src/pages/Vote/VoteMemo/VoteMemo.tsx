@@ -1,6 +1,7 @@
 import {Button} from '@chakra-ui/react';
+import {useEffect} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import {useRecoilState, useRecoilValue} from 'recoil';
+import {useRecoilState} from 'recoil';
 
 import styles from './VoteMemo.module.scss';
 
@@ -12,30 +13,39 @@ import VoteHeader from '@/components/Vote/VoteHeader/VoteHeader';
 import MemoContent from '@/components/VoteMemo/MemoContent';
 
 import {isBottomSlideOpenState} from '@/recoil/vote/bottomSlide';
-import {selectedCandidatesState} from '@/recoil/vote/candidateList';
+import {selectedTaglineState} from '@/recoil/vote/voteMemo';
 
 const VoteMemo = () => {
   const {id: voteId} = useParams();
   const {data: voteInfo} = useGetVotesInfo(Number(voteId));
   const navigate = useNavigate();
-
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
-  const selectedCandidates = useRecoilValue(selectedCandidatesState);
+  const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
 
-  //후보 추가하는 api, selectedCandidates 0으로 리셋, 내비게이트
+  const initializeTaglineState = () => {
+    const initialTaglines = voteInfo.candidates.map((candidate) => ({
+      placeId: candidate.placeInfo.placeId,
+      tagline: '',
+    }));
+    setSelectedTagline(initialTaglines);
+  };
 
-  //
+  useEffect(() => {
+    initializeTaglineState();
+  }, []);
+
+  const addNewCandidates = () => {
+    console.log('최종 내용 : ', selectedTagline);
+    //navigate(`/votes/${voteInfo.id}`)
+  };
+
   return (
     <div className={styles.container}>
       <VoteHeader title={voteInfo.title} onBottomSlideOpen={() => setIsBTOpen(true)} />
       <MemoContent data={voteInfo} />
 
-      <Button
-        variant='CTAButton'
-        isDisabled={selectedCandidates.size === 0}
-        onClick={() => navigate(`/votes/${voteInfo.id}`)}
-      >
-        {selectedCandidates.size}개 후보 등록하기
+      <Button variant='CTAButton' isDisabled={selectedTagline.length === 0} onClick={addNewCandidates}>
+        {selectedTagline.length}개 후보 등록하기
       </Button>
 
       <BottomSlide isOpen={isBTOpen} onClose={() => setIsBTOpen(false)} children={<AddCandidate />} />

@@ -1,27 +1,39 @@
-import {useSetRecoilState} from 'recoil';
+import {RecoilState, useSetRecoilState} from 'recoil';
 
-import {selectedPlaceState} from '@/recoil/vote/selectPlace';
+import {PlaceInfo, TaglineType} from '@/types/vote';
 
-import {PlaceInfo} from '@/types/vote';
+const useGetSelectedArray = <T extends PlaceInfo | TaglineType>(selectedState: RecoilState<T[]>) => {
+  const setSelectedState = useSetRecoilState(selectedState);
 
-const useGetSelectedArray = () => {
-  const setSelectedPlace = useSetRecoilState(selectedPlaceState);
-
-  const toggleItemInNewArray = (data: PlaceInfo) => {
-    setSelectedPlace((currentArray) => {
+  const toggleItemInNewArray = (data: T) => {
+    setSelectedState((currentArray) => {
       const index = currentArray.findIndex((item) => item.placeId === data.placeId);
 
       if (index !== -1) {
         const newArray = [...currentArray.slice(0, index), ...currentArray.slice(index + 1)];
+        console.log('newArray:', newArray);
         return newArray;
       } else {
         const newArray = [...currentArray, data];
+        console.log('newArray:', newArray);
         return newArray;
       }
     });
   };
 
-  return {toggleItemInNewArray};
+  const setMemoArray = (data: T) => {
+    setSelectedState((currentArray: T[]) => {
+      const index = currentArray.findIndex((item) => item.placeId === data.placeId);
+      if (index !== -1) {
+        const newArray = [...currentArray];
+        newArray[index] = data;
+        return newArray;
+      }
+      return currentArray;
+    });
+  };
+
+  return {toggleItemInNewArray, setMemoArray};
 };
 
 export default useGetSelectedArray;

@@ -1,21 +1,34 @@
 import {Checkbox} from '@chakra-ui/react';
 import {useState} from 'react';
-import {useSetRecoilState} from 'recoil';
 
 import styles from './MemoItem.module.scss';
 
-import useGetSelectedSet from '@/hooks/useGetSelectedSet';
+import useGetSelectedArray from '@/hooks/useGetSelectedArray';
 
-import {selectedCandidatesState} from '@/recoil/vote/candidateList';
+import {selectedTaglineState} from '@/recoil/vote/voteMemo';
 
 import {CandidatesInfo} from '@/types/vote';
 
 const MemoItem = ({candidate}: {candidate: CandidatesInfo}) => {
-  const [text, setText] = useState(0);
-  const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
-  const {addItemInNewSet} = useGetSelectedSet(setSelectedCandidates);
-
+  const [text, setText] = useState('');
+  // const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
+  const {toggleItemInNewArray, setMemoArray} = useGetSelectedArray(selectedTaglineState);
   const placeInfo = candidate.placeInfo;
+
+  const handleCheckboxChange = () => {
+    toggleItemInNewArray({
+      placeId: placeInfo.placeId,
+      tagline: text,
+    });
+  };
+
+  const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(event.target.value);
+    setMemoArray({
+      placeId: placeInfo.placeId,
+      tagline: event.target.value,
+    });
+  };
 
   return (
     <div className={styles.container}>
@@ -24,8 +37,7 @@ const MemoItem = ({candidate}: {candidate: CandidatesInfo}) => {
         variant='candidateCheckbox'
         m='0'
         alignItems='flex-start'
-        value={candidate.id}
-        onChange={() => addItemInNewSet(candidate.id)}
+        onChange={handleCheckboxChange}
       />
       <div className={styles.container__rightSide}>
         <div className={styles.candidateBox}>
@@ -43,12 +55,12 @@ const MemoItem = ({candidate}: {candidate: CandidatesInfo}) => {
         </div>
         <div className={styles.textareaBox}>
           <textarea
-            onChange={(e) => setText(e.target.value.length)}
+            onChange={handleTextareaChange}
             className={styles.textarea}
             maxLength={30}
             placeholder='장소에 대한 메모를 남겨주세요. (30자 이하)'
           />
-          <p className={styles.textarea__counts}>{text}/30자</p>
+          <p className={styles.textarea__counts}>{text.length}/30자</p>
         </div>
       </div>
     </div>

@@ -145,3 +145,8 @@ export interface DeleteCandidatesProps {
   voteId: number;
   candidateId: number[];
 }
+
+export interface TaglineType {
+  placeId: number;
+  tagline: string;
+}

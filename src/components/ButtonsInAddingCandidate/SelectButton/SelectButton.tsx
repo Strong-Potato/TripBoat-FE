@@ -20,7 +20,8 @@ const placeInfo = {
 const SelectButton = () => {
   const [isClicked, setIsClicked] = useState(false);
   const selectedPlaces = useRecoilValue(selectedPlaceState);
-  const {toggleItemInNewArray} = useGetSelectedArray();
+
+  const {toggleItemInNewArray} = useGetSelectedArray(selectedPlaceState);
 
   const handleClick = () => {
     setIsClicked((prev) => !prev);
