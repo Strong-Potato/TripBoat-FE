@@ -2,7 +2,7 @@ import styles from "./Tab.module.scss";
 
 import { TabProps } from "@/types/user";
 
-function Tab({ tab, setTab, data, setData }: TabProps) {
+function Tab({ tab, setTab }: TabProps) {
   return (
     <nav className={styles.container}>
       <div

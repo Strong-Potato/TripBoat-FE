@@ -69,6 +69,12 @@ export interface InputNickname {
   resetField: UseFormResetField<AuthForm>;
 }
 
+export interface InputOldPasswordProps {
+  register: UseFormRegister<AuthForm>;
+  dirtyFields?: DirtyFields;
+  errors?: FieldErrors<AuthForm>;
+}
+
 /* ---------------------------------- Login --------------------------------- */
 
 export interface LoginDirtyFields {
@@ -150,7 +156,13 @@ export interface StepPasswordProps {
   errors?: FieldErrors<AuthForm>;
 }
 
-export type StepOldPasswordProps = Partial<StepPasswordProps>;
+export interface StepOldPasswordProps {
+  register: UseFormRegister<AuthForm>;
+  dirtyFields?: DirtyFields;
+  errors?: FieldErrors<AuthForm>;
+  setStep?: React.Dispatch<React.SetStateAction<string>>;
+  setToken?: React.Dispatch<React.SetStateAction<string>>;
+}
 
 export interface StepProfileProps {
   register: UseFormRegister<AuthForm>;

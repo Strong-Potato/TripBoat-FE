@@ -2,7 +2,13 @@ import styles from "./Input.module.scss";
 
 import validationForm from "@/utils/inputValidation";
 
-function InputOldPassword({ register, dirtyFields, errors }) {
+import { InputOldPasswordProps } from "@/types/auth";
+
+function InputOldPassword({
+  register,
+  dirtyFields,
+  errors,
+}: InputOldPasswordProps) {
   return (
     <section className={styles.password}>
       <label htmlFor="oldPassword">비밀번호</label>

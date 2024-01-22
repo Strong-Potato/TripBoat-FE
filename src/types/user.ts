@@ -23,8 +23,6 @@ export type MySpaces = MySpaceData[];
 export interface TabProps {
   tab: string;
   setTab: React.Dispatch<React.SetStateAction<string>>;
-  data: MySpaces | null;
-  setData: React.Dispatch<React.SetStateAction<MySpaces | null>>;
 }
 
 export interface MySpaceListProps {

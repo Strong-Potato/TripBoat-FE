@@ -41,7 +41,7 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
     console.log(data);
 
     try {
-      const { email, password, image, nickname } = data;
+      const { email, password, nickname } = data;
       const res = await axios.post("/api/auth/register", {
         email,
         password,

@@ -126,7 +126,7 @@ function MySpaceBody() {
 
   return (
     <section className={styles.container}>
-      <Tab tab={tab} setTab={setTab} data={data} setData={setData} />
+      <Tab tab={tab} setTab={setTab} />
 
       <MySpaceList data={data} tab={tab} />
     </section>
