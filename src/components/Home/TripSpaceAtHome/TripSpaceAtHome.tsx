@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from 'react';
 
-import styles from "./TripSpaceAtHome.module.scss";
+import styles from './TripSpaceAtHome.module.scss';
 
-import useComponentSize from "@/hooks/useComponetSize";
+import useComponentSize from '@/hooks/useComponetSize';
 
-import SlideButton from "@/components/SlideButton/SlideButton";
+import SlideButton from '@/components/SlideButton/SlideButton';
 
-import { getData } from "@/mocks/handlers/home";
+import {getData} from '@/mocks/handlers/home';
 
-import TripSpaceItem from "./TripSpaceItem/TripSpaceItem";
+import TripSpaceItem from './TripSpaceItem/TripSpaceItem';
 
-import { TripSpaceDataType } from "@/types/home";
+import {TripSpaceDataType} from '@/types/home';
 
 function TripSpaceAtHome() {
   const [data, setData] = useState<TripSpaceDataType[]>();
@@ -18,14 +18,14 @@ function TripSpaceAtHome() {
   const [componentRef, size] = useComponentSize();
 
   const dataNull = {
-    tripTitle: "아직 여행 일정이 없어요",
-    tripDay: "새로운 여행 일정을 만들어보세요!",
-    tripImg: "/tripVoteLogoHome.png",
+    tripTitle: '아직 여행 일정이 없어요',
+    tripDay: '새로운 여행 일정을 만들어보세요!',
+    tripImg: '/tripVoteLogoHome.png',
     dDay: undefined,
   };
 
   useEffect(() => {
-    getData<TripSpaceDataType[] | undefined>(`home/tripSpace`, setData);
+    getData<TripSpaceDataType[] | undefined>(`api/home/tripSpace`, setData);
   }, []);
 
   return (
@@ -44,14 +44,12 @@ function TripSpaceAtHome() {
         className={styles.slide_box}
         ref={componentRef}
         style={{
-          overflow: size.width < 449 ? "scroll" : "visible",
-          left: slideLocation + "px",
+          overflow: size.width < 449 ? 'scroll' : 'visible',
+          left: slideLocation + 'px',
         }}
       >
         {data ? (
-          data.map((data, i) => (
-            <TripSpaceItem data={data} key={data.tripTitle + i} />
-          ))
+          data.map((data, i) => <TripSpaceItem data={data} key={data.tripTitle + i} />)
         ) : (
           <TripSpaceItem data={dataNull} key={dataNull.tripTitle} />
         )}
