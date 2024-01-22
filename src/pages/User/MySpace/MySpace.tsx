@@ -4,62 +4,64 @@ import styles from "./MySpace.module.scss";
 
 import Header from "@/components/Auth/Header/Header";
 
+import { setMyspaceDate } from "@/utils/formatDate";
+
 const upcomming = [
   {
     id: "asdfasdf",
     title: "강릉, 속초, 전주, 여수 여행",
-    startDate: "2024.1.17(금)",
-    endDate: "2024.1.19(일)",
+    startDate: "2024-01-12",
+    endDate: "2024-01-14",
     dueDate: 0,
   },
   {
     id: "asdfasds1",
     title: "강릉, 속초, 전주, 여수 여행",
-    startDate: "2024.1.17(금)",
-    endDate: "2024.1.19(일)",
+    startDate: "2024-01-18",
+    endDate: "2024-01-22",
     dueDate: 4,
   },
   {
     id: "asdf123as",
     title: "강릉, 속초, 전주, 여수 여행",
-    startDate: "2024.1.17(금)",
-    endDate: "2024.1.19(일)",
+    startDate: "2024-01-18",
+    endDate: "2024-01-22",
     dueDate: 15,
   },
   {
     id: "asdd12ddddd",
     title: "강릉, 속초, 전주, 여수 여행",
-    startDate: "2024.1.17(금)",
-    endDate: "2024.1.19(일)",
+    startDate: "2024-01-18",
+    endDate: "2024-01-22",
     dueDate: 15,
   },
   {
     id: "asd123d1d11d",
     title: "강릉, 속초, 전주, 여수 여행",
-    startDate: "2024.1.17(금)",
-    endDate: "2024.1.19(일)",
+    startDate: "2024-01-18",
+    endDate: "2024-01-22",
     dueDate: 15,
   },
   {
     id: "1234asdaaa",
     title: "강릉, 속초, 전주, 여수 여행",
-    startDate: "2024.1.17(금)",
-    endDate: "2024.1.19(일)",
+    startDate: "2024-01-18",
+    endDate: "2024-01-22",
     dueDate: 15,
   },
   {
     id: "1234asda12",
     title: "강릉, 속초, 전주, 여수 여행",
-    startDate: "2024.1.17(금)",
-    endDate: "2024.1.19(일)",
+    startDate: "2024-01-18",
+    endDate: "2024-01-22",
     dueDate: 15,
   },
   {
     id: "1234asdazz",
     title: "강릉, 속초, 전주, 여수 여행",
-    startDate: "2024.1.17(금)",
-    endDate: "2024.1.19(일)",
-    dueDate: 15,
+    startDate: "2025-01-18",
+    endDate: "2025-01-22",
+    dueDate: 418,
   },
 ];
 
@@ -67,57 +69,22 @@ const outdated = [
   {
     id: "asdfasdf1",
     title: "강릉, 속초, 전주, 여수 여행",
-    startDate: "2023.12.15(수)",
-    endDate: "2023.12.19(일)",
+    startDate: "2023-12-17",
+    endDate: "2023-12-21",
     dueDate: 0,
   },
   {
     id: "asdfasds124",
     title: "캐리비안베이, 로만바스 온천, 라마드 호텔, 에버랜드",
-    startDate: "2023.12.15(수)",
-    endDate: "2023.12.19(일)",
+    startDate: "2023-04-17",
+    endDate: "2023-04-20",
     dueDate: 0,
   },
   {
     id: "asdf123as15",
     title: "강릉, 속초, 전주, 여수 여행",
-    startDate: "2023.12.15(수)",
-    endDate: "2023.12.19(일)",
-    dueDate: 0,
-  },
-  {
-    id: "asdd12dddddb",
-    title: "강릉, 속초, 전주, 여수 여행",
-    startDate: "2023.12.15(수)",
-    endDate: "2023.12.19(일)",
-    dueDate: 0,
-  },
-  {
-    id: "asd123d1d11dv",
-    title: "강릉, 속초, 전주, 여수 여행",
-    startDate: "2023.12.15(수)",
-    endDate: "2023.12.19(일)",
-    dueDate: 0,
-  },
-  {
-    id: "1234asdaaac",
-    title: "강릉, 속초, 전주, 여수 여행",
-    startDate: "2023.12.15(수)",
-    endDate: "2023.12.19(일)",
-    dueDate: 0,
-  },
-  {
-    id: "1234asda12s",
-    title: "강릉, 속초, 전주, 여수 여행",
-    startDate: "2023.12.15(수)",
-    endDate: "2023.12.19(일)",
-    dueDate: 0,
-  },
-  {
-    id: "1234asdazza",
-    title: "강릉, 속초, 전주, 여수 여행",
-    startDate: "2023.12.15(수)",
-    endDate: "2023.12.19(일)",
+    startDate: "2022-12-29",
+    endDate: "2022-12-30",
     dueDate: 0,
   },
 ];
@@ -188,9 +155,9 @@ function MySpace() {
                   {title}
                 </div>
 
-                <div
-                  className={styles.myspace__list__content__date}
-                >{`${startDate} ~ ${endDate}`}</div>
+                <div className={styles.myspace__list__content__date}>
+                  {setMyspaceDate.upcomming(startDate, endDate)}
+                </div>
               </div>
             </li>
           ))}
