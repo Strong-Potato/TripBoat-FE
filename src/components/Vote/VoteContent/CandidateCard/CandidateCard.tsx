@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import {FaRegStar, FaStar} from 'react-icons/fa';
-import {Link} from 'react-router-dom';
 import {useRecoilValue} from 'recoil';
 
 import styles from './CandidateCard.module.scss';
@@ -75,9 +74,13 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapS
 
       <div className={styles.main}>
         <div className={styles.main__contextBox}>
-          <Link to='' className={styles.main__contextBox__name}>
-            {placeInfo.placeName} {'>'}
-          </Link>
+          <button
+            className={styles.main__contextBox__name}
+            // onClick={navigate로 넣기}
+            disabled={isCandidateSelecting}
+          >
+            {placeInfo.placeName}
+          </button>
 
           <div className={styles.main__contextBox__category}>
             {placeInfo.category}
@@ -97,7 +100,11 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapS
             </button>
           )}
         </div>
-        <button className={styles.main__voteBox} onClick={onVoteBoxClick} disabled={isCandidateSelecting || isMapStyle}>
+        <button
+          className={`${styles.main__voteBox} ${isCandidateSelecting && styles.isCandidateSelecting}`}
+          onClick={onVoteBoxClick}
+          disabled={isCandidateSelecting || isMapStyle || isCandidateSelecting}
+        >
           <div className={styles.main__voteBox__star}>{voteStarIcon()}</div>
           <div className={styles.main__voteBox__vote}>{showResults ? candidate.voteCount : '투표'}</div>
         </button>

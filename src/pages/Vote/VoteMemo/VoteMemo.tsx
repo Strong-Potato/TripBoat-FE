@@ -1,6 +1,6 @@
 import {Button} from '@chakra-ui/react';
 import {useEffect} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 
 import styles from './VoteMemo.module.scss';
@@ -18,7 +18,7 @@ import {selectedTaglineState} from '@/recoil/vote/voteMemo';
 const VoteMemo = () => {
   const {id: voteId} = useParams();
   const {data: voteInfo} = useGetVotesInfo(Number(voteId));
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
 

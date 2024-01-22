@@ -33,6 +33,7 @@ const VoteContent = ({onBottomSlideOpen, data, showResults}: VoteContentProps) =
         </div>
 
         <button
+          disabled={isCandidateSelecting}
           onClick={() => onBottomSlideOpen(<AddCandidate />)}
           className={styles.container__stateBar__addCandidate}
         >
@@ -47,7 +48,8 @@ const VoteContent = ({onBottomSlideOpen, data, showResults}: VoteContentProps) =
         isCandidateSelecting={isCandidateSelecting}
       />
       {/* 후보지&여행지 X -> 상품 추천 없음 */}
-      <VoteRecommendList state={data.voteStatus} />
+      <VoteRecommendList state={data.voteStatus} isCandidateSelecting={isCandidateSelecting} />
+
       {isCandidateSelecting && <DeleteCandidatesButton />}
     </div>
   );
