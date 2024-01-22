@@ -13,8 +13,9 @@ import Star from "@/assets/icons/star_fill.svg?react";
 
 const data = [
   {
-    id: "123a",
+    id: 1231,
     place: {
+      id: 41414,
       area: "대전",
       category: "맛집 · 서울",
       title: "대전 성심당",
@@ -36,8 +37,9 @@ const data = [
     ],
   },
   {
-    id: "123sd",
+    id: 12555,
     place: {
+      id: 42311,
       area: "대전",
       category: "맛집 · 서울",
       title: "대전 성심당",
@@ -57,8 +59,9 @@ const data = [
     ],
   },
   {
-    id: "123asaa",
+    id: 1111,
     place: {
+      id: 535334,
       area: "대전",
       category: "맛집 · 서울",
       title: "대전 성심당",
@@ -78,8 +81,9 @@ const data = [
     ],
   },
   {
-    id: "1231qa",
+    id: 221411,
     place: {
+      id: 655454,
       area: "대전",
       category: "맛집 · 서울",
       title: "대전 성심당",
@@ -99,8 +103,9 @@ const data = [
     ],
   },
   {
-    id: "123xcv",
+    id: 221331,
     place: {
+      id: 645445,
       area: "대전",
       category: "맛집 · 서울",
       title: "대전 성심당",
@@ -128,7 +133,7 @@ function MyReview() {
     onClose: onBottomSlideClose,
   } = useDisclosure();
 
-  const clickedReviewId = useRef("");
+  const clickedReviewId = useRef<number | undefined>();
 
   return (
     <div className={styles.container}>
@@ -138,24 +143,26 @@ function MyReview() {
         {data.map(({ id, place, visitedAt, rating, content, images }) => (
           <li key={id}>
             <div className={styles.myreview__header}>
-              <div
-                className={styles.myreview__header__img}
-                style={{ backgroundImage: `url(${place.thumbnail})` }}
-              ></div>
+              <div>
+                <div
+                  className={styles.myreview__header__img}
+                  style={{ backgroundImage: `url(${place.thumbnail})` }}
+                ></div>
 
-              <div className={styles.myreview__header__text}>
-                <div className={styles.myreview__header__text__title}>
-                  {place.title}
-                </div>
-                <div className={styles.myreview__header__text__category}>
-                  {place.category}
+                <div className={styles.myreview__header__text}>
+                  <div className={styles.myreview__header__text__title}>
+                    {place.title}
+                  </div>
+                  <div className={styles.myreview__header__text__category}>
+                    {place.category}
+                  </div>
                 </div>
               </div>
 
               <button
                 className={styles.myreview__header__meatball}
                 onClick={() => {
-                  clickedReviewId.current = id;
+                  clickedReviewId.current = place.id;
                   onBottomSlideOpen();
                 }}
               >

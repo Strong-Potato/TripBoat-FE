@@ -1,5 +1,5 @@
 import { MutableRefObject } from "react";
 
 export interface ActionListProps {
-  reviewId: MutableRefObject<string>;
+  reviewId: MutableRefObject<number | undefined>;
 }
