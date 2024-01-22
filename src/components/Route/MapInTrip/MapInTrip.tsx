@@ -2,11 +2,11 @@ import { CustomOverlayMap, Map, Polyline } from "react-kakao-maps-sdk";
 
 import styles from "./MapInTrip.module.scss";
 
-import Marker1 from "@/assets/tripIcons/marker1.svg?react";
-import Marker2 from "@/assets/tripIcons/marker2.svg?react";
-import Marker3 from "@/assets/tripIcons/marker3.svg?react";
+import MapPinNumber from "@/components/CandidatesMap/MapPins/MapPinNumber";
 
-function MapInTrip() {
+import { MapInTripProps } from "@/types/route";
+
+function MapInTrip({ mapRef, center }: MapInTripProps) {
   const linePath = [
     { lat: 37.76437082535426, lng: 128.87675285339355 },
     { lat: 37.7911054, lng: 128.9149116 },
@@ -14,30 +14,27 @@ function MapInTrip() {
   ];
 
   return (
-    <>
-      <Map
-        className={styles.mapInTripContainer}
-        center={{ lat: linePath[0].lat, lng: linePath[0].lng }}
-        level={10}
-      >
-        <Polyline
-          path={linePath}
-          strokeWeight={3}
-          strokeColor="#3F444D"
-          strokeOpacity={1}
-          strokeStyle="longdash"
-        />
-        <CustomOverlayMap position={linePath[0]}>
-          <Marker1 />
+    <Map
+      className={styles.mapInTripContainer}
+      center={center}
+      level={10}
+      ref={mapRef}
+    >
+      <Polyline
+        path={linePath}
+        strokeWeight={3}
+        strokeColor="#3F444D"
+        strokeOpacity={1}
+        strokeStyle="dashed"
+      />
+      {linePath.map((item, index) => (
+        <CustomOverlayMap position={item}>
+          <div>
+            <MapPinNumber number={index + 1} />
+          </div>
         </CustomOverlayMap>
-        <CustomOverlayMap position={linePath[1]}>
-          <Marker2 />
-        </CustomOverlayMap>
-        <CustomOverlayMap position={linePath[2]}>
-          <Marker3 />
-        </CustomOverlayMap>
-      </Map>
-    </>
+      ))}
+    </Map>
   );
 }
 

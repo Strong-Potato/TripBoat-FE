@@ -1,0 +1,20 @@
+@use '@/sass' as *;
+
+.container {
+  @include typography(captionSmall);
+  width: 5.3rem;
+  height: 2.8rem;
+  border-radius: 16px;
+
+  background-color: $neutral100;
+
+  padding: 4px auto;
+
+  color: $neutral800;
+  text-align: center;
+}
+
+.clicked {
+  background-color: $primary300;
+  color: $neutral0;
+}

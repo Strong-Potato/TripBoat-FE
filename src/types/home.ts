@@ -1,12 +1,14 @@
 // 홈 타입
 
 export interface RecommendedItemDataType {
+  id: number;
+  contentTypeId: number;
   title: string;
-  imageURL: string;
-  location: string;
-  score: string;
-  reviewNumber: string;
-  id: string;
+  thumbnail: string;
+  areaCode: number;
+  sigunguCode: number;
+  category: string;
+  rating: string;
 }
 
 export interface LocationDataType {
@@ -50,20 +52,38 @@ export interface SlideButtonPropsType extends LeftButtonPropsType {
 // 홈 검색 타입
 export interface SearchItemLocationType {
   address: string;
+  addressDetail: string;
+  phone: string;
+  areaCode: number;
+  sigunguCode: number;
+  zipCode: number;
   latitude: number;
   longtitude: number;
 }
 
 export interface SearchHotItemType {
   title: string;
-  imageURL: string;
-  location: string;
+  thumbnail: string;
+  areaCode: number;
+  sigunguCode: number;
+  category: string;
   id: number;
+  contentTypeId: number;
 }
 
 export interface SearchItemType {
+  id: number;
+  contentTypeId: number;
   title: string;
-  imageURL: string;
+  thumbnail: string;
   location: SearchItemLocationType;
   category: string;
+}
+
+export interface ForSearchType {
+  keyword: string;
+  category: number;
+  map: string;
+  location: string;
+  sort: string;
 }

@@ -1,69 +1,57 @@
-import { ReactNode } from "react";
+import {Dispatch, ReactNode} from 'react';
+import {SwiperRef} from 'swiper/react';
 
-export interface CandidateData {
-  name: string;
-  imageURL: string;
-  category: string;
-  location: string;
-  voteUserId: string[];
-  voteCounts: number;
-  memo: string;
-  id: number;
-}
-[];
-
-export interface VoteListData {
-  title: string;
-  profile: string;
-  state: string;
-  voteUserId: string[];
-  candidates: CandidateData[];
-  id: string;
+export interface Latlng {
+  lat: number;
+  lng: number;
 }
 
 ////////////////스웨거//////////////////
-export interface SSCandidateData {
+export interface CandidatesInfo {
   id: number;
-  placeId: number; //
+  placeId: number;
   placeName: string;
   category: string;
-  tagline: string; //메모?
-  amIVoted: boolean; //
-  //imageURL: string;
-  //location: string;
-  //voteUserId: string[];   //이거 필요
-  //voteCounts: number;
-  //memo: string;
+  tagline: string;
+  amIVoted: boolean;
+  //
+  imageURL: string;
+  location: string;
+  voteUserId: string[]; //이거 필요
+  latlng: Latlng;
 }
 [];
-export interface SSVoteData {
-  id: string;
+
+interface VotedMemberProfiles {
+  id: number;
+  nickName: string;
+  profile: string;
+}
+[];
+
+export interface VoteListInfo {
+  voteId: number;
   title: string;
+  voteStatus: string;
   ownerProfile: {
     id: number;
-    nickName: string;
+    nickName?: string;
     profile: string;
   };
-  candidates: CandidateData[];
-  // state: string;
-  // voteUserId: string[];
+  votedMemberProfiles: VotedMemberProfiles[];
 }
 
-export interface SSVoteCardData {
-  voteId: string;
+export interface VoteInfo {
+  id: number;
   title: string;
   ownerProfile: {
     id: number;
-    nickName: string;
+    nickName?: string;
     profile: string;
   };
-  votedMemberProfiles: [
-    {
-      id: 0; //props으로 내려줄게 아니라면 사진만 있어도 됨, 배열로
-      nickName: string;
-      profile: string;
-    },
-  ];
+  votedMemberProfiles?: VotedMemberProfiles[]; //빠짐
+  voteStatus: string; //status요청하기,,
+  candidates: CandidatesInfo[];
 }
 ////////////////스웨거//////////////////
 
@@ -74,24 +62,27 @@ export interface VoteBottomButtonProps {
 
 export interface VoteContentProps {
   onBottomSlideOpen: (content: ReactNode) => void;
-  data: VoteListData;
+  data: VoteInfo;
   showResults: boolean;
 }
 
 export interface VoteHeaderProps {
-  onBottomSlideOpen: () => void;
+  onBottomSlideOpen?: () => void;
   title: string;
+  isNoCandidate?: boolean;
 }
 
 export interface CandidateCardProps {
-  onBottomSlideOpen: (content: ReactNode) => void;
-  candidate: CandidateData;
+  onBottomSlideOpen?: (content: ReactNode) => void | undefined;
+  candidate: CandidatesInfo;
   showResults: boolean;
   index: number;
+  isMapStyle?: boolean;
 }
 
 export interface VoteMeatballProps {
   state: string;
+  title: string;
   isZeroCandidates: boolean;
 }
 
@@ -105,8 +96,42 @@ export interface AlertModalProps {
 }
 
 export interface CandidateListProps {
-  candidates: CandidateData[];
+  candidates: CandidatesInfo[];
   onBottomSlideOpen: (content: ReactNode) => void;
   showResults: boolean;
   isCandidateSelecting: boolean;
+}
+
+export interface PostVoteTitleProps {
+  spaceId: number;
+  title: string;
+}
+
+//get아니고 후보메모post
+export interface PostNewCandidateProps {
+  voteId: number;
+  candidates: {
+    placeId: number;
+    tagline: string;
+  }[];
+}
+
+export interface CandidatesSlideProps {
+  candidates: CandidatesInfo[];
+  setSelectedPinIndex: Dispatch<React.SetStateAction<number>>;
+  setCenterMarker: Dispatch<React.SetStateAction<Latlng>>;
+  swiperRef: React.RefObject<SwiperRef>;
+}
+
+export interface CreateVoteModalProps {
+  isEditMode: boolean;
+  existingTitle?: string;
+}
+export interface EditVoteTitleProps {
+  title: string;
+  voteId: number;
+}
+export interface DeleteCandidatesProps {
+  voteId: number;
+  candidateId: number[];
 }

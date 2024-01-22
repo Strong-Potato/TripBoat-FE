@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from 'react';
 
-import styles from "./VoteAtHome.module.scss";
+import styles from './VoteAtHome.module.scss';
 
-import { getData } from "@/mocks/handlers/home";
+import {getData} from '@/mocks/handlers/home';
 
-import CardHaveVote from "./VoteCard/CardHaveVote/CardHaveVote";
-import CardNull from "./VoteCard/CardNull/CardNull";
+import CardHaveVote from './VoteCard/CardHaveVote/CardHaveVote';
+import CardNull from './VoteCard/CardNull/CardNull';
 
-import { VoteDataType } from "@/types/home";
+import {VoteDataType} from '@/types/home';
 
 function VoteAtHome() {
   const [data, setData] = useState<VoteDataType[]>();
 
   useEffect(() => {
-    getData<VoteDataType[] | undefined>(`home/vote`, setData);
+    getData<VoteDataType[] | undefined>(`api/home/vote`, setData);
   }, []);
 
   return (

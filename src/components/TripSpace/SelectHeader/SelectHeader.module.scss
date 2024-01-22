@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .titleHeader {
   background-color: $neutral0;
@@ -8,11 +8,11 @@
   top: 0;
   z-index: 2;
 
-  nav {
+  .titleNavigation {
     padding: 16px 20px;
   }
 
-  h1 {
+  .selectTitle {
     @include typography(headline);
     padding: 8px 20px;
   }
