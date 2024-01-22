@@ -33,7 +33,7 @@ const MemoItem = ({candidate}: {candidate: CandidatesInfo}) => {
 
   useEffect(() => {
     handleDebouncedTextChange();
-  }, [debouncedText, handleDebouncedTextChange]);
+  }, [debouncedText]);
 
   return (
     <div className={styles.container}>
