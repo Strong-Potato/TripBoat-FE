@@ -11,7 +11,7 @@ import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
 
 import {VoteHeaderProps} from '@/types/vote';
 
-const VoteHeader = ({onBottomSlideOpen, title, isNoCandidate}: VoteHeaderProps) => {
+const VoteHeader = ({onBottomSlideOpen, title, isZeroCandidates}: VoteHeaderProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname.split('/')[3];
@@ -32,7 +32,7 @@ const VoteHeader = ({onBottomSlideOpen, title, isNoCandidate}: VoteHeaderProps) 
           <>
             <button
               onClick={() => navigate(`${location.pathname}/map`)}
-              disabled={isNoCandidate || isCandidateSelecting}
+              disabled={isZeroCandidates || isCandidateSelecting}
             >
               <RiMap2Line />
             </button>

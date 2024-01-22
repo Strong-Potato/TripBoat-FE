@@ -32,13 +32,15 @@ const VoteContent = ({onBottomSlideOpen, data, showResults}: VoteContentProps) =
           {data.voteStatus}
         </div>
 
-        <button
-          disabled={isCandidateSelecting}
-          onClick={() => onBottomSlideOpen(<AddCandidate />)}
-          className={styles.container__stateBar__addCandidate}
-        >
-          + 후보 추가({candidates.length}/15)
-        </button>
+        {!showResults && (
+          <button
+            disabled={isCandidateSelecting}
+            onClick={() => onBottomSlideOpen(<AddCandidate />)}
+            className={styles.container__stateBar__addCandidate}
+          >
+            + 후보 추가({candidates.length}/15)
+          </button>
+        )}
       </div>
 
       <CandidateList

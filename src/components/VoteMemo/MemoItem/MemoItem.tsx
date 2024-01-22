@@ -39,13 +39,14 @@ const MemoItem = ({candidate}: {candidate: CandidatesInfo}) => {
     <div className={styles.container}>
       <Checkbox
         defaultChecked
+        id={`${placeInfo.placeId}taglineCheck`}
         variant='candidateCheckbox'
         m='0'
         alignItems='flex-start'
         onChange={handleCheckboxChange}
       />
       <div className={styles.container__rightSide}>
-        <div className={styles.candidateBox}>
+        <label htmlFor={`${placeInfo.placeId}taglineCheck`} className={styles.candidateBox}>
           <div className={styles.candidateBox__image}>
             <img src={placeInfo.placeImageURL} alt={placeInfo.placeName} />
           </div>
@@ -57,7 +58,7 @@ const MemoItem = ({candidate}: {candidate: CandidatesInfo}) => {
               {placeInfo.location}
             </span>
           </div>
-        </div>
+        </label>
         <div className={styles.textareaBox}>
           <textarea
             onChange={(e) => setText(e.target.value)}

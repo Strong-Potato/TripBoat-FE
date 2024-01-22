@@ -79,7 +79,7 @@ export interface VoteContentProps {
 export interface VoteHeaderProps {
   onBottomSlideOpen?: () => void;
   title: string;
-  isNoCandidate?: boolean;
+  isZeroCandidates?: boolean;
 }
 
 export interface CandidateCardProps {
@@ -94,6 +94,7 @@ export interface VoteMeatballProps {
   state: string;
   title: string;
   isZeroCandidates: boolean;
+  allCandidatesNotVoted: boolean;
 }
 
 export interface AlertModalProps {
