@@ -5,6 +5,9 @@ import styles from "./UserPrivacy.module.scss";
 import Header from "@/components/Auth/Header/Header";
 
 const userInfo = {
+  nickname: "개발토끼",
+  image: "https://avatars.githubusercontent.com/u/100336573?v=4",
+  provider: "KAKAO",
   email: "test@gmail.com",
 };
 
