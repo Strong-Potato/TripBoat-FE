@@ -1,5 +1,10 @@
-import {getSearchData} from '@/api/search';
+import axios from 'axios';
+import {Dispatch} from 'react';
+
 import areaData from '@/utils/areas.json';
+import categoryData from '@/utils/categories.json';
+
+import {SearchItemType} from '@/types/home';
 
 function translateLocation(location: string) {
   const searchLocation = location.split(' ');
@@ -92,18 +97,58 @@ export function translateCategoryToStr(category: number) {
   return categoryCode;
 }
 
-export function search(keyword: string, location: string, sort: string) {
-  const searchLocation = translateLocation(location);
+export function translateCategoryCode(name: string) {
+  const categoryCode = categoryData.filter((data) => data.name === name)[0];
+  return categoryCode.code;
+}
 
-  const searchData = getSearchData(
-    0,
-    searchLocation.areaCode,
-    searchLocation.sigunguCode,
-    0,
-    keyword,
-    translateSort(sort),
-    'A05020900',
-  );
+export async function search(
+  keyword: string,
+  location: string,
+  sort: string,
+  set: Dispatch<React.SetStateAction<SearchItemType[] | undefined>>,
+) {
+  try {
+    const searchLocation = translateLocation(location);
+    const fetchData = await axios.get('/api/places/search', {
+      params: {
+        page: 0,
+        size: 20,
+        areaCode: searchLocation.areaCode,
+        sigunguCode: searchLocation.sigunguCode,
+        keyword: keyword,
+        sort: translateSort(sort),
+      },
+    });
+    const data = fetchData.data;
+    set(data?.data.places);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-  return searchData;
+export async function keywordSearch(
+  keyword: string,
+  location: string,
+  sort: string,
+  set: Dispatch<React.SetStateAction<SearchItemType[] | undefined>>,
+) {
+  try {
+    const searchLocation = translateLocation(location);
+    const categoryCode = translateCategoryCode(keyword);
+    const fetchData = await axios.get('/api/places/search', {
+      params: {
+        page: 0,
+        size: 20,
+        areaCode: searchLocation.areaCode,
+        sigunguCode: searchLocation.sigunguCode,
+        sort: translateSort(sort),
+        categoryCode: categoryCode,
+      },
+    });
+    const data = fetchData.data;
+    set(data?.data.places);
+  } catch (error) {
+    console.log(error);
+  }
 }

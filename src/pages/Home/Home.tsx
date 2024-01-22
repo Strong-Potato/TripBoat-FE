@@ -26,6 +26,7 @@ function Home() {
   }, []);
 
   useLockBodyScroll(modal);
+  useLockBodyScroll(!onboarding);
 
   useEffect(() => {
     if (cookies.inviteCode) {
