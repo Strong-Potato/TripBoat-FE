@@ -6,19 +6,15 @@ const createDate = (date: string) => {
   return new Date(arrayForm[0], arrayForm[1] - 1, arrayForm[2]);
 };
 
-export const setMyspaceDate = {
-  upcomming: (start: string, end: string) => {
-    const startFormat = format(createDate(start), "yyyy.MM.dd");
-    const endFormat = format(createDate(end), "yyyy.MM.dd");
+export const setMyspaceDate = (start: string, end: string) => {
+  const startFormat = format(createDate(start), "yyyy.MM.dd");
+  const endFormat = format(createDate(end), "yyyy.MM.dd");
 
-    if (end) {
-      return `${startFormat} - ${endFormat}`;
-    } else {
-      return startFormat;
-    }
-  },
-
-  outdated: (start: string, end: string) => {},
+  if (end) {
+    return `${startFormat} - ${endFormat}`;
+  } else {
+    return startFormat;
+  }
 };
 
 export const setMyReviewDate = (visitedAt: string) => {

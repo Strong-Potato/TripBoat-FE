@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./MySpace.module.scss";
 
@@ -8,56 +9,56 @@ import { setMyspaceDate } from "@/utils/formatDate";
 
 const upcomming = [
   {
-    id: "asdfasdf",
+    id: 12312,
     title: "강릉, 속초, 전주, 여수 여행",
     startDate: "2024-01-12",
     endDate: "2024-01-14",
     dueDate: 0,
   },
   {
-    id: "asdfasds1",
+    id: 12321,
     title: "강릉, 속초, 전주, 여수 여행",
     startDate: "2024-01-18",
     endDate: "2024-01-22",
     dueDate: 4,
   },
   {
-    id: "asdf123as",
+    id: 12334,
     title: "강릉, 속초, 전주, 여수 여행",
     startDate: "2024-01-18",
     endDate: "2024-01-22",
     dueDate: 15,
   },
   {
-    id: "asdd12ddddd",
+    id: 12343,
     title: "강릉, 속초, 전주, 여수 여행",
     startDate: "2024-01-18",
     endDate: "2024-01-22",
     dueDate: 15,
   },
   {
-    id: "asd123d1d11d",
+    id: 12352,
     title: "강릉, 속초, 전주, 여수 여행",
     startDate: "2024-01-18",
     endDate: "2024-01-22",
     dueDate: 15,
   },
   {
-    id: "1234asdaaa",
+    id: 12315,
     title: "강릉, 속초, 전주, 여수 여행",
     startDate: "2024-01-18",
     endDate: "2024-01-22",
     dueDate: 15,
   },
   {
-    id: "1234asda12",
+    id: 123253,
     title: "강릉, 속초, 전주, 여수 여행",
     startDate: "2024-01-18",
     endDate: "2024-01-22",
     dueDate: 15,
   },
   {
-    id: "1234asdazz",
+    id: 1231617,
     title: "강릉, 속초, 전주, 여수 여행",
     startDate: "2025-01-18",
     endDate: "2025-01-22",
@@ -67,21 +68,21 @@ const upcomming = [
 
 const outdated = [
   {
-    id: "asdfasdf1",
+    id: 812367,
     title: "강릉, 속초, 전주, 여수 여행",
     startDate: "2023-12-17",
     endDate: "2023-12-21",
     dueDate: 0,
   },
   {
-    id: "asdfasds124",
+    id: 867123,
     title: "캐리비안베이, 로만바스 온천, 라마드 호텔, 에버랜드",
     startDate: "2023-04-17",
     endDate: "2023-04-20",
     dueDate: 0,
   },
   {
-    id: "asdf123as15",
+    id: 67123,
     title: "강릉, 속초, 전주, 여수 여행",
     startDate: "2022-12-29",
     endDate: "2022-12-30",
@@ -95,6 +96,8 @@ const tmpImage =
 function MySpace() {
   const [tab, setTab] = useState("upcomming");
   const [data, setData] = useState(upcomming);
+
+  const navigate = useNavigate();
 
   return (
     <div className={styles.container}>
@@ -134,7 +137,12 @@ function MySpace() {
 
         <ul className={styles.myspace__list}>
           {data.map(({ id, title, startDate, endDate, dueDate }) => (
-            <li key={id}>
+            <li
+              key={id}
+              onClick={() => {
+                // navigate(`/trip/${id}`)
+              }}
+            >
               <div
                 className={styles.myspace__list__img}
                 style={{
@@ -156,7 +164,7 @@ function MySpace() {
                 </div>
 
                 <div className={styles.myspace__list__content__date}>
-                  {setMyspaceDate.upcomming(startDate, endDate)}
+                  {setMyspaceDate(startDate, endDate)}
                 </div>
               </div>
             </li>
