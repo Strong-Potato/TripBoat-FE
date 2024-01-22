@@ -8,3 +8,26 @@ export interface UserInfo {
 export interface ProfileProps {
   userInfo: UserInfo;
 }
+
+export interface MySpaceData {
+  id: number;
+  title: string;
+  startDate: string;
+  endDate: string;
+  dueDate: number;
+  thumbnail: string;
+}
+
+export type MySpaces = MySpaceData[];
+
+export interface TabProps {
+  tab: string;
+  setTab: React.Dispatch<React.SetStateAction<string>>;
+  data: MySpaces | null;
+  setData: React.Dispatch<React.SetStateAction<MySpaces | null>>;
+}
+
+export interface MySpaceListProps {
+  data: MySpaces | null;
+  tab: string;
+}
