@@ -48,6 +48,7 @@ const Vote = () => {
 
   const BottomSlideOpen = (content: ReactNode) => {
     setBottomSlideContent(content);
+    document.body.style.overflow = 'hidden';
     setIsBTOpen(true);
     setSelectedCandidates(new Set());
     setIsCandidateSelecting(false);
