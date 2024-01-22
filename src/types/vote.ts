@@ -74,6 +74,7 @@ export interface VoteContentProps {
   onBottomSlideOpen: (content: ReactNode) => void;
   data: VoteInfo;
   showResults: boolean;
+  isZeroCandidates: boolean;
 }
 
 export interface VoteHeaderProps {

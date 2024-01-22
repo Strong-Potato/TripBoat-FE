@@ -14,7 +14,7 @@ import AddCandidate from '../VoteBottomSlideContent/AddCandidate/AddCandidate';
 
 import {VoteContentProps} from '@/types/vote';
 
-const VoteContent = ({onBottomSlideOpen, data, showResults}: VoteContentProps) => {
+const VoteContent = ({onBottomSlideOpen, data, isZeroCandidates, showResults}: VoteContentProps) => {
   const candidates = data.candidates;
   const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
 
@@ -49,8 +49,8 @@ const VoteContent = ({onBottomSlideOpen, data, showResults}: VoteContentProps) =
         showResults={showResults}
         isCandidateSelecting={isCandidateSelecting}
       />
-      {/* 후보지&여행지 X -> 상품 추천 없음 */}
-      <VoteRecommendList state={data.voteStatus} isCandidateSelecting={isCandidateSelecting} />
+
+      {!isZeroCandidates && <VoteRecommendList state={data.voteStatus} isCandidateSelecting={isCandidateSelecting} />}
 
       {isCandidateSelecting && <DeleteCandidatesButton />}
     </div>

@@ -79,6 +79,7 @@ const Vote = () => {
         <VoteContent
           data={voteInfo}
           onBottomSlideOpen={BottomSlideOpen}
+          isZeroCandidates={isZeroCandidates}
           showResults={voteInfo.voteStatus === '결정완료' ? true : showResults}
         />
       ) : (
