@@ -16,7 +16,7 @@ import Invitation from '@/components/Modal/Invitation/Invitation';
 
 function Home() {
   const [onboarding, setOnboarding] = useState(true);
-  const [cookies] = useCookies(['inviteCode', 'isLogin']);
+  const [cookies] = useCookies(['join_space_token', 'isLogin']);
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
@@ -28,10 +28,10 @@ function Home() {
   useLockBodyScroll(modal);
 
   useEffect(() => {
-    if (cookies.inviteCode) {
+    if (cookies.join_space_token) {
       setModal(true);
     }
-  }, [cookies.inviteCode]);
+  }, [cookies.join_space_token]);
 
   return (
     <div className={styles.container}>
@@ -66,7 +66,7 @@ function Home() {
         </div>
       </div>
       {!onboarding && <Onboarding set={setOnboarding} />}
-      {modal && <Invitation inviteCode={cookies.inviteCode} isLogin={cookies.isLogin} modal={setModal} />}
+      {modal && <Invitation inviteCode={cookies.join_space_token} isLogin={cookies.isLogin} modal={setModal} />}
     </div>
   );
 }

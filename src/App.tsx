@@ -3,10 +3,12 @@ import {Suspense} from 'react';
 import {CookiesProvider} from 'react-cookie';
 import {BrowserRouter} from 'react-router-dom';
 import './firebase/messaging-init-in-sw';
+import './firebase/messaging-on-background-message';
 
 import './sass/index.scss';
 
 import MainRouter from './routes/MainRouter/MainRouter';
+window.Kakao.init(import.meta.env.VITE_KAKAO_KEY);
 
 const queryClient = new QueryClient();
 function App() {

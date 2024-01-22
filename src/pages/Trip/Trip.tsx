@@ -65,6 +65,7 @@ function Trip() {
         <div className={styles.iconTab}>
           <button onClick={onAlarmOpen}>
             <AlarmIcon size='24px' color='white' />
+            {/* 종모양 뱃지 */}
           </button>
           <button onClick={onSlideBarOpen}>
             <MenuIcon size='24px' color='white' />
