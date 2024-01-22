@@ -1,0 +1,41 @@
+@use "@/sass" as *;
+
+.container {
+  position: relative;
+
+  label {
+    display: block;
+
+    @include typography(tabLabel);
+    color: $neutral900;
+  }
+
+  small {
+    width: 100%;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+
+    @include typography(captionSmall);
+    color: $danger300;
+
+    &.step__desc {
+      position: relative;
+      margin-top: 8px;
+      color: $neutral400;
+    }
+  }
+
+  .toFindPassword {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+
+    @include typography(captionSmall);
+    color: $neutral400;
+
+    &:hover {
+      font-weight: 600;
+    }
+  }
+}

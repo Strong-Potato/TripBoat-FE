@@ -11,7 +11,9 @@ import Logo from "@/assets/logo.svg?react";
 function Login() {
   const onClickKakao = async () => {
     try {
-      const res = axios.post("/api/oauth2/authorization/kakao");
+      const res = axios.post("/api/oauth2/authorization/kakao", null, {
+        withCredentials: true,
+      });
       console.log(res);
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -29,7 +31,7 @@ function Login() {
       <LoginForm />
 
       <section className={styles.aboutAuth}>
-        <Link to={"/auth/findpassword"}>비밀번호를 잊으셨나요?</Link>
+        <Link to={"/auth/password/find"}>비밀번호를 잊으셨나요?</Link>
         <div className={styles.col_bar}></div>
         <Link to={"/auth/signup"}>회원가입</Link>
       </section>
