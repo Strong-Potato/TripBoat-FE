@@ -1,6 +1,8 @@
 @use "@/sass" as *;
 
 .dayRouteContainer {
+  padding: 0 20px;
+
   .dayHeader {
     display: flex;
     justify-content: space-between;

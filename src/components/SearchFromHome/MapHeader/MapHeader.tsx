@@ -1,21 +1,26 @@
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from 'react-router-dom';
 
-import styles from "./MapHeader.module.scss";
+import styles from './MapHeader.module.scss';
 
-import BackIcon from "@/assets/homeIcons/search/backInHome.svg?react";
+import BackIcon from '@/assets/homeIcons/search/backInHome.svg?react';
+
+import {ForSearchType} from '@/types/home';
 
 interface PropsType {
-  keyword: string | undefined;
-  category: string;
-  set: React.Dispatch<React.SetStateAction<string>>;
+  forSearch: ForSearchType;
+  setForSearch: React.Dispatch<React.SetStateAction<ForSearchType>>;
 }
 
-function MapHeader({ keyword, set, category }: PropsType) {
+function MapHeader({forSearch, setForSearch}: PropsType) {
   const navigate = useNavigate();
 
   function offMap() {
-    set("false");
-    navigate(`/home/search?keyword=${keyword}&category=${category}`);
+    const before = forSearch;
+    before.map = 'false';
+    setForSearch(before);
+    navigate(
+      `/home/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=false&location=${forSearch.location}&sort=${forSearch.sort}`,
+    );
   }
 
   return (
@@ -23,7 +28,7 @@ function MapHeader({ keyword, set, category }: PropsType) {
       <button onClick={offMap}>
         <BackIcon />
       </button>
-      <span>{keyword}</span>
+      <span>{forSearch.keyword}</span>
     </div>
   );
 }

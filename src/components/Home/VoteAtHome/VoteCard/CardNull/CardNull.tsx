@@ -8,7 +8,7 @@ import useComponentSize from "@/hooks/useComponetSize";
 function CardNull() {
   const [componentRef, size] = useComponentSize();
   const responsivePadding = size.width - 360 <= 0 ? 0 : size.width - 360;
-  const contentsPadding = `32.5px ${responsivePadding / 5 + 24}px`;
+  const contentsPadding = `30px ${responsivePadding / 8 + 24}px`;
 
   return (
     <div className={styles.vote_box} ref={componentRef}>
@@ -19,7 +19,7 @@ function CardNull() {
             <br />
             여행 장소를 정해보세요
           </p>
-          <Link to="/vote">
+          <Link to="/votes/11">
             <button>
               <span>투표 만들기</span>
               <p>

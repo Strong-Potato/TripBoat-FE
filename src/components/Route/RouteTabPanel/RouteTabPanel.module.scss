@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .panelContainer {
   -ms-overflow-style: none;
@@ -16,12 +16,18 @@
     height: 16rem;
   }
 
+  .zoomInbutton {
+    position: absolute;
+    top: 16rem;
+    right: 2rem;
+    z-index: 10;
+  }
+
   .routeContainer {
     .journeysContainer {
       display: flex;
       flex-direction: column;
       gap: 6.3rem;
-      padding: 0 20px;
       padding-bottom: 12rem;
     }
   }

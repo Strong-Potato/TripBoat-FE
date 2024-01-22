@@ -1,0 +1,15 @@
+@use '@/sass' as *;
+
+.container {
+  position: relative;
+  z-index: 4;
+  .number {
+    @include typography(titleSmall);
+    position: absolute;
+    color: #fff;
+    z-index: 5;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 22%;
+  }
+}

@@ -20,6 +20,11 @@
         @include typography(tabLabel);
       }
     }
+
+    &__notValued {
+      cursor: auto;
+      color: $neutral300;
+    }
   }
 
   &__tripTitle {
@@ -56,6 +61,21 @@
     flex-direction: column;
 
     gap: 8px;
+  }
+
+  &__voteNotValued {
+    margin-top: 64px;
+    text-align: center;
+
+    &__top {
+      @include typography(subTitle);
+      color: $neutral400;
+    }
+
+    &__bottom {
+      @include typography(captionSmall);
+      color: $neutral300;
+    }
   }
 
   &__bottomFixedBtn {

@@ -1,35 +1,45 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import {useEffect, useState} from 'react';
+import {useSearchParams} from 'react-router-dom';
 
-import styles from "./SearchFromHome.module.scss";
+import styles from './SearchFromHome.module.scss';
 
-import MapHeader from "@/components/SearchFromHome/MapHeader/MapHeader";
-import SearchBar from "@/components/SearchFromHome/SearchBar/SearchBar";
-import SearchHome from "@/components/SearchFromHome/SearchHome/SearchHome";
-import SearchList from "@/components/SearchFromHome/SearchList/SearchList";
+import {search} from '@/hooks/Search/useSearch';
+
+import MapHeader from '@/components/SearchFromHome/MapHeader/MapHeader';
+import SearchBar from '@/components/SearchFromHome/SearchBar/SearchBar';
+import SearchHome from '@/components/SearchFromHome/SearchHome/SearchHome';
+import SearchList from '@/components/SearchFromHome/SearchList/SearchList';
 
 function SearchFromHome() {
-  const [keyword, setKeyword] = useState<string>();
-  const [category, setCategory] = useState<string>("전체");
-  const [moveMap, setMoveMap] = useState("false");
+  const [forSearch, setForSearch] = useState({
+    keyword: '',
+    category: 0,
+    map: 'false',
+    location: '전국',
+    sort: '등록순',
+  });
   const [searchParams] = useSearchParams();
+  const [kewordClick, setKeywordClick] = useState(false);
   const vh = window.innerHeight;
-  console.log(window.innerHeight);
 
   useEffect(() => {
     const querystring = {
-      keyword: searchParams.get("keyword"),
-      category: searchParams.get("category"),
-      map: searchParams.get("map"),
+      keyword: searchParams.get('keyword'),
+      category: searchParams.get('category'),
+      map: searchParams.get('map'),
+      location: searchParams.get('location'),
+      sort: searchParams.get('sort'),
     };
-    if (querystring.keyword) {
-      setKeyword(querystring.keyword);
-    }
-    if (querystring.category) {
-      setCategory(querystring.category);
-    }
-    if (querystring.map) {
-      setMoveMap(querystring.map);
+
+    if (querystring.keyword && querystring.category && querystring.location && querystring.map && querystring.sort) {
+      setForSearch({
+        keyword: querystring.keyword,
+        category: parseInt(querystring.category),
+        map: querystring.map,
+        location: querystring.location,
+        sort: querystring.sort,
+      });
+      console.log(search(querystring.keyword, querystring.location, querystring.sort));
     }
   }, [searchParams]);
 
@@ -38,25 +48,19 @@ function SearchFromHome() {
       className={styles.container}
       style={{
         height: `${vh}px`,
-        gap: moveMap === "true" ? "0" : "24px",
-        paddingTop: moveMap === "true" ? "0" : "16px",
+        gap: forSearch.map === 'true' ? '0' : '24px',
+        paddingTop: forSearch.map === 'true' ? '0' : '16px',
       }}
     >
-      {moveMap === "true" ? (
-        <MapHeader set={setMoveMap} keyword={keyword} category={category} />
+      {forSearch.map === 'true' ? (
+        <MapHeader forSearch={forSearch} setForSearch={setForSearch} />
       ) : (
-        <SearchBar set={setKeyword} keyword={keyword} />
+        <SearchBar forSearch={forSearch} setForSearch={setForSearch} />
       )}
-      {!keyword ? (
-        <SearchHome set={setKeyword} />
+      {forSearch.keyword === '' ? (
+        <SearchHome setKeywordClick={setKeywordClick} />
       ) : (
-        <SearchList
-          keyword={keyword}
-          moveMap={moveMap}
-          set={setMoveMap}
-          category={category}
-          setCategory={setCategory}
-        />
+        <SearchList forSearch={forSearch} keywordClick={kewordClick} />
       )}
     </div>
   );

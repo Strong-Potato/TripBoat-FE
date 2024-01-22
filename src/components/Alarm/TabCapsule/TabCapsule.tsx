@@ -78,7 +78,14 @@ function TabCapsule() {
           여행스페이스
         </Tab>
       </TabList>
-      <TabIndicator mt="-1.5px" height="2px" bg="#2388FF" />
+      <TabIndicator
+        mt="-1.5px"
+        height="2px"
+        bg="#2388FF"
+        borderRadius="2px"
+        width="50% !important"
+        className=""
+      />
       <TabPanels>
         <TabPanel p={0}>
           <Content contents={AllContents} />

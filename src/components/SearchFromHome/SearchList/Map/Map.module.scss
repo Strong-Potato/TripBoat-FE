@@ -25,6 +25,8 @@
   .slide {
     position: relative;
 
+    overflow: visible;
+
     z-index: 1000;
   }
 }
