@@ -1,5 +1,5 @@
 import {Avatar, AvatarGroup, Icon} from '@chakra-ui/react';
-import {useState} from 'react';
+import {GoDotFill} from 'react-icons/go';
 import {IoMdCheckmark} from 'react-icons/io';
 import {Link} from 'react-router-dom';
 
@@ -8,34 +8,18 @@ import styles from './TabsVoteCard.module.scss';
 import {VoteListInfo} from '@/types/vote';
 
 const TabsVoteCard = ({data}: {data: VoteListInfo}) => {
-  const [isConfirmed, setIsConfirmed] = useState(false);
-
-  //나중에 투표state를 받아오면 뮤테이션으로 해야할 듯
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setIsConfirmed(!isConfirmed);
-  };
-
   const users = data.votedMemberProfiles;
 
-  //카드 전체 클릭vs결정클릭이 부딪힘, 제목에만 Link 넣을지 보기
   return (
     <Link to={`/votes/${data.voteId}`} className={styles.container}>
-      <div className={styles.container__titleBox}>
+      <div className={styles.titleBox}>
         <Avatar boxSize='3.2rem' src={data.createdBy.profileImageUrl} />
-        <p className={styles.container__titleBox__title}>{data.title}</p>
+        <p className={styles.titleBox__title}>{data.title}</p>
       </div>
-      <div className={styles.container__stateBox}>
-        <div className={styles.container__stateBox__state}>
-          <Icon
-            as={IoMdCheckmark}
-            boxSize='2rem'
-            color={data.voteStatus === '결정완료' ? 'primary.300' : 'neutral.300'}
-          />
-          <button onClick={handleClick}>
-            {/* {isConfirmed ? "결정완료" : "확정하기"} */}
-            {data.voteStatus}
-          </button>
+      <div className={styles.stateBox}>
+        <div className={`${styles.stateBox__state} ${data.voteStatus === '결정완료' ? styles.gray : styles.blue}`}>
+          <Icon as={data.voteStatus === '결정완료' ? IoMdCheckmark : GoDotFill} boxSize='1.6rem' />
+          <p>{data.voteStatus}</p>
         </div>
 
         <AvatarGroup variant='tabsVoteCard' max={3} spacing='0'>
