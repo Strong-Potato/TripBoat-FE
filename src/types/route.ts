@@ -111,3 +111,8 @@ export interface RouteMapSlideProps {
   activeDay: number;
   onDayChange: (day: number) => void;
 }
+
+export interface Item {
+  id: number;
+  originalIndex: number;
+}

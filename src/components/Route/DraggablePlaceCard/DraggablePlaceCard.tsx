@@ -6,6 +6,7 @@ import {RiCheckboxBlankCircleLine as UnselectedIcon} from 'react-icons/ri';
 
 import styles from '../PlaceCard/PlaceCard.module.scss';
 
+import {Item} from '@/types/route';
 import {DraggablePlaceCardProps} from '@/types/route';
 
 function PlaceCard({
@@ -20,27 +21,31 @@ function PlaceCard({
   findCard,
 }: DraggablePlaceCardProps) {
   const [isChecked, setIsChecked] = useState(false);
-  const originalIndex = findCard!(id!).index;
+  const originalIndex = findCard(id).index;
 
-  const [{isDragging}, dragRef] = useDrag(
+  const [, drag] = useDrag(
     () => ({
       type: 'CARD',
       item: {id, originalIndex},
-      collect: (monitor) => ({
-        isDragging: monitor.isDragging(),
-      }),
+      canDrag: () => !isChecked && editMode,
+      end: (item, monitor) => {
+        const {id: droppedId, originalIndex} = item;
+        const didDrop = monitor.didDrop();
+        if (!didDrop) {
+          moveCard(droppedId, originalIndex);
+        }
+      },
     }),
-    [originalIndex],
+    [id, originalIndex, moveCard, editMode, isChecked],
   );
 
-  const [, dropRef] = useDrop(
+  const [, drop] = useDrop(
     () => ({
       accept: 'CARD',
-      hover: (item: {id: number}) => {
-        const {id: draggedId} = item;
-        if (draggedId != id) {
-          const {index: overIndex} = findCard!(id!);
-          moveCard!(draggedId, overIndex);
+      hover({id: draggedId}: Item) {
+        if (draggedId !== id) {
+          const {index: overIndex} = findCard(id);
+          moveCard(draggedId, overIndex);
         }
       },
     }),
@@ -50,11 +55,11 @@ function PlaceCard({
   const handleSelect = () => {
     setIsChecked(!isChecked);
     // TODO: place id 넘기기
-    onSelect!(name);
+    onSelect(name);
   };
 
   return (
-    <div ref={(node) => dragRef(dropRef(node))} className={styles.cardContainer}>
+    <div ref={(node) => drag(drop(node))} className={styles.cardContainer}>
       <button onClick={handleSelect}>
         {editMode &&
           (isChecked ? (
@@ -63,6 +68,7 @@ function PlaceCard({
             <UnselectedIcon size='2.4rem' color='#CDCFD0' />
           ))}
       </button>
+
       <div className={styles.placeInformationContainer}>
         {!editMode && <div className={styles.numberContainer}>{order}</div>}
         <div className={styles.placeContainer}>
@@ -74,7 +80,7 @@ function PlaceCard({
           </div>
         </div>
       </div>
-      <div>{editMode && <MoveIcon size='2.4rem' color='#CDCFD0' />}</div>
+      <div className='MoveButton'>{editMode && <MoveIcon size='2.4rem' color='#CDCFD0' />}</div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import {useDisclosure} from '@chakra-ui/react';
 import update from 'immutability-helper';
 import {useCallback, useEffect, useState} from 'react';
+import {useDrop} from 'react-dnd';
 import {AiOutlinePlus as PlusIcon} from 'react-icons/ai';
 
 import styles from './DayRoute.module.scss';
@@ -43,6 +44,8 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
     [findCard, placeCards, setPlaceCards],
   );
 
+  const [, drop] = useDrop(() => ({accept: 'CARD'}));
+
   useEffect(() => {
     console.log(placeList);
   }, [placeList]);
@@ -61,7 +64,7 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
         </header>
         <div>
           <button className={styles.optimizationButton}>루트 최적화</button>
-          <div className={styles.placeListContainer}>
+          <div ref={drop} className={styles.placeListContainer}>
             {placeCards.length ? (
               placeCards.map((place) => (
                 <DraggablePlaceCard
