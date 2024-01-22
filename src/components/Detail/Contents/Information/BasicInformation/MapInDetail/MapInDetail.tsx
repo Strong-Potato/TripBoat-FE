@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { CustomOverlayMap, Map } from "react-kakao-maps-sdk";
 
 import styles from "./MapInDetail.module.scss";
 
 import BigHomeMarker from "@/assets/homeIcons/map/house_big.svg?react";
+
+import MapModal from "../MapModal/MapModal";
 
 interface Coordinate {
   lat: number;
@@ -18,6 +21,7 @@ function MapInDetail() {
     lat: 33.5563,
     lng: 126.79581,
   });
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     const geocoder = new kakao.maps.services.Geocoder();
@@ -32,15 +36,35 @@ function MapInDetail() {
     geocoder.addressSearch("경기도 양평군 양평읍 백안리 9", callback);
   }, []);
 
+  const handleMapDoubleClick = (event: any) => {
+    event.preventDefault();
+  };
+
   return (
-    <Map
-      center={{ lat: coordinate.lat, lng: coordinate.lng }}
-      className={styles.container}
-    >
-      <CustomOverlayMap position={{ lat: coordinate.lat, lng: coordinate.lng }}>
-        <BigHomeMarker />
-      </CustomOverlayMap>
-    </Map>
+    <>
+      <Map
+        center={{ lat: coordinate.lat, lng: coordinate.lng }}
+        className={styles.container}
+        draggable={false}
+        zoomable={false}
+        level={3}
+        onClick={onOpen}
+        onDoubleClick={handleMapDoubleClick}
+      >
+        <CustomOverlayMap
+          position={{ lat: coordinate.lat, lng: coordinate.lng }}
+        >
+          <BigHomeMarker />
+        </CustomOverlayMap>
+      </Map>
+      <MapModal
+        isOpen={isOpen}
+        onClose={onClose}
+        lat={coordinate.lat}
+        lng={coordinate.lng}
+        name={"호텔 Loft"}
+      />
+    </>
   );
 }
 

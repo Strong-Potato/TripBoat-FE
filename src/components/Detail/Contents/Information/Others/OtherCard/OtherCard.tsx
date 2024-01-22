@@ -4,13 +4,7 @@ import styles from "./OtherCard.module.scss";
 
 import { OtherCardPropsType } from "@/types/detail";
 
-function OtherCard({
-  image,
-  name,
-  location,
-  point,
-  count,
-}: OtherCardPropsType) {
+function OtherCard({ image, name, location, point }: OtherCardPropsType) {
   return (
     <div className={styles.container}>
       <div className={styles.container__image}>
@@ -23,9 +17,6 @@ function OtherCard({
           <GoStarFill className={styles.container__contents__reviews__star} />
           <span className={styles.container__contents__reviews__point}>
             {point}
-          </span>
-          <span className={styles.container__contents__reviews__reviewsCount}>
-            ({count})
           </span>
         </div>
       </div>

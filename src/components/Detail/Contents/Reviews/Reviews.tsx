@@ -1,13 +1,34 @@
 import { CiEdit } from "react-icons/ci";
 import { GoStarFill } from "react-icons/go";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import styles from "./Rviews.module.scss";
+import styles from "./Reviews.module.scss";
 
 import Review from "@/components/Detail/Contents/Review/Review";
+
+import { IsLoginState } from "@/recoil/detail/detail";
+import { isModalOpenState, modalContentState } from "@/recoil/vote/alertModal";
 
 import { ContentsReviewsProps } from "@/types/detail";
 // 무한 스크롤 구현 필요
 function Reviews({ onOpen }: ContentsReviewsProps) {
+  const setIsModalOpen = useSetRecoilState(isModalOpenState);
+  const setModalContent = useSetRecoilState(modalContentState);
+  const isLogin = useRecoilValue(IsLoginState);
+
+  const notLoginContent = {
+    title: "로그인이 필요한 기능입니다.",
+    subText: "로그인하고 모든 서비스를 이용해 보세요! ",
+    cancelText: "닫기",
+    actionButton: "로그인하기",
+    isSmallSize: true,
+  };
+
+  const showNotLoginModal = () => {
+    setIsModalOpen(true);
+    setModalContent({ ...notLoginContent });
+  };
+
   const reviewData = [
     {
       name: "강자밭",
@@ -118,10 +139,19 @@ function Reviews({ onOpen }: ContentsReviewsProps) {
     <div className={styles.container}>
       <div className={styles.container__title}>
         <h3>리뷰</h3>
-        <div className={styles.container__title__rightBox} onClick={onOpen}>
+        <button
+          className={styles.container__title__rightBox}
+          onClick={() => {
+            if (isLogin) {
+              onOpen();
+            } else {
+              showNotLoginModal();
+            }
+          }}
+        >
           <CiEdit fontSize="24px" />
           <span>리뷰쓰기</span>
-        </div>
+        </button>
       </div>
       <div className={styles.container__pointBox}>
         <GoStarFill className={styles.container__pointBox__star} />
