@@ -10,6 +10,7 @@ import ActionList from "@/components/MyReview/ActionList/ActionList";
 
 import Meatball from "@/assets/icons/meatball.svg?react";
 import Star from "@/assets/icons/star_fill.svg?react";
+import { setMyReviewDate } from "@/utils/formatDate";
 
 const data = [
   {
@@ -22,7 +23,7 @@ const data = [
       thumbnail:
         "https://cdn.safetimes.co.kr/news/photo/202210/115164_98919_3327.jpg",
     },
-    visitedAt: "2024년 1월 방문",
+    visitedAt: "2023-11-18",
     rating: "5.0",
     content:
       "아주 좋아요. 자주 다니고 있어요. 친구들이랑 저녁에 운동하기 좋아요. 다음에 또 가고 싶네요",
@@ -46,7 +47,7 @@ const data = [
       thumbnail:
         "https://cdn.safetimes.co.kr/news/photo/202210/115164_98919_3327.jpg",
     },
-    visitedAt: "2024년 1월 방문",
+    visitedAt: "2023-11-18",
     rating: "5.0",
     content:
       "아주 좋아요. 자주 다니고 있어요. 친구들이랑 저녁에 운동하기 좋아요. 다음에 또 가고 싶네요",
@@ -68,7 +69,7 @@ const data = [
       thumbnail:
         "https://cdn.safetimes.co.kr/news/photo/202210/115164_98919_3327.jpg",
     },
-    visitedAt: "2024년 1월 방문",
+    visitedAt: "2023-11-18",
     rating: "5.0",
     content:
       "아주 좋아요. 자주 다니고 있어요. 친구들이랑 저녁에 운동하기 좋아요. 다음에 또 가고 싶네요",
@@ -90,7 +91,7 @@ const data = [
       thumbnail:
         "https://cdn.safetimes.co.kr/news/photo/202210/115164_98919_3327.jpg",
     },
-    visitedAt: "2024년 1월 방문",
+    visitedAt: "2023-11-18",
     rating: "5.0",
     content:
       "아주 좋아요. 자주 다니고 있어요. 친구들이랑 저녁에 운동하기 좋아요. 다음에 또 가고 싶네요",
@@ -112,7 +113,7 @@ const data = [
       thumbnail:
         "https://cdn.safetimes.co.kr/news/photo/202210/115164_98919_3327.jpg",
     },
-    visitedAt: "2024년 1월 방문",
+    visitedAt: "2023-11-18",
     rating: "5.0",
     content:
       "아주 좋아요. 자주 다니고 있어요. 친구들이랑 저녁에 운동하기 좋아요. 다음에 또 가고 싶네요",
@@ -176,7 +177,9 @@ function MyReview() {
               </div>
               <div>{rating}</div>
 
-              <div className={styles.myreview__info__visited}>{visitedAt}</div>
+              <div
+                className={styles.myreview__info__visited}
+              >{`${setMyReviewDate(visitedAt)} 방문`}</div>
             </small>
 
             <p className={styles.myreview__content}>{content}</p>

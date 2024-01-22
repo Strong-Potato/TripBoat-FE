@@ -1,6 +1,6 @@
 import styles from "./MySpaceList.module.scss";
 
-import { setMyspaceDate } from "@/utils/formatDate";
+import { setSpaceDate } from "@/utils/formatDate";
 
 import { MySpaceListProps } from "@/types/user";
 
@@ -33,7 +33,7 @@ function MySpaceList({ data, tab }: MySpaceListProps) {
             <div className={styles.content__title}>{title}</div>
 
             <div className={styles.content__date}>
-              {setMyspaceDate(startDate, endDate)}
+              {setSpaceDate(startDate, endDate)}
             </div>
           </div>
         </li>
