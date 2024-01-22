@@ -1,8 +1,9 @@
 import {Checkbox} from '@chakra-ui/react';
-import {useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 import styles from './MemoItem.module.scss';
 
+import {useDebounce} from '@/hooks/useDebounce';
 import useGetSelectedArray from '@/hooks/useGetSelectedArray';
 
 import {selectedTaglineState} from '@/recoil/vote/voteMemo';
@@ -11,6 +12,7 @@ import {CandidatesInfo} from '@/types/vote';
 
 const MemoItem = ({candidate}: {candidate: CandidatesInfo}) => {
   const [text, setText] = useState('');
+  const debouncedText = useDebounce(text, 500);
   // const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
   const {toggleItemInNewArray, setMemoArray} = useGetSelectedArray(selectedTaglineState);
   const placeInfo = candidate.placeInfo;
@@ -18,17 +20,20 @@ const MemoItem = ({candidate}: {candidate: CandidatesInfo}) => {
   const handleCheckboxChange = () => {
     toggleItemInNewArray({
       placeId: placeInfo.placeId,
-      tagline: text,
+      tagline: debouncedText,
     });
   };
 
-  const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(event.target.value);
+  const handleDebouncedTextChange = useCallback(() => {
     setMemoArray({
       placeId: placeInfo.placeId,
-      tagline: event.target.value,
+      tagline: debouncedText,
     });
-  };
+  }, [debouncedText, placeInfo.placeId, setMemoArray]);
+
+  useEffect(() => {
+    handleDebouncedTextChange();
+  }, [debouncedText, handleDebouncedTextChange]);
 
   return (
     <div className={styles.container}>
@@ -55,7 +60,7 @@ const MemoItem = ({candidate}: {candidate: CandidatesInfo}) => {
         </div>
         <div className={styles.textareaBox}>
           <textarea
-            onChange={handleTextareaChange}
+            onChange={(e) => setText(e.target.value)}
             className={styles.textarea}
             maxLength={30}
             placeholder='장소에 대한 메모를 남겨주세요. (30자 이하)'
