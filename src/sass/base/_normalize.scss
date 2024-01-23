@@ -1,11 +1,32 @@
 //브라우저 스타일 초기화 또는 재설정을 정의합니다.
 @font-face {
-  font-family: "suit"; // 이름 선언
-  src: url("../../assets/fonts/SUIT-Variable.ttf"); // 내가 저장한 경로!
+  font-family: 'SpoqaHanSans'; // 이름 선언
+  src: url('../../assets/fonts/spoqaHanSans-Thin.ttf');
+  font-weight: 100; // 내가 저장한 경로!
+}
+@font-face {
+  font-family: 'SpoqaHanSans'; // 이름 선언
+  src: url('../../assets/fonts/spoqaHanSans-Light.ttf');
+  font-weight: 300; // 내가 저장한 경로!
+}
+@font-face {
+  font-family: 'SpoqaHanSans'; // 이름 선언
+  src: url('../../assets/fonts/spoqaHanSans-Regular.ttf');
+  font-weight: 400; // 내가 저장한 경로!
+}
+@font-face {
+  font-family: 'SpoqaHanSans'; // 이름 선언
+  src: url('../../assets/fonts/spoqaHanSans-Medium.ttf');
+  font-weight: 500; // 내가 저장한 경로!
+}
+@font-face {
+  font-family: 'SpoqaHanSans'; // 이름 선언
+  src: url('../../assets/fonts/spoqaHanSans-Bold.ttf');
+  font-weight: 700; // 내가 저장한 경로!
 }
 
 :root {
-  font-family: "suit", sans-serif;
+  font-family: 'spoqaHanSans', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -20,7 +41,7 @@
 }
 
 body {
-  font-family: "suit", sans-serif;
+  font-family: 'spoqaHanSans', sans-serif;
 
   display: flex;
   justify-content: center;
