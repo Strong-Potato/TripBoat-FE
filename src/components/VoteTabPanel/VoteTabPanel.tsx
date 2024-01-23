@@ -21,7 +21,7 @@ const VoteTabPanel = () => {
   const inProgressVotes = voteListData.filter((vote) => vote.voteStatus === '진행 중');
   const completeVotes = voteListData.filter((vote) => vote.voteStatus === '결정완료');
 
-  const getVotesCount = (index: number, vote: VoteListInfo[]) => `총 ${vote.length}개`;
+  const getVotesCount = (vote: VoteListInfo[]) => `총 ${vote.length}개`;
 
   return (
     <div className={styles.container}>
@@ -33,7 +33,7 @@ const VoteTabPanel = () => {
             <Tab>결정 완료</Tab>
           </TabList>
           <p className={styles.header__counts}>
-            {getVotesCount(activeTabIndex, [voteListData, inProgressVotes, completeVotes][activeTabIndex])}
+            {getVotesCount([voteListData, inProgressVotes, completeVotes][activeTabIndex])}
           </p>
         </div>
         <TabPanels className={styles.content}>
