@@ -9,7 +9,7 @@ import CloseIcon from '@/assets/close.svg?react';
 
 import {BottomSlideProps} from '../../types/bottomSlide';
 
-function BottomSlide({isOpen, onClose, children}: BottomSlideProps) {
+function BottomSlide({isOpen, onClose, children, leftCloseButton}: BottomSlideProps) {
   const containerStyle = {
     display: isOpen ? 'block' : 'none',
   };
@@ -26,7 +26,7 @@ function BottomSlide({isOpen, onClose, children}: BottomSlideProps) {
     <div className={styles.slideContainer} style={containerStyle}>
       <Slide ref={slideRef} className={styles.slide} direction='bottom' in={isOpen}>
         <div className={styles.slide__content}>
-          <div className={styles.closeButtonContainer}>
+          <div className={styles.closeButtonContainer} style={{justifyContent: leftCloseButton ? 'flex-start' : ''}}>
             <button onClick={closeModal}>
               <CloseIcon />
             </button>

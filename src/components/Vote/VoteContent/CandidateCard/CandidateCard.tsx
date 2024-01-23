@@ -10,6 +10,7 @@ import ThirdIcon from '@/assets/voteIcons/rank_3.svg?react';
 import AddDayIcon from '@/assets/voteIcons/vote_addDay.svg?react';
 import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
 
+import AddToJourney from '../../VoteBottomSlideContent/AddToJourney/AddToJourney';
 import VotedUserList from '../../VoteBottomSlideContent/VotedUserList/VotedUserList';
 
 import {CandidateCardProps} from '@/types/vote';
@@ -94,8 +95,8 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapS
           있 : 바텀시트 -> 일정 추가api -> 시트close, 완료 토스트
           */}
 
-          {showResults && (
-            <button className={styles.main__contextBox__addDay}>
+          {showResults && onBottomSlideOpen && (
+            <button onClick={() => onBottomSlideOpen(<AddToJourney />)} className={styles.main__contextBox__addDay}>
               <AddDayIcon /> 일정에 담기
             </button>
           )}
