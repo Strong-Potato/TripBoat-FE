@@ -17,6 +17,8 @@ import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
 import {isBottomSlideOpenState} from '@/recoil/vote/bottomSlide';
 import {selectedCandidatesState} from '@/recoil/vote/candidateList';
 
+import {VoteInfo} from '@/types/vote';
+
 const Vote = () => {
   const {id: voteId} = useParams();
   const {data: voteInfo} = useGetVotesInfo(Number(voteId));
@@ -27,6 +29,17 @@ const Vote = () => {
   const [showResults, setShowResults] = useState(false);
   const [bottomSlideContent, setBottomSlideContent] = useState<ReactNode | null>(null);
 
+  const isZeroCandidates = voteInfo.candidates.length === 0;
+
+  function areAllCandidatesNotVoted(voteInfo: VoteInfo): boolean {
+    return voteInfo.candidates.every((candidate) => !candidate.amIVoted);
+  }
+  const allCandidatesNotVoted = areAllCandidatesNotVoted(voteInfo);
+
+  // if (voteInfo.voteStatus === '결정완료') {
+  //   setShowResults(true);
+  // }
+
   useEffect(() => {
     setIsCandidateSelecting(false);
     setShowResults(false);
@@ -35,6 +48,7 @@ const Vote = () => {
 
   const BottomSlideOpen = (content: ReactNode) => {
     setBottomSlideContent(content);
+    document.body.style.overflow = 'hidden';
     setIsBTOpen(true);
     setSelectedCandidates(new Set());
     setIsCandidateSelecting(false);
@@ -47,26 +61,32 @@ const Vote = () => {
   return (
     <div className={styles.container}>
       <VoteHeader
-        isNoCandidate={voteInfo.candidates.length === 0}
+        isZeroCandidates={isZeroCandidates}
         title={voteInfo.title}
         onBottomSlideOpen={() =>
           BottomSlideOpen(
             <VoteMeatball
               state={voteInfo.voteStatus}
               title={voteInfo.title}
-              isZeroCandidates={voteInfo.candidates.length === 0}
+              isZeroCandidates={isZeroCandidates}
+              allCandidatesNotVoted={allCandidatesNotVoted}
             />,
           )
         }
       />
 
       {voteInfo.candidates ? (
-        <VoteContent data={voteInfo} onBottomSlideOpen={BottomSlideOpen} showResults={showResults} />
+        <VoteContent
+          data={voteInfo}
+          onBottomSlideOpen={BottomSlideOpen}
+          isZeroCandidates={isZeroCandidates}
+          showResults={voteInfo.voteStatus === '결정완료' ? true : showResults}
+        />
       ) : (
         <VoteContentEmpty />
       )}
       {!isCandidateSelecting && voteInfo.voteStatus === '진행 중' && (
-        <Button variant='CTAButton' onClick={handleShowResultsClick} isDisabled={voteInfo.candidates.length === 0}>
+        <Button variant='CTAButton' onClick={handleShowResultsClick} isDisabled={allCandidatesNotVoted}>
           {showResults ? '다시 투표하기' : '결과보기'}
         </Button>
       )}

@@ -1,6 +1,6 @@
 import {useMutation, useQueryClient, useSuspenseQuery} from '@tanstack/react-query';
 
-import {deleteCandidates, deleteVote, editVoteTitle, getVoteInfo, getVoteListInfo, PostNewVote} from '@/api/vote';
+import {deleteCandidates, deleteVote, editVoteTitle, getVoteInfo, getVoteListInfo, postNewVote} from '@/api/vote';
 
 /* ----------------------------------- Q U E R Y ---------------------------------- */
 
@@ -39,7 +39,7 @@ export const useCustomMutation = <TData = unknown, TError = unknown, TVariables 
 
 //vote 추가 POST
 export const usePostNewVote = () => {
-  return useCustomMutation(PostNewVote, ['votes']);
+  return useCustomMutation(postNewVote, ['votes']);
 };
 
 //voteTitle 수정 PUT
