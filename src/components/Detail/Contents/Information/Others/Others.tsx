@@ -1,59 +1,38 @@
-import { useState } from "react";
+import {useState} from 'react';
 
-import styles from "./Others.module.scss";
+import styles from './Others.module.scss';
 
-import useComponentSize from "@/hooks/useComponetSize";
+import useComponentSize from '@/hooks/useComponetSize';
 
-import SlideButton from "@/components/SlideButton/SlideButton";
+import SlideButton from '@/components/SlideButton/SlideButton';
 
-import OtherCard from "./OtherCard/OtherCard";
+import OtherCard from './OtherCard/OtherCard';
+import {useGetPlacesNearby} from '@/hooks/Detail/useGetPlacesNearby';
+import {placeInfoDataPlace} from '@/types/detail';
 
-function Others() {
+interface OthersProps {
+  data: placeInfoDataPlace;
+}
+
+function Others({data}: OthersProps) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
 
-  const othersData = [
-    {
-      image:
-        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      name: "호텔 loft",
-      location: "제주",
-      point: "5.0",
-      count: 803,
+  const {
+    data: {
+      data: {places: othersData},
     },
-    {
-      image:
-        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      name: "호텔 loft",
-      location: "제주",
-      point: "5.0",
-      count: 803,
-    },
-    {
-      image:
-        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      name: "호텔 loft",
-      location: "제주",
-      point: "5.0",
-      count: 803,
-    },
-    {
-      image:
-        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      name: "호텔 loft",
-      location: "제주",
-      point: "5.0",
-      count: 803,
-    },
-    {
-      image:
-        "https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg",
-      name: "호텔 loft",
-      location: "제주",
-      point: "5.0",
-      count: 803,
-    },
-  ];
+  } = useGetPlacesNearby(
+    1,
+    5,
+    data.location.areaCode,
+    data.location.sigunguCode,
+    data.contentTypeId,
+    '',
+    data.category,
+  );
+
+  console.log(othersData);
 
   return (
     <div className={styles.container}>
@@ -81,16 +60,17 @@ function Others() {
           className={styles.container__slideContainer__slide}
           ref={componentRef}
           style={{
-            overflow: size.width < 410 ? "scroll" : "visible",
-            left: slideLocation + "px",
+            overflow: size.width < 410 ? 'scroll' : 'visible',
+            left: slideLocation + 'px',
           }}
         >
           {othersData.map((data) => (
             <OtherCard
-              image={data.image}
-              name={data.name}
-              location={data.location}
-              point={data.point}
+              image={data.thumbnail}
+              name={data.title}
+              category={data.category}
+              point={data.rating}
+              key={data.id}
             />
           ))}
         </div>

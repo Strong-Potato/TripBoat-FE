@@ -3,8 +3,8 @@ import {ReactNode} from 'react';
 export interface OtherCardPropsType {
   image: string;
   name: string;
-  location: string;
-  point: string;
+  category: string;
+  point: number;
 }
 
 export interface ReviewPropsTypes {
@@ -136,5 +136,24 @@ export interface ReviewsRating {
   data: {
     rating: number;
     userRatingCount: number;
+  };
+}
+
+// wishes/{placeId}
+
+export interface PlacesNearby {
+  status: number;
+  message: string;
+  data: {
+    places: {
+      id: number;
+      contentTypeId: number;
+      title: string;
+      thumbnail: string;
+      areaCode: string;
+      sigunguCode: number;
+      category: string;
+      rating: number;
+    }[];
   };
 }

@@ -19,7 +19,7 @@ function Information({data, onOpen}: InformationProps) {
         contentTypeId={data.contentTypeId}
       />
       <ShortReviews onOpen={onOpen} />
-      <Others />
+      <Others data={data} />
     </div>
   );
 }
