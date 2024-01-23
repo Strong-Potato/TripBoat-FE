@@ -1,13 +1,23 @@
-import BasicInformation from "./BasicInformation/BasicInformation";
-import Others from "./Others/Others";
-import ShortReviews from "./ShortReveiws/ShortReviews";
+import {placeInfoDataPlace} from '@/types/detail';
+import BasicInformation from './BasicInformation/BasicInformation';
+import Others from './Others/Others';
+import ShortReviews from './ShortReveiws/ShortReviews';
 
-import { ContentsInformationProps } from "@/types/detail";
+export interface InformationProps {
+  data: placeInfoDataPlace;
+  onOpen: () => void;
+}
 
-function Information({ onOpen }: ContentsInformationProps) {
+function Information({data, onOpen}: InformationProps) {
   return (
     <div>
-      <BasicInformation />
+      <BasicInformation
+        location={data.location}
+        openTime={data.openTime}
+        title={data.title}
+        thumbnail={data.thumbnail}
+        contentTypeId={data.contentTypeId}
+      />
       <ShortReviews onOpen={onOpen} />
       <Others />
     </div>

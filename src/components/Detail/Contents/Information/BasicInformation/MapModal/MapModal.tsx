@@ -1,4 +1,4 @@
-import {Drawer, DrawerBody, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay} from '@chakra-ui/react';
+import {Drawer, DrawerBody, DrawerContent, DrawerFooter, DrawerHeader} from '@chakra-ui/react';
 import {AiOutlineLeft} from 'react-icons/ai';
 import {FaRegHeart} from 'react-icons/fa';
 import {CustomOverlayMap, Map} from 'react-kakao-maps-sdk';
@@ -12,10 +12,13 @@ interface MapModalProps {
   onClose: () => void;
   lat: number;
   lng: number;
-  name: string;
+  title: string;
+  thumbnail: string;
+  contentTypeId: number;
+  areaCode: number;
 }
 
-function MapModal({isOpen, onClose, lat, lng, name}: MapModalProps) {
+function MapModal({isOpen, onClose, lat, lng, title, thumbnail, contentTypeId, areaCode}: MapModalProps) {
   return (
     <Drawer
       isOpen={isOpen}
@@ -28,7 +31,7 @@ function MapModal({isOpen, onClose, lat, lng, name}: MapModalProps) {
       <DrawerContent>
         <DrawerHeader className={styles.header}>
           <AiOutlineLeft fontSize='2.4rem' onClick={onClose} cursor='pointer' />
-          <span>{name}</span>
+          <span>{title}</span>
         </DrawerHeader>
 
         <DrawerBody className={styles.body} p='0'>
@@ -41,10 +44,12 @@ function MapModal({isOpen, onClose, lat, lng, name}: MapModalProps) {
 
         <DrawerFooter className={styles.footer}>
           <div className={styles.footer__card}>
-            <img src='https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg' alt='' />
+            <img src={thumbnail} alt='' />
             <div className={styles.footer__card__textWrapper}>
-              <p className={styles.footer__card__textWrapper__name}>{name}</p>
-              <p className={styles.footer__card__textWrapper__category}>숙소 서울</p>
+              <p className={styles.footer__card__textWrapper__name}>{title}</p>
+              <p className={styles.footer__card__textWrapper__category}>
+                {contentTypeId} {areaCode}
+              </p>
             </div>
             <FaRegHeart
               fontSize='2.4rem'

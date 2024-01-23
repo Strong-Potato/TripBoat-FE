@@ -1,36 +1,36 @@
-import { atom } from "recoil";
+import {atom} from 'recoil';
 
 export const isRegistrationSelectedState = atom<string[]>({
-  key: "isRegistrationSelectedState",
+  key: 'isRegistrationSelectedState',
   default: [],
 });
 
 export const DatePickerState = atom<Date>({
-  key: "DatePickerState",
+  key: 'DatePickerState',
   default: new Date(),
 });
 
 export const DatePickerIsValued = atom<boolean>({
-  key: "DatePickerIsValued",
+  key: 'DatePickerIsValued',
   default: false,
 });
 
 export const IsHeartValued = atom<boolean>({
-  key: "IsHeartValued",
+  key: 'IsHeartValued',
   default: false,
 });
 
 export const IsLoginState = atom<boolean>({
-  key: "IsLoginState",
+  key: 'IsLoginState',
   default: true,
 });
 
 export const TabIndexState = atom<number>({
-  key: "TabIndexState",
+  key: 'TabIndexState',
   default: 0,
 });
 
 export const TabYPosition = atom<number>({
-  key: "TabYPosition",
+  key: 'TabYPosition',
   default: 0,
 });

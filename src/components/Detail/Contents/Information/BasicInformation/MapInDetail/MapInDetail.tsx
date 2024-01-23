@@ -1,40 +1,40 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useDisclosure } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { CustomOverlayMap, Map } from "react-kakao-maps-sdk";
+import {useDisclosure} from '@chakra-ui/react';
+import {useEffect, useState} from 'react';
+import {CustomOverlayMap, Map} from 'react-kakao-maps-sdk';
 
-import styles from "./MapInDetail.module.scss";
+import styles from './MapInDetail.module.scss';
 
-import BigHomeMarker from "@/assets/homeIcons/map/house_big.svg?react";
+import BigHomeMarker from '@/assets/homeIcons/map/house_big.svg?react';
 
-import MapModal from "../MapModal/MapModal";
+import MapModal from '../MapModal/MapModal';
 
-interface Coordinate {
+interface MapInDetailProps {
   lat: number;
   lng: number;
+  title: string;
+  thumbnail: string;
+  contentTypeId: number;
+  areaCode: number;
 }
 
 // 장소 정보에 따라 마커 다르게 표시
-function MapInDetail() {
-  const [coordinate, setCoordinate] = useState<Coordinate>({
-    lat: 33.5563,
-    lng: 126.79581,
-  });
-  const { isOpen, onOpen, onClose } = useDisclosure();
+function MapInDetail({lat, lng, title, thumbnail, contentTypeId, areaCode}: MapInDetailProps) {
+  const {isOpen, onOpen, onClose} = useDisclosure();
 
-  useEffect(() => {
-    const geocoder = new kakao.maps.services.Geocoder();
+  // useEffect(() => {
+  //   const geocoder = new kakao.maps.services.Geocoder();
 
-    const callback = (result: any, status: any) => {
-      if (status === kakao.maps.services.Status.OK) {
-        const newSearch = result[0];
-        setCoordinate({ lat: newSearch.y, lng: newSearch.x });
-      }
-    };
+  //   const callback = (result: any, status: any) => {
+  //     if (status === kakao.maps.services.Status.OK) {
+  //       const newSearch = result[0];
+  //       setCoordinate({ lat: newSearch.y, lng: newSearch.x });
+  //     }
+  //   };
 
-    geocoder.addressSearch("경기도 양평군 양평읍 백안리 9", callback);
-  }, []);
+  //   geocoder.addressSearch("경기도 양평군 양평읍 백안리 9", callback);
+  // }, []);
 
   const handleMapDoubleClick = (event: any) => {
     event.preventDefault();
@@ -43,7 +43,7 @@ function MapInDetail() {
   return (
     <>
       <Map
-        center={{ lat: coordinate.lat, lng: coordinate.lng }}
+        center={{lat: lat, lng: lng}}
         className={styles.container}
         draggable={false}
         zoomable={false}
@@ -51,18 +51,19 @@ function MapInDetail() {
         onClick={onOpen}
         onDoubleClick={handleMapDoubleClick}
       >
-        <CustomOverlayMap
-          position={{ lat: coordinate.lat, lng: coordinate.lng }}
-        >
+        <CustomOverlayMap position={{lat: lat, lng: lng}}>
           <BigHomeMarker />
         </CustomOverlayMap>
       </Map>
       <MapModal
         isOpen={isOpen}
         onClose={onClose}
-        lat={coordinate.lat}
-        lng={coordinate.lng}
-        name={"호텔 Loft"}
+        lat={lat}
+        lng={lng}
+        title={title}
+        thumbnail={thumbnail}
+        contentTypeId={contentTypeId}
+        areaCode={areaCode}
       />
     </>
   );

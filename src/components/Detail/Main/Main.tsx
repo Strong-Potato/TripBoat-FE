@@ -1,13 +1,19 @@
-import styles from "./Main.module.scss";
+import styles from './Main.module.scss';
 
-import ImageSwiper from "./ImageSwiper/Swiper";
-import Title from "./Title/Title";
+import ImageSwiper from './ImageSwiper/Swiper';
+import Title from './Title/Title';
 
-function Main() {
+interface MainProps {
+  images: string[];
+  title: string;
+  category: string;
+}
+
+function Main({images, title, category}: MainProps) {
   return (
     <div className={styles.container}>
-      <ImageSwiper />
-      <Title />
+      <ImageSwiper images={images} />
+      <Title title={title} category={category} />
     </div>
   );
 }

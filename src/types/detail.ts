@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import {ReactNode} from 'react';
 
 export interface OtherCardPropsType {
   image: string;
@@ -39,13 +39,6 @@ export interface NavigationMeatballProps {
 // Main
 
 // Contents
-export interface ContentsProps {
-  onOpen: () => void;
-}
-
-export interface ContentsInformationProps {
-  onOpen: () => void;
-}
 
 export interface ContentsShortReviewsProps {
   onOpen: () => void;
@@ -99,4 +92,37 @@ export interface BottomSlideDetailProps {
   children: ReactNode;
   isReviewModal: boolean;
   setBottomSlideContent: React.Dispatch<React.SetStateAction<ReactNode | null>>;
+}
+
+// ---------- api -----------
+
+export interface placeInfoData {
+  status: number;
+  message: string;
+  data: {
+    place: placeInfoDataPlace;
+  };
+}
+
+export interface placeInfoDataPlace {
+  id: number;
+  contentTypeId: number;
+  title: string;
+  location: {
+    address: string;
+    addressDetail: string;
+    phone: string;
+    areaCode: number;
+    sigunguCode: number;
+    zipCode: number;
+    latitude: number;
+    longitude: number;
+  };
+  category: string;
+  thumbnail: string;
+  originalImage: string;
+  gallery: string[];
+  createdTime: string;
+  modifiedTime: string;
+  openTime: string;
 }
