@@ -6,49 +6,64 @@ import {Dispatch} from 'react';
 const userVoteData = [
   {
     title: '부산, 여수 여행',
-    date: '1.17-1.19',
+    date: '1.17(수)-1.19(금)',
     profile: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
     discussion: '첫째 날 카페 어디갈래?',
     voteURL: '/votes/11',
   },
   {
     title: '부산, 여수 여행',
-    date: '1.17-1.19',
+    date: '1.17(수)-1.19(금)',
     profile: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
     discussion: '둘째 날 카페 어디갈래?',
     voteURL: '/votes/11',
   },
   {
     title: '부산, 여수 여행',
-    date: '1.17-1.19',
+    date: '1.17(수)-1.19(금)',
     profile: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
     discussion: '셋째 날 카페 어디갈래?',
     voteURL: '/votes/11',
   },
 ];
-const tripSpaceData = [
-  {
-    tripTitle: '부산, 여수 여행',
-    tripDay: '1.17(금) - 1.19(일)',
-    tripImg:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0jVJNFWatm6iNA6nlr3-dWeEzdC-rqXryt0YUm_3s2T8YMWTSVdb_l0USXjmod9MonOo&usqp=CAU',
-    dDay: 'D-34',
+
+const tripSpaceData = {
+  data: {
+    spaces: [
+      {
+        id: 1,
+        title: '상원 외 5명의 여행',
+        city: '부산, 여수 여행',
+        startDate: '2024-01-30',
+        endDate: '2024-01-31',
+        dueDate: 6,
+        thumbnail:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0jVJNFWatm6iNA6nlr3-dWeEzdC-rqXryt0YUm_3s2T8YMWTSVdb_l0USXjmod9MonOo&usqp=CAU',
+      },
+      {
+        id: 2,
+        title: '상원 외 5명의 여행',
+        city: '부산, 여수 여행',
+        startDate: '2024-01-30',
+        endDate: '2024-01-31',
+        dueDate: 0,
+        thumbnail:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0jVJNFWatm6iNA6nlr3-dWeEzdC-rqXryt0YUm_3s2T8YMWTSVdb_l0USXjmod9MonOo&usqp=CAU',
+      },
+      {
+        id: 3,
+        title: '상원 외 5명의 여행',
+        city: '부산, 여수 여행',
+        startDate: '2024-01-30',
+        endDate: '2024-01-31',
+        dueDate: 6,
+        thumbnail:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0jVJNFWatm6iNA6nlr3-dWeEzdC-rqXryt0YUm_3s2T8YMWTSVdb_l0USXjmod9MonOo&usqp=CAU',
+      },
+    ],
   },
-  {
-    tripTitle: '부산, 여수 여행',
-    tripDay: '1.17(금) - 1.19(일)',
-    tripImg:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0jVJNFWatm6iNA6nlr3-dWeEzdC-rqXryt0YUm_3s2T8YMWTSVdb_l0USXjmod9MonOo&usqp=CAU',
-    dDay: 'D-34',
-  },
-  {
-    tripTitle: '부산, 여수 여행',
-    tripDay: '1.17(금) - 1.19(일)',
-    tripImg:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0jVJNFWatm6iNA6nlr3-dWeEzdC-rqXryt0YUm_3s2T8YMWTSVdb_l0USXjmod9MonOo&usqp=CAU',
-    dDay: 'D-34',
-  },
-];
+};
+
 // 홈 검색
 const searchKeywordData = {
   keywords: [
@@ -497,7 +512,7 @@ export const home = [
       status: 200,
     });
   }),
-  http.get('api/home/tripSpace', () => {
+  http.get('/api/members/my-spaces/upcoming', () => {
     return HttpResponse.json(tripSpaceData, {
       status: 200,
     });

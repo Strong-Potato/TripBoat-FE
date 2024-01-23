@@ -6,27 +6,24 @@ import useComponentSize from '@/hooks/useComponetSize';
 
 import SlideButton from '@/components/SlideButton/SlideButton';
 
-import {getData} from '@/mocks/handlers/home';
+import {getHomeTripSpace} from '@/api/home';
 
+import NullTrip from './NullTrip/NullTrip';
 import TripSpaceItem from './TripSpaceItem/TripSpaceItem';
 
-import {TripSpaceDataType} from '@/types/home';
+import {TripSpaceData} from '@/types/home';
 
 function TripSpaceAtHome() {
-  const [data, setData] = useState<TripSpaceDataType[]>();
+  const [data, setData] = useState<TripSpaceData[]>();
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
 
-  const dataNull = {
-    tripTitle: '아직 여행 일정이 없어요',
-    tripDay: '새로운 여행 일정을 만들어보세요!',
-    tripImg: '/tripVoteLogoHome.png',
-    dDay: undefined,
-  };
-
   useEffect(() => {
-    getData<TripSpaceDataType[] | undefined>(`api/home/tripSpace`, setData);
+    getHomeTripSpace(setData);
   }, []);
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <div className={styles.container}>
@@ -48,11 +45,7 @@ function TripSpaceAtHome() {
           left: slideLocation + 'px',
         }}
       >
-        {data ? (
-          data.map((data, i) => <TripSpaceItem data={data} key={data.tripTitle + i} />)
-        ) : (
-          <TripSpaceItem data={dataNull} key={dataNull.tripTitle} />
-        )}
+        {data && data.length > 0 ? data.map((data) => <TripSpaceItem data={data} key={data.id} />) : <NullTrip />}
       </div>
     </div>
   );

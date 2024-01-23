@@ -1,5 +1,4 @@
-import axios from 'axios';
-import {Dispatch, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import styles from './SearchKeyword.module.scss';
@@ -8,7 +7,9 @@ import useComponentSize from '@/hooks/useComponetSize';
 
 import SlideButton from '@/components/SlideButton/SlideButton';
 
-import {Keywords, SearchDataType, SearchKeywordType} from '@/types/home';
+import {getHotKeyword} from '@/api/search';
+
+import {SearchKeywordType} from '@/types/home';
 
 function SearchKeyword() {
   const [data, setData] = useState<SearchKeywordType[] | undefined>();
@@ -18,16 +19,7 @@ function SearchKeyword() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function getData(apiURL: string, set: Dispatch<SearchKeywordType[] | undefined>) {
-      try {
-        const fetchData = await axios.get(`${apiURL}`);
-        const data: SearchDataType<Keywords> = fetchData.data;
-        set(data.data.keywords);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getData('/api/places/popular/keywords', setData);
+    getHotKeyword('/api/places/popular/keywords', setData);
   }, []);
 
   // 각 키워드의 너비를 모두 더한 값을 구함

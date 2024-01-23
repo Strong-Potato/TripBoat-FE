@@ -1,5 +1,4 @@
-import axios from 'axios';
-import {Dispatch, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import styles from './HotItems.module.scss';
 
@@ -7,9 +6,11 @@ import useComponentSize from '@/hooks/useComponetSize';
 
 import SlideButton from '@/components/SlideButton/SlideButton';
 
+import {getPopularItem} from '@/api/search';
+
 import HotItem from './HotItem/HotItem';
 
-import {Popular, SearchDataType, SearchHotItemType} from '@/types/home';
+import {SearchHotItemType} from '@/types/home';
 
 interface PropsType {
   type: number;
@@ -21,22 +22,7 @@ function HotItems({type}: PropsType) {
   const [componentRef, size] = useComponentSize();
 
   useEffect(() => {
-    async function getData(apiURL: string, set: Dispatch<React.SetStateAction<SearchHotItemType[] | undefined>>) {
-      try {
-        const fetchData = await axios.get(`${apiURL}`, {
-          params: {
-            size: 10,
-            placeTypeId: type,
-          },
-        });
-        const data: SearchDataType<Popular> = fetchData.data;
-
-        set(data.data.places);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getData('/api/places/popular', setData);
+    getPopularItem('/api/places/popular', type, setData);
   }, [type]);
   return (
     <div className={styles.container}>

@@ -2,7 +2,7 @@ import {useNavigate} from 'react-router-dom';
 
 import styles from './Tab.module.scss';
 
-import {translateCategoryToNum, translateCategoryToStr} from '@/hooks/Search/useSearch';
+import {translateCategoryToNum, translateCategoryToStr} from '@/utils/translateSearchData';
 
 import {ForSearchType} from '@/types/home';
 

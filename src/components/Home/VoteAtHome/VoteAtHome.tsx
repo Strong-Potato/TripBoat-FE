@@ -26,9 +26,9 @@ function VoteAtHome() {
         </p>
       ) : (
         <p className={styles.title}>
-          여행 계획 중이라면
+          <span className={styles.titleNull}>여행 계획 중이라면</span>
           <br />
-          트립보트에서 투표해볼까요?
+          <span>트립보트에서 투표해볼까요?</span>
         </p>
       )}
 

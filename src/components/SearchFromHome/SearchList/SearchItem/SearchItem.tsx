@@ -2,11 +2,10 @@ import {Link} from 'react-router-dom';
 
 import styles from './SearchItem.module.scss';
 
-import {translateCategoryToStr} from '@/hooks/Search/useSearch';
-
 import nullImg from '@/assets/homeIcons/search/nullImg.svg';
 import areas from '@/utils/areas.json';
 import titleCaseChange from '@/utils/titleCaseChange';
+import {translateCategoryToStr} from '@/utils/translateSearchData';
 
 import {SearchItemType} from '@/types/home';
 
@@ -22,7 +21,7 @@ function SearchItem({data, categoryChange}: PropsType) {
   const imgSrc = data.thumbnail ? data.thumbnail : nullImg;
 
   return (
-    <Link to={`/detail/${data.title}`} className={styles.container}>
+    <Link to={`/detail/${data.id} ${data.contentTypeId}`} className={styles.container}>
       <img
         src={imgSrc}
         alt={`${data.title}의 사진`}

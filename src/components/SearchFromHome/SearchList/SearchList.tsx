@@ -3,7 +3,8 @@ import {useNavigate} from 'react-router-dom';
 
 import styles from './SearchList.module.scss';
 
-import {keywordSearch, search} from '@/hooks/Search/useSearch';
+import {keywordSearch, search} from '@/api/search';
+import SearchNull from '@/assets/homeIcons/search/searchNull.svg?react';
 
 import DateFilter from './DateFilter/DateFilter';
 import LocationFilter from './LocationFilter/LocationFilter';
@@ -66,10 +67,16 @@ function SearchList({forSearch}: PropsType) {
             <DateFilter forSearch={forSearch} />
           </div>
           <ul className={styles.slide}>
-            {filterData &&
+            {filterData && filterData?.length > 0 ? (
               filterData.map((data, i) => (
                 <SearchItem data={data} key={data.title + i} categoryChange={categoryChange} />
-              ))}
+              ))
+            ) : (
+              <div className={styles.nullBox}>
+                <SearchNull />
+                <span>검색 결과가 없습니다.</span>
+              </div>
+            )}
           </ul>
           <button onClick={onMap}>
             <MapButton />

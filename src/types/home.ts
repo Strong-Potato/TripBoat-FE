@@ -24,11 +24,24 @@ export interface VoteDataType {
   voteURL: string;
 }
 
-export interface TripSpaceDataType {
-  tripTitle: string;
-  tripDay: string;
-  tripImg: string;
-  dDay: string | undefined;
+export interface TripSpaceData {
+  id: number;
+  title: string;
+  city: string;
+  startDate: string;
+  endDate: string;
+  dueDate: number;
+  thumbnail: string;
+}
+
+export interface TripSpace {
+  spaces: TripSpaceData[];
+  pageNumber: number;
+  pageSize: number;
+  totalPages: number;
+  totalResult: number;
+  first: boolean;
+  last: boolean;
 }
 
 export interface LeftButtonPropsType {
@@ -50,7 +63,7 @@ export interface SlideButtonPropsType extends LeftButtonPropsType {
 }
 
 // 홈 검색 타입
-export interface SearchDataType<T> {
+export interface DataType<T> {
   status: number;
   message: string;
   data: T;

@@ -1,20 +1,20 @@
-import { useState } from "react";
-import { MdArrowForwardIos } from "react-icons/md";
-import { Link } from "react-router-dom";
+import {useState} from 'react';
+import {MdArrowForwardIos} from 'react-icons/md';
+import {Link} from 'react-router-dom';
 
-import styles from "./CardHaveVote.module.scss";
+import styles from './CardHaveVote.module.scss';
 
-import useComponentSize from "@/hooks/useComponetSize";
+import useComponentSize from '@/hooks/useComponetSize';
 
-import SlideButton from "@/components/SlideButton/SlideButton";
+import SlideButton from '@/components/SlideButton/SlideButton';
 
-import { VoteDataType } from "@/types/home";
+import {VoteDataType} from '@/types/home';
 
 interface PropsType {
   data: VoteDataType[];
 }
 
-function CardHaveVote({ data }: PropsType) {
+function CardHaveVote({data}: PropsType) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
   return (
@@ -31,8 +31,8 @@ function CardHaveVote({ data }: PropsType) {
         className={styles.slide_box}
         ref={componentRef}
         style={{
-          overflow: size.width < 449 ? "scroll" : "visible",
-          left: slideLocation + "px",
+          overflow: size.width < 449 ? 'scroll' : 'visible',
+          left: slideLocation + 'px',
         }}
       >
         {data &&
@@ -44,14 +44,10 @@ function CardHaveVote({ data }: PropsType) {
                   <div className={styles.text_box}>
                     <p className={styles.vote_title}>
                       <span>{data.title}</span>
-                      <span className={styles.date}>{data.date}</span>
+                      <span>{data.date}</span>
                     </p>
                     <p className={styles.discussion}>
-                      <img
-                        className={styles.profile}
-                        src={data.profile}
-                        alt={imageAlt}
-                      ></img>
+                      <img className={styles.profile} src={data.profile} alt={imageAlt}></img>
                       <span>{data.discussion}</span>
                     </p>
                   </div>
