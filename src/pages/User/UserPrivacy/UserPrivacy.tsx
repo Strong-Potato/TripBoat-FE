@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
 
 import styles from './UserPrivacy.module.scss';
@@ -43,7 +44,8 @@ function UserPrivacy() {
 
         <li
           onClick={() => {
-            // 로그아웃 api 호출 (백엔드 미완성)
+            axios.post('/api/logout');
+            navigate('/auth/login');
           }}
         >
           로그아웃

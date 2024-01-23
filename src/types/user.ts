@@ -1,12 +1,12 @@
 export interface UserInfo {
-  nickname: string;
-  profile: string;
-  provider: string;
+  nickname?: string;
+  profile?: string;
+  provider?: string;
   email?: string;
 }
 
 export interface ProfileProps {
-  data: UserInfo;
+  data: UserInfo | undefined;
 }
 
 export interface MySpaceData {

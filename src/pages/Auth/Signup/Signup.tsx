@@ -1,21 +1,32 @@
-import { useState } from "react";
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
-import styles from "./Signup.module.scss";
+import styles from './Signup.module.scss';
 
-import Header from "@/components/Auth/Header/Header";
-import AgreeForm from "@/components/Auth/Signup/AgreeForm";
-import SignupForm from "@/components/Auth/Signup/SignupForm";
+import {useGetMyInfo} from '@/hooks/User/useUser';
+
+import Header from '@/components/Auth/Header/Header';
+import AgreeForm from '@/components/Auth/Signup/AgreeForm';
+import SignupForm from '@/components/Auth/Signup/SignupForm';
 
 function Signup() {
   // agree, email, password, profile
-  const [signupStep, setSignupStep] = useState<string>("agree");
+  const [signupStep, setSignupStep] = useState<string>('agree');
+  const navigate = useNavigate();
+  const {isFetching, isSuccess} = useGetMyInfo(true);
+
+  if (isSuccess) {
+    navigate('/', {replace: true});
+  }
+
+  if (isFetching) return <div></div>;
 
   return (
     <div className={styles.container}>
       <Header />
 
       <main className={styles.body}>
-        {signupStep === "agree" ? (
+        {signupStep === 'agree' ? (
           <AgreeForm setSignupStep={setSignupStep} />
         ) : (
           <SignupForm signupStep={signupStep} setSignupStep={setSignupStep} />
