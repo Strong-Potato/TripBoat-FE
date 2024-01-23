@@ -1,9 +1,4 @@
-import {
-  FieldError,
-  FieldErrors,
-  UseFormRegister,
-  UseFormResetField,
-} from "react-hook-form";
+import {FieldError, FieldErrors, UseFormRegister, UseFormResetField} from 'react-hook-form';
 
 /* --------------------------------- common --------------------------------- */
 export interface HeaderProps {
@@ -12,7 +7,7 @@ export interface HeaderProps {
 
 export interface AuthButtonProps {
   content: string;
-  type: "button" | "reset" | "submit" | undefined;
+  type: 'button' | 'reset' | 'submit' | undefined;
   disabled: boolean;
   onClick?: () => void;
 }
@@ -103,12 +98,7 @@ export interface AgreeProps {
   setSignupStep: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export type AgreeName =
-  | "age"
-  | "service"
-  | "privacy"
-  | "marketing"
-  | "allCheck";
+export type AgreeName = 'age' | 'service' | 'privacy' | 'marketing' | 'allCheck';
 
 export interface DirtyFields {
   email?: boolean;
@@ -169,4 +159,9 @@ export interface StepProfileProps {
   resetField: UseFormResetField<AuthForm>;
   dirty?: boolean;
   error?: FieldError;
+}
+
+export interface ExpireAlertProps {
+  expire: number;
+  onClickAction: () => void;
 }
