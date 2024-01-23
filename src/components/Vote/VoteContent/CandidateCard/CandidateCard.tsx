@@ -21,6 +21,8 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapS
 
   const placeInfo = candidate.placeInfo;
 
+  //순위 받아서 색주기, 인덱스 말고
+
   const getRankClassName = (index: number) => {
     switch (index) {
       case 1:
@@ -80,7 +82,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapS
             // onClick={navigate로 넣기}
             disabled={isCandidateSelecting}
           >
-            {placeInfo.placeName.length >= 10 ? placeInfo.placeName.slice(0, 10) + ' ⋯' : placeInfo.placeName}
+            {placeInfo.placeName}
           </button>
 
           <div className={styles.main__contextBox__category}>

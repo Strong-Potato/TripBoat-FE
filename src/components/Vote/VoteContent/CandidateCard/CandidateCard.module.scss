@@ -9,7 +9,6 @@
   padding-right: 16px;
 
   border-radius: 16px;
-  // border: 2px solid $neutral200;
   box-shadow: $shadow200;
   background-color: $neutral0;
 
@@ -62,14 +61,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
 
   &__contextBox {
     display: flex;
     flex-direction: column;
-    // gap: 8px;
 
     &__name {
       text-align: start;
+      white-space: pre-wrap;
       @include typography(titleSmall);
       color: $neutral900;
     }
