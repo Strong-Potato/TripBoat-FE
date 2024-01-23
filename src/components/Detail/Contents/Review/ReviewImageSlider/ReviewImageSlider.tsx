@@ -1,14 +1,24 @@
+import { useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 
 import styles from "./ReviewImageSlider.module.scss";
 
 import useComponentSize from "@/hooks/useComponetSize";
 
+import SlideModal from "@/components/Detail/Main/SlideModal/SlideModal";
 import SlideButton from "@/components/SlideButton/SlideButton";
 
 function ReviewImageSlider({ images }: { images: string[] }) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
+
+  const [imageIndex, setImageIndex] = useState<number>(0);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleIsOpen = (index: number) => {
+    setImageIndex(index);
+    onOpen();
+  };
 
   return (
     <div className={styles.container}>
@@ -36,10 +46,17 @@ function ReviewImageSlider({ images }: { images: string[] }) {
           left: slideLocation + "px",
         }}
       >
-        {images.map((data) => (
-          <img src={data} />
+        {images.map((data, i) => (
+          <img src={data} onClick={() => handleIsOpen(i)} />
         ))}
       </div>
+      <SlideModal
+        isOpen={isOpen}
+        onClose={onClose}
+        images={images}
+        imageIndex={imageIndex}
+        setImageIndex={setImageIndex}
+      />
     </div>
   );
 }

@@ -1,0 +1,120 @@
+@use "@/sass" as *;
+
+.container {
+  & > li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 24px 20px;
+    border-bottom: 1px solid $neutral200;
+    cursor: pointer;
+
+    @include typography(tabLabel);
+
+    &:hover {
+      font-weight: 600;
+      border-color: $neutral300;
+    }
+
+    svg {
+      fill: $neutral400;
+    }
+  }
+
+  .alert {
+    &__left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      &__tooltip {
+        position: relative;
+
+        .tooltipList {
+          display: none;
+          position: absolute;
+          left: -38px;
+          width: 20rem;
+          padding: 21px 8px 8px 16px;
+          margin-top: 2px;
+          border-radius: 8px;
+
+          background-image: url("@/assets/icons/tooltipFrame.svg");
+          background-repeat: no-repeat;
+          background-size: auto;
+
+          list-style-type: disc;
+          list-style-position: inside;
+
+          @include typography(captionSmall);
+          line-height: 1.8rem;
+          color: $neutral0;
+
+          @include animate(showTooltip, 0.2s, ease-in, forwards);
+
+          & > li > span {
+            margin-left: -5px;
+          }
+        }
+
+        & > button {
+          display: block;
+
+          &:focus ~ .tooltipList,
+          &:hover ~ .tooltipList {
+            display: block;
+          }
+        }
+      }
+    }
+
+    &__button {
+      position: relative;
+      width: 5.6rem;
+      height: 3.2rem;
+      border-radius: 32px;
+
+      .alertState {
+        position: absolute;
+        top: 0;
+        width: 3.2rem;
+        height: 3.2rem;
+
+        background-color: $neutral0;
+        border-radius: 50%;
+        transition: all 0.2s ease-in;
+      }
+
+      &.on {
+        background-color: $success300;
+        .alertState {
+          left: calc(100% - 3.2rem);
+          border: 2px solid $success300;
+        }
+      }
+      &.off {
+        background-color: $neutral200;
+        .alertState {
+          left: 0;
+          border: 2px solid $neutral200;
+        }
+      }
+    }
+  }
+
+  .version {
+    color: $neutral400;
+  }
+}
+
+@include keyframes(showTooltip) {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

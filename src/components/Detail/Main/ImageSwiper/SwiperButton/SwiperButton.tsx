@@ -15,7 +15,7 @@ function SwiperButton({ imageIndex, imageLength }: SwiperButtonPropsType) {
         onClick={() => {
           swiper.slidePrev();
         }}
-        style={imageIndex <= 1 ? { display: "none" } : { display: "block" }}
+        style={imageIndex <= 0 ? { display: "none" } : { display: "block" }}
       >
         <AiOutlineLeft className={styles.container__icon} />
       </button>
@@ -25,7 +25,9 @@ function SwiperButton({ imageIndex, imageLength }: SwiperButtonPropsType) {
           swiper.slideNext();
         }}
         style={
-          imageIndex >= imageLength ? { display: "none" } : { display: "block" }
+          imageIndex >= imageLength - 1
+            ? { display: "none" }
+            : { display: "block" }
         }
       >
         <AiOutlineRight className={styles.container__icon} />

@@ -19,7 +19,7 @@ function BasicInformation() {
         </div>
         <div className={styles.container__contents__item}>
           <IoMdCall color="#979C9E" fontSize="2.4rem" />
-          <a href="#">031-771-1234</a>
+          <span>031-771-1234</span>
         </div>
         <div className={styles.container__contents__item}>
           <AiOutlineLink color="#979C9E" fontSize="2.4rem" />

@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   @include slide_button_container;
@@ -9,14 +9,18 @@
     p {
       height: 3.8rem;
 
-      padding: 8px 16px;
-
       border-radius: 48px;
 
       color: $primary300;
       background-color: $primary100;
 
       white-space: nowrap;
+
+      box-sizing: border-box;
+
+      text-align: center;
+
+      user-select: none;
 
       cursor: pointer;
 

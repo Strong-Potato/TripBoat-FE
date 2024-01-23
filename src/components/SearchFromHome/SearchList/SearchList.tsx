@@ -1,108 +1,74 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
-import styles from "./SearchList.module.scss";
+import styles from './SearchList.module.scss';
 
-import { getData } from "@/mocks/handlers/home";
+import {keywordSearch, search} from '@/hooks/Search/useSearch';
 
-import DateFilter from "./DateFilter/DateFilter";
-import LocationFilter from "./LocationFilter/LocationFilter";
-import Map from "./Map/Map";
-import MapButton from "./MapButton/MapButton";
-import SearchItem from "./SearchItem/SearchItem";
-import Tabs from "./Tabs/Tabs";
+import DateFilter from './DateFilter/DateFilter';
+import LocationFilter from './LocationFilter/LocationFilter';
+import Map from './Map/Map';
+import MapButton from './MapButton/MapButton';
+import SearchItem from './SearchItem/SearchItem';
+import Tabs from './Tabs/Tabs';
 
-import { SearchItemType } from "@/types/home";
+import {ForSearchType, SearchItemType} from '@/types/home';
 
 interface PropsType {
-  keyword: string | undefined;
-  category: string;
-  moveMap: string;
-  set: React.Dispatch<React.SetStateAction<string>>;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  forSearch: ForSearchType;
 }
 
-function SearchList({
-  keyword,
-  set,
-  moveMap,
-  category,
-  setCategory,
-}: PropsType) {
-  const [data, setData] = useState<SearchItemType[]>();
-  const [filterData, setFilterData] = useState<SearchItemType[]>();
+function SearchList({forSearch}: PropsType) {
+  const [data, setData] = useState<SearchItemType[] | undefined>();
+  const [filterData, setFilterData] = useState<SearchItemType[] | undefined>();
   const [categoryChange, setCategoryChange] = useState(false);
-  const [searchLocation, setSearchLocation] = useState("전체 지역");
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    console.log(searchLocation);
-  }, [searchLocation]);
-
-  useEffect(() => {
-    getData<SearchItemType[] | undefined>("home/search/search", setData);
-
-    const querystring = searchParams.get("category");
-    if (querystring) {
-      setCategory(querystring);
+    if (forSearch.hot === 'true') {
+      keywordSearch(forSearch.keyword, forSearch.location, forSearch.sort, setData);
+    } else {
+      search(forSearch.keyword, forSearch.location, forSearch.sort, setData);
     }
-  }, [keyword, searchParams]);
+  }, [forSearch.keyword, forSearch.location, forSearch.sort, forSearch.hot]);
 
   useEffect(() => {
     if (data) {
-      if (category !== "전체") {
+      if (forSearch.category !== 0) {
         let filterData;
-        if (category === "맛집") {
-          filterData = data.filter(
-            (data) => data.category === "음식점" || data.category === "카페",
-          );
+        if (forSearch.category === 14) {
+          filterData = data.filter((data) => data.contentTypeId === 14 || data.contentTypeId === 15);
         } else {
-          filterData = data.filter((data) => data.category === category);
+          filterData = data.filter((data) => data.contentTypeId === forSearch.category);
         }
         setFilterData(filterData);
       } else {
         setFilterData(data);
       }
     }
-  }, [data, category]);
+  }, [data, forSearch.category]);
 
   function onMap() {
-    set("true");
-    if (category) {
-      navigate(`/home/search?keyword=${keyword}&category${category}&map=true`);
-    } else {
-      navigate(`/home/search?keyword=${keyword}&map=true`);
-    }
+    navigate(
+      `/home/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=true&location=${forSearch.location}&sort=${forSearch.sort}&hot=${forSearch.hot}`,
+    );
   }
 
   return (
-    <div
-      className={styles.container}
-      style={{ height: moveMap === "true" ? "100%" : "calc(100% - 72px)" }}
-    >
-      <Tabs
-        setCategory={setCategory}
-        category={category}
-        setCategoryChange={setCategoryChange}
-        keyword={keyword}
-      />
-      {moveMap === "true" && filterData ? (
+    <div className={styles.container} style={{height: forSearch.map === 'true' ? '100%' : 'calc(100% - 72px)'}}>
+      {forSearch.hot === 'false' && <Tabs forSearch={forSearch} setCategoryChange={setCategoryChange} />}
+      {forSearch.map === 'true' && filterData ? (
         <Map data={filterData} categoryChange={categoryChange} />
       ) : (
         <>
           <div className={styles.filter}>
-            <LocationFilter setSearchLocation={setSearchLocation} />
-            <DateFilter />
+            <LocationFilter forSearch={forSearch} />
+            <DateFilter forSearch={forSearch} />
           </div>
           <ul className={styles.slide}>
             {filterData &&
               filterData.map((data, i) => (
-                <SearchItem
-                  data={data}
-                  key={data.title + i}
-                  categoryChange={categoryChange}
-                />
+                <SearchItem data={data} key={data.title + i} categoryChange={categoryChange} />
               ))}
           </ul>
           <button onClick={onMap}>
