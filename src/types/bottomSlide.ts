@@ -4,5 +4,4 @@ export interface BottomSlideProps {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
-  leftCloseButton?: boolean;
 }
