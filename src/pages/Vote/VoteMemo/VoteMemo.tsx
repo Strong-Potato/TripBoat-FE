@@ -5,6 +5,7 @@ import {useRecoilState} from 'recoil';
 
 import styles from './VoteMemo.module.scss';
 
+import useGetSelectedArray from '@/hooks/useGetSelectedArray';
 import {useGetVotesInfo} from '@/hooks/Votes/vote';
 
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
@@ -15,30 +16,41 @@ import MemoContent from '@/components/VoteMemo/MemoContent';
 import {isBottomSlideOpenState} from '@/recoil/vote/bottomSlide';
 import {selectedTaglineState} from '@/recoil/vote/voteMemo';
 
+import {TaglineType} from '@/types/vote';
+
 const VoteMemo = () => {
   const {id: voteId} = useParams();
   const {data: voteInfo} = useGetVotesInfo(Number(voteId));
   // const navigate = useNavigate();
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
+  const {toggleItemInNewArray} = useGetSelectedArray(selectedTaglineState);
 
-  const existingTaglines = localStorage.getItem('recoil-persist');
+  const getExistingTaglines = localStorage.getItem('recoil-persist');
 
-  const initializeTaglineState = () => {
-    const initialTaglines = voteInfo.candidates.map((candidate) => ({
-      placeId: candidate.placeInfo.placeId,
-      tagline: '',
-    }));
-    setSelectedTagline(initialTaglines);
+  const setInitializeTagline = () => {
+    setSelectedTagline(voteInfo.candidates.map(({placeInfo}) => ({placeId: placeInfo.placeId, tagline: ''})));
+  };
+
+  const setExistingTagline = () => {
+    const existingTaglines: TaglineType[] = getExistingTaglines && JSON.parse(getExistingTaglines).selectedTaglineState;
+
+    const nonExistPlaceIds = voteInfo.candidates
+      .map(({placeInfo}) => placeInfo.placeId)
+      .filter((placeId) => !existingTaglines.some((tagline) => tagline.placeId === placeId));
+
+    nonExistPlaceIds.map((placeId) => ({placeId, tagline: ''})).forEach((tagline) => toggleItemInNewArray(tagline));
   };
 
   useEffect(() => {
-    if (!existingTaglines) {
-      initializeTaglineState();
+    if (getExistingTaglines) {
+      setExistingTagline();
+    } else {
+      setInitializeTagline();
     }
   }, []);
 
-  const addNewCandidates = () => {
+  const handleAddCandidates = () => {
     console.log('최종 내용 : ', selectedTagline);
     localStorage.removeItem('recoil-persist');
     //navigate(`/votes/${voteInfo.id}`)
@@ -49,7 +61,7 @@ const VoteMemo = () => {
       <VoteHeader title={voteInfo.title} onBottomSlideOpen={() => setIsBTOpen(true)} />
       <MemoContent data={voteInfo} />
 
-      <Button variant='CTAButton' isDisabled={selectedTagline.length === 0} onClick={addNewCandidates}>
+      <Button variant='CTAButton' isDisabled={selectedTagline.length === 0} onClick={handleAddCandidates}>
         {selectedTagline.length}개 후보 등록하기
       </Button>
 
