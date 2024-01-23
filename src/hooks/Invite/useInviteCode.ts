@@ -1,14 +1,21 @@
-import axios from "axios";
+// import {useMutation} from '@tanstack/react-query';
 
-export const inviteCodeRequest = async (nickname: string, spaceId: string) => {
-  const response = await axios.post("/api/members/join/spaces", {
-    nickname,
-    spaceId,
-  });
-  return response.data.data;
-};
+// import {postJoin} from '@/api/invite';
 
-export const inviteCodeJoin = async () => {
-  const response = await axios.post("/api/members/join");
-  return response;
-};
+// const handleMutationError = (error: Error) => {
+//   console.error('[inviteCode]에러가 발생했습니다', error);
+// };
+
+// export const useInviteCodeJoin = () => {
+//   return useMutation({
+//     mutationFn: postJoin,
+//     onError: handleMutationError,
+//   });
+// };
+
+// export const useInviteCodeRequest = ({nickname, spaceId}: InviteCodeRequestParams) => {
+//   return useMutation({
+//     mutationFn: () => postJoinSpaces({nickname, spaceId}),
+//     onError: handleMutationError,
+//   });
+// };

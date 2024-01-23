@@ -1,37 +1,31 @@
-import { http, HttpResponse } from "msw";
-
-import { spaceInfo } from "@/types/sidebar";
+import {http, HttpResponse} from 'msw';
 
 const inviteCode = {
   status: 200,
-  message: "members/join/spaces",
+  message: 'SUCCESS',
   data: {
-    code: "qwerasdfqerasdfqewrasdfqwer",
+    code: 'NkpWoMi2',
   },
 };
 
 export const invite = [
-  http.post("/api/members/join/spaces", async ({ request }) => {
-    const { nickname, spaceId } = (await request.json()) as spaceInfo;
+  http.post('/api/auth/join/spaces/:spaceId/code', async ({request, cookies}) => {
+    const url = String(new URL(request.url));
+    const spaceId = url.split('/')[7];
+    console.log(cookies);
 
-    if (nickname && spaceId) {
-      return HttpResponse.json(inviteCode, { status: 200 });
+    if (cookies && spaceId) {
+      return HttpResponse.json(inviteCode, {status: 200});
     } else {
-      return HttpResponse.json(
-        { message: "nickname과 spaceId가 필요합니다." },
-        { status: 400 },
-      );
+      return HttpResponse.json({message: 'nickname과 spaceId가 필요합니다.'}, {status: 400});
     }
   }),
 
-  http.post("/api/members/join", async ({ cookies }) => {
-    if (cookies.inviteCode) {
-      return HttpResponse.json({ message: "가입 완료" }, { status: 200 });
+  http.post('/api/auth/join/spaces/:spaceId', async ({cookies}) => {
+    if (cookies.join_space_token) {
+      return HttpResponse.json({message: 'SUCCESS'}, {status: 200});
     } else {
-      return HttpResponse.json(
-        { message: "필요한 쿠키가 없습니다." },
-        { status: 400 },
-      );
+      return HttpResponse.json({message: '필요한 쿠키가 없습니다.'}, {status: 400});
     }
   }),
 ];

@@ -1,26 +1,12 @@
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-  UseQueryResult,
-} from "@tanstack/react-query";
-import axios from "axios";
+import {useMutation, useQuery, useQueryClient, UseQueryResult} from '@tanstack/react-query';
 
-import { TravelListItem } from "@/types/sidebar";
+import {spacesRequest} from '@/api/spaces';
 
-const spacesRequest = {
-  getSpaces: () =>
-    axios
-      .get("/api/spaces", { params: {} })
-      .then((response) => response.data.data),
-  postSpaces: () => axios.post("/api/spaces"),
-};
+import {TravelListItem} from '@/types/sidebar';
 
-function useGetSpaces(
-  isSideOpen: boolean,
-): UseQueryResult<TravelListItem[], Error> {
+function useGetSpaces(isSideOpen: boolean): UseQueryResult<TravelListItem[], Error> {
   return useQuery({
-    queryKey: ["spaces"],
+    queryKey: ['spaces'],
     queryFn: spacesRequest.getSpaces,
     enabled: isSideOpen,
   });
@@ -31,17 +17,9 @@ function usePostSpace() {
   return useMutation({
     mutationFn: spacesRequest.postSpaces,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["spaces"] });
+      queryClient.invalidateQueries({queryKey: ['spaces']});
     },
   });
 }
 
-// function useInviteCode() {
-//   const queryClient = useQueryClient();
-
-//   return useMutation({
-//     mutationFn: inviteCodeRequest.getInviteCode,
-//     onSuccess: (data) => {},
-//   });
-// }
-export { useGetSpaces, usePostSpace };
+export {useGetSpaces, usePostSpace};

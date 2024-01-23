@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   position: fixed;
@@ -20,5 +20,19 @@
     gap: 12px;
 
     font-size: 2.4rem;
+
+    &__wrapper {
+      position: relative;
+
+      &__eclips {
+        width: 0.8rem;
+        height: 0.8rem;
+        border-radius: 50%;
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        background: $primary400;
+      }
+    }
   }
 }
