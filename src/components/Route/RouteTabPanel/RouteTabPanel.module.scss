@@ -14,13 +14,13 @@
     min-width: 36rem;
     max-width: 45rem;
     height: 16rem;
-  }
 
-  .zoomInbutton {
-    position: absolute;
-    top: 16rem;
-    right: 2rem;
-    z-index: 10;
+    .zoomInButton {
+      position: absolute;
+      top: 11rem;
+      right: 2rem;
+      z-index: 10;
+    }
   }
 
   .routeContainer {
@@ -30,5 +30,47 @@
       gap: 6.3rem;
       padding-bottom: 12rem;
     }
+  }
+
+  .bottomButtonContainer,
+  .activeBottomButtonContainer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    min-width: 36rem;
+    max-width: 45rem;
+    z-index: 3;
+    transition: 0.5s;
+
+    box-shadow: $shadow200;
+
+    display: flex;
+    // height: 70px;
+    padding: 16px 20px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+
+    button {
+      width: 100%;
+      padding: 8px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.4rem;
+
+      span {
+        @include typography(button);
+        color: $neutral0;
+      }
+    }
+  }
+
+  .bottomButtonContainer {
+    background-color: $neutral200;
+  }
+
+  .activeBottomButtonContainer {
+    background-color: $primary300;
   }
 }

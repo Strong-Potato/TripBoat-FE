@@ -1,13 +1,15 @@
 @use '@/sass' as *;
 
 .container {
+  position: sticky;
+  top: 25.5rem;
+
   nav {
     height: 7rem;
     display: flex;
     justify-content: space-between;
     padding: 16px 20px;
-    position: sticky;
-    top: 25.5rem;
+
     background-color: $neutral0;
     margin-bottom: 2rem;
 
@@ -40,15 +42,23 @@
       // FIXME: 그라데이션 수정
       background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0.2%, #fff 22.5%);
 
-      .wholeEditButton {
+      .wholeEditButton,
+      .wholeCompleteButton {
         @include typography(button);
-        color: $neutral400;
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 8px;
         gap: 0.8rem;
         white-space: nowrap;
+      }
+
+      .wholeEditButton {
+        color: $neutral400;
+      }
+
+      .wholeCompleteButton {
+        color: $primary300;
       }
     }
   }

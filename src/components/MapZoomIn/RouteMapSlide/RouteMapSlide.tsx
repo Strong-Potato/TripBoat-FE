@@ -33,6 +33,7 @@ const RouteMapSlide = ({
       <div className={styles.daysButtonContainer}>
         {dates.map((_, i) => (
           <button
+            key={`day${i}-button`}
             className={activeDay === i ? styles.activeDayButton : styles.inactiveDayButton}
             onClick={() => onDayChange(i)}
           >
@@ -52,7 +53,7 @@ const RouteMapSlide = ({
           <SwiperSlide key={`${journeys[activeDay].id}-${j}`} className={styles.swiperSlideItem}>
             <PlaceCard
               key={`${journeys[activeDay].id}-${place.id}-${j}`}
-              index={j + 1}
+              order={j + 1}
               name={place.place.title}
               category={place.place.category}
               address={place.place.address}
