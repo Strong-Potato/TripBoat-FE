@@ -1,27 +1,6 @@
 import {Dispatch, ReactNode} from 'react';
 import {SwiperRef} from 'swiper/react';
 
-export interface CandidateData {
-  name: string;
-  imageURL: string;
-  category: string;
-  location: string;
-  voteUserId: string[];
-  voteCounts: number;
-  memo: string;
-  id: number;
-}
-[];
-
-export interface VoteListData {
-  title: string;
-  profile: string;
-  state: string;
-  voteUserId: string[];
-  candidates: CandidateData[];
-  id: string;
-}
-
 export interface Latlng {
   lat: number;
   lng: number;
@@ -51,7 +30,7 @@ interface VotedMemberProfiles {
 [];
 
 export interface VoteListInfo {
-  voteId: string;
+  voteId: number;
   title: string;
   voteStatus: string;
   ownerProfile: {
@@ -63,7 +42,7 @@ export interface VoteListInfo {
 }
 
 export interface VoteInfo {
-  id: string;
+  id: number;
   title: string;
   ownerProfile: {
     id: number;
@@ -103,6 +82,7 @@ export interface CandidateCardProps {
 
 export interface VoteMeatballProps {
   state: string;
+  title: string;
   isZeroCandidates: boolean;
 }
 
@@ -122,21 +102,18 @@ export interface CandidateListProps {
   isCandidateSelecting: boolean;
 }
 
-export interface postVoteTitleProps {
-  spaceId: number;
-  title: string;
-}
-
-export interface postVoteTitleProps {
+export interface PostVoteTitleProps {
   spaceId: number;
   title: string;
 }
 
 //get아니고 후보메모post
-export interface postTaglineProps {
-  voteId: string;
-  placeId: number;
-  tagline: string;
+export interface PostNewCandidateProps {
+  voteId: number;
+  candidates: {
+    placeId: number;
+    tagline: string;
+  }[];
 }
 
 export interface CandidatesSlideProps {
@@ -144,4 +121,17 @@ export interface CandidatesSlideProps {
   setSelectedPinIndex: Dispatch<React.SetStateAction<number>>;
   setCenterMarker: Dispatch<React.SetStateAction<Latlng>>;
   swiperRef: React.RefObject<SwiperRef>;
+}
+
+export interface CreateVoteModalProps {
+  isEditMode: boolean;
+  existingTitle?: string;
+}
+export interface EditVoteTitleProps {
+  title: string;
+  voteId: number;
+}
+export interface DeleteCandidatesProps {
+  voteId: number;
+  candidateId: number[];
 }

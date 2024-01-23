@@ -1,7 +1,6 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
-  width: 9.1rem;
   height: 3rem;
 
   display: flex;
@@ -10,7 +9,6 @@
 
   padding: 4px 4px 4px 10px;
 
-  border: 1px solid $neutral300;
   border-radius: 16px;
 
   @include typography(tabLabel);

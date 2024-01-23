@@ -1,0 +1,33 @@
+@use "@/sass" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  & > li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+
+    .editIcon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 2.4rem;
+      height: 2.4rem;
+
+      background: $neutral100;
+      border-radius: 50%;
+    }
+
+    & > p {
+      @include typography(subTitle);
+    }
+
+    &:hover p {
+      font-weight: 700;
+    }
+  }
+}

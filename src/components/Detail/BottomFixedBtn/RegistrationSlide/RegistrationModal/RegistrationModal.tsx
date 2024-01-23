@@ -32,7 +32,7 @@ const RegistrationModal = ({ isOpen, onClose }: RegistrationMoalProps) => {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="addVote">
-      <ModalOverlay maxWidth="45rem" left="50%" transform="translateX(-50%)" />
+      <ModalOverlay />
       <ModalContent
         px="24px"
         py="40px"

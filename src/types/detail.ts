@@ -5,7 +5,6 @@ export interface OtherCardPropsType {
   name: string;
   location: string;
   point: string;
-  count: number;
 }
 
 export interface ReviewPropsTypes {
@@ -33,7 +32,7 @@ export interface NavigationProps {
 }
 
 export interface NavigationMeatballProps {
-  onBottomSlideOpen: (content: ReactNode) => void;
+  onBottomSlideOpen: (content: ReactNode, isReview: boolean) => void;
   onClose: () => void;
 }
 
@@ -92,4 +91,12 @@ export interface RegistrationModalProps {
 
 export interface DateScrollPickerProps {
   slideOnClose: () => void;
+}
+
+export interface BottomSlideDetailProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: ReactNode;
+  isReviewModal: boolean;
+  setBottomSlideContent: React.Dispatch<React.SetStateAction<ReactNode | null>>;
 }

@@ -1,0 +1,40 @@
+@use "@/sass" as *;
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 20px;
+  margin-bottom: 8px;
+
+  border: 1px solid $neutral200;
+  border-radius: 16px;
+
+  button {
+    padding: 16px;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+
+    &:hover {
+      border-color: $primary200;
+
+      .title {
+        font-weight: 600;
+      }
+    }
+  }
+
+  .colBar {
+    width: 1px;
+    height: 5rem;
+    background-color: $neutral200;
+  }
+
+  .title {
+    @include typography(subTitle);
+  }
+}

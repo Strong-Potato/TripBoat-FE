@@ -1,9 +1,6 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
-  position: absolute;
-  top: -88px;
-
   width: 100%;
 
   background-color: $neutral0;

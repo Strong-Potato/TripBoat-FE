@@ -1,26 +1,21 @@
-import {useLocation} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 import styles from './CandidatesMap.module.scss';
 
-import {useGetVotesInfoQuery} from '@/hooks/Votes/vote';
+import {useGetVotesInfo} from '@/hooks/Votes/vote';
 
 import CandidatesMapBody from '@/components/CandidatesMap/CandidatesMapBody/CandidatesMapBody';
 import VoteHeader from '@/components/Vote/VoteHeader/VoteHeader';
 
 const CandidatesMap = () => {
-  const location = useLocation();
-  const voteId = location.pathname.split('/')[2];
-  const {data: voteInfo} = useGetVotesInfoQuery(voteId);
+  const {id: voteId} = useParams();
+  const {data: voteInfo} = useGetVotesInfo(Number(voteId));
 
   return (
-    <>
-      {voteInfo && (
-        <div className={styles.container}>
-          <VoteHeader title={voteInfo.title} />
-          <CandidatesMapBody candidates={voteInfo.candidates} />
-        </div>
-      )}
-    </>
+    <div className={styles.container}>
+      <VoteHeader title={voteInfo.title} />
+      <CandidatesMapBody candidates={voteInfo.candidates} />
+    </div>
   );
 };
 

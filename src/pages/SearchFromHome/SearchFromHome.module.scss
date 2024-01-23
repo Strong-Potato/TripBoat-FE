@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   width: 100%;
@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
 
-  font-family: "suit", sans-serif;
+  font-family: 'suit', sans-serif;
 
   color: $neutral900;
 

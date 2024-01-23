@@ -50,6 +50,29 @@ export interface SlideButtonPropsType extends LeftButtonPropsType {
 }
 
 // 홈 검색 타입
+export interface SearchDataType<T> {
+  status: number;
+  message: string;
+  data: T;
+}
+
+export interface Keywords {
+  keywords: SearchKeywordType[];
+}
+
+export interface Search {
+  places: SearchItemType[];
+}
+
+export interface Popular {
+  places: SearchHotItemType[];
+}
+
+export interface SearchKeywordType {
+  name: string;
+  code: string;
+}
+
 export interface SearchItemLocationType {
   address: string;
   addressDetail: string;
@@ -58,17 +81,17 @@ export interface SearchItemLocationType {
   sigunguCode: number;
   zipCode: number;
   latitude: number;
-  longtitude: number;
+  longitude: number;
 }
 
 export interface SearchHotItemType {
+  id: number;
+  contentTypeId: number;
   title: string;
   thumbnail: string;
   areaCode: number;
   sigunguCode: number;
   category: string;
-  id: number;
-  contentTypeId: number;
 }
 
 export interface SearchItemType {
@@ -78,4 +101,13 @@ export interface SearchItemType {
   thumbnail: string;
   location: SearchItemLocationType;
   category: string;
+}
+
+export interface ForSearchType {
+  keyword: string;
+  category: number;
+  map: string;
+  location: string;
+  sort: string;
+  hot: string;
 }

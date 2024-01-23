@@ -13,13 +13,13 @@ const MemoContent = ({data}: {data: VoteInfo}) => {
   const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
   const candidates = data.candidates;
 
-  const getCandidateIds = () => {
+  const CheckAllCandidates = () => {
     const newCandidateIds = candidates.map((candidate) => candidate.id);
     setSelectedCandidates(new Set(newCandidateIds));
   };
 
   useEffect(() => {
-    getCandidateIds();
+    CheckAllCandidates();
   }, []);
 
   return (
