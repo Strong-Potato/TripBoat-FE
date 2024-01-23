@@ -80,7 +80,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapS
             // onClick={navigate로 넣기}
             disabled={isCandidateSelecting}
           >
-            {placeInfo.placeName}
+            {placeInfo.placeName.length >= 10 ? placeInfo.placeName.slice(0, 10) + ' ⋯' : placeInfo.placeName}
           </button>
 
           <div className={styles.main__contextBox__category}>

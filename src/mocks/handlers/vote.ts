@@ -18,7 +18,7 @@ const candidateData = [
     id: 111,
     placeInfo: {
       placeId: 11111,
-      placeName: '기역호텔',
+      placeName: '기역호텔12345678',
       category: '숙박',
       location: '서울',
       placeImageURL: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
