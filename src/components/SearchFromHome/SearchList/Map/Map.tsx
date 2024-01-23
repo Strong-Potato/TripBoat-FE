@@ -45,7 +45,7 @@ function Map({data, categoryChange}: PropsType) {
 
     const markerImage = new window.kakao.maps.MarkerImage(image, imageSize, imageOption);
     const marker = new window.kakao.maps.Marker({
-      position: new window.kakao.maps.LatLng(data.location.latitude, data.location.longtitude),
+      position: new window.kakao.maps.LatLng(data.location.latitude, data.location.longitude),
       image: markerImage,
     });
     return marker;
@@ -121,6 +121,7 @@ function Map({data, categoryChange}: PropsType) {
       level: 4,
     };
     setMap(new window.kakao.maps.Map(container, options));
+    console.log(data);
   }, [data]);
 
   // 맵 생성 시 현재 데이터 좌표들의 바운드를 만들어 중심점 생성
@@ -130,7 +131,7 @@ function Map({data, categoryChange}: PropsType) {
       setSmallPin(data);
       setBigPin(data);
       data.map((data) => {
-        bounds.extend(new window.kakao.maps.LatLng(data.location.latitude, data.location.longtitude));
+        bounds.extend(new window.kakao.maps.LatLng(data.location.latitude, data.location.longitude));
       });
       map.setBounds(bounds);
     }

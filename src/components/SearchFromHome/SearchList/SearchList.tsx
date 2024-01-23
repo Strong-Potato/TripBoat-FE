@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react';
-import {useNavigate, useSearchParams} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import styles from './SearchList.module.scss';
 
-import {getData} from '@/mocks/handlers/home';
+import {keywordSearch, search} from '@/hooks/Search/useSearch';
 
 import DateFilter from './DateFilter/DateFilter';
 import LocationFilter from './LocationFilter/LocationFilter';
@@ -16,23 +16,21 @@ import {ForSearchType, SearchItemType} from '@/types/home';
 
 interface PropsType {
   forSearch: ForSearchType;
-  keywordClick: boolean;
 }
 
-function SearchList({forSearch, keywordClick}: PropsType) {
-  const [data, setData] = useState<SearchItemType[]>();
-  const [filterData, setFilterData] = useState<SearchItemType[]>();
+function SearchList({forSearch}: PropsType) {
+  const [data, setData] = useState<SearchItemType[] | undefined>();
+  const [filterData, setFilterData] = useState<SearchItemType[] | undefined>();
   const [categoryChange, setCategoryChange] = useState(false);
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    if (!keywordClick) {
-      getData<SearchItemType[] | undefined>('api/home/search/search', setData);
+    if (forSearch.hot === 'true') {
+      keywordSearch(forSearch.keyword, forSearch.location, forSearch.sort, setData);
     } else {
-      getData<SearchItemType[] | undefined>('api/home/search/search', setData);
+      search(forSearch.keyword, forSearch.location, forSearch.sort, setData);
     }
-  }, [searchParams]);
+  }, [forSearch.keyword, forSearch.location, forSearch.sort, forSearch.hot]);
 
   useEffect(() => {
     if (data) {
@@ -52,20 +50,20 @@ function SearchList({forSearch, keywordClick}: PropsType) {
 
   function onMap() {
     navigate(
-      `/home/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=true&location=${forSearch.location}&sort=${forSearch.sort}`,
+      `/home/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=true&location=${forSearch.location}&sort=${forSearch.sort}&hot=${forSearch.hot}`,
     );
   }
 
   return (
     <div className={styles.container} style={{height: forSearch.map === 'true' ? '100%' : 'calc(100% - 72px)'}}>
-      <Tabs forSearch={forSearch} setCategoryChange={setCategoryChange} />
+      {forSearch.hot === 'false' && <Tabs forSearch={forSearch} setCategoryChange={setCategoryChange} />}
       {forSearch.map === 'true' && filterData ? (
         <Map data={filterData} categoryChange={categoryChange} />
       ) : (
         <>
           <div className={styles.filter}>
             <LocationFilter forSearch={forSearch} />
-            <DateFilter />
+            <DateFilter forSearch={forSearch} />
           </div>
           <ul className={styles.slide}>
             {filterData &&

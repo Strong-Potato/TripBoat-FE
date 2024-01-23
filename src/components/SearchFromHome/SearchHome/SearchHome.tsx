@@ -3,16 +3,12 @@ import styles from './SearchHome.module.scss';
 import HotItems from './HotItems/HotItems';
 import SearchKeyword from './SearchKeyword/SearchKeyword';
 
-interface Propstype {
-  setKeywordClick: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function SearchHome({setKeywordClick}: Propstype) {
+function SearchHome() {
   return (
     <div className={styles.lists_box}>
       <div className={styles.column_4px}>
         <p className={styles.title}>인기 검색 키워드</p>
-        <SearchKeyword setKeywordClick={setKeywordClick} />
+        <SearchKeyword />
       </div>
       <div className={styles.column_8px}>
         <p className={styles.title}>최근 30일간 인기 장소</p>

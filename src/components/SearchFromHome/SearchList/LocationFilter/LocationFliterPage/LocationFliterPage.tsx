@@ -32,13 +32,18 @@ function LocationFliterPage({forSearch, click, handleClick}: PropsType) {
 
   useEffect(() => {
     const locationData = forSearch.location.split(' ');
-    setArea(locationData[0]);
-    setSigungu(locationData[1]);
+    if (locationData[0] === '전국') {
+      setArea('전국');
+      setSigungu('전체 지역');
+    } else {
+      setArea(locationData[0]);
+      setSigungu(locationData[1]);
+    }
   }, [forSearch.location]);
 
   function submit() {
     navigate(
-      `/home/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=${forSearch.map}&location=${area} ${sigungu}&sort=${forSearch.sort}`,
+      `/home/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=${forSearch.map}&location=${area} ${sigungu}&sort=${forSearch.sort}&hot=${forSearch.hot}`,
     );
     handleClick();
   }
@@ -48,7 +53,7 @@ function LocationFliterPage({forSearch, click, handleClick}: PropsType) {
       className={styles.container}
       style={{
         position: window.innerWidth > 450 ? 'absolute' : 'fixed',
-        top: window.innerWidth > 450 ? '-88px' : 0,
+        top: 0,
         right: click ? '-100%' : 0,
         height: `${vh * 100}px`,
       }}
