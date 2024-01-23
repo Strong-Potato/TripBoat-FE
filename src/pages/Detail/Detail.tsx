@@ -17,6 +17,7 @@ import Navigation from '@/components/Detail/Navigation/Navigation';
 import {modalContentState} from '@/recoil/vote/alertModal';
 import {useGetPlaceInfo} from '@/hooks/Detail/useGetPlaceInfo';
 import {useParams} from 'react-router-dom';
+import {useGetReviewsRating} from '@/hooks/Detail/useGetReviewsRating';
 
 function Detail() {
   const {isOpen, onOpen, onClose} = useDisclosure();
@@ -31,6 +32,14 @@ function Detail() {
       data: {place: placeInfo},
     },
   } = useGetPlaceInfo(Number(params?.split(' ')[0]), Number(params?.split(' ')[1]));
+
+  // const {data: reviewsRating} = useGetReviewsRating(
+  //   Number(params?.split(' ')[0]),
+  //   Number(params?.split(' ')[1]),
+  //   placeInfo.title,
+  // );
+
+  // console.log(reviewsRating);
 
   console.log(placeInfo);
 
@@ -56,7 +65,7 @@ function Detail() {
           )
         }
       />
-      <Main images={placeInfo.gallery} title={placeInfo.title} category={placeInfo.category} />
+      <Main id={placeInfo.id} images={placeInfo.gallery} title={placeInfo.title} category={placeInfo.category} />
       <Contents
         data={placeInfo}
         onOpen={() => onBottomSlideOpen(<ReviewBottomSlide slideOnClose={handleSlideOnClose} />, true)}

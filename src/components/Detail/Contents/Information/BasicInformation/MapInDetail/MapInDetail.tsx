@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import {useDisclosure} from '@chakra-ui/react';
-import {useEffect, useState} from 'react';
 import {CustomOverlayMap, Map} from 'react-kakao-maps-sdk';
 
 import styles from './MapInDetail.module.scss';

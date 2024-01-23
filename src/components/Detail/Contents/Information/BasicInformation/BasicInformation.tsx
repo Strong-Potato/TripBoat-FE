@@ -53,11 +53,13 @@ function BasicInformation({location, openTime, title, thumbnail, contentTypeId}:
             <a href='#'>공식 홈페이지 바로가기 </a>
           </div>
         )}
-        <div className={styles.container__contents__item}>
-          {/* 시계 아이콘 다름 */}
-          <FaRegClock color='#979C9E' fontSize='2.4rem' />
-          <span>{openTime}</span>
-        </div>
+        {openTime && (
+          <div className={styles.container__contents__item}>
+            {/* 시계 아이콘 다름 */}
+            <FaRegClock color='#979C9E' fontSize='2.4rem' />
+            <span>{openTime}</span>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -96,6 +96,7 @@ export interface BottomSlideDetailProps {
 
 // ---------- api -----------
 
+// Places/info
 export interface placeInfoData {
   status: number;
   message: string;
@@ -125,4 +126,15 @@ export interface placeInfoDataPlace {
   createdTime: string;
   modifiedTime: string;
   openTime: string;
+}
+
+//reveiws/rating
+
+export interface ReviewsRating {
+  status: number;
+  message: string;
+  data: {
+    rating: number;
+    userRatingCount: number;
+  };
 }

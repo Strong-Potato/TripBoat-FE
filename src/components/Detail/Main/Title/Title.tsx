@@ -10,16 +10,20 @@ import CustomToast from '@/components/CustomToast/CustomToast';
 
 import {IsHeartValued, IsLoginState} from '@/recoil/detail/detail';
 import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
+import {useGetIsWish} from '@/hooks/Detail/useGetIsWish';
 
 interface TitleProps {
+  id: number;
   title: string;
   category: string;
 }
 
-function Title({title, category}: TitleProps) {
-  const [isHeart, setIsHeart] = useRecoilState(IsHeartValued);
+function Title({id, title, category}: TitleProps) {
+  const [isWish, setIsWish] = useRecoilState(IsHeartValued);
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
+
+  useGetIsWish(id, setIsWish);
 
   const isLogin = useRecoilValue(IsLoginState);
 
@@ -40,10 +44,10 @@ function Title({title, category}: TitleProps) {
 
   const handleHeartClick = () => {
     if (isLogin) {
-      if (!isHeart) {
+      if (!isWish) {
         showToast('찜 목록에 저장되었습니다.');
       }
-      setIsHeart(!isHeart);
+      setIsWish(!isWish);
     } else {
       showNotLoginModal();
     }
@@ -59,7 +63,7 @@ function Title({title, category}: TitleProps) {
         <span className={styles.container__alignCenter__reviewsCount}>(13,052)</span>
       </div>
       <div className={styles.container__positionAbsoluteIcons}>
-        {isHeart ? (
+        {isWish ? (
           <FaHeart fontSize='2.4rem' cursor='pointer' color='#E23774' onClick={handleHeartClick} />
         ) : (
           <FaRegHeart fontSize='2.4rem' cursor='pointer' onClick={handleHeartClick} />
