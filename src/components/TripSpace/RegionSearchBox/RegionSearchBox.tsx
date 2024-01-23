@@ -31,7 +31,9 @@ function RegionSearchInput({regions, onInputChange, onRegionValueChange, onRegio
   };
 
   const handleSearch = (data: FormData) => {
-    const filteredRegions = regions.filter((region) => region.name.toLowerCase().includes(data.region.toLowerCase()));
+    const filteredRegions = regions.filter((region) =>
+      region.cityName.toLowerCase().includes(data.region.toLowerCase()),
+    );
 
     if (data.region) {
       setIsSearchCompleted(true);

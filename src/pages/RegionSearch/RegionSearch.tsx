@@ -3,6 +3,8 @@ import {useState} from 'react';
 
 import styles from './RegionSearch.module.scss';
 
+import {useGetRegions} from '@/hooks/Spaces/space';
+
 import NoSearchResult from '@/components/TripSpace/NoSearchResult/NoSearchResult';
 import RegionList from '@/components/TripSpace/RegionList/RegionList';
 import RegionSearchBox from '@/components/TripSpace/RegionSearchBox/RegionSearchBox';
@@ -12,53 +14,15 @@ import SelectHeader from '@/components/TripSpace/SelectHeader/SelectHeader';
 import {Region} from '@/types/regionSearch';
 
 function RegionSearch() {
-  const regions = [
-    {
-      name: '서울',
-      imageUrl: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    },
-    {
-      name: '부산',
-      imageUrl: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    },
-    {
-      name: '대전',
-      imageUrl: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    },
-    {
-      name: '감자밭',
-      imageUrl: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    },
-    {
-      name: '감자마을',
-      imageUrl: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    },
-    {
-      name: '포테토',
-      imageUrl: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    },
-    {
-      name: '감자도리',
-      imageUrl: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    },
-    {
-      name: '고구마가',
-      imageUrl: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    },
-    {
-      name: '되고 싶어',
-      imageUrl: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    },
-    {
-      name: '꿈을 꾼다',
-      imageUrl: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    },
-  ];
-
+  const {data: regions, error} = useGetRegions();
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [regionValue, setRegionValue] = useState('');
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
   const [filteredRegions, setFilteredRegions] = useState<Region[]>(regions);
+
+  if (error) {
+    console.error('[ERROR] ', error.message);
+  }
 
   const handleRegionsFiltered = (filteredRegions: Region[]) => {
     setFilteredRegions(filteredRegions);
@@ -98,10 +62,10 @@ function RegionSearch() {
           <>
             {filteredRegions.map((region) => (
               <RegionList
-                key={region.name}
-                name={region.name}
+                key={region.cityName}
+                name={region.cityName}
                 imageUrl={region.imageUrl}
-                isSelected={selectedRegions.includes(region.name)}
+                isSelected={selectedRegions.includes(region.cityName)}
                 onSelect={handleRegionSelect}
               />
             ))}

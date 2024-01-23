@@ -10,7 +10,7 @@ export interface FormData {
 }
 
 export interface Region {
-  name: string;
+  cityName: string;
   imageUrl: string;
 }
 
