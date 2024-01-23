@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {initializeApp} from 'firebase/app';
 import {getMessaging, getToken, onMessage} from 'firebase/messaging';
 
@@ -12,7 +13,7 @@ export const firebaseConfig = initializeApp({
   appId: import.meta.env.VITE_APP_ID,
   measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 });
-const messaging = getMessaging(firebaseConfig);
+export const messaging = getMessaging(firebaseConfig);
 
 async function requestPermission() {
   console.log('[FCM]알림 권한 요청 중...');
@@ -28,11 +29,18 @@ async function requestPermission() {
   });
   if (token) {
     await sendNotificationToken({token});
+    await axios.post(
+      '/api/notifications/subscribe',
+      {
+        spaceId: 1,
+        isGlobal: false,
+      },
+      {withCredentials: true},
+    );
     console.log('[FCM]알림 토큰을 전송했습니다');
   } else console.log('[FCM]알림 토큰을 얻지 못했습니다');
-
   onMessage(messaging, (payload) => {
-    console.log('[FCM]메시지가 도착했습니다.', payload);
+    console.log('푸시 알람 메세지 출력', payload);
   });
 }
 

@@ -22,7 +22,7 @@ self.addEventListener('push', function (e) {
     tag: resultData.tag,
     ...resultData,
   };
-  // 알림 뱃지 갱신 API, localstorage
+  console.log('출력');
 
   self.registration.showNotification(notificationTitle, notificationOptions);
 });

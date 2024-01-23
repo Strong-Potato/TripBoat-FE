@@ -4,7 +4,7 @@ import {Token} from '@/types/notification';
 
 export const sendNotificationToken = async (token: Token) => {
   try {
-    const response = await axios.post('/api/notification/token', token);
+    const response = await axios.post('/api/notifications/token', token, {withCredentials: true});
     return response.data;
   } catch (error) {
     console.error('[notification]토큰 전송 요청에 실패했습니다', error);

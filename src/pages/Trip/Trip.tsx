@@ -28,6 +28,7 @@ import VoteTabPanel from '@/components/VoteTabPanel/VoteTabPanel';
 import {LatLng} from '@/types/route';
 
 function Trip() {
+  const news = localStorage.getItem('news');
   // 임시 데이터
   const users = [
     {name: '김철수', src: ''},
@@ -63,9 +64,9 @@ function Trip() {
     <>
       <div className={styles.container}>
         <div className={styles.iconTab}>
-          <button onClick={onAlarmOpen}>
+          <button onClick={onAlarmOpen} className={styles.iconTab__wrapper}>
             <AlarmIcon size='24px' color='white' />
-            {/* 종모양 뱃지 */}
+            {news && <div className={styles.iconTab__wrapper__eclips} />}
           </button>
           <button onClick={onSlideBarOpen}>
             <MenuIcon size='24px' color='white' />

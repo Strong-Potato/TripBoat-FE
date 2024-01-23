@@ -45,7 +45,7 @@ const alarmData = {
 };
 
 export const notification = [
-  http.post('/api/notification/token', async ({request}) => {
+  http.post('/api/notifications/token', async ({request}) => {
     const {token} = (await request.json()) as Token;
     if (token) {
       return HttpResponse.json({message: 'SUCCESS'}, {status: 200});

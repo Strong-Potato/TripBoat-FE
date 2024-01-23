@@ -3,7 +3,6 @@ import {Suspense} from 'react';
 import {CookiesProvider} from 'react-cookie';
 import {BrowserRouter} from 'react-router-dom';
 import './firebase/messaging-init-in-sw';
-import './firebase/messaging-on-background-message';
 
 import './sass/index.scss';
 

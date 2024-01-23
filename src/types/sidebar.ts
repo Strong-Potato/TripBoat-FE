@@ -1,9 +1,3 @@
-interface Member {
-  nickname: string;
-  id: number;
-  profile: string;
-}
-
 export interface User {
   nickname: string;
   profile: string;
@@ -14,7 +8,7 @@ export type TravelListItem = {
   startDate: string;
   endDate: string;
   id: number;
-  members: Member[];
+  members: string;
 };
 
 export type SideBarProps = {
@@ -30,3 +24,7 @@ export type spaceInfo = {
   spaceId: number;
   nickname: string;
 };
+
+export interface TravelListProp {
+  isSideOpen: boolean;
+}
