@@ -150,6 +150,7 @@ export interface StepOldPasswordProps {
   register: UseFormRegister<AuthForm>;
   dirtyFields?: DirtyFields;
   errors?: FieldErrors<AuthForm>;
+  watchFields: Partial<AuthForm>;
   setStep?: React.Dispatch<React.SetStateAction<string>>;
   setToken?: React.Dispatch<React.SetStateAction<string>>;
 }

@@ -7,16 +7,9 @@ import {useGetMyInfo} from '@/hooks/User/useUser';
 
 import Header from '@/components/Auth/Header/Header';
 
-const userInfo = {
-  nickname: '개발토끼',
-  image: 'https://avatars.githubusercontent.com/u/100336573?v=4',
-  provider: 'KAKAO',
-  email: 'test@gmail.com',
-};
-
 function UserPrivacy() {
   const navigate = useNavigate();
-  const {error, isFetching} = useGetMyInfo(true);
+  const {data, error, isFetching} = useGetMyInfo(true);
 
   if (isFetching) {
     return <div></div>;
@@ -31,10 +24,7 @@ function UserPrivacy() {
       <ul className={styles.userPrivacy}>
         <li className={styles.userPrivacy__email}>
           <div>트립보트 계정 이메일</div>
-          <small>
-            {userInfo.email}
-            {/* data.email 로 수정 */}
-          </small>
+          <small>{data?.email}</small>
         </li>
 
         <li className={styles.userPrivacy__password}>
