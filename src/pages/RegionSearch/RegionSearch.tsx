@@ -5,6 +5,7 @@ import styles from './RegionSearch.module.scss';
 
 import {useGetRegions} from '@/hooks/Spaces/space';
 
+import CustomToast from '@/components/CustomToast/CustomToast';
 import NoSearchResult from '@/components/TripSpace/NoSearchResult/NoSearchResult';
 import RegionList from '@/components/TripSpace/RegionList/RegionList';
 import RegionSearchBox from '@/components/TripSpace/RegionSearchBox/RegionSearchBox';
@@ -19,6 +20,7 @@ function RegionSearch() {
   const [regionValue, setRegionValue] = useState('');
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
   const [filteredRegions, setFilteredRegions] = useState<Region[]>(regions);
+  const showToast = CustomToast();
 
   if (error) {
     console.error('[ERROR] ', error.message);
@@ -42,6 +44,8 @@ function RegionSearch() {
     } else {
       if (selectedRegions.length < 4) {
         setSelectedRegions((prevSelectedRegions) => [...prevSelectedRegions, regionName]);
+      } else {
+        showToast('최대 4개 도시까지 선택 가능합니다.', false, '');
       }
     }
   };
