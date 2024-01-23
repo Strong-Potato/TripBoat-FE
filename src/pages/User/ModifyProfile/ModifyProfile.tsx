@@ -9,7 +9,7 @@ import EditProfileForm from '@/components/User/EditProfileForm/EditProfileForm';
 
 function ModifyProfile() {
   const navigate = useNavigate();
-  const {error, isFetching} = useGetMyInfo(true);
+  const {data, error, isFetching} = useGetMyInfo(true);
 
   if (isFetching) {
     return <div></div>;
@@ -21,7 +21,7 @@ function ModifyProfile() {
     <div className={styles.container}>
       <Header content='프로필 편집' />
 
-      <EditProfileForm />
+      <EditProfileForm data={data} />
     </div>
   );
 }

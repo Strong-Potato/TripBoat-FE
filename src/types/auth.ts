@@ -55,6 +55,8 @@ export interface InputPasswordConfirmProps {
 
 export interface InputImageProps {
   register: UseFormRegister<AuthForm>;
+  imageBlob?: string;
+  setImageBlob?: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export interface InputNickname {

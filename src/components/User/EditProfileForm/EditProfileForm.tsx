@@ -34,24 +34,19 @@ function EditProfileForm({data}: {data: UserInfo | undefined}) {
       if (dirtyFields.image) {
         const s3Res = await axios.post('/api/s3/presigned', [image![0].name]);
         const s3Url = await s3Res.data.data.elements[0];
-        console.log('Response :', s3Res);
-        console.log('s3Url :', s3Url);
-
-        console.log('image File :', image![0]);
-
-        const uploadUrl = await axios.put(s3Url, image![0], {
+        const uploadRes = await axios.put(s3Url, image![0], {
           headers: {
             'Content-Type': 'image/*',
           },
         });
-        console.log('s3에 이미지 업로드', uploadUrl);
+        console.log('s3 upload state: ', uploadRes, 's3 Url : ', s3Url);
 
         const res = await axios.put('/api/members/my-info', {
           nickname,
           profile: s3Url,
         });
 
-        console.log(res);
+        console.log('api response : ', res);
         return;
       }
 
