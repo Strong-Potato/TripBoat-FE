@@ -80,6 +80,10 @@
     &__title {
       display: flex;
       justify-content: center;
+
+      font-family: 'agro', sans-serif;
+
+      @include typography(titleLarge);
     }
 
     &__gap {

@@ -1,11 +1,16 @@
 //브라우저 스타일 초기화 또는 재설정을 정의합니다.
 @font-face {
-  font-family: "suit"; // 이름 선언
-  src: url("../../assets/fonts/SUIT-Variable.ttf"); // 내가 저장한 경로!
+  font-family: 'suit'; // 이름 선언
+  src: url('../../assets/fonts/SUIT-Variable.ttf'); // 내가 저장한 경로!
+}
+
+@font-face {
+  font-family: 'agro'; // 이름 선언
+  src: url('../../assets/fonts/agroLarge.ttf'); // 내가 저장한 경로!
 }
 
 :root {
-  font-family: "suit", sans-serif;
+  font-family: 'suit', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -20,7 +25,7 @@
 }
 
 body {
-  font-family: "suit", sans-serif;
+  font-family: 'suit', sans-serif;
 
   display: flex;
   justify-content: center;
