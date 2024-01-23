@@ -22,6 +22,8 @@ const VoteMemo = () => {
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
 
+  const existingTaglines = localStorage.getItem('recoil-persist');
+
   const initializeTaglineState = () => {
     const initialTaglines = voteInfo.candidates.map((candidate) => ({
       placeId: candidate.placeInfo.placeId,
@@ -31,11 +33,14 @@ const VoteMemo = () => {
   };
 
   useEffect(() => {
-    initializeTaglineState();
+    if (!existingTaglines) {
+      initializeTaglineState();
+    }
   }, []);
 
   const addNewCandidates = () => {
     console.log('최종 내용 : ', selectedTagline);
+    localStorage.removeItem('recoil-persist');
     //navigate(`/votes/${voteInfo.id}`)
   };
 

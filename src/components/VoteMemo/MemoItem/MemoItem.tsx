@@ -8,14 +8,20 @@ import useGetSelectedArray from '@/hooks/useGetSelectedArray';
 
 import {selectedTaglineState} from '@/recoil/vote/voteMemo';
 
-import {CandidatesInfo} from '@/types/vote';
+import {MemoItemProps} from '@/types/vote';
 
-const MemoItem = ({candidate}: {candidate: CandidatesInfo}) => {
+const MemoItem = ({candidate, existingTagline}: MemoItemProps) => {
   const [text, setText] = useState('');
-  const debouncedText = useDebounce(text, 500);
   // const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
   const {toggleItemInNewArray, setMemoArray} = useGetSelectedArray(selectedTaglineState);
+  const debouncedText = useDebounce(text, 500);
   const placeInfo = candidate.placeInfo;
+
+  useEffect(() => {
+    if (existingTagline) {
+      setText(existingTagline.tagline);
+    }
+  }, []);
 
   const handleCheckboxChange = () => {
     toggleItemInNewArray({
@@ -61,6 +67,7 @@ const MemoItem = ({candidate}: {candidate: CandidatesInfo}) => {
         </label>
         <div className={styles.textareaBox}>
           <textarea
+            value={text}
             onChange={(e) => setText(e.target.value)}
             className={styles.textarea}
             maxLength={30}

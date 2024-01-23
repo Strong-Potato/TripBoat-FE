@@ -152,3 +152,8 @@ export interface TaglineType {
   placeId: number;
   tagline: string;
 }
+
+export interface MemoItemProps {
+  candidate: CandidatesInfo;
+  existingTagline?: TaglineType;
+}

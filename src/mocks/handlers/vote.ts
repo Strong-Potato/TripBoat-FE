@@ -128,7 +128,7 @@ const voteListData = [
 const voteData = {
   id: 11,
   title: '호텔은 여기어때',
-  voteStatus: '진행 중',
+  voteStatus: '결정완료',
   createdBy: {
     id: '1996',
     profileImageUrl: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
