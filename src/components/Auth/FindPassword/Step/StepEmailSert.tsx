@@ -1,22 +1,23 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import axios from 'axios';
+import {useEffect, useState} from 'react';
 
-import styles from "./Step.module.scss";
+import styles from './Step.module.scss';
 
-import AuthButton from "@/components/Auth/Button/AuthButton";
-import InputEmailSert from "@/components/Auth/Input/InputEmailSert";
-import CustomToast from "@/components/CustomToast/CustomToast";
+import AuthButton from '@/components/Auth/Button/AuthButton';
+import InputEmailSert from '@/components/Auth/Input/InputEmailSert';
+import CustomToast from '@/components/CustomToast/CustomToast';
 
-import { StepEmailSertProps } from "@/types/auth";
+import {StepEmailSertProps} from '@/types/auth';
 
 function StepEmailSert({
   setFindPasswordStep,
   register,
-  watchFields: { email, emailSert },
+  watchFields: {email, emailSert},
   dirty,
   error,
+  setCode,
 }: StepEmailSertProps) {
-  const [due, setDue] = useState<number>(1800);
+  const [due, setDue] = useState<number>(300);
   const showToast = CustomToast();
 
   useEffect(() => {
@@ -33,21 +34,20 @@ function StepEmailSert({
 
   const onClickEmailSert = async () => {
     try {
-      const res = await axios.post(
-        "/api/auth/modify/lost-password/check-token",
-        {
-          email,
-          token: emailSert,
-        },
-      );
+      const res = await axios.post('/api/auth/modify/lost-password/check-token', {
+        email,
+        code: emailSert,
+      });
       console.log(res);
 
-      if (res.data.response_code === 403) {
-        showToast("인증코드가 일치하지 않습니다.");
+      if (res.data.responseCode === 203) {
+        showToast('인증코드가 일치하지 않습니다.');
         return;
       }
 
-      setFindPasswordStep!("password");
+      console.log(res.data.data.token);
+      setCode!(await res.data.data.token);
+      setFindPasswordStep!('password');
     } catch (error) {
       console.log(error);
     }
@@ -66,18 +66,12 @@ function StepEmailSert({
         <p className={styles.userEmail__email}>{email}</p>
       </div>
 
-      <InputEmailSert
-        register={register}
-        email={email}
-        due={due}
-        setDue={setDue}
-        type="findPassword"
-      />
+      <InputEmailSert register={register} email={email} due={due} setDue={setDue} type='findPassword' />
 
       <AuthButton
-        content="이메일 인증 완료"
+        content='이메일 인증 완료'
         disabled={!dirty || due === 0 || error ? true : false}
-        type="button"
+        type='button'
         onClick={onClickEmailSert}
       />
     </section>

@@ -1,18 +1,16 @@
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import axios from "axios";
+import {useQuery, UseQueryResult} from '@tanstack/react-query';
 
-import { User } from "@/types/sidebar";
+import {memberRequest} from '@/api/user';
 
-const memberRequest = {
-  getMyInfo: () =>
-    axios.get("/api/members/my-info").then((response) => response.data.data),
-};
-function useGetMyInfo(isOpen: boolean): UseQueryResult<User, Error> {
+import {GetUserProp} from '@/types/sidebar';
+
+function useGetMyInfo(isOpen: boolean): UseQueryResult<GetUserProp, Error> {
   return useQuery({
-    queryKey: ["myInfo"],
+    queryKey: ['myInfo'],
     queryFn: memberRequest.getMyInfo,
     enabled: isOpen,
+    retry: 0,
   });
 }
 
-export { useGetMyInfo };
+export {useGetMyInfo};

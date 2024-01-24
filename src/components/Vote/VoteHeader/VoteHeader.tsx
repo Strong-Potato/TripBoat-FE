@@ -3,15 +3,19 @@ import {BsThreeDots} from 'react-icons/bs';
 import {MdOutlineArrowBackIosNew} from 'react-icons/md';
 import {RiMap2Line} from 'react-icons/ri';
 import {useLocation, useNavigate} from 'react-router-dom';
+import {useRecoilValue} from 'recoil';
 
 import styles from './VoteHeader.module.scss';
 
+import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
+
 import {VoteHeaderProps} from '@/types/vote';
 
-const VoteHeader = ({onBottomSlideOpen, title, isNoCandidate}: VoteHeaderProps) => {
+const VoteHeader = ({onBottomSlideOpen, title, isZeroCandidates}: VoteHeaderProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname.split('/')[3];
+  const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
 
   const setRightIcons = (path: string) => {
     switch (path) {
@@ -26,10 +30,13 @@ const VoteHeader = ({onBottomSlideOpen, title, isNoCandidate}: VoteHeaderProps) 
       default:
         return (
           <>
-            <button onClick={() => navigate(`${location.pathname}/map`)} disabled={isNoCandidate}>
+            <button
+              onClick={() => navigate(`${location.pathname}/map`)}
+              disabled={isZeroCandidates || isCandidateSelecting}
+            >
               <RiMap2Line />
             </button>
-            <button onClick={onBottomSlideOpen}>
+            <button onClick={onBottomSlideOpen} disabled={isCandidateSelecting}>
               <BsThreeDots />
             </button>
           </>

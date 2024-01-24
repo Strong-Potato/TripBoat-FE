@@ -1,53 +1,94 @@
 import {http, HttpResponse} from 'msw';
 
+const votedMemberProfiles = [
+  {
+    id: 2323,
+    nickName: '제니',
+    profileImageUrl: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
+  },
+  {
+    id: 3333,
+    nickName: '리사',
+    profileImageUrl: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
+  },
+];
+
 const candidateData = [
   {
     id: 111,
-    placeId: 11111,
-    placeName: '기역호텔',
-    imageURL: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    category: '숙박',
-    location: '서울',
-    voteUserId: ['Id123', 'Id234', 'Id345'],
+    placeInfo: {
+      placeId: 11111,
+      placeName: '기역호텔12345678',
+      category: '숙박',
+      location: '서울',
+      placeImageURL: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
+      latlng: {lat: 33.450705, lng: 126.570677},
+    },
+    createdBy: {
+      id: '2022',
+      profileImageUrl: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
+    },
     tagline: '예쁨~~~~~~~~~',
     amIVoted: true,
-    latlng: {lat: 33.450705, lng: 126.570677},
+    votedMemberProfiles,
+    voteCount: 5,
   },
   {
     id: 222,
-    placeId: 22222,
-    placeName: '니은펜션',
-    imageURL: 'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-    category: '숙박',
-    location: '경기',
-    voteUserId: ['Id123', 'Id345'],
+    placeInfo: {
+      placeId: 22222,
+      placeName: '니은펜션',
+      category: '숙박',
+      location: '경기',
+      placeImageURL: 'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
+      latlng: {lat: 33.450936, lng: 126.569477},
+    },
+    createdBy: {
+      id: '2022',
+      profileImageUrl: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
+    },
     tagline: '여기 개쩔드라',
     amIVoted: false,
-    latlng: {lat: 33.450936, lng: 126.569477},
+    votedMemberProfiles,
+    voteCount: 3,
   },
   {
     id: 333,
-    placeId: 33333,
-    placeName: '기역호텔',
-    imageURL: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-    category: '숙박',
-    location: '서울',
-    voteUserId: ['Id123', 'Id234', 'Id345'],
+    placeInfo: {
+      placeId: 33333,
+      placeName: '기역호텔',
+      category: '숙박',
+      location: '서울',
+      placeImageURL: 'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
+      latlng: {lat: 33.450879, lng: 126.56994},
+    },
+    createdBy: {
+      id: '2010',
+      profileImageUrl: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
+    },
     tagline: '예쁨~~~~~~~~~',
     amIVoted: true,
-    latlng: {lat: 33.450879, lng: 126.56994},
+    votedMemberProfiles,
+    voteCount: 5,
   },
   {
     id: 444,
-    placeId: 44444,
-    placeName: '니은펜션',
-    imageURL: 'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-    category: '숙박',
-    location: '경기',
-    voteUserId: ['Id123', 'Id345'],
+    placeInfo: {
+      placeId: 44444,
+      placeName: '니은펜션',
+      category: '숙박',
+      location: '경기',
+      placeImageURL: 'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
+      latlng: {lat: 33.451393, lng: 126.570738},
+    },
+    createdBy: {
+      id: '3010',
+      profileImageUrl: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
+    },
     tagline: '여기 개쩔드라',
     amIVoted: false,
-    latlng: {lat: 33.451393, lng: 126.570738},
+    votedMemberProfiles,
+    voteCount: 5,
   },
 ];
 
@@ -56,68 +97,44 @@ const voteListData = [
     voteId: 11,
     title: '호텔은 여기어때',
     voteStatus: '진행 중',
-    ownerProfile: {
+    createdBy: {
       id: '2022',
-      profile: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
+      profileImageUrl: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
     },
-    votedMemberProfiles: [
-      {
-        id: 2323,
-        nickName: '제니',
-        profile: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
-      },
-      {
-        id: 3333,
-        nickName: '리사',
-        profile: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
-      },
-    ],
+    votedMemberProfiles,
   },
   {
     voteId: 22,
     title: '카페 고르자',
     voteStatus: '결정완료',
-    ownerProfile: {
+    createdBy: {
       id: '1996',
-      profile: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
+      profileImageUrl: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
     },
-    votedMemberProfiles: [
-      {
-        id: 2323,
-        nickName: '제니',
-        profile: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
-      },
-      {
-        id: 3333,
-        nickName: '리사',
-        profile: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
-      },
-    ],
+    votedMemberProfiles,
+  },
+  {
+    voteId: 33,
+    title: '카페 고르자',
+    voteStatus: '결정완료',
+    createdBy: {
+      id: '1922',
+      profileImageUrl: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
+    },
+    votedMemberProfiles,
   },
 ];
 
 const voteData = {
   id: 11,
   title: '호텔은 여기어때',
-  ownerProfile: {
+  voteStatus: '결정완료',
+  createdBy: {
     id: '1996',
-    profile: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
+    profileImageUrl: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
   },
-  votedMemberProfiles: [
-    {
-      id: 2323,
-      nickName: '로제',
-      profile: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
-    },
-    {
-      id: 3333,
-      nickName: '지수',
-      profile: 'https://avatars.githubusercontent.com/u/154430298?s=48&v=4',
-    },
-  ],
-  voteStatus: '진행 중',
-  voteUserId: ['Id123', 'Id234', 'Id345'],
   candidates: candidateData,
+  votedMemberProfiles,
 };
 
 //const foundObject = voteListData.find((item) => item.id === targetId);
@@ -129,7 +146,7 @@ const postVotesRes = {
 
 export const vote = [
   //voteList
-  http.get('/api/votes/1', () => {
+  http.get('/api/votes?spaceId=7&voteStatusOption=ALL', () => {
     return HttpResponse.json(voteListData, {status: 200});
   }),
 

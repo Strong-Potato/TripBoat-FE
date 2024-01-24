@@ -4,10 +4,12 @@ import {CookiesProvider} from 'react-cookie';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
 import {BrowserRouter} from 'react-router-dom';
+import './firebase/messaging-init-in-sw';
 
 import './sass/index.scss';
 
 import MainRouter from './routes/MainRouter/MainRouter';
+window.Kakao.init(import.meta.env.VITE_KAKAO_KEY);
 
 const queryClient = new QueryClient();
 function App() {
