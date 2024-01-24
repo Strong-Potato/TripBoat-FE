@@ -10,28 +10,28 @@ const mySpaces = {
         title: '여행 스페이스 1 (여행스페이스 미정)',
         startDate: '',
         endDate: '',
-        members: '감자깡 외 3명의 여행',
+        city: '감자깡 외 3명의 여행',
       },
       {
         id: 2,
         title: '강릉, 속초, 전주, 여수 여행',
-        startDate: '2024.1.17',
-        endDate: '2024.1.19',
-        members: '새우깡 외 2명의 여행',
+        startDate: '2024-1-17',
+        endDate: '2024-1-19',
+        city: '감자깡 외 2명의 여행',
       },
       {
         id: 3,
         title: '강릉, 속초, 전주, 여수 여행',
-        startDate: '2024.1.17',
-        endDate: '2024.1.19',
-        members: '새우깡 외 1명의 여행',
+        startDate: '2024-1-17',
+        endDate: '2024-1-19',
+        city: '감자깡 외 1명의 여행',
       },
       {
         id: 4,
         title: '강릉, 속초, 전주, 여수 여행',
-        startDate: '2024.1.17',
-        endDate: '2024.1.19',
-        members: '옥수수깡의 여행',
+        startDate: '2024-1-17',
+        endDate: '2024-1-19',
+        city: '감자깡의 여행',
       },
     ],
     pageNumber: 0,
@@ -52,15 +52,35 @@ const myInfo = {
   },
 };
 
+const newSpaceId = {
+  status: 200,
+  message: 'SUCCESS',
+  data: {
+    id: 12,
+    title: '옥수수깡의 여행',
+    startDate: '2024-01-23',
+    endDate: '2024-01-25',
+    city: '강릉, 속초, 전주, 여수 여행',
+    thumbnail: 'https://wwww.test.com',
+    members: [
+      {
+        id: 0,
+        nickname: '고구마깡',
+        profile: 'https://wwww.test.com',
+      },
+    ],
+  },
+};
+
 export const sidebar = [
-  http.get('/api/spaces', () => {
+  http.get('/api/members/my-spaces/upcoming', () => {
     return HttpResponse.json(mySpaces, {
       status: 200,
     });
   }),
 
   http.post('/api/spaces', () => {
-    return HttpResponse.json({
+    return HttpResponse.json(newSpaceId, {
       status: 200,
     });
   }),

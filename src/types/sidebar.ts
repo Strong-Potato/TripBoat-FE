@@ -8,7 +8,7 @@ export type TravelListItem = {
   startDate: string;
   endDate: string;
   id: number;
-  members: string;
+  city: string;
 };
 
 export type SideBarProps = {

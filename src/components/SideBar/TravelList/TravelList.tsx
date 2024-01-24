@@ -5,6 +5,8 @@ import styles from './TravelList.module.scss';
 
 import {useGetSpaces, usePostSpace} from '@/hooks/Spaces/useSpaces';
 
+import {setSpaceDate} from '@/utils/formatDate';
+
 import {TravelListProp} from '@/types/sidebar';
 
 function TravelList({isSideOpen}: TravelListProp) {
@@ -16,10 +18,17 @@ function TravelList({isSideOpen}: TravelListProp) {
   const handlePostSpace = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    if (spaces!.length >= 15) {
+    if (spaces && spaces.length >= 15) {
       navigate('/user?full=true');
+      // 여행 스페이스 편집 모달 열어야 하나? 확인
     } else {
-      mutate();
+      mutate(undefined, {
+        onSuccess: (data) => {
+          if (data) {
+            navigate(`/trip/${data.id}`);
+          }
+        },
+      });
     }
   };
 
@@ -39,9 +48,9 @@ function TravelList({isSideOpen}: TravelListProp) {
             <button className={styles.travelSpaceList__items__item} onClick={() => navigate(`/trip/${item.id}`)}>
               <p className={styles.travelSpaceList__items__item__name}>{item.title}</p>
               <p className={styles.travelSpaceList__items__item__date}>
-                {item.startDate && item.endDate ? `${item.startDate}-${item.endDate}` : '날짜 미정'}
+                {item.startDate && item.endDate ? setSpaceDate(item.startDate, item.endDate) : '날짜 미정'}
               </p>
-              <p className={styles.travelSpaceList__items__item__members}>{item.members}</p>
+              <p className={styles.travelSpaceList__items__item__members}>{item.city}</p>
             </button>
           </li>
         ))}
