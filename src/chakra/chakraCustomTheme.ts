@@ -1,11 +1,12 @@
 import {extendTheme} from '@chakra-ui/react';
-
 import {avatarTheme} from './avatarCustom';
 import {buttonTheme} from './buttonCustom';
 import {checkboxTheme} from './checkboxCustom';
+import {drawerTheme} from './drawerCustom';
 import {modalTheme} from './modalCustom';
 import {tabsTheme} from './tabsCustom';
 import {tagTheme} from './tagCustom';
+
 export const customTheme = extendTheme({
   styles: {
     global: {
@@ -215,6 +216,7 @@ export const customTheme = extendTheme({
     Modal: modalTheme,
     Checkbox: checkboxTheme,
     Button: buttonTheme,
+    Drawer: drawerTheme,
   },
 
   fonts: {

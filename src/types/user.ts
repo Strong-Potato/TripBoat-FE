@@ -1,3 +1,5 @@
+import {GetUserProp} from './sidebar';
+
 export interface UserInfo {
   nickname?: string;
   profile?: string;
@@ -6,7 +8,7 @@ export interface UserInfo {
 }
 
 export interface ProfileProps {
-  data: UserInfo | undefined;
+  data: GetUserProp | undefined;
 }
 
 export interface MySpaceData {

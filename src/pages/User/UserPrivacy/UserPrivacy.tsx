@@ -24,7 +24,7 @@ function UserPrivacy() {
       <ul className={styles.userPrivacy}>
         <li className={styles.userPrivacy__email}>
           <div>트립보트 계정 이메일</div>
-          <small>{data?.email}</small>
+          <small>{data?.data.email}</small>
         </li>
 
         <li className={styles.userPrivacy__password}>

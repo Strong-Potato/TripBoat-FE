@@ -1,30 +1,24 @@
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { TfiSearch as SearchIcon } from "react-icons/tfi";
+import {useEffect, useState} from 'react';
+import {useForm} from 'react-hook-form';
+import {TfiSearch as SearchIcon} from 'react-icons/tfi';
 
-import styles from "./RegionSearchBox.module.scss";
+import styles from './RegionSearchBox.module.scss';
 
-import useGoBack from "@/hooks/useGoBack";
+import BackIcon from '@/assets/back.svg?react';
+import CloseIcon from '@/assets/close.svg?react';
 
-import BackIcon from "@/assets/back.svg?react";
-import CloseIcon from "@/assets/close.svg?react";
+import {FormData, RegionSearchInputProps} from '@/types/regionSearch';
 
-import { FormData, RegionSearchInputProps } from "@/types/regionSearch";
-
-function RegionSearchInput({
-  onInputChange,
-  onRegionValueChange,
-}: RegionSearchInputProps) {
-  const goBack = useGoBack();
+function RegionSearchInput({regions, onInputChange, onRegionValueChange, onRegionsFiltered}: RegionSearchInputProps) {
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isSearchCompleted, setIsSearchCompleted] = useState(false);
-  const { register, handleSubmit, setValue, watch } = useForm<FormData>({
-    mode: "onChange",
+  const {register, handleSubmit, setValue, watch} = useForm<FormData>({
+    mode: 'onChange',
     defaultValues: {
-      region: "",
+      region: '',
     },
   });
-  const regionValue = watch("region");
+  const regionValue = watch('region');
 
   const handleInputFocus = () => {
     setIsInputFocused(true);
@@ -36,18 +30,20 @@ function RegionSearchInput({
     onInputChange(false);
   };
 
-  // FIXME: 검색 클릭 핸들링 수정
   const handleSearch = (data: FormData) => {
-    console.log("input:", data.region);
-    // TODO: 검색 로직 구현
+    const filteredRegions = regions.filter((region) =>
+      region.cityName.toLowerCase().includes(data.region.toLowerCase()),
+    );
 
     if (data.region) {
       setIsSearchCompleted(true);
+      onRegionsFiltered(filteredRegions);
     }
   };
 
   const handleClearInput = () => {
-    setValue("region", "");
+    setValue('region', '');
+    onRegionsFiltered(regions);
     setIsSearchCompleted(false);
   };
 
@@ -55,46 +51,39 @@ function RegionSearchInput({
     onRegionValueChange(regionValue);
   }, [regionValue, onRegionValueChange]);
 
-  useEffect(() => {
-    console.log("포커스", isInputFocused);
-    console.log("입력값", regionValue);
-    console.log("result", isInputFocused || regionValue);
-  }, [isInputFocused, regionValue]);
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleSubmit(handleSearch)();
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSearch({region: regionValue});
     }
   };
 
   return (
     <form
-      className={
-        isInputFocused || regionValue ? styles.focusContainer : styles.container
-      }
+      className={isInputFocused || regionValue ? styles.focusContainer : styles.container}
       onSubmit={handleSubmit(handleSearch)}
     >
       <div className={styles.inputContainer}>
         <div className={styles.inputContents}>
           {(isInputFocused || regionValue) && (
-            <button onClick={goBack}>
+            <button onClick={handleClearInput}>
               <BackIcon />
             </button>
           )}
           <input
-            type="text"
-            placeholder="여행 도시를 검색해보세요."
+            type='text'
+            placeholder='여행 도시를 검색해보세요.'
             onFocus={handleInputFocus}
             onKeyDown={handleKeyDown}
-            {...register("region", { onBlur: handleInputBlur })}
+            {...register('region', {onBlur: handleInputBlur})}
           />
           {isSearchCompleted ? (
-            <button type="button" onClick={handleClearInput}>
+            <button type='button' onClick={handleClearInput}>
               <CloseIcon />
             </button>
           ) : (
-            <button type="submit">
-              <SearchIcon size="2.4rem" color="#23272F" />
+            <button type='submit'>
+              <SearchIcon size='2.4rem' color='#23272F' />
             </button>
           )}
         </div>
