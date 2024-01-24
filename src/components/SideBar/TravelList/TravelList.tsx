@@ -12,7 +12,7 @@ import {setSpaceDate} from '@/utils/formatDate';
 import {TravelListProp} from '@/types/sidebar';
 
 function TravelList({isSideOpen}: TravelListProp) {
-  const [isFull, setIsFull] = useRecoilState(isFullMember);
+  const [, setIsFull] = useRecoilState(isFullMember);
   const {mutate} = usePostSpace();
   const navigate = useNavigate();
 
