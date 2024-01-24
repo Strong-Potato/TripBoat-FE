@@ -1,16 +1,13 @@
-import {FaRegHeart} from 'react-icons/fa';
-import {FaHeart} from 'react-icons/fa';
 import {GoStarFill} from 'react-icons/go';
 import {IoShareSocialOutline} from 'react-icons/io5';
-import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
+import {useSetRecoilState} from 'recoil';
 
 import styles from './Title.module.scss';
 
 import CustomToast from '@/components/CustomToast/CustomToast';
 
-import {IsHeartValued, IsLoginState} from '@/recoil/detail/detail';
 import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
-import {useGetIsWish, usePostWishes} from '@/hooks/Detail/useWish';
+import WishBtn from '@/components/WishBtn/WishBtn';
 
 interface TitleProps {
   id: number;
@@ -22,41 +19,7 @@ interface TitleProps {
 }
 
 function Title({id, contentTypeId, title, category, rating, reviewsCount}: TitleProps) {
-  const [isWish, setIsWish] = useRecoilState(IsHeartValued);
-  const setIsModalOpen = useSetRecoilState(isModalOpenState);
-  const setModalContent = useSetRecoilState(modalContentState);
-
-  useGetIsWish(id, setIsWish);
-  const postWishes = usePostWishes();
-
-  const isLogin = useRecoilValue(IsLoginState);
-
-  const notLoginContent = {
-    title: '로그인이 필요한 기능입니다.',
-    subText: '로그인하고 모든 서비스를 이용해 보세요! ',
-    cancelText: '닫기',
-    actionButton: '로그인하기',
-    isSmallSize: true,
-  };
-
-  const showNotLoginModal = () => {
-    setIsModalOpen(true);
-    setModalContent({...notLoginContent});
-  };
-
   const showToast = CustomToast();
-
-  const handleHeartClick = () => {
-    if (isLogin) {
-      if (!isWish) {
-        showToast('찜 목록에 저장되었습니다.');
-        postWishes.mutate({placeId: id, contentTypeId: contentTypeId});
-      }
-      setIsWish(!isWish);
-    } else {
-      showNotLoginModal();
-    }
-  };
 
   return (
     <div className={styles.container}>
@@ -68,12 +31,7 @@ function Title({id, contentTypeId, title, category, rating, reviewsCount}: Title
         <span className={styles.container__alignCenter__reviewsCount}>{`(${reviewsCount})`}</span>
       </div>
       <div className={styles.container__positionAbsoluteIcons}>
-        {isWish ? (
-          <FaHeart fontSize='2.4rem' cursor='pointer' color='#E23774' onClick={handleHeartClick} />
-        ) : (
-          <FaRegHeart fontSize='2.4rem' cursor='pointer' onClick={handleHeartClick} />
-        )}
-
+        <WishBtn id={id} contentTypeId={contentTypeId} size={'2.4rem'} />
         <IoShareSocialOutline
           fontSize='2.4rem'
           cursor='pointer'
