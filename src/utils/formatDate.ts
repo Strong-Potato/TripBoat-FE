@@ -1,7 +1,7 @@
-import { format } from "date-fns";
+import {format} from 'date-fns';
 
 const createDate = (date: string) => {
-  const arrayForm = date.split("-").map((el) => Number(el));
+  const arrayForm = date.split('-').map((el) => Number(el));
 
   return new Date(arrayForm[0], arrayForm[1] - 1, arrayForm[2]);
 };
@@ -9,26 +9,26 @@ const createDate = (date: string) => {
 const changeDOWFormat = (format: string) => {
   let result = format;
 
-  if (result.includes("Su")) {
-    result = result.replace(/Su/g, "일");
+  if (result.includes('Su')) {
+    result = result.replace(/Su/g, '일');
   }
-  if (result.includes("Mo")) {
-    result = result.replace(/Mo/g, "월");
+  if (result.includes('Mo')) {
+    result = result.replace(/Mo/g, '월');
   }
-  if (result.includes("Tu")) {
-    result = result.replace(/Tu/g, "화");
+  if (result.includes('Tu')) {
+    result = result.replace(/Tu/g, '화');
   }
-  if (result.includes("We")) {
-    result = result.replace(/We/g, "수");
+  if (result.includes('We')) {
+    result = result.replace(/We/g, '수');
   }
-  if (result.includes("Th")) {
-    result = result.replace(/Th/g, "목");
+  if (result.includes('Th')) {
+    result = result.replace(/Th/g, '목');
   }
-  if (result.includes("Fr")) {
-    result = result.replace(/Fr/g, "금");
+  if (result.includes('Fr')) {
+    result = result.replace(/Fr/g, '금');
   }
-  if (result.includes("Sa")) {
-    result = result.replace(/Sa/g, "토");
+  if (result.includes('Sa')) {
+    result = result.replace(/Sa/g, '토');
   }
 
   return result;
@@ -36,8 +36,8 @@ const changeDOWFormat = (format: string) => {
 
 // ex) 1.17(금) - 1.19(일)
 export const setSpaceDate_DOW = (start: string, end: string) => {
-  const startFormat = format(createDate(start), "M.dd(EEEEEE)");
-  const endFormat = format(createDate(end), "M.dd(EEEEEE)");
+  const startFormat = format(createDate(start), 'M.dd(EEEEEE)');
+  const endFormat = format(createDate(end), 'M.dd(EEEEEE)');
 
   if (end) {
     return changeDOWFormat(`${startFormat} - ${endFormat}`);
@@ -46,15 +46,15 @@ export const setSpaceDate_DOW = (start: string, end: string) => {
   }
 };
 
-// ex) 2024.01.12 - 2024.01.14
+// ex) 2024.01.12(월) - 2024.01.14(수)
 export const setSpaceDate = (start: string, end: string) => {
-  const startFormat = format(createDate(start), "yyyy.MM.dd");
-  const endFormat = format(createDate(end), "yyyy.MM.dd");
+  const startFormat = format(createDate(start), 'yyyy.MM.dd(EEEEEE)');
+  const endFormat = format(createDate(end), 'yyyy.MM.dd(EEEEEE)');
 
   if (end) {
-    return `${startFormat} - ${endFormat}`;
+    return changeDOWFormat(`${startFormat} - ${endFormat}`);
   } else {
-    return startFormat;
+    return changeDOWFormat(startFormat);
   }
 };
 

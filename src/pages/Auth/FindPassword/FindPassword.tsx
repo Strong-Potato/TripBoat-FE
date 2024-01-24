@@ -1,7 +1,7 @@
-import styles from "./FindPassword.module.scss";
+import styles from './FindPassword.module.scss';
 
-import FindPasswordForm from "@/components/Auth/FindPassword/FindPasswordForm";
-import Header from "@/components/Auth/Header/Header";
+import FindPasswordForm from '@/components/Auth/FindPassword/FindPasswordForm';
+import Header from '@/components/Auth/Header/Header';
 
 function FindPassword() {
   return (
