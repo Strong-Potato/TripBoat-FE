@@ -1,24 +1,28 @@
-import styles from "./Tab.module.scss";
+import {useNavigate} from 'react-router-dom';
+
+import styles from './Tab.module.scss';
+
+import {translateCategoryToNum, translateCategoryToStr} from '@/hooks/Search/useSearch';
+
+import {ForSearchType} from '@/types/home';
 
 interface PropsType {
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
-  setCategoryChange: React.Dispatch<React.SetStateAction<boolean>>;
-  category: string;
+  forSearch: ForSearchType;
   thisCategory: string;
+  setCategoryChange: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Tab({
-  setCategory,
-  setCategoryChange,
-  category,
-  thisCategory,
-}: PropsType) {
-  function handleCategory(key: string) {
+function Tab({forSearch, thisCategory, setCategoryChange}: PropsType) {
+  const navigate = useNavigate();
+
+  function handleCategory(key: number) {
     setCategoryChange(true);
     setTimeout(() => {
       setCategoryChange(false);
-    }, 200);
-    setCategory(key);
+    }, 150);
+    navigate(
+      `/home/search?keyword=${forSearch.keyword}&category=${key}&map=${forSearch.map}&location=${forSearch.location}&sort=${forSearch.sort}&hot=${forSearch.hot}`,
+    );
   }
 
   return (
@@ -26,11 +30,11 @@ function Tab({
       className={styles.container}
       id={thisCategory}
       style={{
-        color: category === thisCategory ? "#1d2433" : "#cdcfd0",
-        borderBottom: category === thisCategory ? "2px solid #1d2433" : "none",
+        color: translateCategoryToStr(forSearch.category) === thisCategory ? '#1d2433' : '#cdcfd0',
+        borderBottom: translateCategoryToStr(forSearch.category) === thisCategory ? '2px solid #1d2433' : 'none',
       }}
       onClick={() => {
-        handleCategory(thisCategory);
+        handleCategory(translateCategoryToNum(thisCategory));
       }}
     >
       <span>{thisCategory}</span>

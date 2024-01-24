@@ -1,39 +1,55 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {useEffect, useRef, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
-import styles from "./SearchBar.module.scss";
+import styles from './SearchBar.module.scss';
 
-import BackIcon from "@/assets/homeIcons/search/backInHome.svg?react";
-import SearchIcon from "@/assets/homeIcons/search/searchIcon.svg?react";
+import BackIcon from '@/assets/homeIcons/search/backInHome.svg?react';
+import SearchIcon from '@/assets/homeIcons/search/searchIcon.svg?react';
+
+import {ForSearchType} from '@/types/home';
 
 interface PropsType {
-  set: React.Dispatch<React.SetStateAction<string | undefined>>;
-  keyword: string | undefined;
+  forSearch: ForSearchType;
+  setForSearch: React.Dispatch<React.SetStateAction<ForSearchType>>;
 }
 
-function SearchBar({ set, keyword }: PropsType) {
-  const [inputValue, setInputValue] = useState("");
+interface InputBarType extends HTMLInputElement {
+  focus: () => void;
+}
+
+function SearchBar({forSearch, setForSearch}: PropsType) {
+  const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
+  const inputBar = useRef<InputBarType | null>(null);
 
   useEffect(() => {
-    if (keyword) {
-      setInputValue(keyword);
+    setInputValue(forSearch.keyword);
+    if (inputBar.current) {
+      inputBar.current.focus();
     }
-  }, [keyword]);
+  }, [forSearch.keyword]);
 
   function handleInputValue(e: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value);
   }
 
   function search() {
-    set(inputValue);
+    navigate(
+      `/home/search?keyword=${inputValue}&category=0&map=false&location=${forSearch.location}&sort=등록순&hot=false`,
+    );
   }
 
   function removeValue() {
-    if (!keyword) {
-      navigate("/");
+    if (forSearch.keyword === '') {
+      navigate('/');
+    } else {
+      navigate('/home/search');
+      setInputValue('');
+      const beforeData = forSearch;
+      beforeData.keyword = '';
+      beforeData.hot = 'false';
+      setForSearch(beforeData);
     }
-    set(undefined);
   }
 
   return (
@@ -41,16 +57,17 @@ function SearchBar({ set, keyword }: PropsType) {
       <div className={styles.search_container}>
         <div className={styles.searchBar}>
           <input
-            type="text"
-            placeholder="장소 이름이나 키워드를 입력해보세요"
+            type='text'
+            placeholder='장소 이름이나 키워드를 입력해보세요'
             className={styles.searchBar__input}
             value={inputValue}
             onChange={handleInputValue}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
+              if (e.key === 'Enter') {
                 search();
               }
             }}
+            ref={inputBar}
           />
         </div>
         <button className={styles.return} onClick={removeValue}>

@@ -1,41 +1,96 @@
-import { useDisclosure } from "@chakra-ui/react";
+import {Button} from '@chakra-ui/react';
+import {ReactNode, useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
+import {useRecoilState, useSetRecoilState} from 'recoil';
 
-import styles from "./Vote.module.scss";
+import styles from './Vote.module.scss';
 
-import BottomSlide from "@/components/BottomSlide/BottomSlide";
-import VoteBottomButton from "@/components/Vote/VoteBottomButton/VoteBottomButton";
-import AddCandidate from "@/components/Vote/VoteBottomSlideContent/AddCandidate/AddCandidate";
-import VoteContent from "@/components/Vote/VoteContent/VoteContent";
-import VoteHeader from "@/components/Vote/VoteHeader/VoteHeader";
-import { ReactNode, useState } from "react";
-import VoteMeatball from "@/components/Vote/VoteBottomSlideContent/VoteMeatball/VoteMeatball";
+import {useGetVotesInfo} from '@/hooks/Votes/vote';
+
+import BottomSlide from '@/components/BottomSlide/BottomSlide';
+import VoteMeatball from '@/components/Vote/VoteBottomSlideContent/VoteMeatball/VoteMeatball';
+import VoteContent from '@/components/Vote/VoteContent/VoteContent';
+import VoteContentEmpty from '@/components/Vote/VoteContent/VoteContentEmpty/VoteContentEmpty';
+import VoteHeader from '@/components/Vote/VoteHeader/VoteHeader';
+
+import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
+import {isBottomSlideOpenState} from '@/recoil/vote/bottomSlide';
+import {selectedCandidatesState} from '@/recoil/vote/candidateList';
+
+import {VoteInfo} from '@/types/vote';
 
 const Vote = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [bottomSlideContent, setBottomSlideContent] =
-    useState<ReactNode | null>(null);
-  //보트ID로 진입, 검색할때 투표갯수 X는거 확인
-  //X -> 메인문구, 헤더에서미트볼 바꾸기
-  //투표 확정 상태일때 바텀 시트 변경
+  const {id: voteId} = useParams();
+  const {data: voteInfo} = useGetVotesInfo(Number(voteId));
 
-  const onBottomSlideOpen = (content: ReactNode) => {
+  const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
+  const [isCandidateSelecting, setIsCandidateSelecting] = useRecoilState(isCandidateSelectingState);
+  const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
+  const [showResults, setShowResults] = useState(false);
+  const [bottomSlideContent, setBottomSlideContent] = useState<ReactNode | null>(null);
+
+  const isZeroCandidates = voteInfo.candidates.length === 0;
+
+  function areAllCandidatesNotVoted(voteInfo: VoteInfo): boolean {
+    return voteInfo.candidates.every((candidate) => !candidate.amIVoted);
+  }
+  const allCandidatesNotVoted = areAllCandidatesNotVoted(voteInfo);
+
+  // if (voteInfo.voteStatus === '결정완료') {
+  //   setShowResults(true);
+  // }
+
+  useEffect(() => {
+    setIsCandidateSelecting(false);
+    setShowResults(false);
+    setSelectedCandidates(new Set());
+  }, []);
+
+  const BottomSlideOpen = (content: ReactNode) => {
     setBottomSlideContent(content);
-    onOpen();
+    document.body.style.overflow = 'hidden';
+    setIsBTOpen(true);
+    setSelectedCandidates(new Set());
+    setIsCandidateSelecting(false);
+  };
+
+  const handleShowResultsClick = () => {
+    setShowResults(!showResults);
   };
 
   return (
     <div className={styles.container}>
-      <VoteHeader onOpen={() => onBottomSlideOpen(<VoteMeatball />)} />
-      <VoteContent onClick={() => onBottomSlideOpen(<AddCandidate />)} />
-      <VoteBottomButton
-        onClick={() => onBottomSlideOpen(<AddCandidate />)}
-        title={"후보 추가하기"}
+      <VoteHeader
+        isZeroCandidates={isZeroCandidates}
+        title={voteInfo.title}
+        onBottomSlideOpen={() =>
+          BottomSlideOpen(
+            <VoteMeatball
+              state={voteInfo.voteStatus}
+              title={voteInfo.title}
+              isZeroCandidates={isZeroCandidates}
+              allCandidatesNotVoted={allCandidatesNotVoted}
+            />,
+          )
+        }
       />
-      <BottomSlide
-        isOpen={isOpen}
-        onClose={onClose}
-        children={bottomSlideContent}
-      />
+
+      {voteInfo.candidates ? (
+        <VoteContent
+          data={voteInfo}
+          onBottomSlideOpen={BottomSlideOpen}
+          isZeroCandidates={isZeroCandidates}
+          showResults={voteInfo.voteStatus === '결정완료' ? true : showResults}
+        />
+      ) : (
+        <VoteContentEmpty />
+      )}
+      {!isCandidateSelecting && voteInfo.voteStatus === '진행 중' && (
+        <Button variant='CTAButton' onClick={handleShowResultsClick} isDisabled={allCandidatesNotVoted}>
+          {showResults ? '다시 투표하기' : '결과보기'}
+        </Button>
+      )}
+      <BottomSlide isOpen={isBTOpen} onClose={() => setIsBTOpen(false)} children={bottomSlideContent} />
     </div>
   );
 };

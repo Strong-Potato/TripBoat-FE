@@ -5,8 +5,8 @@
   top: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(20, 20, 20, 0.8);
-  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9;
 
   .slide {
     z-index: 10;
@@ -33,7 +33,7 @@
         display: flex;
         padding: 0px 20px;
         align-items: center;
-        gap: 16px;
+        gap: 12px;
         margin-bottom: 8px;
 
         &__nickName {
@@ -47,6 +47,9 @@
           font-style: normal;
           letter-spacing: -0.012rem;
           @include typography(captionSmall);
+          &:hover {
+            font-weight: 700;
+          }
         }
       }
     }

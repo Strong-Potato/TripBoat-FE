@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   width: 14.4rem;
@@ -6,40 +6,56 @@
   display: flex;
   flex-direction: column;
 
-  img {
-    width: 100%;
+  .imgBox {
+    width: 14.4rem;
     height: 14.4rem;
 
-    border-radius: 16px;
+    margin-bottom: 4px;
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      border-radius: 16px;
+    }
   }
 
   button {
     @include typography(captionSmall);
-    width: 100%;
     height: 36px;
 
-    margin: 5px 0;
+    padding: 8px;
+    margin-bottom: 8px;
 
-    border: 2px solid #cdcfd0;
+    border: 1px solid #cdcfd0;
     border-radius: 8px;
 
-    text-align: center;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
     color: $neutral800;
+
+    & > svg {
+      font-size: 1.6rem;
+    }
+  }
+  .textBox {
+    margin-bottom: 2px;
+    &__name {
+      @include typography(titleSmall);
+    }
+
+    &__category {
+      @include typography(captionSmall);
+      color: $neutral400;
+    }
   }
 
-  &__name {
-    @include typography(titleSmall);
-  }
-
-  &__category {
-    @include typography(captionSmall);
-    color: $neutral400;
-  }
-
-  &__reviewBox {
+  .reviewBox {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 4px;
 
     &__rating {
       @include typography(captionMedium);
@@ -50,9 +66,6 @@
         padding: 2px;
         color: $etc0;
       }
-    }
-    &__counts {
-      color: $neutral400;
     }
   }
 }

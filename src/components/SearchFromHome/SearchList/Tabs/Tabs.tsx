@@ -1,31 +1,24 @@
-import { useState } from "react";
+import {useState} from 'react';
 
-import styles from "./Tabs.module.scss";
+import styles from './Tabs.module.scss';
 
-import useComponentSize from "@/hooks/useComponetSize";
+import useComponentSize from '@/hooks/useComponetSize';
 
-import SlideButton from "@/components/SlideButton/SlideButton";
+import SlideButton from '@/components/SlideButton/SlideButton';
 
-import Tab from "./Tab/Tab";
+import Tab from './Tab/Tab';
+
+import {ForSearchType} from '@/types/home';
 
 interface PropsType {
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  forSearch: ForSearchType;
   setCategoryChange: React.Dispatch<React.SetStateAction<boolean>>;
-  category: string;
 }
 
-function Tabs({ setCategory, setCategoryChange, category }: PropsType) {
+function Tabs({forSearch, setCategoryChange}: PropsType) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
-  const thisCategory = [
-    "전체",
-    "맛집",
-    "숙소",
-    "관광지",
-    "문화시설",
-    "레포츠",
-    "쇼핑",
-  ];
+  const thisCategory = ['전체', '맛집', '숙소', '관광지', '문화시설', '레포츠', '쇼핑'];
 
   return (
     <div className={styles.container}>
@@ -42,15 +35,14 @@ function Tabs({ setCategory, setCategoryChange, category }: PropsType) {
         className={styles.tabs}
         ref={componentRef}
         style={{
-          overflow: size.width < 449 ? "scroll" : "visible",
-          left: slideLocation + "px",
+          overflow: size.width < 449 ? 'scroll' : 'visible',
+          left: slideLocation + 'px',
         }}
       >
         {thisCategory.map((thisCategory) => (
           <Tab
-            setCategory={setCategory}
+            forSearch={forSearch}
             setCategoryChange={setCategoryChange}
-            category={category}
             thisCategory={thisCategory}
             key={thisCategory}
           />

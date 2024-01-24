@@ -1,0 +1,35 @@
+@use '@/sass' as *;
+
+.container {
+  margin-bottom: 50px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.candidateContainer {
+  display: flex;
+  align-items: center;
+
+  .candidateBox {
+    flex: 1;
+
+    &__memo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      margin-top: 16px;
+      &__text {
+        height: 2.2rem;
+        @include typography(bodySmall);
+        color: $neutral900;
+        background-color: $neutral100;
+
+        padding: 0 16px;
+        border-radius: 8px;
+      }
+    }
+  }
+}

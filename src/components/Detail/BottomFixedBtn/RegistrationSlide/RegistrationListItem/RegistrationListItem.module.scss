@@ -1,0 +1,39 @@
+@use "@/sass" as *;
+
+.container {
+  @include typography(subTitle);
+  color: $neutral900;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 16px;
+
+  border: 1px solid $neutral200;
+  border-radius: 16px;
+
+  cursor: pointer;
+
+  svg {
+    color: $neutral300;
+  }
+
+  &__isSelected {
+    @include typography(captionSmall);
+    color: $neutral300;
+  }
+}
+
+.selected {
+  background-color: $primary100;
+  svg {
+    color: $primary300;
+  }
+}
+
+.isSelectedProps {
+  color: $neutral300;
+  border: 1px solid $neutral200;
+
+  cursor: auto;
+}

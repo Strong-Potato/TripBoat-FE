@@ -1,36 +1,58 @@
-import { BsThreeDots } from "react-icons/bs";
-import { MdOutlineArrowBackIosNew } from "react-icons/md";
-import { RiMap2Line } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import {AiOutlinePlus} from 'react-icons/ai';
+import {BsThreeDots} from 'react-icons/bs';
+import {MdOutlineArrowBackIosNew} from 'react-icons/md';
+import {RiMap2Line} from 'react-icons/ri';
+import {useLocation, useNavigate} from 'react-router-dom';
+import {useRecoilValue} from 'recoil';
 
-import styles from "./VoteHeader.module.scss";
+import styles from './VoteHeader.module.scss';
 
-import { VoteHeaderProps } from "@/types/vote";
+import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
 
-const VoteHeader = ({ onOpen }: VoteHeaderProps) => {
+import {VoteHeaderProps} from '@/types/vote';
+
+const VoteHeader = ({onBottomSlideOpen, title, isZeroCandidates}: VoteHeaderProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const path = location.pathname.split('/')[3];
+  const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
 
-  const voteTitle = "카페 어디로 갈래?";
-
-  //상태에 따른 아이콘 disabled
-  // 또는 없애기
+  const setRightIcons = (path: string) => {
+    switch (path) {
+      case 'votememo':
+        return (
+          <button onClick={onBottomSlideOpen}>
+            <AiOutlinePlus />
+          </button>
+        );
+      case 'map':
+        return null;
+      default:
+        return (
+          <>
+            <button
+              onClick={() => navigate(`${location.pathname}/map`)}
+              disabled={isZeroCandidates || isCandidateSelecting}
+            >
+              <RiMap2Line />
+            </button>
+            <button onClick={onBottomSlideOpen} disabled={isCandidateSelecting}>
+              <BsThreeDots />
+            </button>
+          </>
+        );
+    }
+  };
 
   return (
     <div className={styles.container}>
-      <button onClick={() => navigate(-1)} className={styles.leftBackIcon}>
-        <MdOutlineArrowBackIosNew />
-      </button>
-      <p className={styles.title}>{voteTitle}</p>
-
-      <div className={styles.iconBox}>
-        <button>
-          <RiMap2Line />
+      <div className={styles.leftSide}>
+        <button onClick={() => navigate(-1)} className={styles.leftSide__backIcon}>
+          <MdOutlineArrowBackIosNew />
         </button>
-
-        <button onClick={onOpen}>
-          <BsThreeDots />
-        </button>
+        <p className={styles.leftSide__title}>{title}</p>
       </div>
+      <div className={styles.rightIconBox}>{setRightIcons(path)}</div>
     </div>
   );
 };

@@ -1,13 +1,40 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 import styles from "./Contents.module.scss";
+
+import { TabIndexState, TabYPosition } from "@/recoil/detail/detail";
 
 import Information from "./Information/Information";
 import Reviews from "./Reviews/Reviews";
 
-function Contents() {
+import { ContentsProps } from "@/types/detail";
+
+function Contents({ onOpen }: ContentsProps) {
+  const [tabIndex, setTabIndex] = useRecoilState(TabIndexState);
+  const setTabPosition = useSetRecoilState(TabYPosition);
+
+  const handleTabsChange = (index: number) => {
+    setTabIndex(index);
+  };
+
+  useEffect(() => {
+    const tabRef = document.getElementById("tab");
+
+    if (tabRef) {
+      setTabPosition(tabRef.getBoundingClientRect().top + window.scrollY - 32);
+    }
+  });
+
   return (
-    <Tabs isFitted className={styles.container}>
+    <Tabs
+      isFitted
+      className={styles.container}
+      index={tabIndex}
+      onChange={handleTabsChange}
+      id="tab"
+    >
       <TabList>
         <Tab
           fontSize="1.4rem"
@@ -33,10 +60,10 @@ function Contents() {
 
       <TabPanels>
         <TabPanel padding="0">
-          <Information />
+          <Information onOpen={onOpen} />
         </TabPanel>
         <TabPanel padding="0">
-          <Reviews />
+          <Reviews onOpen={onOpen} />
         </TabPanel>
       </TabPanels>
     </Tabs>

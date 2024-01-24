@@ -1,0 +1,21 @@
+@use '@/sass' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  // margin: 15px 0;
+  padding: 15px 8px 50px;
+
+  // background-color: aqua;
+  // z-index: 102;
+}
+
+.dayBox {
+  @include typography(bodyLarge);
+  padding: 12px 0;
+
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,9 +1,9 @@
-import { MdArrowForwardIos } from "react-icons/md";
-import { Link } from "react-router-dom";
+import {MdArrowForwardIos} from 'react-icons/md';
+import {Link} from 'react-router-dom';
 
-import styles from "./TripSpaceItem.module.scss";
+import styles from './TripSpaceItem.module.scss';
 
-import { TripSpaceDataType } from "@/types/home";
+import {TripSpaceDataType} from '@/types/home';
 
 interface PropsData {
   data: TripSpaceDataType;
@@ -12,13 +12,9 @@ interface PropsData {
 function TripSpaceItem(data: PropsData) {
   const imageAlt = `${data.data.tripTitle}의 사진`;
   return (
-    <Link to="/carryout" className={styles.container}>
+    <Link to='/trip/1' className={styles.container}>
       <div className={styles.img_box}>
-        <img
-          className={styles.trip_img}
-          src={data.data.tripImg}
-          alt={imageAlt}
-        />
+        <img className={styles.trip_img} src={data.data.tripImg} alt={imageAlt} />
         {data.data.dDay && <div className={styles.text_wall} />}
         <span className={styles.d_day}>{data.data.dDay}</span>
       </div>

@@ -1,8 +1,9 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   margin-top: 56px;
-  width: 45rem;
+  width: 100%;
+  min-width: 36rem;
   max-width: 45rem;
   background-color: $primary200;
   position: relative;
@@ -21,6 +22,7 @@
   //바텀패딩을 추가해야 탭 보더래디우스 뒤에 색이 보여요,,ㅠ
   .iconTab {
     width: 100%;
+    min-width: 36rem;
     max-width: 45rem;
     padding: 16px 16px 25px;
 
@@ -35,11 +37,26 @@
     position: fixed;
     top: 0;
     z-index: 4;
+
+    &__wrapper {
+      position: relative;
+
+      &__eclips {
+        width: 0.8rem;
+        height: 0.8rem;
+        border-radius: 50%;
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        background: $primary400;
+      }
+    }
   }
 
   .header {
     color: $neutral0;
     width: 100%;
+    min-width: 36rem;
     max-width: 45rem;
     padding-bottom: 5px;
     //position:fixed;

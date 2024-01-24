@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   width: 100%;
@@ -16,19 +16,22 @@
 
     &__state {
       @include typography(captionSmall);
-      color: $primary200;
-      //color:$neutral400;
+
+      display: flex;
+      gap: 4px;
+      align-items: center;
+
+      & > svg {
+        font-size: 1.5rem;
+      }
     }
     &__addCandidate {
-      @include typography(button);
+      @include typography(captionSmall);
       color: $neutral900;
-    }
-  }
-  &__candidateList {
-    margin-bottom: 50px;
 
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+      &:disabled {
+        color: $neutral300;
+      }
+    }
   }
 }

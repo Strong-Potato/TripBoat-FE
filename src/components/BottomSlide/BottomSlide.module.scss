@@ -1,11 +1,11 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .slideContainer {
   position: fixed;
   top: 0;
   width: 450px;
   height: 100vh;
-  background-color: rgba(20, 20, 20, 0.8);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 100;
 
   .slide {
@@ -24,6 +24,11 @@
       .closeButtonContainer {
         display: flex;
         justify-content: flex-end;
+      }
+
+      .leftCloseButtonContainer {
+        display: flex;
+        justify-content: flex-start;
       }
     }
   }

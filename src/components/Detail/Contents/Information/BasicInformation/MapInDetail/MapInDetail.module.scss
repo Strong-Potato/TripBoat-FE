@@ -1,0 +1,11 @@
+.container {
+  width: 100%;
+  // 비율 3:2 조절
+  aspect-ratio: 5 / 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #efefef;
+}

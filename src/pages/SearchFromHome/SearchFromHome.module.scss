@@ -1,17 +1,16 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   width: 100%;
 
   display: flex;
   flex-direction: column;
-  gap: 24px;
 
-  padding-top: 16px;
-
-  font-family: "suit", sans-serif;
+  font-family: 'spoqaHanSans', sans-serif;
 
   color: $neutral900;
+
+  box-sizing: border-box;
 
   -ms-overflow-style: none;
   scrollbar-width: none;

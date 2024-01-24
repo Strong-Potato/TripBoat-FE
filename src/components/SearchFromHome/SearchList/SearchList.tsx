@@ -1,73 +1,74 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
-import styles from "./SearchList.module.scss";
+import styles from './SearchList.module.scss';
 
-import { getData } from "@/mocks/handlers/home";
+import {keywordSearch, search} from '@/hooks/Search/useSearch';
 
-import DateFilter from "./DateFilter/DateFilter";
-import LocationFilter from "./LocationFilter/LocationFilter";
-import Map from "./Map/Map";
-import MapButton from "./MapButton/MapButton";
-import SearchItem from "./SearchItem/SearchItem";
-import Tabs from "./Tabs/Tabs";
+import DateFilter from './DateFilter/DateFilter';
+import LocationFilter from './LocationFilter/LocationFilter';
+import Map from './Map/Map';
+import MapButton from './MapButton/MapButton';
+import SearchItem from './SearchItem/SearchItem';
+import Tabs from './Tabs/Tabs';
 
-import { SearchItemType } from "@/types/home";
+import {ForSearchType, SearchItemType} from '@/types/home';
 
 interface PropsType {
-  keyword: string | undefined;
-  moveMap: boolean;
-  set: React.Dispatch<React.SetStateAction<boolean>>;
+  forSearch: ForSearchType;
 }
 
-function SearchList({ keyword, set, moveMap }: PropsType) {
-  const [data, setData] = useState<SearchItemType[]>();
-  const [filterData, setFilterData] = useState<SearchItemType[]>();
-  const [category, setCategory] = useState("전체");
+function SearchList({forSearch}: PropsType) {
+  const [data, setData] = useState<SearchItemType[] | undefined>();
+  const [filterData, setFilterData] = useState<SearchItemType[] | undefined>();
   const [categoryChange, setCategoryChange] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setCategory("전체");
-    getData<SearchItemType[] | undefined>("home/search/search", setData);
-  }, [keyword]);
+    if (forSearch.hot === 'true') {
+      keywordSearch(forSearch.keyword, forSearch.location, forSearch.sort, setData);
+    } else {
+      search(forSearch.keyword, forSearch.location, forSearch.sort, setData);
+    }
+  }, [forSearch.keyword, forSearch.location, forSearch.sort, forSearch.hot]);
 
   useEffect(() => {
     if (data) {
-      if (category !== "전체") {
-        const filterData = data.filter((data) => data.category === category);
+      if (forSearch.category !== 0) {
+        let filterData;
+        if (forSearch.category === 14) {
+          filterData = data.filter((data) => data.contentTypeId === 14 || data.contentTypeId === 15);
+        } else {
+          filterData = data.filter((data) => data.contentTypeId === forSearch.category);
+        }
         setFilterData(filterData);
       } else {
         setFilterData(data);
       }
     }
-  }, [data, category]);
+  }, [data, forSearch.category]);
 
   function onMap() {
-    set(true);
+    navigate(
+      `/home/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=true&location=${forSearch.location}&sort=${forSearch.sort}&hot=${forSearch.hot}`,
+    );
   }
 
   return (
-    <div className={styles.container}>
-      <Tabs
-        setCategory={setCategory}
-        category={category}
-        setCategoryChange={setCategoryChange}
-      />
-      {moveMap && filterData ? (
+    <div className={styles.container} style={{height: forSearch.map === 'true' ? '100%' : 'calc(100% - 72px)'}}>
+      {forSearch.hot === 'false' && <Tabs forSearch={forSearch} setCategoryChange={setCategoryChange} />}
+      {forSearch.map === 'true' && filterData ? (
         <Map data={filterData} categoryChange={categoryChange} />
       ) : (
         <>
           <div className={styles.filter}>
-            <LocationFilter />
-            <DateFilter />
+            <LocationFilter forSearch={forSearch} />
+            <DateFilter forSearch={forSearch} />
           </div>
-          <ul>
+          <ul className={styles.slide}>
             {filterData &&
               filterData.map((data, i) => (
-                <SearchItem
-                  data={data}
-                  key={data.title + i}
-                  categoryChange={categoryChange}
-                />
+                <SearchItem data={data} key={data.title + i} categoryChange={categoryChange} />
               ))}
           </ul>
           <button onClick={onMap}>

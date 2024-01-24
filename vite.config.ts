@@ -16,11 +16,22 @@ export default defineConfig({
       { find: "@types", replacement: "src/types" },
       { find: "@utils", replacement: "src/utils" },
       { find: "@sass", replacement: "src/sass" },
+      { find: "@api", replacement: "src/api" },
     ],
   },
   server: {
     watch: {
       usePolling: true,
+    },
+    // vite 프록시 설정
+    proxy: {
+      "/api": {
+        target: "https://api.tripvote.site/",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+        secure: false,
+        ws: true,
+      },
     },
   },
 });

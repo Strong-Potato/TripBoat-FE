@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   width: 100%;
@@ -11,7 +11,7 @@
   padding-top: 56px;
   padding-bottom: 75px;
 
-  font-family: "suit", sans-serif;
+  font-family: 'spoqaHanSans', sans-serif;
 
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -20,10 +20,19 @@
   }
 
   .title {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
     @include typography(titleMedium);
     color: #1d2433;
 
     padding: 8px 20px;
+  }
+
+  .icon {
+    width: 2rem;
+    height: 2rem;
   }
 
   .lists_box {

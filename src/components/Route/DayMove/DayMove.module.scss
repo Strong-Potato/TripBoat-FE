@@ -1,0 +1,30 @@
+@use '@/sass' as *;
+
+.DayMoveContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px;
+  gap: 0.8rem;
+
+  header {
+    display: flex;
+    justify-content: center;
+    margin-top: -0.8rem;
+
+    h1 {
+      @include typography(button);
+      color: $neutral700;
+    }
+  }
+
+  .dayContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+
+    p {
+      @include typography(bodyLarge);
+      color: $neutral900;
+    }
+  }
+}

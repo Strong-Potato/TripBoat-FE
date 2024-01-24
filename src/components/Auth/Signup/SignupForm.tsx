@@ -1,23 +1,25 @@
-import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./SignupForm.module.scss";
 
-import StepEmail from "./Step/StepEmail";
-import StepEmailSert from "./Step/StepEmailSert";
-import StepPassword from "./Step/StepPassword";
-import StepProfile from "./Step/StepProfile";
+import StepEmail from "@/components/Auth/Signup/Step/StepEmail";
+import StepEmailSert from "@/components/Auth/Signup/Step/StepEmailSert";
+import StepPassword from "@/components/Auth/Signup/Step/StepPassword";
+import StepProfile from "@/components/Auth/Signup/Step/StepProfile";
 
-import { SignupForm, SignupFormProps } from "@/types/auth";
+import { AuthForm, SignupFormProps } from "@/types/auth";
 
 function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
   const {
     register,
     resetField,
-    getValues,
     handleSubmit,
     watch,
     formState: { errors, dirtyFields },
-  } = useForm<SignupForm>({
+  } = useForm<AuthForm>({
     mode: "onChange",
     defaultValues: {
       email: "",
@@ -29,12 +31,29 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
     },
   });
 
-  const watchPassword = watch("password");
-  const watchPasswordConfirm = watch("passwordConfirm");
-  const watchImage = watch("image");
+  const [code, setCode] = useState<string>("");
+  const navigate = useNavigate();
+  const watchFields = watch();
 
-  const onSubmit = () => {
-    console.log("submit");
+  const onSubmit: SubmitHandler<AuthForm> = async (data) => {
+    console.log(code);
+    if (Object.keys(dirtyFields).length < 5) return;
+    console.log(data);
+
+    try {
+      const { email, password, nickname } = data;
+      const res = await axios.post("/api/auth/register", {
+        email,
+        password,
+        nickname,
+        token: code,
+      });
+      console.log(res);
+
+      navigate("/auth/login", { replace: true });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -58,6 +77,7 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
         <StepEmail
           setSignupStep={setSignupStep}
           register={register}
+          watchFields={watchFields}
           resetField={resetField}
           dirty={dirtyFields.email}
           error={errors.email}
@@ -68,9 +88,10 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
         <StepEmailSert
           setSignupStep={setSignupStep}
           register={register}
-          email={getValues("email")}
+          watchFields={watchFields}
           dirty={dirtyFields.emailSert}
           error={errors.emailSert}
+          setCode={setCode}
         />
       )}
 
@@ -79,8 +100,7 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
           setSignupStep={setSignupStep}
           register={register}
           resetField={resetField}
-          password={watchPassword}
-          passwordConfirm={watchPasswordConfirm}
+          watchFields={watchFields}
           dirtyFields={dirtyFields}
           errors={errors}
         />
@@ -90,7 +110,6 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
         <StepProfile
           register={register}
           resetField={resetField}
-          image={watchImage}
           dirty={dirtyFields.nickname}
           error={errors.nickname}
         />

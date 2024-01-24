@@ -1,0 +1,97 @@
+@use "@/sass" as *;
+
+.container {
+  z-index: 4;
+  min-height: 63.8rem;
+
+  padding-bottom: 66px;
+
+  &__createBtn {
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      display: flex;
+      align-items: center;
+
+      span {
+        @include typography(tabLabel);
+      }
+    }
+
+    &__notValued {
+      cursor: auto;
+      color: $neutral300;
+    }
+  }
+
+  &__tripTitle {
+    margin: 8px 0;
+    padding: 8px 0;
+    @include typography(titleMedium);
+  }
+
+  &__voteTitle {
+    width: 100%;
+    padding: 8px 0;
+    @include typography(titleMedium);
+  }
+
+  &__voteUnSelected {
+    text-align: center;
+
+    margin-top: 64px;
+
+    @include typography(subTitle);
+    color: $neutral400;
+  }
+
+  &__voteSelected {
+    margin-top: 4px;
+    margin-bottom: 16px;
+
+    @include typography(captionSmall);
+    color: $neutral400;
+  }
+
+  &__voteList {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+  }
+
+  &__voteNotValued {
+    margin-top: 64px;
+    text-align: center;
+
+    &__top {
+      @include typography(subTitle);
+      color: $neutral400;
+    }
+
+    &__bottom {
+      @include typography(captionSmall);
+      color: $neutral300;
+    }
+  }
+
+  &__bottomFixedBtn {
+    padding: 12px 0;
+    width: 100%;
+    max-width: 40.2rem;
+
+    position: fixed;
+    bottom: 26px;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    text-align: center;
+
+    @include typography(button);
+
+    border-radius: 16px;
+  }
+}

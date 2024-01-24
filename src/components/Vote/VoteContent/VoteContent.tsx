@@ -1,41 +1,58 @@
-import { Icon } from "@chakra-ui/react";
-import { GoDotFill } from "react-icons/go";
+import {Icon} from '@chakra-ui/react';
+import {GoDotFill} from 'react-icons/go';
+import {IoMdCheckmark} from 'react-icons/io';
+import {useRecoilValue} from 'recoil';
 
-import styles from "./VoteContent.module.scss";
+import styles from './VoteContent.module.scss';
 
-import CandidateCard from "./CandidateCard/CandidateCard";
-import VoteRecommendList from "./VoteRecommendList/VoteRecommendList";
+import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
 
-import { VoteContentProps } from "@/types/vote";
+import CandidateList from './CandidateList/CandidateList';
+import VoteRecommendList from './VoteRecommendList/VoteRecommendList';
+import DeleteCandidatesButton from '../DeleteCandidatesButton/DeleteCandidatesButton';
+import AddCandidate from '../VoteBottomSlideContent/AddCandidate/AddCandidate';
 
-// import VoteDetailsFieldZero from "../VoteDetailsFieldZero/VoteDetailsFieldZero";
+import {VoteContentProps} from '@/types/vote';
 
-const VoteContent = ({ onClick }: VoteContentProps) => {
-  // if(CandidateList.length===0) {
-  //   //지도 색 neutral300
-  //   return <VoteDetailsFieldZero />
-  // }
+const VoteContent = ({onBottomSlideOpen, data, isZeroCandidates, showResults}: VoteContentProps) => {
+  const candidates = data.candidates;
+  const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
+
+  // 결정완료 상태 -> stateBar 결정완료 / CTA버튼 삭제 / 추천슬라이드 후보추가->일정에담기
+  // 결정완료는... voteData에서
 
   return (
     <div className={styles.container}>
       <div className={styles.container__stateBar}>
-        <div className={styles.container__stateBar__state}>
-          <Icon as={GoDotFill} fontSize="1rem" mt="1px" mr="4px" />
-          진행 중
-        </div>
-        <button
-          onClick={onClick}
-          className={styles.container__stateBar__addCandidate}
+        <div
+          className={styles.container__stateBar__state}
+          style={{color: data.voteStatus === '결정완료' ? '#979C9E' : '#2388FF'}}
         >
-          + 후보 추가(1/15)
-        </button>
+          {data.voteStatus === '결정완료' ? <Icon as={IoMdCheckmark} /> : <Icon as={GoDotFill} />}
+          {data.voteStatus}
+        </div>
+
+        {!showResults && (
+          <button
+            disabled={isCandidateSelecting}
+            onClick={() => onBottomSlideOpen(<AddCandidate />)}
+            className={styles.container__stateBar__addCandidate}
+          >
+            + 후보 추가({candidates.length}/15)
+          </button>
+        )}
       </div>
-      <div className={styles.container__candidateList}>
-        <CandidateCard />
-        <CandidateCard />
-        <CandidateCard />
-      </div>
-      <VoteRecommendList />
+
+      <CandidateList
+        candidates={candidates}
+        onBottomSlideOpen={onBottomSlideOpen}
+        showResults={showResults}
+        isCandidateSelecting={isCandidateSelecting}
+      />
+
+      {!isZeroCandidates && <VoteRecommendList state={data.voteStatus} isCandidateSelecting={isCandidateSelecting} />}
+
+      {isCandidateSelecting && <DeleteCandidatesButton />}
     </div>
   );
 };
