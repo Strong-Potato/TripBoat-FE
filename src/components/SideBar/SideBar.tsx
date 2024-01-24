@@ -45,7 +45,7 @@ function SideBar({isSideOpen, sideClose}: SideBarProps) {
   const {data: myInfo} = useGetMyInfo(isSideOpen);
 
   if (!myInfo) {
-    return <div>로딩 중...</div>;
+    return <div></div>;
   }
   return (
     <>
