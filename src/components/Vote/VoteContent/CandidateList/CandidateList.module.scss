@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   margin-bottom: 50px;
@@ -18,7 +18,7 @@
     &__memo {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
 
       margin-top: 16px;
       &__text {

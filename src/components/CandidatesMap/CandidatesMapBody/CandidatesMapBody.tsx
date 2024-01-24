@@ -11,12 +11,12 @@ import MapPinNumber from '../MapPins/MapPinNumber';
 import {CandidatesInfo, Latlng} from '@/types/vote';
 
 const CandidatesMapBody = ({candidates}: {candidates: CandidatesInfo[]}) => {
-  const [centerMarker, setCenterMarker] = useState(candidates[0].latlng);
+  const [centerMarker, setCenterMarker] = useState(candidates[0].placeInfo.latlng);
   const [selectedPinIndex, setSelectedPinIndex] = useState(0);
   const swiperRef = useRef<SwiperRef>(null);
 
   useEffect(() => {
-    setCenterMarker(candidates[0].latlng);
+    setCenterMarker(candidates[0].placeInfo.latlng);
   }, []);
 
   const handleMapMarkerClick = (latlng: Latlng, i: number) => {
@@ -29,10 +29,13 @@ const CandidatesMapBody = ({candidates}: {candidates: CandidatesInfo[]}) => {
     <div className={styles.container}>
       <Map className={styles.map} center={centerMarker} level={2}>
         {candidates.map((candidate, i) => (
-          <CustomOverlayMap key={`${candidate.placeName}-${candidate.latlng}-${i}`} position={candidate.latlng}>
+          <CustomOverlayMap
+            key={`${candidate.placeInfo.placeName}-${candidate.placeInfo.latlng}-${i}`}
+            position={candidate.placeInfo.latlng}
+          >
             <div
               className={`pin ${selectedPinIndex === i ? 'active' : ''}`}
-              onClick={() => handleMapMarkerClick(candidate.latlng, i)}
+              onClick={() => handleMapMarkerClick(candidate.placeInfo.latlng, i)}
             >
               {selectedPinIndex === i ? <MapPinActive number={i + 1} /> : <MapPinNumber number={i + 1} />}
             </div>

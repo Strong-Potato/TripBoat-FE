@@ -21,7 +21,7 @@ import CreateVoteModal from '../../CreateVoteModal/CreateVoteModal';
 
 import {AlertModalProps, VoteMeatballProps} from '@/types/vote';
 
-const VoteMeatball = ({state, title, isZeroCandidates}: VoteMeatballProps) => {
+const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: VoteMeatballProps) => {
   const {id: voteId} = useParams();
   const setIsCreateModalOpen = useSetRecoilState(isCreateModalOpenState);
   const setIsBTOpen = useSetRecoilState(isBottomSlideOpenState);
@@ -65,7 +65,7 @@ const VoteMeatball = ({state, title, isZeroCandidates}: VoteMeatballProps) => {
         </button>
       ) : (
         <button
-          disabled={isZeroCandidates}
+          disabled={isZeroCandidates || allCandidatesNotVoted}
           onClick={() =>
             showAlertModal({
               onClickAction: modalConsole,
@@ -83,7 +83,7 @@ const VoteMeatball = ({state, title, isZeroCandidates}: VoteMeatballProps) => {
         <p>투표 제목 수정</p>
       </button>
 
-      <button disabled={isZeroCandidates} onClick={changeToCandidateSelecting}>
+      <button disabled={isZeroCandidates || state === '결정완료'} onClick={changeToCandidateSelecting}>
         <TrashIcon />
         <p>후보 삭제</p>
       </button>

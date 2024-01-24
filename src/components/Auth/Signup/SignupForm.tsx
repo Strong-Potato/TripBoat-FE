@@ -1,39 +1,40 @@
-import axios from "axios";
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import {useState} from 'react';
+import {SubmitHandler, useForm} from 'react-hook-form';
+import {useNavigate} from 'react-router-dom';
 
-import styles from "./SignupForm.module.scss";
+import styles from './SignupForm.module.scss';
 
-import StepEmail from "@/components/Auth/Signup/Step/StepEmail";
-import StepEmailSert from "@/components/Auth/Signup/Step/StepEmailSert";
-import StepPassword from "@/components/Auth/Signup/Step/StepPassword";
-import StepProfile from "@/components/Auth/Signup/Step/StepProfile";
+import StepEmail from '@/components/Auth/Signup/Step/StepEmail';
+import StepEmailSert from '@/components/Auth/Signup/Step/StepEmailSert';
+import StepPassword from '@/components/Auth/Signup/Step/StepPassword';
+import StepProfile from '@/components/Auth/Signup/Step/StepProfile';
+import CustomToast from '@/components/CustomToast/CustomToast';
 
-import { AuthForm, SignupFormProps } from "@/types/auth";
+import {AuthForm, SignupFormProps} from '@/types/auth';
 
-function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
+function SignupForm({signupStep, setSignupStep}: SignupFormProps) {
   const {
     register,
     resetField,
     handleSubmit,
     watch,
-    formState: { errors, dirtyFields },
+    formState: {errors, dirtyFields},
   } = useForm<AuthForm>({
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: {
-      email: "",
-      emailSert: "",
-      password: "",
-      passwordConfirm: "",
+      email: '',
+      emailSert: '',
+      password: '',
+      passwordConfirm: '',
       image: undefined,
-      nickname: "",
+      nickname: '',
     },
   });
-
-  const [code, setCode] = useState<string>("");
-  const navigate = useNavigate();
   const watchFields = watch();
+  const [code, setCode] = useState<string>('');
+  const showToast = CustomToast();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<AuthForm> = async (data) => {
     console.log(code);
@@ -41,8 +42,8 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
     console.log(data);
 
     try {
-      const { email, password, nickname } = data;
-      const res = await axios.post("/api/auth/register", {
+      const {email, password, nickname} = data;
+      const res = await axios.post('/api/auth/register', {
         email,
         password,
         nickname,
@@ -50,7 +51,21 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
       });
       console.log(res);
 
-      navigate("/auth/login", { replace: true });
+      if (res.data.responseCode === 204) {
+        showToast('만료된 토큰입니다. 다시 인증해주세요.');
+        setSignupStep('agree');
+        navigate('/auth/login');
+        return;
+      }
+
+      if (res.data.responseCode === 205) {
+        showToast('잘못된 토큰입니다. 다시 인증해주세요.');
+        setSignupStep('agree');
+        navigate('/auth/login');
+        return;
+      }
+
+      navigate('/auth/login', {replace: true});
     } catch (error) {
       console.log(error);
     }
@@ -62,18 +77,18 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
       <div
         className={`${styles.bar}
           ${
-            signupStep === "email"
+            signupStep === 'email'
               ? styles.step_email
-              : signupStep === "emailSert"
+              : signupStep === 'emailSert'
                 ? styles.step_emailSert
-                : signupStep === "password"
+                : signupStep === 'password'
                   ? styles.step_password
                   : styles.step_profile
           }
         `}
       ></div>
 
-      {signupStep === "email" && (
+      {signupStep === 'email' && (
         <StepEmail
           setSignupStep={setSignupStep}
           register={register}
@@ -84,7 +99,7 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
         />
       )}
 
-      {signupStep === "emailSert" && (
+      {signupStep === 'emailSert' && (
         <StepEmailSert
           setSignupStep={setSignupStep}
           register={register}
@@ -95,7 +110,7 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
         />
       )}
 
-      {signupStep === "password" && (
+      {signupStep === 'password' && (
         <StepPassword
           setSignupStep={setSignupStep}
           register={register}
@@ -106,13 +121,8 @@ function SignupForm({ signupStep, setSignupStep }: SignupFormProps) {
         />
       )}
 
-      {signupStep === "profile" && (
-        <StepProfile
-          register={register}
-          resetField={resetField}
-          dirty={dirtyFields.nickname}
-          error={errors.nickname}
-        />
+      {signupStep === 'profile' && (
+        <StepProfile register={register} resetField={resetField} dirty={dirtyFields.nickname} error={errors.nickname} />
       )}
     </form>
   );

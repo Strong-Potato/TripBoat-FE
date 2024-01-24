@@ -3,6 +3,11 @@ import axios from 'axios';
 import {Region} from '@/types/regionSearch';
 import {SpaceDateParams, SpaceRegionParams, SpaceResponse} from '@/types/route';
 
+export const spacesRequest = {
+  getSpaces: () => axios.get('/api/spaces').then((response) => response.data.data.spaces),
+  postSpaces: () => axios.post('/api/spaces'),
+};
+
 // [GET] 지역 리스트
 export const getRegions = async (): Promise<Region[]> => {
   const response = await axios.get(`/api/spaces/city`);

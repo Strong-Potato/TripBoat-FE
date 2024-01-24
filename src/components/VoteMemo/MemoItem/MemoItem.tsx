@@ -1,49 +1,79 @@
 import {Checkbox} from '@chakra-ui/react';
-import {useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 import styles from './MemoItem.module.scss';
 
-import useGetSelectedCandidates from '@/hooks/useGetSelectedCandidates';
+import {useDebounce} from '@/hooks/useDebounce';
+import useGetSelectedArray from '@/hooks/useGetSelectedArray';
 
-import {CandidatesInfo} from '@/types/vote';
+import {selectedTaglineState} from '@/recoil/vote/voteMemo';
 
-const MemoItem = ({candidate}: {candidate: CandidatesInfo}) => {
-  const [text, setText] = useState(0);
+import {MemoItemProps} from '@/types/vote';
 
-  const {addCandidateInSelectedList} = useGetSelectedCandidates();
+const MemoItem = ({candidate, existingTagline}: MemoItemProps) => {
+  const [text, setText] = useState('');
+  // const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
+  const {toggleItemInNewArray, setMemoArray} = useGetSelectedArray(selectedTaglineState);
+  const debouncedText = useDebounce(text, 500);
+  const placeInfo = candidate.placeInfo;
+
+  useEffect(() => {
+    if (existingTagline) {
+      setText(existingTagline.tagline);
+    }
+  }, []);
+
+  const handleCheckboxChange = () => {
+    toggleItemInNewArray({
+      placeId: placeInfo.placeId,
+      tagline: debouncedText,
+    });
+  };
+
+  const handleDebouncedTextChange = useCallback(() => {
+    setMemoArray({
+      placeId: placeInfo.placeId,
+      tagline: debouncedText,
+    });
+  }, [debouncedText, placeInfo.placeId, setMemoArray]);
+
+  useEffect(() => {
+    handleDebouncedTextChange();
+  }, [debouncedText]);
 
   return (
     <div className={styles.container}>
       <Checkbox
         defaultChecked
+        id={`${placeInfo.placeId}taglineCheck`}
         variant='candidateCheckbox'
         m='0'
         alignItems='flex-start'
-        value={candidate.id}
-        onChange={() => addCandidateInSelectedList(candidate.id)}
+        onChange={handleCheckboxChange}
       />
       <div className={styles.container__rightSide}>
-        <div className={styles.candidateBox}>
+        <label htmlFor={`${placeInfo.placeId}taglineCheck`} className={styles.candidateBox}>
           <div className={styles.candidateBox__image}>
-            <img src={candidate.imageURL} alt={candidate.placeName} />
+            <img src={placeInfo.placeImageURL} alt={placeInfo.placeName} />
           </div>
           <div className={styles.candidateBox__text}>
-            <p className={styles.candidateBox__text__name}>{candidate.placeName}</p>
+            <p className={styles.candidateBox__text__name}>{placeInfo.placeName}</p>
             <span className={styles.candidateBox__text__category}>
-              {candidate.category}
+              {placeInfo.category}
               {'ꞏ'}
-              {candidate.location}
+              {placeInfo.location}
             </span>
           </div>
-        </div>
+        </label>
         <div className={styles.textareaBox}>
           <textarea
-            onChange={(e) => setText(e.target.value.length)}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
             className={styles.textarea}
             maxLength={30}
             placeholder='장소에 대한 메모를 남겨주세요. (30자 이하)'
           />
-          <p className={styles.textarea__counts}>{text}/30자</p>
+          <p className={styles.textarea__counts}>{text.length}/30자</p>
         </div>
       </div>
     </div>
