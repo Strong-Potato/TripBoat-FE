@@ -8,13 +8,6 @@ import MypageList from '@/components/User/MypageList/MypageList';
 import Mywork from '@/components/User/Mywork/Mywork';
 import Profile from '@/components/User/Profile/Profile';
 
-const userInfo = {
-  nickname: '개발토끼',
-  image: 'https://avatars.githubusercontent.com/u/100336573?v=4',
-  provider: 'KAKAO',
-  email: 'test@gmail.com',
-};
-
 function User() {
   const navigate = useNavigate();
   const {data, error, isFetching} = useGetMyInfo(true);
