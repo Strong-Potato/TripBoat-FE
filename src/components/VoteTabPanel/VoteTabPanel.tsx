@@ -17,7 +17,7 @@ const VoteTabPanel = () => {
   const {id: spaceId} = useParams();
   const data = useGetVoteListInfo(Number(spaceId));
   const voteListAllData = data.data;
-  const voteListData: VoteListInfo[] | undefined = voteListAllData?.voteResponse;
+  const voteListData: VoteListInfo[] = voteListAllData?.data?.voteResponse;
   // const viewResultVoteIdsData = voteListAllData?.viewResultVoteIds;
   const [activeTabIndex, setActiveTabIndex] = useState(0);
 

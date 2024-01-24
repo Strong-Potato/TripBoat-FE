@@ -42,20 +42,24 @@ export const useCustomMutation = <TData = unknown, TError = unknown, TVariables 
 
 //vote 추가 POST
 export const usePostNewVote = () => {
-  return useCustomMutation(postNewVote, ['votes']);
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: postNewVote,
+    onSuccess: () => queryClient.invalidateQueries({queryKey: ['votes']}),
+  });
 };
 
-//voteTitle 수정 PUT
+// //voteTitle 수정 PUT
 export const useEditVoteTitle = () => {
   return useCustomMutation(editVoteTitle, ['vote']);
 };
 
-//vote 삭제 DELETE  -> 쿼리 무효화 필요없는지 확인하기
+// //vote 삭제 DELETE  -> 쿼리 무효화 필요없는지 확인하기
 export const useDeleteVote = () => {
   return useCustomMutation(deleteVote, ['votes']);
 };
 
-//candidate 삭제- api 미정
+// //candidate 삭제- api 미정
 export const useDeleteCandidates = () => {
   return useCustomMutation(deleteCandidates, ['votes']);
 };

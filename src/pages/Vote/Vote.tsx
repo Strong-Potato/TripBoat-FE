@@ -22,7 +22,10 @@ import {VoteInfo} from '@/types/vote';
 
 const Vote = () => {
   const {id: voteId} = useParams();
-  const {data: voteInfo} = useGetVotesInfo(Number(voteId));
+  const data = useGetVotesInfo(Number(voteId));
+  const voteInfo = data.data?.data;
+
+  console.log('voteInfo', voteInfo);
 
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const [isCandidateSelecting, setIsCandidateSelecting] = useRecoilState(isCandidateSelectingState);
@@ -36,6 +39,8 @@ const Vote = () => {
     return voteInfo.candidates.every((candidate) => !candidate.amIVoted);
   }
   const allCandidatesNotVoted = areAllCandidatesNotVoted(voteInfo);
+
+  // console.log()
 
   useEffect(() => {
     if (voteInfo.voteStatus === '결정완료') {
@@ -54,8 +59,25 @@ const Vote = () => {
   };
 
   const handleShowResultsClick = () => {
-    setShowResults(!showResults);
-    //api넣기
+    // if (isZeroCandidates) {
+    //   return '후보 추가하기'; 후보 추가 연결
+    // } else if (showResults) {
+    //   return '다시 투표하기'; //리셋 mutate
+    // } else {
+    //   return '결과보기'; //결과보기 api연결
+    // }
+    // setShowResults(!showResults);
+    console.log('showResults', showResults);
+  };
+
+  const getButtonStatus = () => {
+    if (isZeroCandidates) {
+      return '후보 추가하기';
+    } else if (showResults) {
+      return '다시 투표하기';
+    } else {
+      return '결과보기';
+    }
   };
 
   return (
@@ -75,19 +97,24 @@ const Vote = () => {
         }
       />
 
-      {voteInfo.candidates ? (
+      {isZeroCandidates ? (
+        <VoteContentEmpty />
+      ) : (
         <VoteContent
           data={voteInfo}
           onBottomSlideOpen={BottomSlideOpen}
           isZeroCandidates={isZeroCandidates}
           showResults={voteInfo.voteStatus === '결정완료' ? true : showResults}
         />
-      ) : (
-        <VoteContentEmpty />
       )}
-      {!isCandidateSelecting && voteInfo.voteStatus === '진행 중' && (
-        <Button variant='CTAButton' onClick={handleShowResultsClick} isDisabled={allCandidatesNotVoted}>
-          {showResults ? '다시 투표하기' : '결과보기'}
+      {!isCandidateSelecting && voteInfo.voteStatus === 'VOTING' && (
+        <Button
+          variant='CTAButton'
+          onClick={handleShowResultsClick}
+          isDisabled={!isZeroCandidates && allCandidatesNotVoted}
+        >
+          {getButtonStatus()}
+          {/* {showResults ? '다시 투표하기' : '결과보기'} */}
         </Button>
       )}
       <BottomSlide isOpen={isBTOpen} onClose={() => setIsBTOpen(false)} children={bottomSlideContent} />

@@ -5,13 +5,12 @@ import {
   EditVoteTitleProps,
   PostNewCandidateProps,
   PostVoteTitleProps,
-  VoteInfo,
 } from '@/types/vote';
 
 /* ----------------------------------- G E T ---------------------------------- */
 
 //단일 보트
-export const getVoteInfo = async (voteId: number): Promise<VoteInfo> => {
+export const getVoteInfo = async (voteId: number) => {
   const response = await axios.get(`/api/votes/${voteId}`, {withCredentials: true});
   return response.data;
 };
@@ -29,9 +28,9 @@ export const getVoteListInfo = async (spaceId: number) => {
 //vote 추가
 export const postNewVote = async ({spaceId, title}: PostVoteTitleProps) => {
   try {
-    const response = await axios.post('/api/votes', {spaceId, title, withCredentials: true});
-    console.log('axios 포스트 성공', response);
-    return response;
+    const response = await axios.post('/api/votes', {spaceId, title});
+    console.log('axios 포스트 성공', response.data);
+    return response.data;
   } catch (error) {
     console.error(error);
   }
