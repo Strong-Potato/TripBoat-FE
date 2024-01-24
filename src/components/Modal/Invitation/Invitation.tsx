@@ -4,6 +4,8 @@ import {useRecoilState} from 'recoil';
 
 import styles from './Invitation.module.scss';
 
+import {useGetMyInfo} from '@/hooks/User/useUser';
+
 import {postJoin} from '@/api/invite';
 import {isFullMember} from '@/recoil/fullmember/fullmember';
 import {parseInviteCode} from '@/utils/parseInviteCode';
@@ -12,9 +14,10 @@ import FullMembers from '../FullMembers/FullMembers';
 
 import {InvitationProps} from '@/types/Invitation';
 
-function Invitation({inviteCode, isLogin, modal}: InvitationProps) {
+function Invitation({inviteCode, modal}: InvitationProps) {
   const [isFull, setIsFull] = useRecoilState(isFullMember);
   const [, , removeCookie] = useCookies(['join_space_token']);
+  const {data} = useGetMyInfo(true);
   const navigate = useNavigate();
   const parsedInviteCode = parseInviteCode(inviteCode);
 
@@ -68,7 +71,7 @@ function Invitation({inviteCode, isLogin, modal}: InvitationProps) {
             </div>
           </div>
         </>
-      ) : isLogin ? (
+      ) : data?.status === 200 ? (
         <div className={styles.background} onClick={handleBackgroundClick}>
           <div className={styles.container} onClick={handleModalClick}>
             <div className={styles.wrapperText}>
@@ -128,5 +131,3 @@ function Invitation({inviteCode, isLogin, modal}: InvitationProps) {
 }
 
 export default Invitation;
-
-///////////status :400, SPACE_MAX_COUNT_OVER, 여행스페이스 생성 최대 개수를 초과하셨습니다.
