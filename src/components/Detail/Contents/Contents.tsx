@@ -13,9 +13,13 @@ import {placeInfoDataPlace} from '@/types/detail';
 interface ContentsProps {
   data: placeInfoDataPlace;
   onOpen: () => void;
+  reviewsRating: {
+    rating: number;
+    userRatingCount: number;
+  };
 }
 
-function Contents({data, onOpen}: ContentsProps) {
+function Contents({data, onOpen, reviewsRating}: ContentsProps) {
   const [tabIndex, setTabIndex] = useRecoilState(TabIndexState);
   const setTabPosition = useSetRecoilState(TabYPosition);
 
@@ -58,10 +62,10 @@ function Contents({data, onOpen}: ContentsProps) {
 
       <TabPanels>
         <TabPanel padding='0'>
-          <Information onOpen={onOpen} data={data} />
+          <Information onOpen={onOpen} data={data} reviewsRating={reviewsRating} />
         </TabPanel>
         <TabPanel padding='0'>
-          <Reviews onOpen={onOpen} />
+          <Reviews onOpen={onOpen} reviewsRating={reviewsRating} />
         </TabPanel>
       </TabPanels>
     </Tabs>

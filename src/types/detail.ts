@@ -42,10 +42,18 @@ export interface NavigationMeatballProps {
 
 export interface ContentsShortReviewsProps {
   onOpen: () => void;
+  reviewsRating: {
+    rating: number;
+    userRatingCount: number;
+  };
 }
 
 export interface ContentsReviewsProps {
   onOpen: () => void;
+  reviewsRating: {
+    rating: number;
+    userRatingCount: number;
+  };
 }
 
 export interface ReviewBottomSlideProps {
@@ -156,4 +164,33 @@ export interface PlacesNearby {
       rating: number;
     }[];
   };
+}
+
+// spaces/city
+
+export interface MySpaces {
+  status: number;
+  message: string;
+  data: {
+    spaces: {
+      id: number;
+      title: string;
+      startDate: string;
+      endDate: string;
+      dueDate: number;
+    }[];
+    pageNumber: number;
+    pageSize: number;
+    totalPages: number;
+    totalResult: number;
+    first: boolean;
+    last: boolean;
+  };
+}
+
+// wishes
+
+export interface Wishes {
+  placeId: number;
+  contentTypeId: number;
 }

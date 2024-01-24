@@ -15,9 +15,10 @@ import MeatballBottomSlide from '@/components/Detail/Navigation/MeatballBottomSl
 import Navigation from '@/components/Detail/Navigation/Navigation';
 
 import {modalContentState} from '@/recoil/vote/alertModal';
-import {useGetPlaceInfo} from '@/hooks/Detail/useGetPlaceInfo';
+
 import {useParams} from 'react-router-dom';
-import {useGetReviewsRating} from '@/hooks/Detail/useGetReviewsRating';
+import {useGetReviewsRating} from '@/hooks/Detail/useReviews';
+import {useGetPlaceInfo} from '@/hooks/Detail/usePlaces';
 
 function Detail() {
   const {isOpen, onOpen, onClose} = useDisclosure();
@@ -33,13 +34,11 @@ function Detail() {
     },
   } = useGetPlaceInfo(Number(params?.split(' ')[0]), Number(params?.split(' ')[1]));
 
-  // const {data: reviewsRating} = useGetReviewsRating(
-  //   Number(params?.split(' ')[0]),
-  //   Number(params?.split(' ')[1]),
-  //   placeInfo.title,
-  // );
+  const {
+    data: {data: reviewsRating},
+  } = useGetReviewsRating(Number(params?.split(' ')[0]), Number(params?.split(' ')[1]), placeInfo.title);
 
-  // console.log(reviewsRating);
+  console.log(reviewsRating);
 
   console.log(placeInfo);
 
@@ -65,9 +64,18 @@ function Detail() {
           )
         }
       />
-      <Main id={placeInfo.id} images={placeInfo.gallery} title={placeInfo.title} category={placeInfo.category} />
+      <Main
+        id={placeInfo.id}
+        contentTypeId={placeInfo.contentTypeId}
+        images={placeInfo.gallery}
+        title={placeInfo.title}
+        category={placeInfo.category}
+        rating={reviewsRating.rating}
+        reviewsCount={reviewsRating.userRatingCount}
+      />
       <Contents
         data={placeInfo}
+        reviewsRating={reviewsRating}
         onOpen={() => onBottomSlideOpen(<ReviewBottomSlide slideOnClose={handleSlideOnClose} />, true)}
       />
       <BottomFixedBtn

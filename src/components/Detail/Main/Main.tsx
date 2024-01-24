@@ -5,16 +5,26 @@ import Title from './Title/Title';
 
 interface MainProps {
   id: number;
+  contentTypeId: number;
   images: string[];
   title: string;
   category: string;
+  rating: number;
+  reviewsCount: number;
 }
 
-function Main({id, images, title, category}: MainProps) {
+function Main({id, contentTypeId, images, title, category, rating, reviewsCount}: MainProps) {
   return (
     <div className={styles.container}>
       <ImageSwiper images={images} />
-      <Title id={id} title={title} category={category} />
+      <Title
+        id={id}
+        contentTypeId={contentTypeId}
+        title={title}
+        category={category}
+        rating={rating}
+        reviewsCount={reviewsCount}
+      />
     </div>
   );
 }

@@ -6,9 +6,13 @@ import ShortReviews from './ShortReveiws/ShortReviews';
 export interface InformationProps {
   data: placeInfoDataPlace;
   onOpen: () => void;
+  reviewsRating: {
+    rating: number;
+    userRatingCount: number;
+  };
 }
 
-function Information({data, onOpen}: InformationProps) {
+function Information({data, onOpen, reviewsRating}: InformationProps) {
   return (
     <div>
       <BasicInformation
@@ -18,7 +22,7 @@ function Information({data, onOpen}: InformationProps) {
         thumbnail={data.thumbnail}
         contentTypeId={data.contentTypeId}
       />
-      <ShortReviews onOpen={onOpen} />
+      <ShortReviews onOpen={onOpen} reviewsRating={reviewsRating} />
       <Others data={data} />
     </div>
   );

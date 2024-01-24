@@ -1,5 +1,13 @@
 import {getPlacesNearby} from '@/api/detail';
 import {useSuspenseQuery} from '@tanstack/react-query';
+import {getPlaceInfo} from '@/api/detail';
+
+export const useGetPlaceInfo = (id: number, typeId: number) => {
+  return useSuspenseQuery({
+    queryKey: ['place', id, typeId],
+    queryFn: () => getPlaceInfo(id, typeId),
+  });
+};
 
 export const useGetPlacesNearby = (
   page: number,

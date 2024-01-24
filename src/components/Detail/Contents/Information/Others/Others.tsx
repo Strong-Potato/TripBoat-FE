@@ -7,7 +7,7 @@ import useComponentSize from '@/hooks/useComponetSize';
 import SlideButton from '@/components/SlideButton/SlideButton';
 
 import OtherCard from './OtherCard/OtherCard';
-import {useGetPlacesNearby} from '@/hooks/Detail/useGetPlacesNearby';
+import {useGetPlacesNearby} from '@/hooks/Detail/usePlaces';
 import {placeInfoDataPlace} from '@/types/detail';
 
 interface OthersProps {
@@ -23,7 +23,7 @@ function Others({data}: OthersProps) {
       data: {places: othersData},
     },
   } = useGetPlacesNearby(
-    1,
+    0,
     5,
     data.location.areaCode,
     data.location.sigunguCode,

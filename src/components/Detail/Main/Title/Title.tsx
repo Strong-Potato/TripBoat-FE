@@ -10,20 +10,25 @@ import CustomToast from '@/components/CustomToast/CustomToast';
 
 import {IsHeartValued, IsLoginState} from '@/recoil/detail/detail';
 import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
-import {useGetIsWish} from '@/hooks/Detail/useGetIsWish';
+import {useGetIsWish, usePostWishes} from '@/hooks/Detail/useWish';
+import {Cookies} from 'react-cookie';
 
 interface TitleProps {
   id: number;
+  contentTypeId: number;
   title: string;
   category: string;
+  rating: number;
+  reviewsCount: number;
 }
 
-function Title({id, title, category}: TitleProps) {
+function Title({id, contentTypeId, title, category, rating, reviewsCount}: TitleProps) {
   const [isWish, setIsWish] = useRecoilState(IsHeartValued);
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
 
   useGetIsWish(id, setIsWish);
+  const postWishes = usePostWishes();
 
   const isLogin = useRecoilValue(IsLoginState);
 
@@ -46,6 +51,7 @@ function Title({id, title, category}: TitleProps) {
     if (isLogin) {
       if (!isWish) {
         showToast('찜 목록에 저장되었습니다.');
+        postWishes.mutate({placeId: id, contentTypeId: contentTypeId});
       }
       setIsWish(!isWish);
     } else {
@@ -59,8 +65,8 @@ function Title({id, title, category}: TitleProps) {
       <p className={styles.container__category}>{category}</p>
       <div className={styles.container__alignCenter}>
         <GoStarFill className={styles.container__alignCenter__star} />
-        <span className={styles.container__alignCenter__point}>5.0</span>
-        <span className={styles.container__alignCenter__reviewsCount}>(13,052)</span>
+        <span className={styles.container__alignCenter__point}>{rating}</span>
+        <span className={styles.container__alignCenter__reviewsCount}>{`(${reviewsCount})`}</span>
       </div>
       <div className={styles.container__positionAbsoluteIcons}>
         {isWish ? (
