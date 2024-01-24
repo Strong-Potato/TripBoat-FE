@@ -3,6 +3,8 @@
 .container {
   width: 32px;
   height: 32px;
+
+  border: 2px solid #fff;
   border-radius: 50%;
   background-color: $secondary400;
   display: flex;
