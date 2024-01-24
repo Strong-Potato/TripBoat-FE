@@ -1,4 +1,4 @@
-import {MySpaces, PlacesNearby, ReviewsRating, Wishes, placeInfoData} from '@/types/detail';
+import {MySpaces, PlacesNearby, Reviews, ReviewsRating, Wishes, placeInfoData} from '@/types/detail';
 import axios from 'axios';
 
 // --------------------------- GET ---------------------------
@@ -12,8 +12,15 @@ export const getPlaceInfo = async (id: number, typeId: number): Promise<placeInf
 };
 
 export const getReviewsRating = async (id: number, typeId: number, title: string): Promise<ReviewsRating> => {
-  console.log(id, typeId, title);
   const response = await axios.get('/api/reviews/rating', {
+    params: {placeId: id, contentTypeId: typeId, placeTitle: title},
+  });
+
+  return response.data;
+};
+
+export const getReviews = async (id: number, typeId: number, title: string): Promise<Reviews> => {
+  const response = await axios.get('/api/reviews', {
     params: {placeId: id, contentTypeId: typeId, placeTitle: title},
   });
 

@@ -32,7 +32,7 @@ function Others({data}: OthersProps) {
     data.category,
   );
 
-  console.log(othersData);
+  console.log(othersData, '23');
 
   return (
     <div className={styles.container}>
@@ -70,6 +70,8 @@ function Others({data}: OthersProps) {
               name={data.title}
               category={data.category}
               point={data.rating}
+              id={data.id}
+              contentTypeId={data.contentTypeId}
               key={data.id}
             />
           ))}

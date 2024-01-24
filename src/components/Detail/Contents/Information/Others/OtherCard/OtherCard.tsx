@@ -3,10 +3,11 @@ import {GoStarFill} from 'react-icons/go';
 import styles from './OtherCard.module.scss';
 
 import {OtherCardPropsType} from '@/types/detail';
+import {Link} from 'react-router-dom';
 
-function OtherCard({image, name, category, point}: OtherCardPropsType) {
+function OtherCard({image, name, category, point, id, contentTypeId}: OtherCardPropsType) {
   return (
-    <div className={styles.container}>
+    <Link className={styles.container} to={`/detail/${id} ${contentTypeId}`}>
       <div className={styles.container__image}>
         <img src={image} alt='#' />
       </div>
@@ -18,7 +19,7 @@ function OtherCard({image, name, category, point}: OtherCardPropsType) {
           <span className={styles.container__contents__reviews__point}>{point}</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

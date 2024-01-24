@@ -10,9 +10,18 @@ export interface InformationProps {
     rating: number;
     userRatingCount: number;
   };
+  reviews: {
+    content: string;
+    images: string[];
+    isGoogle: boolean;
+    nickname: string;
+    profileImage: string;
+    rating: number;
+    visitedAt: string;
+  }[];
 }
 
-function Information({data, onOpen, reviewsRating}: InformationProps) {
+function Information({data, onOpen, reviewsRating, reviews}: InformationProps) {
   return (
     <div>
       <BasicInformation
@@ -22,7 +31,7 @@ function Information({data, onOpen, reviewsRating}: InformationProps) {
         thumbnail={data.thumbnail}
         contentTypeId={data.contentTypeId}
       />
-      <ShortReviews onOpen={onOpen} reviewsRating={reviewsRating} />
+      <ShortReviews onOpen={onOpen} reviewsRating={reviewsRating} reviews={reviews} />
       <Others data={data} />
     </div>
   );

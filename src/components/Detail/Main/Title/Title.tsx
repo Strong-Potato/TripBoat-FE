@@ -11,7 +11,6 @@ import CustomToast from '@/components/CustomToast/CustomToast';
 import {IsHeartValued, IsLoginState} from '@/recoil/detail/detail';
 import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
 import {useGetIsWish, usePostWishes} from '@/hooks/Detail/useWish';
-import {Cookies} from 'react-cookie';
 
 interface TitleProps {
   id: number;

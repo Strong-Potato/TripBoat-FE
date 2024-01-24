@@ -5,15 +5,18 @@ export interface OtherCardPropsType {
   name: string;
   category: string;
   point: number;
+  id: number;
+  contentTypeId: number;
 }
 
 export interface ReviewPropsTypes {
   name: string;
   isGoogle: boolean;
-  point: string;
+  rating: number;
   visitedAt: string;
   content: string;
   images: string[] | undefined;
+  profileImage: string;
 }
 
 export interface SwiperButtonPropsType {
@@ -46,6 +49,15 @@ export interface ContentsShortReviewsProps {
     rating: number;
     userRatingCount: number;
   };
+  reviews: {
+    content: string;
+    images: string[];
+    isGoogle: boolean;
+    nickname: string;
+    profileImage: string;
+    rating: number;
+    visitedAt: string;
+  }[];
 }
 
 export interface ContentsReviewsProps {
@@ -54,6 +66,15 @@ export interface ContentsReviewsProps {
     rating: number;
     userRatingCount: number;
   };
+  reviews: {
+    content: string;
+    images: string[];
+    isGoogle: boolean;
+    nickname: string;
+    profileImage: string;
+    rating: number;
+    visitedAt: string;
+  }[];
 }
 
 export interface ReviewBottomSlideProps {
@@ -144,6 +165,23 @@ export interface ReviewsRating {
   data: {
     rating: number;
     userRatingCount: number;
+  };
+}
+
+//reviews
+export interface Reviews {
+  status: number;
+  message: string;
+  data: {
+    reviews: {
+      content: string;
+      images: string[];
+      isGoogle: boolean;
+      nickname: string;
+      profileImage: string;
+      rating: number;
+      visitedAt: string;
+    }[];
   };
 }
 

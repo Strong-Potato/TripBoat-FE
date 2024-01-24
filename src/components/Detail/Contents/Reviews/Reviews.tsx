@@ -11,7 +11,7 @@ import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
 
 import {ContentsReviewsProps} from '@/types/detail';
 // 무한 스크롤 구현 필요
-function Reviews({onOpen, reviewsRating}: ContentsReviewsProps) {
+function Reviews({onOpen, reviewsRating, reviews}: ContentsReviewsProps) {
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
   const isLogin = useRecoilValue(IsLoginState);
@@ -28,104 +28,6 @@ function Reviews({onOpen, reviewsRating}: ContentsReviewsProps) {
     setIsModalOpen(true);
     setModalContent({...notLoginContent});
   };
-
-  const reviewData = [
-    {
-      name: '강자밭',
-      isGoogle: false,
-      point: '5.0',
-      visitedAt: '2024년 1월 방문',
-      content: '아주 좋아요. 자주 다니고 있어요. 친구들이랑 저녁에 운동하기 좋아요 다음에 또 가고 싶네요',
-      images: [
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-      ],
-    },
-    {
-      name: '강자밭',
-      isGoogle: false,
-      point: '5.0',
-      visitedAt: '2024년 1월 방문',
-      content: '아주 좋아요. 자주 다니고 있어요. 친구들이랑 저녁에 운동하기 좋아요 다음에 또 가고 싶네요 아주 좋아요',
-    },
-    {
-      name: '강자밭',
-      isGoogle: false,
-      point: '5.0',
-      visitedAt: '2024년 1월 방문',
-      content: '아주 좋아요. 자주 다니고 있어요. 친구들이랑 저녁에 운동하기 좋아요 다음에 또 가고 싶네요',
-      images: [
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-      ],
-    },
-    {
-      name: '강자밭',
-      isGoogle: false,
-      point: '5.0',
-      visitedAt: '2024년 1월 방문',
-      content: '아주 좋아요. 자주 다니고 있어요. 친구들이랑 저녁에 운동하기 좋아요 다음에 또 가고 싶네요 아주 좋아요',
-    },
-    {
-      name: '강자밭',
-      isGoogle: false,
-      point: '5.0',
-      visitedAt: '2024년 1월 방문',
-      content: '아주 좋아요. 자주 다니고 있어요. 친구들이랑 저녁에 운동하기 좋아요 다음에 또 가고 싶네요',
-      images: [
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-      ],
-    },
-    {
-      name: '강자밭',
-      isGoogle: false,
-      point: '5.0',
-      visitedAt: '2024년 1월 방문',
-      content: '아주 좋아요. 자주 다니고 있어요. 친구들이랑 저녁에 운동하기 좋아요 다음에 또 가고 싶네요 아주 좋아요',
-    },
-    {
-      name: '강자밭',
-      isGoogle: false,
-      point: '5.0',
-      visitedAt: '2024년 1월 방문',
-      content: '아주 좋아요. 자주 다니고 있어요. 친구들이랑 저녁에 운동하기 좋아요 다음에 또 가고 싶네요',
-      images: [
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-        'https://m.eejmall.com/web/product/big/201708/211_shop1_627935.jpg',
-        'https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg',
-      ],
-    },
-    {
-      name: '강자밭',
-      isGoogle: false,
-      point: '5.0',
-      visitedAt: '2024년 1월 방문',
-      content: '아주 좋아요. 자주 다니고 있어요. 친구들이랑 저녁에 운동하기 좋아요 다음에 또 가고 싶네요 아주 좋아요',
-    },
-  ];
 
   return (
     <div className={styles.container}>
@@ -151,11 +53,13 @@ function Reviews({onOpen, reviewsRating}: ContentsReviewsProps) {
         <span className={styles.container__pointBox__reviewsCount}>{`(${reviewsRating.userRatingCount})`}</span>
       </div>
       <div className={styles.container__reviewsBox}>
-        {reviewData.map((data) => (
+        {reviews.map((data, i) => (
           <Review
-            name={data.name}
+            key={`review_${i}`}
+            profileImage={data.profileImage}
+            name={data.nickname}
             isGoogle={data.isGoogle}
-            point={data.point}
+            rating={data.rating}
             visitedAt={data.visitedAt}
             content={data.content}
             images={data.images}
