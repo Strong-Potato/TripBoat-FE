@@ -21,7 +21,7 @@ function Tab({forSearch, thisCategory, setCategoryChange}: PropsType) {
       setCategoryChange(false);
     }, 150);
     navigate(
-      `/home/search?keyword=${forSearch.keyword}&category=${key}&map=${forSearch.map}&location=${forSearch.location}&sort=${forSearch.sort}`,
+      `/home/search?keyword=${forSearch.keyword}&category=${key}&map=${forSearch.map}&location=${forSearch.location}&sort=${forSearch.sort}&hot=${forSearch.hot}`,
     );
   }
 

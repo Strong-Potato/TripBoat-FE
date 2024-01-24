@@ -5,7 +5,13 @@ export type InvitationProps = {
 };
 
 export interface InviteCode {
-  RESULT: string;
-  PUBLISHER: string;
-  ID: string;
+  exp: number;
+  iat: number;
+  iss: string;
+  purpose: string;
+  space_id: number;
+}
+
+export interface InviteCodeRequestParams {
+  spaceId: string;
 }

@@ -1,10 +1,20 @@
+import {useDisclosure} from '@chakra-ui/react';
+import {useEffect, useState} from 'react';
+import {HiOutlineTrash as DeleteIcon} from 'react-icons/hi';
+import {RiArrowUpDownFill as MoveIcon} from 'react-icons/ri';
 import {useNavigate} from 'react-router-dom';
+import {useSetRecoilState} from 'recoil';
 
 import styles from './RouteTabPanel.module.scss';
 
+import AlertModal from '@/components/AlertModal/AlertModal';
+import BottomSlideLeft from '@/components/BottomSlide/BottomSlideLeft';
+
 import ZoomInIcon from '@/assets/icons/zoomIn.svg?react';
+import {isModalOpenState} from '@/recoil/vote/alertModal';
 import {getSpaceId} from '@/utils/getSpaceId';
 
+import DayMove from '../DayMove/DayMove';
 import DayNavigationBar from '../DayNavigationBar/DayNavigationBar';
 import DayRoute from '../DayRoute/DayRoute';
 import EmptyDate from '../EmptyDate/EmptyDate';
@@ -105,6 +115,33 @@ function RouteTabPanel({mapRef, center}: MapInTripProps) {
     ],
   };
 
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [selectedPlaces, setSelectedPlaces] = useState<string[]>([]);
+  const {isOpen, onOpen, onClose} = useDisclosure();
+  const setIsModalOpen = useSetRecoilState(isModalOpenState);
+
+  const handleEditMode = () => {
+    setIsEditMode(!isEditMode);
+
+    // TODO: 완료 버튼 눌렀을 때 처리
+  };
+
+  const handlePlaceSelection = (placeName: string) => {
+    if (selectedPlaces.includes(placeName)) {
+      setSelectedPlaces((prevSelectedPlaces) => prevSelectedPlaces.filter((place) => place !== placeName));
+    } else {
+      setSelectedPlaces((prevSelectedPlaces) => [...prevSelectedPlaces, placeName]);
+    }
+  };
+
+  const deletePlaces = (placeList: string[]) => {
+    console.log('삭제', placeList);
+  };
+
+  useEffect(() => {
+    console.log(selectedPlaces);
+  }, [selectedPlaces]);
+
   const navigate = useNavigate();
   const spaceId = getSpaceId();
 
@@ -120,19 +157,51 @@ function RouteTabPanel({mapRef, center}: MapInTripProps) {
     <div className={styles.panelContainer}>
       <div className={styles.mapContainer}>
         <MapInTrip mapRef={mapRef} center={center} />
+        <button className={styles.zoomInButton} onClick={() => navigate(`/trip/${spaceId}/map`)}>
+          <ZoomInIcon />
+        </button>
       </div>
-      <button className={styles.zoomInbutton} onClick={() => navigate(`/trip/${spaceId}/map`)}>
-        <ZoomInIcon />
-      </button>
       <div className={styles.routeContainer}>
-        <DayNavigationBar dateList={dateList} />
+        <DayNavigationBar dateList={dateList} editMode={isEditMode} handleEditMode={handleEditMode} />
         <div className={styles.journeysContainer}>
           {data.journeys &&
             data.journeys.map((journey, index) => (
-              <DayRoute key={index} day={index + 1} date={journey.date} placeList={journey.places} />
+              <DayRoute
+                key={index}
+                day={index + 1}
+                date={journey.date}
+                placeList={journey.places}
+                editMode={isEditMode}
+                selectedPlaces={selectedPlaces}
+                handlePlaceSelection={handlePlaceSelection}
+              />
             ))}
         </div>
       </div>
+      {isEditMode && (
+        <div className={selectedPlaces.length > 0 ? styles.activeBottomButtonContainer : styles.bottomButtonContainer}>
+          <button onClick={onOpen}>
+            <MoveIcon size='2rem' color='#FFFFFF' />
+            <span>날짜 이동</span>
+          </button>
+          <button onClick={() => setIsModalOpen(selectedPlaces.length > 0)}>
+            <DeleteIcon size='2rem' color='#FFFFFF' />
+            <span>삭제하기</span>
+          </button>
+        </div>
+      )}
+      <BottomSlideLeft
+        isOpen={selectedPlaces.length > 0 && isOpen}
+        onClose={onClose}
+        children={<DayMove selectedPlaces={selectedPlaces} />}
+      />
+
+      <AlertModal
+        title={'선택된 항목을 삭제하시겠습니까?'}
+        actionButton={'삭제하기'}
+        isSmallSize={true}
+        onClickAction={() => deletePlaces(selectedPlaces)}
+      />
     </div>
   );
 }

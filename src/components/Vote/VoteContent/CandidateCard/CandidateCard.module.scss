@@ -69,6 +69,7 @@
     // gap: 8px;
 
     &__name {
+      text-align: start;
       @include typography(titleSmall);
       color: $neutral900;
     }
@@ -108,5 +109,11 @@
     &__vote {
       @include typography(captionSmall);
     }
+  }
+}
+
+.isCandidateSelecting {
+  * {
+    color: $neutral300;
   }
 }

@@ -1,30 +1,28 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from 'react';
 
-import styles from "./InviteFriends.module.scss";
+import styles from './InviteFriends.module.scss';
 
-import { inviteCodeRequest } from "@/hooks/Invite/useInviteCode";
-import useKakaoShareButton from "@/hooks/useKakaoShareButton";
-import { useGetMyInfo } from "@/hooks/User/useUser";
+import useKakaoShareButton from '@/hooks/useKakaoShareButton';
 
-import CopyClipboard from "@/components/Modal/CopyClipboard/CopyClipboard";
+import CopyClipboard from '@/components/Modal/CopyClipboard/CopyClipboard';
 
-import InviteKakao from "@/assets/inviteKakao.svg?react";
-import InviteLink from "@/assets/inviteLink.svg?react";
-import InviteLogo from "@/assets/InviteLogo.svg?react";
+import {postJoinSpaces} from '@/api/invite';
+import InviteKakao from '@/assets/invite/inviteKakao.svg?react';
+import InviteLink from '@/assets/invite/inviteLink.svg?react';
+import InviteLogo from '@/assets/invite/InviteLogo.svg?react';
 
-import { InviteFriendsProps } from "@/types/inviteFriends";
+import {InviteFriendsProps} from '@/types/inviteFriends';
 
-function InviteFriends({ isOpen }: InviteFriendsProps) {
+function InviteFriends({isOpen}: InviteFriendsProps) {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [code, setCode] = useState("");
-  const spaceId = window.location.pathname.split("/");
-  const { data: myInfo } = useGetMyInfo(isOpen);
+  const [code, setCode] = useState('');
+  const spaceId = window.location.pathname.split('/');
 
   useEffect(() => {
     const fetchInviteCode = async () => {
-      if (myInfo && isOpen) {
+      if (isOpen) {
         try {
-          const response = await inviteCodeRequest(myInfo.nickname, spaceId[2]);
+          const response = await postJoinSpaces({spaceId: spaceId[2]});
           setCode(response.code);
         } catch (error) {
           console.error(error);
@@ -33,12 +31,10 @@ function InviteFriends({ isOpen }: InviteFriendsProps) {
     };
 
     fetchInviteCode();
-  }, [myInfo, isOpen]);
+  }, [isOpen]);
 
   const handleCopyClick = (code: string) => () => {
-    navigator.clipboard.writeText(
-      `https://api.tripvote.site/members/join/spaces/${code}`,
-    );
+    navigator.clipboard.writeText(`https://api.tripvote.site/auth/join/spaces/${spaceId[2]}/token?&code=${code}`);
     setIsModalVisible(true);
     setTimeout(() => {
       setIsModalVisible(false);
@@ -50,9 +46,7 @@ function InviteFriends({ isOpen }: InviteFriendsProps) {
       <div className={styles.container}>
         <InviteLogo className={styles.container__invitelogo} />
         <div className={styles.container__wrapperText}>
-          <p className={styles.container__wrapperText__invitetext}>
-            친구를 초대해보세요
-          </p>
+          <p className={styles.container__wrapperText__invitetext}>친구를 초대해보세요</p>
           <p className={styles.container__wrapperText__invitedescription}>
             함께 여행 갈 친구나 가족을 초대해보세요
             <br />
@@ -60,7 +54,7 @@ function InviteFriends({ isOpen }: InviteFriendsProps) {
           </p>
         </div>
         <div className={styles.container__wrapperButton}>
-          <button onClick={useKakaoShareButton(code)} id="kakaoShareButton">
+          <button onClick={useKakaoShareButton(code, spaceId[2])}>
             <InviteKakao />
             <p className={styles.container__a11y}>카카오톡 초대</p>
           </button>

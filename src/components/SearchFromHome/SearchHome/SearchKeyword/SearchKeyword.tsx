@@ -1,4 +1,5 @@
-import {useEffect, useState} from 'react';
+import axios from 'axios';
+import {Dispatch, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import styles from './SearchKeyword.module.scss';
@@ -7,21 +8,26 @@ import useComponentSize from '@/hooks/useComponetSize';
 
 import SlideButton from '@/components/SlideButton/SlideButton';
 
-import {getData} from '@/mocks/handlers/home';
+import {Keywords, SearchDataType, SearchKeywordType} from '@/types/home';
 
-interface Propstype {
-  setKeywordClick: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function SearchKeyword({setKeywordClick}: Propstype) {
-  const [data, setData] = useState<{name: string; code: string}[] | undefined>();
+function SearchKeyword() {
+  const [data, setData] = useState<SearchKeywordType[] | undefined>();
   const [listWidth, setListWidth] = useState<number>(0);
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
   const navigate = useNavigate();
 
   useEffect(() => {
-    getData<{name: string; code: string}[] | undefined>('api/places/popular/keywords', setData);
+    async function getData(apiURL: string, set: Dispatch<SearchKeywordType[] | undefined>) {
+      try {
+        const fetchData = await axios.get(`${apiURL}`);
+        const data: SearchDataType<Keywords> = fetchData.data;
+        set(data.data.keywords);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getData('/api/places/popular/keywords', setData);
   }, []);
 
   // 각 키워드의 너비를 모두 더한 값을 구함
@@ -66,11 +72,9 @@ function SearchKeyword({setKeywordClick}: Propstype) {
             <p
               key={keyword.name + i}
               onClick={() => {
-                setKeywordClick(true);
-                setTimeout(() => {
-                  setKeywordClick(false);
-                }, 2000);
-                navigate(`/home/search?keyword=${keyword.name}&category=0&map=false&location=전국&sort=등록순`);
+                navigate(
+                  `/home/search?keyword=${keyword.name}&category=0&map=false&location=전국&sort=등록순&hot=true`,
+                );
               }}
             >
               {keyword.name}
