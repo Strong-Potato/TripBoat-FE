@@ -1,4 +1,4 @@
-import {useMutation, useQueryClient, useSuspenseQuery} from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient, useSuspenseQuery} from '@tanstack/react-query';
 
 import {deleteCandidates, deleteVote, editVoteTitle, getVoteInfo, getVoteListInfo, postNewVote} from '@/api/vote';
 
@@ -9,14 +9,16 @@ export const useGetVotesInfo = (voteId: number) => {
   return useSuspenseQuery({
     queryKey: ['vote', voteId],
     queryFn: () => getVoteInfo(voteId),
+    retry: false,
   });
 };
 
 //보트 리스트 GET
 export const useGetVoteListInfo = (spaceId: number) => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ['votes', spaceId],
     queryFn: () => getVoteListInfo(spaceId),
+    retry: false,
   });
 };
 
@@ -34,6 +36,7 @@ export const useCustomMutation = <TData = unknown, TError = unknown, TVariables 
     onError: (error: TError) => {
       console.error('Mutation error:', error);
     },
+    retry: false,
   });
 };
 

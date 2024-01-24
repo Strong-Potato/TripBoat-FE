@@ -6,20 +6,19 @@ import {
   PostNewCandidateProps,
   PostVoteTitleProps,
   VoteInfo,
-  VoteListInfo,
 } from '@/types/vote';
 
 /* ----------------------------------- G E T ---------------------------------- */
 
 //단일 보트
 export const getVoteInfo = async (voteId: number): Promise<VoteInfo> => {
-  const response = await axios.get(`/api/votes/${voteId}`);
+  const response = await axios.get(`/api/votes/${voteId}`, {withCredentials: true});
   return response.data;
 };
 
 //보트 리스트
-export const getVoteListInfo = async (spaceId: number): Promise<VoteListInfo[]> => {
-  const response = await axios.get(`/api/votes`, {params: {spaceId, voteStatusOption: 'ALL'}});
+export const getVoteListInfo = async (spaceId: number) => {
+  const response = await axios.get(`/api/votes`, {params: {spaceId, voteStatusOption: 'ALL', withCredentials: true}});
   return response.data;
 };
 
@@ -30,7 +29,7 @@ export const getVoteListInfo = async (spaceId: number): Promise<VoteListInfo[]> 
 //vote 추가
 export const postNewVote = async ({spaceId, title}: PostVoteTitleProps) => {
   try {
-    const response = await axios.post('/api/votes', {spaceId, title});
+    const response = await axios.post('/api/votes', {spaceId, title, withCredentials: true});
     console.log('axios 포스트 성공', response);
     return response;
   } catch (error) {
@@ -40,7 +39,7 @@ export const postNewVote = async ({spaceId, title}: PostVoteTitleProps) => {
 
 //후보 메모 후 추가
 export const postNewCandidate = async ({voteId, candidates}: PostNewCandidateProps) => {
-  const response = await axios.post(`/api/votes/${voteId}`, {params: candidates});
+  const response = await axios.post(`/api/votes/${voteId}`, {params: {candidates, withCredentials: true}});
   return response.data;
 };
 
@@ -49,7 +48,7 @@ export const postNewCandidate = async ({voteId, candidates}: PostNewCandidatePro
 //voteTitle 수정 PUT - api미정
 export const editVoteTitle = async ({title, voteId}: EditVoteTitleProps) => {
   try {
-    const response = await axios.put(`/api/votes/${voteId}`, {params: title});
+    const response = await axios.put(`/api/votes/${voteId}`, {params: {title, withCredentials: true}});
     return response.data;
   } catch (error) {
     console.error(error);
@@ -61,7 +60,7 @@ export const editVoteTitle = async ({title, voteId}: EditVoteTitleProps) => {
 //votes/{voteId} vote 삭제
 export const deleteVote = async (voteId: number) => {
   try {
-    const response = await axios.delete(`/api/votes/${voteId}`);
+    const response = await axios.delete(`/api/votes/${voteId}`, {withCredentials: true});
     return response.data;
   } catch (error) {
     console.error(error);
@@ -72,7 +71,7 @@ export const deleteVote = async (voteId: number) => {
 //candidate 삭제- api 미정 / candidateId:number[] 여러아이디 배열에 담음
 export const deleteCandidates = async ({voteId, candidateId}: DeleteCandidatesProps) => {
   try {
-    const response = await axios.delete(`/api/votes/${voteId}/candidates/${candidateId}`);
+    const response = await axios.delete(`/api/votes/${voteId}/candidates/${candidateId}`, {withCredentials: true});
     return response.data;
   } catch (error) {
     console.error(error);
