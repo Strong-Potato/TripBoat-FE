@@ -1,46 +1,27 @@
-import { Avatar } from "@chakra-ui/react";
-import { GoStarFill } from "react-icons/go";
+import {GoStarFill} from 'react-icons/go';
+import GoogleIcon from '@/assets/ic_google.svg?react';
 
-import styles from "./Review.module.scss";
+import styles from './Review.module.scss';
 
-import ReviewImageSlider from "./ReviewImageSlider/ReviewImageSlider";
+import ReviewImageSlider from './ReviewImageSlider/ReviewImageSlider';
 
-import { ReviewPropsTypes } from "@/types/detail";
+import {ReviewPropsTypes} from '@/types/detail';
 
-function Review({
-  name,
-  isGoogle = false,
-  point,
-  visitedAt,
-  content,
-  images,
-}: ReviewPropsTypes) {
+function Review({name, isGoogle, rating, visitedAt, content, images, profileImage}: ReviewPropsTypes) {
   return (
     <div className={styles.container}>
-      <div>
-        <Avatar
-          size="sm"
-          name="Dan Abrahmov"
-          src="https://bit.ly/dan-abramov"
-        />
+      <div className={styles.container__imgWrapper}>
+        <img src={profileImage} alt='#' referrerPolicy='no-referrer' />
       </div>
       <div className={styles.container__contentsBox}>
         <div className={styles.container__contentsBox__name}>
           <span>{name}</span>
-          {isGoogle && <span>구글</span>}
+          {isGoogle && <GoogleIcon className={styles.container__contentsBox__name__google} />}
         </div>
         <div className={styles.container__contentsBox__secondItems}>
-          <GoStarFill
-            className={styles.container__contentsBox__secondItems__star}
-          />
-          <span className={styles.container__contentsBox__secondItems__point}>
-            {point}
-          </span>
-          <span
-            className={styles.container__contentsBox__secondItems__visitedAt}
-          >
-            {visitedAt}
-          </span>
+          <GoStarFill className={styles.container__contentsBox__secondItems__star} />
+          <span className={styles.container__contentsBox__secondItems__point}>{rating}</span>
+          <span className={styles.container__contentsBox__secondItems__visitedAt}>{visitedAt}</span>
         </div>
         <div className={styles.container__contentsBox__content}>{content}</div>
         {images && <ReviewImageSlider images={images} />}
