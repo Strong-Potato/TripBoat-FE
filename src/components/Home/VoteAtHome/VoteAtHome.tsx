@@ -2,18 +2,18 @@ import {useEffect, useState} from 'react';
 
 import styles from './VoteAtHome.module.scss';
 
-import {getData} from '@/mocks/handlers/home';
+import {getHomeVote} from '@/api/home';
 
 import CardHaveVote from './VoteCard/CardHaveVote/CardHaveVote';
 import CardNull from './VoteCard/CardNull/CardNull';
 
-import {VoteDataType} from '@/types/home';
+import {Vote} from '@/types/home';
 
 function VoteAtHome() {
-  const [data, setData] = useState<VoteDataType[]>();
+  const [data, setData] = useState<Vote>();
 
   useEffect(() => {
-    getData<VoteDataType[] | undefined>(`/api/votes/notVoted`, setData);
+    getHomeVote(setData);
   }, []);
 
   return (
@@ -32,7 +32,7 @@ function VoteAtHome() {
         </p>
       )}
 
-      {data ? <CardHaveVote data={data} /> : <CardNull />}
+      {data && data?.voteResponse ? <CardHaveVote data={data} /> : <CardNull />}
     </div>
   );
 }

@@ -8,10 +8,10 @@ import useComponentSize from '@/hooks/useComponetSize';
 
 import SlideButton from '@/components/SlideButton/SlideButton';
 
-import {VoteDataType} from '@/types/home';
+import {Vote} from '@/types/home';
 
 interface PropsType {
-  data: VoteDataType[];
+  data: Vote;
 }
 
 function CardHaveVote({data}: PropsType) {
@@ -24,7 +24,7 @@ function CardHaveVote({data}: PropsType) {
         setSlideLocation={setSlideLocation}
         itemWidth={308}
         flexGap={8}
-        itemNumber={data.length}
+        itemNumber={data.voteResponse.length}
         slideSize={size}
       />
       <div
@@ -36,22 +36,25 @@ function CardHaveVote({data}: PropsType) {
         }}
       >
         {data &&
-          data.map((data, i) => {
-            const imageAlt = `${data.title}의 사진`;
+          data.voteResponse.map((data, i) => {
             return (
-              <div className={styles.vote_box} key={data.profile + i}>
+              <div className={styles.vote_box} key={data.voteId}>
                 <div className={styles.contents}>
                   <div className={styles.text_box}>
                     <p className={styles.vote_title}>
                       <span>{data.title}</span>
-                      <span>{data.date}</span>
+                      <span>{data.title}</span>
                     </p>
                     <p className={styles.discussion}>
-                      <img className={styles.profile} src={data.profile} alt={imageAlt}></img>
-                      <span>{data.discussion}</span>
+                      <img
+                        className={styles.profile}
+                        src={data.createdBy.profileImageUrl}
+                        alt={`${data.title}의 사진`}
+                      ></img>
+                      <span>{data.title}</span>
                     </p>
                   </div>
-                  <Link to={data.voteURL} className={styles.button_box}>
+                  <Link to={'/vote/1'} className={styles.button_box}>
                     <button>
                       투표하기
                       <p>

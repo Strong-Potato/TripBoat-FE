@@ -24,14 +24,21 @@ export interface VoteDataType {
   voteURL: string;
 }
 
+export interface TripSpaceMembers {
+  id: number;
+  nickname: string;
+  profile: string;
+}
+
 export interface TripSpaceData {
   id: number;
   title: string;
-  city: string;
   startDate: string;
   endDate: string;
-  dueDate: number;
+  city: string;
   thumbnail: string;
+  members: TripSpaceMembers[];
+  dueDate: number;
 }
 
 export interface TripSpace {
@@ -42,6 +49,30 @@ export interface TripSpace {
   totalResult: number;
   first: boolean;
   last: boolean;
+}
+
+export interface VoteMembers {
+  id: number;
+  nickName: string;
+  profileImageUrl: string;
+}
+
+export interface VoteCeo {
+  id: number;
+  nickName: string;
+  profileImageUrl: string;
+}
+
+export interface VoteData {
+  voteId: number;
+  title: string;
+  voteStatus: string;
+  createdBy: VoteCeo;
+  votedMemberProfiles: VoteMembers[];
+}
+
+export interface Vote {
+  voteResponse: VoteData[];
 }
 
 export interface LeftButtonPropsType {

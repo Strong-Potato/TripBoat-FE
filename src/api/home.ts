@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {Dispatch} from 'react';
 
-import {DataType, TripSpace, TripSpaceData} from '@/types/home';
+import {DataType, TripSpace, TripSpaceData, Vote} from '@/types/home';
 
 export async function getHomeTripSpace(set: Dispatch<React.SetStateAction<TripSpaceData[] | undefined>>) {
   try {
@@ -10,11 +10,27 @@ export async function getHomeTripSpace(set: Dispatch<React.SetStateAction<TripSp
         page: 0,
         size: 5,
       },
+      withCredentials: true,
     });
-    const data: DataType<TripSpace> = fetchData.data;
-    console.log(data);
+    if (fetchData.data) {
+      const data: DataType<TripSpace> = fetchData.data;
+      set(data?.data.spaces);
+    }
+    console.log(fetchData);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-    set(data?.data.spaces);
+export async function getHomeVote(set: Dispatch<React.SetStateAction<Vote | undefined>>) {
+  try {
+    const fetchData = await axios.get('/api/votes/notVoted', {
+      withCredentials: true,
+    });
+    if (fetchData.data) {
+      set(fetchData.data);
+    }
+    console.log(fetchData);
   } catch (error) {
     console.log(error);
   }
