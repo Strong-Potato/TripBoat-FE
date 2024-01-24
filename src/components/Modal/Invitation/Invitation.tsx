@@ -1,14 +1,19 @@
 import {useCookies} from 'react-cookie';
 import {useNavigate} from 'react-router-dom';
+import {useRecoilState} from 'recoil';
 
 import styles from './Invitation.module.scss';
 
 import {postJoin} from '@/api/invite';
+import {isFullMember} from '@/recoil/fullmember/fullmember';
 import {parseInviteCode} from '@/utils/parseInviteCode';
+
+import FullMembers from '../FullMembers/FullMembers';
 
 import {InvitationProps} from '@/types/Invitation';
 
 function Invitation({inviteCode, isLogin, modal}: InvitationProps) {
+  const [isFull, setIsFull] = useRecoilState(isFullMember);
   const [, , removeCookie] = useCookies(['join_space_token']);
   const navigate = useNavigate();
   const parsedInviteCode = parseInviteCode(inviteCode);
@@ -27,14 +32,16 @@ function Invitation({inviteCode, isLogin, modal}: InvitationProps) {
     if (response.status === 200) {
       removeCookie('join_space_token', {path: '/'});
       navigate(`/trip/${parsedInviteCode!.space_id}`);
-    } else {
+    } else if (response.status === 400) {
       removeCookie('join_space_token', {path: '/'});
       modal(false);
+      setIsFull(true);
     }
   };
 
   return (
     <>
+      {isFull && <FullMembers modal={setIsFull} />}
       {parsedInviteCode!.exp < Math.floor(new Date().getTime() / 1000) === true ? (
         <>
           <div className={styles.background} onClick={handleBackgroundClick}>
