@@ -1,14 +1,24 @@
-export interface User {
+export type GetUserProp = {
+  status: number;
+  message: string;
+  data: UserDatas;
+};
+
+export interface UserDatas {
   nickname: string;
   profile: string;
+  provider: string;
+  email: string;
 }
 
-export type TravelListItem = {
+export type Spaces = {
   title: string;
   startDate: string;
   endDate: string;
   id: number;
-  members: string;
+  city: string;
+  dueDate: number;
+  thumbnail: string;
 };
 
 export type SideBarProps = {
@@ -16,8 +26,14 @@ export type SideBarProps = {
   isSideOpen: boolean;
 };
 
-export type TravelListProps = {
-  data: TravelListItem[];
+export type GetUpcomingProp = {
+  status: number;
+  message: string;
+  data: Datas;
+};
+
+export type Datas = {
+  spaces: Spaces[];
 };
 
 export type spaceInfo = {

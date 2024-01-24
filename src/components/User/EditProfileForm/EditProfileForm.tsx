@@ -10,9 +10,9 @@ import InputImage from '@/components/Auth/Input/InputImage';
 import InputNickname from '@/components/Auth/Input/InputNickname';
 
 import {AuthForm} from '@/types/auth';
-import {UserInfo} from '@/types/user';
+import {GetUserProp} from '@/types/sidebar';
 
-function EditProfileForm({data}: {data: UserInfo | undefined}) {
+function EditProfileForm({data}: {data: GetUserProp | undefined}) {
   const {
     register,
     resetField,
@@ -23,7 +23,7 @@ function EditProfileForm({data}: {data: UserInfo | undefined}) {
     mode: 'onChange',
   });
   const watchFields = watch();
-  const [imageBlob, setImageBlob] = useState<string | undefined>(data?.profile);
+  const [imageBlob, setImageBlob] = useState<string | undefined>(data?.data.profile);
 
   const navigate = useNavigate();
 

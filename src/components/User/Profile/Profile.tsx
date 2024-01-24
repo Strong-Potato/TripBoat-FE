@@ -15,7 +15,7 @@ function Profile({data}: ProfileProps) {
       <div
         className={styles.image}
         style={{
-          backgroundImage: `${data?.profile ? `url(${data.profile})` : `url(${defaultImage})`}`,
+          backgroundImage: `${data?.data.profile ? `url(${data.data.profile})` : `url(${defaultImage})`}`,
         }}
       >
         <button
@@ -28,7 +28,7 @@ function Profile({data}: ProfileProps) {
         </button>
       </div>
 
-      <div className={styles.userName}>{data?.nickname}</div>
+      <div className={styles.userName}>{data?.data.nickname}</div>
     </section>
   );
 }
