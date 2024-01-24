@@ -55,7 +55,7 @@ function SearchList({forSearch}: PropsType) {
 
   function onMap() {
     navigate(
-      `/home/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=true&location=${forSearch.location}&sort=${forSearch.sort}&hot=${forSearch.hot}`,
+      `/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=true&location=${forSearch.location}&sort=${forSearch.sort}&hot=${forSearch.hot}`,
     );
   }
 

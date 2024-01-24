@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 
 import styles from './SearchBar.module.scss';
 
@@ -20,6 +20,8 @@ interface InputBarType extends HTMLInputElement {
 function SearchBar({forSearch, setForSearch}: PropsType) {
   const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const tripspaceID = searchParams.get('tripspaceID');
   const inputBar = useRef<InputBarType | null>(null);
 
   useEffect(() => {
@@ -34,16 +36,22 @@ function SearchBar({forSearch, setForSearch}: PropsType) {
   }
 
   function search() {
-    navigate(
-      `/home/search?keyword=${inputValue}&category=0&map=false&location=${forSearch.location}&sort=등록순&hot=false`,
-    );
+    if (tripspaceID) {
+      navigate(
+        `/search?keyword=${inputValue}&category=0&map=false&location=${forSearch.location}&sort=등록순&hot=false&tripspaceID=1`,
+      );
+    } else {
+      navigate(
+        `/search?keyword=${inputValue}&category=0&map=false&location=${forSearch.location}&sort=등록순&hot=false`,
+      );
+    }
   }
 
   function removeValue() {
     if (forSearch.keyword === '') {
       navigate('/');
     } else {
-      navigate('/home/search');
+      navigate('/search');
       setInputValue('');
       const beforeData = forSearch;
       beforeData.keyword = '';

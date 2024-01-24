@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 
 import styles from './SearchKeyword.module.scss';
 
@@ -16,6 +16,8 @@ function SearchKeyword() {
   const [listWidth, setListWidth] = useState<number>(0);
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
+  const [searchParams] = useSearchParams();
+  const tripspaceID = searchParams.get('tripspaceID');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,9 +66,13 @@ function SearchKeyword() {
             <p
               key={keyword.name + i}
               onClick={() => {
-                navigate(
-                  `/home/search?keyword=${keyword.name}&category=0&map=false&location=전국&sort=등록순&hot=true`,
-                );
+                if (tripspaceID) {
+                  navigate(
+                    `/search?keyword=${keyword.name}&category=0&map=false&location=전국&sort=등록순&hot=true&tripspaceId=false`,
+                  );
+                } else {
+                  navigate(`/search?keyword=${keyword.name}&category=0&map=false&location=전국&sort=등록순&hot=true`);
+                }
               }}
             >
               {keyword.name}
