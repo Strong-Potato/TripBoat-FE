@@ -9,19 +9,19 @@ import SlideButton from '@/components/SlideButton/SlideButton';
 
 import HotItem from './HotItem/HotItem';
 
-import {SearchHotItemType} from '@/types/home';
+import {Popular, SearchDataType, SearchHotItemType} from '@/types/home';
 
 interface PropsType {
   type: number;
 }
 
 function HotItems({type}: PropsType) {
-  const [data, setData] = useState<SearchHotItemType[]>();
+  const [data, setData] = useState<SearchHotItemType[] | undefined>();
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
 
   useEffect(() => {
-    async function getData<T>(apiURL: string, set: Dispatch<React.SetStateAction<T>>) {
+    async function getData(apiURL: string, set: Dispatch<React.SetStateAction<SearchHotItemType[] | undefined>>) {
       try {
         const fetchData = await axios.get(`${apiURL}`, {
           params: {
@@ -29,12 +29,14 @@ function HotItems({type}: PropsType) {
             placeTypeId: type,
           },
         });
-        set(fetchData.data);
+        const data: SearchDataType<Popular> = fetchData.data;
+
+        set(data.data.places);
       } catch (error) {
         console.log(error);
       }
     }
-    getData<SearchHotItemType[] | undefined>('api/places/popular', setData);
+    getData('/api/places/popular', setData);
   }, [type]);
   return (
     <div className={styles.container}>

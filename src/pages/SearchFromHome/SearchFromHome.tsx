@@ -3,8 +3,6 @@ import {useSearchParams} from 'react-router-dom';
 
 import styles from './SearchFromHome.module.scss';
 
-import {search} from '@/hooks/Search/useSearch';
-
 import MapHeader from '@/components/SearchFromHome/MapHeader/MapHeader';
 import SearchBar from '@/components/SearchFromHome/SearchBar/SearchBar';
 import SearchHome from '@/components/SearchFromHome/SearchHome/SearchHome';
@@ -17,9 +15,9 @@ function SearchFromHome() {
     map: 'false',
     location: '전국',
     sort: '등록순',
+    hot: 'false',
   });
   const [searchParams] = useSearchParams();
-  const [kewordClick, setKeywordClick] = useState(false);
   const vh = window.innerHeight;
 
   useEffect(() => {
@@ -29,17 +27,25 @@ function SearchFromHome() {
       map: searchParams.get('map'),
       location: searchParams.get('location'),
       sort: searchParams.get('sort'),
+      hot: searchParams.get('hot'),
     };
 
-    if (querystring.keyword && querystring.category && querystring.location && querystring.map && querystring.sort) {
+    if (
+      querystring.keyword &&
+      querystring.category &&
+      querystring.location &&
+      querystring.map &&
+      querystring.sort &&
+      querystring.hot
+    ) {
       setForSearch({
         keyword: querystring.keyword,
         category: parseInt(querystring.category),
         map: querystring.map,
         location: querystring.location,
         sort: querystring.sort,
+        hot: querystring.hot,
       });
-      console.log(search(querystring.keyword, querystring.location, querystring.sort));
     }
   }, [searchParams]);
 
@@ -48,7 +54,7 @@ function SearchFromHome() {
       className={styles.container}
       style={{
         height: `${vh}px`,
-        gap: forSearch.map === 'true' ? '0' : '24px',
+        gap: forSearch.map === 'true' || forSearch.hot === 'true' ? '0' : '24px',
         paddingTop: forSearch.map === 'true' ? '0' : '16px',
       }}
     >
@@ -57,11 +63,7 @@ function SearchFromHome() {
       ) : (
         <SearchBar forSearch={forSearch} setForSearch={setForSearch} />
       )}
-      {forSearch.keyword === '' ? (
-        <SearchHome setKeywordClick={setKeywordClick} />
-      ) : (
-        <SearchList forSearch={forSearch} keywordClick={kewordClick} />
-      )}
+      {forSearch.keyword === '' ? <SearchHome /> : <SearchList forSearch={forSearch} />}
     </div>
   );
 }

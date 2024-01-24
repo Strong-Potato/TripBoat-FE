@@ -1,19 +1,17 @@
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import {useCookies} from 'react-cookie';
+import {useNavigate} from 'react-router-dom';
 
-import styles from "./Invitation.module.scss";
+import styles from './Invitation.module.scss';
 
-import { inviteCodeJoin } from "@/hooks/Invite/useInviteCode";
+import {postJoin} from '@/api/invite';
+import {parseInviteCode} from '@/utils/parseInviteCode';
 
-import { parseInviteCode } from "@/utils/parseInviteCode";
+import {InvitationProps} from '@/types/Invitation';
 
-import { InvitationProps } from "@/types/Invitation";
-
-function Invitation({ inviteCode, isLogin, modal }: InvitationProps) {
-  const [, , removeCookie] = useCookies(["inviteCode"]);
+function Invitation({inviteCode, isLogin, modal}: InvitationProps) {
+  const [, , removeCookie] = useCookies(['join_space_token']);
   const navigate = useNavigate();
   const parsedInviteCode = parseInviteCode(inviteCode);
-  console.log(parseInviteCode);
 
   const handleModalClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -25,26 +23,24 @@ function Invitation({ inviteCode, isLogin, modal }: InvitationProps) {
   };
 
   const handleJoin = async () => {
-    const response = await inviteCodeJoin();
+    const response = await postJoin(parsedInviteCode!.space_id);
     if (response.status === 200) {
-      removeCookie("inviteCode", { path: "/" });
-      navigate(`/trip/${parsedInviteCode!.ID}`);
+      removeCookie('join_space_token', {path: '/'});
+      navigate(`/trip/${parsedInviteCode!.space_id}`);
     } else {
-      removeCookie("inviteCode", { path: "/" });
+      removeCookie('join_space_token', {path: '/'});
       modal(false);
     }
   };
 
   return (
     <>
-      {parsedInviteCode!.RESULT === "false" ? (
+      {parsedInviteCode!.exp < Math.floor(new Date().getTime() / 1000) === true ? (
         <>
           <div className={styles.background} onClick={handleBackgroundClick}>
             <div className={styles.containerDismiss} onClick={handleModalClick}>
               <div className={styles.wrapperText}>
-                <p className={styles.wrapperText__title}>
-                  초대 코드가 만료되었어요.
-                </p>
+                <p className={styles.wrapperText__title}>초대 코드가 만료되었어요.</p>
                 <p className={styles.wrapperText__body}>
                   초대 코드는 7일 간 유효합니다.
                   <br />
@@ -56,7 +52,7 @@ function Invitation({ inviteCode, isLogin, modal }: InvitationProps) {
                   className={styles.wrapperInvalidButton__confirm}
                   onClick={() => {
                     modal(false);
-                    removeCookie("inviteCode", { path: "/" });
+                    removeCookie('join_space_token', {path: '/'});
                   }}
                 >
                   확인
@@ -69,9 +65,7 @@ function Invitation({ inviteCode, isLogin, modal }: InvitationProps) {
         <div className={styles.background} onClick={handleBackgroundClick}>
           <div className={styles.container} onClick={handleModalClick}>
             <div className={styles.wrapperText}>
-              <p className={styles.wrapperText__title}>
-                {parsedInviteCode!.PUBLISHER} 님이 여행에 초대했어요.
-              </p>
+              <p className={styles.wrapperText__title}>{parsedInviteCode!.iss} 님이 여행에 초대했어요.</p>
               <p className={styles.wrapperText__body}>
                 초대를 수락하고 함께 즐거운 여행을
                 <br />
@@ -83,15 +77,12 @@ function Invitation({ inviteCode, isLogin, modal }: InvitationProps) {
                 className={styles.wrapperButton__cancel}
                 onClick={() => {
                   modal(false);
-                  removeCookie("inviteCode", { path: "/" });
+                  removeCookie('join_space_token', {path: '/'});
                 }}
               >
                 취소
               </button>
-              <button
-                className={styles.wrapperButton__accept}
-                onClick={() => handleJoin()}
-              >
+              <button className={styles.wrapperButton__accept} onClick={() => handleJoin()}>
                 초대 수락
               </button>
             </div>
@@ -113,15 +104,12 @@ function Invitation({ inviteCode, isLogin, modal }: InvitationProps) {
                 className={styles.wrapperButton__cancel}
                 onClick={() => {
                   modal(false);
-                  removeCookie("inviteCode", { path: "/" });
+                  removeCookie('join_space_token', {path: '/'});
                 }}
               >
                 취소
               </button>
-              <button
-                className={styles.wrapperButton__accept}
-                onClick={() => navigate("/login")}
-              >
+              <button className={styles.wrapperButton__accept} onClick={() => navigate('/auth/login')}>
                 로그인하러 가기
               </button>
             </div>
@@ -133,3 +121,5 @@ function Invitation({ inviteCode, isLogin, modal }: InvitationProps) {
 }
 
 export default Invitation;
+
+///////////status :400, SPACE_MAX_COUNT_OVER, 여행스페이스 생성 최대 개수를 초과하셨습니다.

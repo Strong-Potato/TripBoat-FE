@@ -1,20 +1,24 @@
-interface Member {
+export type GetUserProp = {
+  status: number;
+  message: string;
+  data: UserDatas;
+};
+
+export interface UserDatas {
   nickname: string;
-  id: number;
   profile: string;
+  provider: string;
+  email: string;
 }
 
-export interface User {
-  nickname: string;
-  profile: string;
-}
-
-export type TravelListItem = {
+export type Spaces = {
   title: string;
   startDate: string;
   endDate: string;
   id: number;
-  members: Member[];
+  city: string;
+  dueDate: number;
+  thumbnail: string;
 };
 
 export type SideBarProps = {
@@ -22,11 +26,21 @@ export type SideBarProps = {
   isSideOpen: boolean;
 };
 
-export type TravelListProps = {
-  data: TravelListItem[];
+export type GetUpcomingProp = {
+  status: number;
+  message: string;
+  data: Datas;
+};
+
+export type Datas = {
+  spaces: Spaces[];
 };
 
 export type spaceInfo = {
   spaceId: number;
   nickname: string;
 };
+
+export interface TravelListProp {
+  isSideOpen: boolean;
+}

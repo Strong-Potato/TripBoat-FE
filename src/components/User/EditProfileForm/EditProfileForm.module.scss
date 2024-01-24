@@ -1,0 +1,22 @@
+@use "@/sass" as *;
+
+.container {
+  padding: 0 20px;
+
+  label {
+    display: block;
+
+    @include typography(tabLabel);
+    color: $neutral900;
+  }
+
+  small {
+    width: 100%;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+
+    @include typography(captionSmall);
+    color: $danger300;
+  }
+}

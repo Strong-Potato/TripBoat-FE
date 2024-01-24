@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from 'react';
 
-import styles from "./MapItems.module.scss";
+import styles from './MapItems.module.scss';
 
-import useComponentSize from "@/hooks/useComponetSize";
+import useComponentSize from '@/hooks/useComponetSize';
 
-import SlideButton from "@/components/SlideButton/SlideButton";
+import SlideButton from '@/components/SlideButton/SlideButton';
 
-import MapItem from "./MapItem/MapItem";
+import MapItem from './MapItem/MapItem';
 
-import { SearchItemType } from "@/types/home";
+import {SearchItemType} from '@/types/home';
 
 interface PropsType {
   data: SearchItemType[];
@@ -32,14 +32,12 @@ function MapItems({
   const [throttle, setThrottle] = useState(true);
 
   function setCurrentIndex() {
-    const criterion = document.querySelector("#map_slide_container");
-    const elements = document.querySelectorAll("#map_slide");
+    const criterion = document.querySelector('#map_slide_container');
+    const elements = document.querySelectorAll('#map_slide');
     const childrenArray = Array.from(elements[0].children);
 
     for (const item of childrenArray) {
-      const currentLeft =
-        criterion &&
-        item.getBoundingClientRect().x - criterion.getBoundingClientRect().x;
+      const currentLeft = criterion && item.getBoundingClientRect().x - criterion.getBoundingClientRect().x;
       if (currentLeft) {
         if (0 < currentLeft && currentLeft < 150) {
           const index = childrenArray.indexOf(item);
@@ -65,10 +63,11 @@ function MapItems({
 
   useEffect(() => {
     if (size.width < 449) {
-      componentRef.current?.scrollTo({ left: 0, behavior: "smooth" });
+      componentRef.current?.scrollTo({left: 0, behavior: 'smooth'});
     } else {
       setSlideLocation(0);
     }
+    console.log(data);
   }, [data, size, componentRef]);
 
   useEffect(() => {
@@ -96,7 +95,7 @@ function MapItems({
   }, [throttle]);
 
   return (
-    <div className={styles.container} id="map_slide_container">
+    <div className={styles.container} id='map_slide_container'>
       {data && (
         <SlideButton
           // ref의 left값 state
@@ -116,21 +115,14 @@ function MapItems({
       <div
         className={styles.slide_box}
         ref={componentRef}
-        id="map_slide"
+        id='map_slide'
         style={{
-          overflow: size.width < 449 ? "scroll" : "visible",
-          left: slideLocation + "px",
+          overflow: size.width < 449 ? 'scroll' : 'visible',
+          left: slideLocation + 'px',
         }}
         onScroll={handleScroll}
       >
-        {data &&
-          data.map((data, i) => (
-            <MapItem
-              data={data}
-              key={data.title + i}
-              categoryChange={categoryChange}
-            />
-          ))}
+        {data && data.map((data, i) => <MapItem data={data} key={data.title + i} categoryChange={categoryChange} />)}
       </div>
     </div>
   );

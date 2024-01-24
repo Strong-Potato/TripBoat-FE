@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .slideContainer {
   position: fixed;
@@ -24,6 +24,11 @@
       .closeButtonContainer {
         display: flex;
         justify-content: flex-end;
+      }
+
+      .leftCloseButtonContainer {
+        display: flex;
+        justify-content: flex-start;
       }
     }
   }

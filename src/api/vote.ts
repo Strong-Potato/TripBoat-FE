@@ -19,7 +19,7 @@ export const getVoteInfo = async (voteId: number): Promise<VoteInfo> => {
 
 //보트 리스트
 export const getVoteListInfo = async (spaceId: number): Promise<VoteListInfo[]> => {
-  const response = await axios.get(`/api/votes/${spaceId}`);
+  const response = await axios.get(`/api/votes`, {params: {spaceId, voteStatusOption: 'ALL'}});
   return response.data;
 };
 
@@ -28,7 +28,7 @@ export const getVoteListInfo = async (spaceId: number): Promise<VoteListInfo[]> 
 /* ----------------------------------- P O S T ---------------------------------- */
 
 //vote 추가
-export const PostNewVote = async ({spaceId, title}: PostVoteTitleProps) => {
+export const postNewVote = async ({spaceId, title}: PostVoteTitleProps) => {
   try {
     const response = await axios.post('/api/votes', {spaceId, title});
     console.log('axios 포스트 성공', response);

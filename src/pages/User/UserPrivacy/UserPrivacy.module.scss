@@ -1,0 +1,51 @@
+@use "@/sass" as *;
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: $neutral900;
+
+  .userPrivacy {
+    margin-top: 56px;
+
+    @include typography(tabLabel);
+
+    li {
+      padding: 24px 20px;
+      border-bottom: 1px solid $neutral200;
+      cursor: pointer;
+
+      &:hover {
+        font-weight: 600;
+        border-color: $neutral300;
+      }
+    }
+
+    &__email {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
+      small {
+        @include typography(tabLabel);
+        color: $neutral400;
+      }
+    }
+
+    &__password {
+      display: flex;
+      justify-content: space-between;
+
+      a {
+        @include typography(tabLabel);
+        color: $primary300;
+
+        &:hover {
+          color: $primary400;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

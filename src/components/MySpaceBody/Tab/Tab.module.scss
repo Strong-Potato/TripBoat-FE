@@ -1,0 +1,42 @@
+@use "@/sass" as *;
+
+.container {
+  position: relative;
+  top: 0;
+  display: flex;
+  justify-content: space-around;
+  height: auto;
+  padding: 0;
+  padding-bottom: 12px;
+  cursor: pointer;
+  @include typography(tabLabel);
+
+  target {
+    color: $neutral300;
+    width: 50%;
+    text-align: center;
+
+    &.selected {
+      font-weight: 700;
+      color: $neutral900;
+    }
+  }
+
+  .bar {
+    position: absolute;
+    bottom: 0;
+
+    width: 50%;
+    height: 2px;
+    background-color: $primary300;
+
+    transition: all 0.2s ease-out;
+
+    &.left {
+      left: 0;
+    }
+    &.right {
+      left: 50%;
+    }
+  }
+}

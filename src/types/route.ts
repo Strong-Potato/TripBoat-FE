@@ -1,12 +1,20 @@
 import {Dispatch} from 'react';
 import {SwiperRef} from 'swiper/react';
 
-export interface PlaceCardProps {
-  index: number;
+export interface DraggablePlaceCardProps {
+  id: number;
+  order: number;
   name: string;
   category: string;
   address: string;
+  editMode: boolean;
+  selectedPlaces: string[];
+  onSelect: (name: string) => void;
+  moveCard: (id: number, atIndex: number) => void;
+  findCard: (id: number) => {card: PlaceList; index: number};
 }
+
+export type PlaceCardProps = Pick<DraggablePlaceCardProps, 'order' | 'name' | 'category' | 'address'>;
 
 export interface PlaceOrder {
   id: number;
@@ -31,23 +39,28 @@ export interface Journey {
   places: PlaceOrder[];
 }
 
+export interface PlaceList {
+  id: number;
+  Order: number;
+  place: {
+    id: number;
+    title: string;
+    thumbnail: string;
+    address: string;
+    addressDetail: string;
+    latitude: number;
+    longitude: number;
+    category: string;
+  };
+}
+
 export interface DayRouteProps {
   day: number;
   date: string;
-  placeList: {
-    id: number;
-    Order: number;
-    place: {
-      id: number;
-      title: string;
-      thumbnail: string;
-      address: string;
-      addressDetail: string;
-      latitude: number;
-      longitude: number;
-      category: string;
-    };
-  }[];
+  placeList: PlaceList[];
+  editMode: boolean;
+  selectedPlaces: string[];
+  handlePlaceSelection: (name: string) => void;
 }
 
 export interface RouteTabPanelProps {
@@ -60,6 +73,8 @@ export interface DateItem {
 
 export interface DayNavigationBarProps {
   dateList: DateItem[];
+  editMode: boolean;
+  handleEditMode: () => void;
 }
 
 export interface PlaceListProps {
@@ -95,4 +110,49 @@ export interface RouteMapSlideProps {
   swiperRef: React.RefObject<SwiperRef>;
   activeDay: number;
   onDayChange: (day: number) => void;
+}
+
+export interface Item {
+  id: number;
+  originalIndex: number;
+}
+
+export interface ErrorResponse {
+  detail: string;
+  instance: string;
+  responseCode: number;
+  status: number;
+  title: string;
+  type: string;
+}
+
+export interface SpaceResponse {
+  data: {
+    id: number;
+    title: string;
+    startDate: string | null;
+    endDate: string | null;
+    city: string | null;
+    thumbnail: string | null;
+    members: [
+      {
+        id: number;
+        nickname: string;
+        profile: string;
+      },
+    ];
+  };
+  responseCode: number;
+  detail?: string;
+}
+
+export interface SpaceRegionParams {
+  spaceId: number;
+  cities: string[];
+}
+
+export interface SpaceDateParams {
+  spaceId: number;
+  startDate: string;
+  endDate: string;
 }

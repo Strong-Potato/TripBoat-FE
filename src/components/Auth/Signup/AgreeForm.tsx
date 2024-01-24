@@ -84,7 +84,7 @@ function AgreeForm({ setSignupStep }: AgreeProps) {
               required: true,
             })}
           />
-          <Link to={"/auth/signup/agreeService"}>
+          <Link to={"/auth/signup/agree/service"}>
             <label htmlFor="service">(필수) 서비스 이용약관 동의</label>
           </Link>
         </div>
@@ -97,7 +97,7 @@ function AgreeForm({ setSignupStep }: AgreeProps) {
               required: true,
             })}
           />
-          <Link to={"/auth/signup/agreePrivacy"}>
+          <Link to={"/auth/signup/agree/privacy"}>
             <label htmlFor="privacy">(필수) 개인정보 수집 및 이용 동의</label>
           </Link>
         </div>

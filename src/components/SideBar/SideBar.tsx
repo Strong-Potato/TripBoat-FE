@@ -1,19 +1,19 @@
-import { Avatar, Divider, Slide } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
-import { IoMdClose } from "react-icons/io";
-import { Link } from "react-router-dom";
+import {Avatar, Divider, Slide} from '@chakra-ui/react';
+import {useEffect, useRef, useState} from 'react';
+import {IoMdClose} from 'react-icons/io';
+import {Link} from 'react-router-dom';
 
-import styles from "./SideBar.module.scss";
+import styles from './SideBar.module.scss';
 
-import useLockBodyScroll from "@/hooks/useLockBodyScroll";
-import useOnClickOutside from "@/hooks/useOnClickOutside";
-import { useGetMyInfo } from "@/hooks/User/useUser";
+import useLockBodyScroll from '@/hooks/useLockBodyScroll';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
+import {useGetMyInfo} from '@/hooks/User/useUser';
 
-import TravelList from "./TravelList/TravelList";
+import TravelList from './TravelList/TravelList';
 
-import { SideBarProps } from "@/types/sidebar";
+import {SideBarProps} from '@/types/sidebar';
 
-function SideBar({ isSideOpen, sideClose }: SideBarProps) {
+function SideBar({isSideOpen, sideClose}: SideBarProps) {
   // 사이드 바 스타일링
   const [isVisible, setIsVisible] = useState(isSideOpen);
   useEffect(() => {
@@ -32,14 +32,14 @@ function SideBar({ isSideOpen, sideClose }: SideBarProps) {
     };
   }, [isSideOpen]);
   const containerStyle = {
-    display: isVisible ? "block" : "none",
+    display: isVisible ? 'block' : 'none',
   };
   const slideRef = useRef(null);
   useOnClickOutside(slideRef, sideClose);
   useLockBodyScroll(isSideOpen);
 
   // 프로필 데이터 get
-  const { data: myInfo } = useGetMyInfo(isSideOpen);
+  const {data: myInfo} = useGetMyInfo(isSideOpen);
 
   if (!myInfo) {
     return <div>로딩 중...</div>;
@@ -48,13 +48,13 @@ function SideBar({ isSideOpen, sideClose }: SideBarProps) {
     <div style={containerStyle} className={styles.page}>
       <Slide
         in={isSideOpen}
-        direction="right"
+        direction='right'
         ref={slideRef}
         className={styles.slide}
-        style={{ width: "28rem", position: "absolute", zIndex: 10 }}
+        style={{width: '28rem', position: 'absolute', zIndex: 10}}
         transition={{
-          exit: { duration: 0.5 },
-          enter: { duration: 0.4 },
+          exit: {duration: 0.5},
+          enter: {duration: 0.4},
         }}
       >
         <div className={styles.container}>
@@ -65,21 +65,12 @@ function SideBar({ isSideOpen, sideClose }: SideBarProps) {
           </div>
           <section className={styles.profile}>
             <div>
-              <Avatar
-                w={"6.4rem"}
-                h={"6.4rem"}
-                name={myInfo.nickname}
-                src={myInfo.profile}
-              />
+              <Avatar w={'6.4rem'} h={'6.4rem'} name={myInfo.data.nickname} src={myInfo.data.profile} />
             </div>
             <div>
-              <p className={styles.profile__nickName}>{myInfo.nickname}</p>
-              <Link
-                to="/user"
-                onClick={sideClose}
-                className={styles.profile__editProfile}
-              >
-                {"프로필 보기 >"}
+              <p className={styles.profile__nickName}>{myInfo.data.nickname}</p>
+              <Link to='/user' onClick={sideClose} className={styles.profile__editProfile}>
+                {'프로필 보기 >'}
               </Link>
             </div>
           </section>

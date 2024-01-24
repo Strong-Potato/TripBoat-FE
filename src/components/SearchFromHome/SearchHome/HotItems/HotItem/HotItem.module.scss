@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   display: flex;
@@ -7,9 +7,11 @@
 
   img {
     min-width: 10.6rem;
-    min-height: 10.6rem;
+    height: 10.6rem;
 
     border-radius: 1.6rem;
+
+    background-color: $neutral200;
   }
   .text_box {
     display: flex;

@@ -1,5 +1,4 @@
 import {extendTheme} from '@chakra-ui/react';
-
 import {avatarTheme} from './avatarCustom';
 import {buttonTheme} from './buttonCustom';
 import {checkboxTheme} from './checkboxCustom';
@@ -221,8 +220,8 @@ export const customTheme = extendTheme({
   },
 
   fonts: {
-    heading: `'suit', sans-serif`,
-    body: `'suit', sans-serif`,
+    heading: `'spoqaHanSans', sans-serif`,
+    body: `'spoqaHanSans', sans-serif`,
   },
   colors: {
     primary: {

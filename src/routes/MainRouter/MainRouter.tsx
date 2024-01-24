@@ -1,5 +1,12 @@
 import {Route, Routes} from 'react-router-dom';
 
+import ModifyPassword from "@/pages/Auth/ModifyPassword/ModifyPassword";
+import Withdrawal from "@/pages/Auth/Withdrawal/Withdrawal";
+import ModifyProfile from "@/pages/User/ModifyProfile/ModifyProfile";
+import MyReview from "@/pages/User/MyReview/MyReview";
+import MySpace from "@/pages/User/MySpace/MySpace";
+import User from "@/pages/User/User";
+import UserPrivacy from "@/pages/User/UserPrivacy/UserPrivacy";
 import AddPlaceFromVote from '@/pages/AddPlaceFromVote/AddPlaceFromVote';
 import FindPassword from '@/pages/Auth/FindPassword/FindPassword';
 import Login from '@/pages/Auth/Login/Login';
@@ -25,7 +32,11 @@ function MainRouter() {
         <Route index element={<Home />} />
         <Route path='/trip/:id' element={<Trip />} />
         <Route path='/heart' element={<Home />} />
-        <Route path='/user' element={<Home />} />
+        <Route path="/user" element={<User />} />
+        <Route path="/user/privacy" element={<UserPrivacy />} />
+        <Route path="/user/profile/edit" element={<ModifyProfile />} />
+        <Route path="/user/myspace" element={<MySpace />} />
+        <Route path="/user/myreview" element={<MyReview />} />
       </Route>
       <Route path='/auth/login' element={<Login />} />
       <Route path='/votes/:id' element={<Vote />} />
@@ -35,7 +46,9 @@ function MainRouter() {
       <Route path='/auth/signup' element={<Signup />} />
       <Route path='/auth/signup/agreePrivacy' element={<AgreePrivacy />} />
       <Route path='/auth/signup/agreeService' element={<AgreeService />} />
-      <Route path='/auth/findpassword' element={<FindPassword />} />
+      <Route path="/auth/password/find" element={<FindPassword />} />
+      <Route path="/auth/password/modify" element={<ModifyPassword />} />
+      <Route path="/auth/withdrawal" element={<Withdrawal />} />
       <Route path='/home/search' element={<SearchFromHome />} />
       <Route path='/trip/:id/selectDate' element={<Calendar />} />
       <Route path='/trip/:id/selectRegion' element={<RegionSearch />} />

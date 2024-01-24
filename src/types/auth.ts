@@ -1,9 +1,4 @@
-import {
-  FieldError,
-  FieldErrors,
-  UseFormRegister,
-  UseFormResetField,
-} from "react-hook-form";
+import {FieldError, FieldErrors, UseFormRegister, UseFormResetField} from 'react-hook-form';
 
 /* --------------------------------- common --------------------------------- */
 export interface HeaderProps {
@@ -12,7 +7,7 @@ export interface HeaderProps {
 
 export interface AuthButtonProps {
   content: string;
-  type: "button" | "reset" | "submit" | undefined;
+  type: 'button' | 'reset' | 'submit' | undefined;
   disabled: boolean;
   onClick?: () => void;
 }
@@ -22,6 +17,7 @@ export interface AuthForm {
   emailSert?: string;
   password?: string;
   passwordConfirm?: string;
+  oldPassword?: string;
   image?: FileList | undefined;
   nickname?: string;
 }
@@ -59,6 +55,8 @@ export interface InputPasswordConfirmProps {
 
 export interface InputImageProps {
   register: UseFormRegister<AuthForm>;
+  imageBlob?: string;
+  setImageBlob?: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export interface InputNickname {
@@ -66,6 +64,12 @@ export interface InputNickname {
   dirty?: boolean;
   error?: FieldError;
   resetField: UseFormResetField<AuthForm>;
+}
+
+export interface InputOldPasswordProps {
+  register: UseFormRegister<AuthForm>;
+  dirtyFields?: DirtyFields;
+  errors?: FieldErrors<AuthForm>;
 }
 
 /* ---------------------------------- Login --------------------------------- */
@@ -96,18 +100,14 @@ export interface AgreeProps {
   setSignupStep: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export type AgreeName =
-  | "age"
-  | "service"
-  | "privacy"
-  | "marketing"
-  | "allCheck";
+export type AgreeName = 'age' | 'service' | 'privacy' | 'marketing' | 'allCheck';
 
 export interface DirtyFields {
   email?: boolean;
   emailSert?: boolean;
   password?: boolean;
   passwordConfirm?: boolean;
+  oldPassword?: boolean;
   image?: boolean;
   nickname?: boolean;
 }
@@ -134,10 +134,13 @@ export interface StepEmailSertProps {
   watchFields: Partial<AuthForm>;
   dirty?: boolean;
   error?: FieldError;
+  setCode?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface StepPasswordProps {
   setSignupStep?: React.Dispatch<React.SetStateAction<string>>;
+  setStep?: React.Dispatch<React.SetStateAction<string>>;
+  setToken?: React.Dispatch<React.SetStateAction<string>>;
   register: UseFormRegister<AuthForm>;
   resetField: UseFormResetField<AuthForm>;
   watchFields: Partial<AuthForm>;
@@ -145,9 +148,23 @@ export interface StepPasswordProps {
   errors?: FieldErrors<AuthForm>;
 }
 
+export interface StepOldPasswordProps {
+  register: UseFormRegister<AuthForm>;
+  dirtyFields?: DirtyFields;
+  errors?: FieldErrors<AuthForm>;
+  watchFields: Partial<AuthForm>;
+  setStep?: React.Dispatch<React.SetStateAction<string>>;
+  setToken?: React.Dispatch<React.SetStateAction<string>>;
+}
+
 export interface StepProfileProps {
   register: UseFormRegister<AuthForm>;
   resetField: UseFormResetField<AuthForm>;
   dirty?: boolean;
   error?: FieldError;
+}
+
+export interface ExpireAlertProps {
+  expire: number;
+  onClickAction: () => void;
 }
