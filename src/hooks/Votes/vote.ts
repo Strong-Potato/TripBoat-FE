@@ -1,6 +1,18 @@
 import {useMutation, useQuery, useQueryClient, useSuspenseQuery} from '@tanstack/react-query';
 
-import {deleteCandidates, deleteVote, editVoteTitle, getVoteInfo, getVoteListInfo, postNewVote} from '@/api/vote';
+import {
+  changeStatusComplete,
+  deleteCandidates,
+  deleteVote,
+  editVoteTitle,
+  getVoteInfo,
+  getVoteListInfo,
+  getVoteResults,
+  postNewCandidate,
+  postNewVote,
+  postVoting,
+  resetVoteStatus,
+} from '@/api/vote';
 
 /* ----------------------------------- Q U E R Y ---------------------------------- */
 
@@ -18,6 +30,14 @@ export const useGetVoteListInfo = (spaceId: number) => {
   return useQuery({
     queryKey: ['votes', spaceId],
     queryFn: () => getVoteListInfo(spaceId),
+    retry: false,
+  });
+};
+
+export const useGetVotesResults = (voteId: number) => {
+  return useSuspenseQuery({
+    queryKey: ['votes', voteId],
+    queryFn: () => getVoteResults(voteId),
     retry: false,
   });
 };
@@ -42,11 +62,17 @@ export const useCustomMutation = <TData = unknown, TError = unknown, TVariables 
 
 //vote 추가 POST
 export const usePostNewVote = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: postNewVote,
-    onSuccess: () => queryClient.invalidateQueries({queryKey: ['votes']}),
-  });
+  return useCustomMutation(postNewVote, ['votes']);
+};
+
+//투표하기&취소 POST
+export const usePostVoting = () => {
+  return useCustomMutation(postVoting, ['vote', 'candidates']); //vote?
+};
+
+//후보 메모 후 추가 POST
+export const usePostNewCandidate = () => {
+  return useMutation({mutationFn: postNewCandidate}); //onSuccess?
 };
 
 // //voteTitle 수정 PUT
@@ -54,9 +80,19 @@ export const useEditVoteTitle = () => {
   return useCustomMutation(editVoteTitle, ['vote']);
 };
 
+//투표 상태 결과보기로 변경 PUT
+export const useChangeStatusComplete = () => {
+  return useCustomMutation(changeStatusComplete, ['vote']);
+};
+
+//재투표, 리셋
+export const useResetVoteStatus = () => {
+  return useCustomMutation(resetVoteStatus, ['vote']);
+};
+
 // //vote 삭제 DELETE  -> 쿼리 무효화 필요없는지 확인하기
 export const useDeleteVote = () => {
-  return useCustomMutation(deleteVote, ['votes']);
+  return useMutation({mutationFn: deleteVote});
 };
 
 // //candidate 삭제- api 미정

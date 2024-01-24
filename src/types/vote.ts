@@ -144,7 +144,7 @@ export interface EditVoteTitleProps {
 }
 export interface DeleteCandidatesProps {
   voteId: number;
-  candidateId: number[];
+  candidateIds: number[];
 }
 
 export interface TaglineType {
@@ -155,4 +155,14 @@ export interface TaglineType {
 export interface MemoItemProps {
   candidate: CandidatesInfo;
   existingTagline?: TaglineType;
+}
+
+export interface PostVotingProps {
+  voteId: number;
+  candidateId: number;
+}
+
+export interface PostNewCandidateProps {
+  voteId: number;
+  candidateInfos: TaglineType[];
 }

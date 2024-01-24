@@ -5,6 +5,7 @@ import {
   EditVoteTitleProps,
   PostNewCandidateProps,
   PostVoteTitleProps,
+  PostVotingProps,
 } from '@/types/vote';
 
 /* ----------------------------------- G E T ---------------------------------- */
@@ -21,7 +22,11 @@ export const getVoteListInfo = async (spaceId: number) => {
   return response.data;
 };
 
-//getVotesResults
+//투표 결과 조회
+export const getVoteResults = async (voteId: number) => {
+  const response = await axios.get(`/api/votes/${voteId}/result`, {withCredentials: true});
+  return response.data;
+};
 
 /* ----------------------------------- P O S T ---------------------------------- */
 
@@ -36,9 +41,19 @@ export const postNewVote = async ({spaceId, title}: PostVoteTitleProps) => {
   }
 };
 
+//투표하기&취소
+export const postVoting = async ({voteId, candidateId}: PostVotingProps) => {
+  try {
+    const response = await axios.post('/api/votes/voting', {voteId, candidateId});
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 //후보 메모 후 추가
-export const postNewCandidate = async ({voteId, candidates}: PostNewCandidateProps) => {
-  const response = await axios.post(`/api/votes/${voteId}`, {params: {candidates, withCredentials: true}});
+export const postNewCandidate = async ({voteId, candidateInfos}: PostNewCandidateProps) => {
+  const response = await axios.post(`/api/votes/${voteId}/candidates`, {params: {candidateInfos}});
   return response.data;
 };
 
@@ -54,31 +69,47 @@ export const editVoteTitle = async ({title, voteId}: EditVoteTitleProps) => {
   }
 };
 
+//투표 상태 결과보기로 변경
+export const changeStatusComplete = async (voteId: number) => {
+  try {
+    const response = await axios.put(`/api/votes/${voteId}/voteStatus`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+//재투표, 리셋
+export const resetVoteStatus = async (voteId: number) => {
+  try {
+    const response = await axios.put(`/api/votes/${voteId}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 /* ----------------------------------- D E L E T E ---------------------------------- */
 
 //votes/{voteId} vote 삭제
 export const deleteVote = async (voteId: number) => {
   try {
-    const response = await axios.delete(`/api/votes/${voteId}`, {withCredentials: true});
+    const response = await axios.delete(`/api/votes/${voteId}/voteStatus`, {withCredentials: true});
+    console.log('투표삭제', response.data);
     return response.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-//msw 돌려야함
 //candidate 삭제- api 미정 / candidateId:number[] 여러아이디 배열에 담음
-export const deleteCandidates = async ({voteId, candidateId}: DeleteCandidatesProps) => {
+export const deleteCandidates = async ({voteId, candidateIds}: DeleteCandidatesProps) => {
   try {
-    const response = await axios.delete(`/api/votes/${voteId}/candidates/${candidateId}`, {withCredentials: true});
+    const response = await axios.delete(`/api/votes/${voteId}/candidates`, {
+      params: {candidateIds, withCredentials: true},
+    });
     return response.data;
   } catch (error) {
     console.error(error);
   }
 };
-
-///votes/{voteId}/candidates candidate메모와 함께 추가 POST
-
-//votes/{voteId}/candidates/{candidatesId} 별 투표하기 POST -> + DELETE 투표 삭제?
-
-//PUT 투표 상태 변경(재진행) -> ?
