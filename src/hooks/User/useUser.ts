@@ -1,10 +1,10 @@
 import {useQuery, UseQueryResult} from '@tanstack/react-query';
-import axios from 'axios';
+
+import {memberRequest} from '@/api/user';
 
 import {GetUserProp} from '@/types/sidebar';
 
 function useGetMyInfo(isOpen: boolean): UseQueryResult<GetUserProp, Error> {
-
   return useQuery({
     queryKey: ['myInfo'],
     queryFn: memberRequest.getMyInfo,
