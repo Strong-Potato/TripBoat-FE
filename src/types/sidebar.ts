@@ -5,10 +5,10 @@ export type GetUserProp = {
 };
 
 export interface UserDatas {
-  nickname?: string;
-  profile?: string;
+  nickname: string;
+  profile: string;
   provider: string;
-  email?: string;
+  email: string;
 }
 
 export type Spaces = {
