@@ -1,17 +1,17 @@
-import axios from "axios";
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import {useState} from 'react';
+import {SubmitHandler, useForm} from 'react-hook-form';
+import {useNavigate} from 'react-router-dom';
 
-import styles from "./FindPasswordForm.module.scss";
+import styles from './FindPasswordForm.module.scss';
 
-import CustomToast from "@/components/CustomToast/CustomToast";
+import CustomToast from '@/components/CustomToast/CustomToast';
 
-import StepEmail from "./Step/StepEmail";
-import StepEmailSert from "./Step/StepEmailSert";
-import StepPassword from "./Step/StepPassword";
+import StepEmail from './Step/StepEmail';
+import StepEmailSert from './Step/StepEmailSert';
+import StepPassword from './Step/StepPassword';
 
-import { AuthForm } from "@/types/auth";
+import {AuthForm} from '@/types/auth';
 
 function FindPasswordForm() {
   const {
@@ -19,19 +19,21 @@ function FindPasswordForm() {
     resetField,
     handleSubmit,
     watch,
-    formState: { errors, dirtyFields },
+    formState: {errors, dirtyFields},
   } = useForm<AuthForm>({
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: {
-      email: "",
-      emailSert: "",
-      password: "",
-      passwordConfirm: "",
+      email: '',
+      emailSert: '',
+      password: '',
+      passwordConfirm: '',
     },
   });
   const watchFields = watch();
 
-  const [findPasswordStep, setFindPasswordStep] = useState<string>("email");
+  const [findPasswordStep, setFindPasswordStep] = useState<string>('email');
+  const [code, setCode] = useState<string>('');
+
   const navigate = useNavigate();
   const showToast = CustomToast();
 
@@ -40,26 +42,44 @@ function FindPasswordForm() {
     console.log(data);
 
     try {
-      const { email, emailSert, password } = data;
-      const res = await axios.post("/api/auth/modify/lost-password", {
+      const {email, password} = data;
+      const res = await axios.post('/api/auth/modify/lost-password', {
         email,
         newPassword: password,
-        token: emailSert,
+        token: code,
       });
       console.log(res);
 
-      showToast("비밀번호가 변경되었습니다.");
-      setFindPasswordStep("email");
-      navigate("/auth/login", { replace: true });
+      if (res.data.responseCode === 204) {
+        showToast('만료된 토큰입니다. 다시 인증해주세요.');
+        setFindPasswordStep('email');
+        navigate('/auth/login');
+        return;
+      }
+
+      if (res.data.responseCode === 205) {
+        showToast('잘못된 토큰입니다. 다시 인증해주세요.');
+        setFindPasswordStep('email');
+        navigate('/auth/login');
+        return;
+      }
+
+      if (res.data.responseCode === 207) {
+        showToast('새로운 비밀번호를 입력해주세요.');
+        return;
+      }
+
+      showToast('비밀번호가 변경되었습니다.');
+      setFindPasswordStep('email');
+      navigate('/auth/login', {replace: true});
     } catch (error) {
       console.log(error);
-      showToast("이전에 사용했던 비밀번호입니다.");
     }
   };
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
-      {findPasswordStep === "email" && (
+      {findPasswordStep === 'email' && (
         <StepEmail
           setFindPasswordStep={setFindPasswordStep}
           register={register}
@@ -70,17 +90,18 @@ function FindPasswordForm() {
         />
       )}
 
-      {findPasswordStep === "emailSert" && (
+      {findPasswordStep === 'emailSert' && (
         <StepEmailSert
           setFindPasswordStep={setFindPasswordStep}
           register={register}
           watchFields={watchFields}
           dirty={dirtyFields.emailSert}
           error={errors.emailSert}
+          setCode={setCode}
         />
       )}
 
-      {findPasswordStep === "password" && (
+      {findPasswordStep === 'password' && (
         <StepPassword
           register={register}
           resetField={resetField}

@@ -1,0 +1,22 @@
+@use '@/sass' as *;
+
+.title {
+  @include typography(subTitle);
+  color: $neutral900;
+  margin-bottom: 8px;
+}
+.subText {
+  @include typography(tabLabel);
+  color: $neutral400;
+}
+
+.bar {
+  width: 100%;
+  border-top: 1px solid $neutral200;
+}
+
+.button {
+  @include typography(button);
+  width: 100%;
+  color: $primary400;
+}
