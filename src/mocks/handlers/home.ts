@@ -512,7 +512,7 @@ export const home = [
       status: 200,
     });
   }),
-  http.get('/api/members/my-spaces/upcoming', () => {
+  http.get('api/members/my-spaces/upcoming', () => {
     return HttpResponse.json(tripSpaceData, {
       status: 200,
     });

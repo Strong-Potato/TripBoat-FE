@@ -32,11 +32,11 @@ function DateFilter({forSearch}: PropsType) {
   return (
     <div className={styles.container} onClick={handleModal}>
       <BsFilterLeft className={styles.icon} />
-      <span style={{userSelect: 'none'}}>{forSearch.sort}</span>
+      <span style={{userSelect: 'none', whiteSpace: 'none'}}>{forSearch.sort}</span>
       <div className={styles.modal} style={{height: click ? '136px' : 0, opacity: click ? 1 : 0}}>
         {filterData.map((data) => (
           <span
-            style={{opacity: click ? 1 : 0}}
+            style={{opacity: click ? 1 : 0, whiteSpace: 'none'}}
             onClick={() => {
               selectSort(data);
             }}

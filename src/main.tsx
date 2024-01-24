@@ -7,6 +7,7 @@ import App from './App.tsx';
 import {customTheme} from './chakra/chakraCustomTheme.ts';
 
 async function enableMocking() {
+  return;
   if (import.meta.env.MODE !== 'development') {
     return;
   }

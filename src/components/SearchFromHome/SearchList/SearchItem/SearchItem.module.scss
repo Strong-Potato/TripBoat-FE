@@ -5,38 +5,46 @@
   max-height: 70px;
 
   display: flex;
+  justify-content: space-between;
   gap: 12px;
 
   padding: 16px 0;
 
-  img {
-    width: 4rem;
-    height: 4rem;
+  .itemBox {
+    max-height: 70px;
 
-    border-radius: 0.8rem;
-
-    opacity: 1;
-
-    transition: 0.3s all linear;
-
-    background-color: $neutral200;
-  }
-
-  .text {
     display: flex;
-    flex-direction: column;
+    gap: 12px;
 
-    opacity: 1;
+    img {
+      width: 4rem;
+      height: 4rem;
 
-    transition: 0.3s all linear;
+      border-radius: 0.8rem;
 
-    .title {
-      @include typography(titleSmall);
+      opacity: 1;
+
+      transition: 0.3s all linear;
+
+      background-color: $neutral200;
     }
-    .info {
-      color: $neutral400;
 
-      @include typography(captionSmall);
+    .text {
+      display: flex;
+      flex-direction: column;
+
+      opacity: 1;
+
+      transition: 0.3s all linear;
+
+      .title {
+        @include typography(titleSmall);
+      }
+      .info {
+        color: $neutral400;
+
+        @include typography(captionSmall);
+      }
     }
   }
 }

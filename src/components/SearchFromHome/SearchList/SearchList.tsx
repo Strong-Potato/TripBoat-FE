@@ -1,7 +1,9 @@
 import {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 
 import styles from './SearchList.module.scss';
+
+import AddToCandidateButton from '@/components/ButtonsInAddingCandidate/AddToCandidateButton/AddToCandidateButton';
 
 import {keywordSearch, search} from '@/api/search';
 import SearchNull from '@/assets/homeIcons/search/searchNull.svg?react';
@@ -23,6 +25,8 @@ function SearchList({forSearch}: PropsType) {
   const [data, setData] = useState<SearchItemType[] | undefined>();
   const [filterData, setFilterData] = useState<SearchItemType[] | undefined>();
   const [categoryChange, setCategoryChange] = useState(false);
+  const [searchParams] = useSearchParams();
+  const tripspaceID = searchParams.get('tripspaceID');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -78,9 +82,13 @@ function SearchList({forSearch}: PropsType) {
               </div>
             )}
           </ul>
-          <button onClick={onMap}>
-            <MapButton />
-          </button>
+          {tripspaceID ? (
+            <AddToCandidateButton />
+          ) : (
+            <button onClick={onMap}>
+              <MapButton />
+            </button>
+          )}
         </>
       )}
     </div>

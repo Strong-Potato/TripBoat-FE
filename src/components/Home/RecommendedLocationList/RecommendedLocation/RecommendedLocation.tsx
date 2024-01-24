@@ -39,7 +39,9 @@ function RecommendedLocation({data}: PropsType) {
 
   return (
     <div className={styles.container}>
-      <Link to={`/home/search?keyword=${data.location}&category=0&map=false&location=${location}&sort=등록순`}>
+      <Link
+        to={`/home/search?keyword=${data.location}&category=0&map=false&location=${location}&sort=등록순&hot=false`}
+      >
         <img src={data.imageURL} alt={`${data.location}의 사진`}></img>
         <div className={styles.text_wall} />
         <span>{data.location}</span>
