@@ -2,12 +2,12 @@ import {useMutation, useQuery, useQueryClient, UseQueryResult} from '@tanstack/r
 
 import {spacesRequest} from '@/api/spaces';
 
-import {TravelListItem} from '@/types/sidebar';
+import {GetUpcomingProp} from '@/types/sidebar';
 
-function useGetSpaces(isSideOpen: boolean): UseQueryResult<TravelListItem[], Error> {
+function useGetSpaces(isSideOpen: boolean): UseQueryResult<GetUpcomingProp, Error> {
   return useQuery({
     queryKey: ['spaces'],
-    queryFn: spacesRequest.getSpaces,
+    queryFn: spacesRequest.getUpcoming,
     enabled: isSideOpen,
   });
 }
@@ -15,7 +15,7 @@ function useGetSpaces(isSideOpen: boolean): UseQueryResult<TravelListItem[], Err
 function usePostSpace() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: spacesRequest.postSpaces,
+    mutationFn: spacesRequest.post,
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['spaces']});
     },

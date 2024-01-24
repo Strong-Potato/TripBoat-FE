@@ -1,5 +1,12 @@
 import axios from 'axios';
 
 export const memberRequest = {
-  getMyInfo: () => axios.get('/api/members/my-info').then((response) => response.data.data),
+  getMyInfo: async () => {
+    try {
+      const res = await axios.get('/api/members/my-info', {withCredentials: true});
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };

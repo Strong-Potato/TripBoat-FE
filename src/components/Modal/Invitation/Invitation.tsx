@@ -121,3 +121,5 @@ function Invitation({inviteCode, isLogin, modal}: InvitationProps) {
 }
 
 export default Invitation;
+
+///////////status :400, SPACE_MAX_COUNT_OVER, 여행스페이스 생성 최대 개수를 초과하셨습니다.

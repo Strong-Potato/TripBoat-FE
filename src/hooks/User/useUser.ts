@@ -2,9 +2,9 @@ import {useQuery, UseQueryResult} from '@tanstack/react-query';
 
 import {memberRequest} from '@/api/user';
 
-import {User} from '@/types/sidebar';
+import {GetUserProp} from '@/types/sidebar';
 
-function useGetMyInfo(isOpen: boolean): UseQueryResult<User, Error> {
+function useGetMyInfo(isOpen: boolean): UseQueryResult<GetUserProp, Error> {
   return useQuery({
     queryKey: ['myInfo'],
     queryFn: memberRequest.getMyInfo,

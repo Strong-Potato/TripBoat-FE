@@ -65,10 +65,10 @@ function SideBar({isSideOpen, sideClose}: SideBarProps) {
           </div>
           <section className={styles.profile}>
             <div>
-              <Avatar w={'6.4rem'} h={'6.4rem'} name={myInfo.nickname} src={myInfo.profile} />
+              <Avatar w={'6.4rem'} h={'6.4rem'} name={myInfo.data.nickname} src={myInfo.data.profile} />
             </div>
             <div>
-              <p className={styles.profile__nickName}>{myInfo.nickname}</p>
+              <p className={styles.profile__nickName}>{myInfo.data.nickname}</p>
               <Link to='/user' onClick={sideClose} className={styles.profile__editProfile}>
                 {'프로필 보기 >'}
               </Link>
