@@ -13,7 +13,7 @@ function VoteAtHome() {
   const [data, setData] = useState<VoteDataType[]>();
 
   useEffect(() => {
-    getData<VoteDataType[] | undefined>(`api/home/vote`, setData);
+    getData<VoteDataType[] | undefined>(`/api/vote/notVoted`, setData);
   }, []);
 
   return (

@@ -39,7 +39,7 @@ function SearchItem({data, categoryChange}: PropsType) {
           </span>
         </p>
       </div>
-      {tripspaceID && <SelectButton />}
+      {tripspaceID && <SelectButton data={data} />}
     </Link>
   );
 }
