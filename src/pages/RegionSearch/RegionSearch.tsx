@@ -3,7 +3,7 @@ import {useState} from 'react';
 
 import styles from './RegionSearch.module.scss';
 
-import {useGetRegions} from '@/hooks/Spaces/space';
+import {useGetRegions, useGetSpace, usePutRegions} from '@/hooks/Spaces/space';
 
 import CustomToast from '@/components/CustomToast/CustomToast';
 import NoSearchResult from '@/components/TripSpace/NoSearchResult/NoSearchResult';
@@ -12,18 +12,24 @@ import RegionSearchBox from '@/components/TripSpace/RegionSearchBox/RegionSearch
 import RegionTagItem from '@/components/TripSpace/RegionTagItem/RegionTagItem';
 import SelectHeader from '@/components/TripSpace/SelectHeader/SelectHeader';
 
+import {getSpaceId} from '@/utils/getSpaceId';
+
 import {Region} from '@/types/regionSearch';
 
 function RegionSearch() {
-  const {data: regions, error} = useGetRegions();
+  const showToast = CustomToast();
+  const spaceId = getSpaceId();
+  const {data: regions} = useGetRegions();
+  const {data: spaceData} = useGetSpace(spaceId);
+  const putRegion = usePutRegions();
+  const prevRegion = spaceData?.data?.city?.split(',');
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [regionValue, setRegionValue] = useState('');
-  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const [selectedRegions, setSelectedRegions] = useState<string[]>(prevRegion ? prevRegion : []);
   const [filteredRegions, setFilteredRegions] = useState<Region[]>(regions);
-  const showToast = CustomToast();
 
-  if (error) {
-    console.error('[ERROR] ', error.message);
+  if (spaceData.responseCode === 404) {
+    setSelectedRegions([]);
   }
 
   const handleRegionsFiltered = (filteredRegions: Region[]) => {
@@ -48,6 +54,10 @@ function RegionSearch() {
         showToast('최대 4개 도시까지 선택 가능합니다.', false, '');
       }
     }
+  };
+
+  const editRegions = async () => {
+    await putRegion.mutateAsync({spaceId: spaceId, cities: selectedRegions});
   };
 
   return (
@@ -90,7 +100,7 @@ function RegionSearch() {
             />
           ))}
         </div>
-        <Button isDisabled={!selectedRegions.length} zIndex='3' variant='CTAButton'>
+        <Button isDisabled={!selectedRegions.length} zIndex='3' variant='CTAButton' onClick={editRegions}>
           {selectedRegions.length ? `${selectedRegions.length}개 선택 완료` : '도시를 선택해주세요'}
         </Button>
       </div>

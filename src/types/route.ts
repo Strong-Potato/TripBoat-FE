@@ -96,3 +96,43 @@ export interface RouteMapSlideProps {
   activeDay: number;
   onDayChange: (day: number) => void;
 }
+
+export interface ErrorResponse {
+  detail: string;
+  instance: string;
+  responseCode: number;
+  status: number;
+  title: string;
+  type: string;
+}
+
+export interface SpaceResponse {
+  data: {
+    id: number;
+    title: string;
+    startDate: string | null;
+    endDate: string | null;
+    city: string | null;
+    thumbnail: string | null;
+    members: [
+      {
+        id: number;
+        nickname: string;
+        profile: string;
+      },
+    ];
+  };
+  responseCode: number;
+  detail?: string;
+}
+
+export interface SpaceRegionParams {
+  spaceId: number;
+  cities: string[];
+}
+
+export interface SpaceDateParams {
+  spaceId: number;
+  startDate: string;
+  endDate: string;
+}
