@@ -86,7 +86,6 @@ export interface VoteHeaderProps {
 export interface CandidateCardProps {
   onBottomSlideOpen?: (content: ReactNode) => void | undefined;
   candidate: CandidatesInfo;
-  showResults: boolean;
   index: number;
   isMapStyle?: boolean;
 }

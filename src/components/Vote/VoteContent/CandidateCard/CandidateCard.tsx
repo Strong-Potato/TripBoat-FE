@@ -9,15 +9,17 @@ import SecondIcon from '@/assets/voteIcons/rank_2.svg?react';
 import ThirdIcon from '@/assets/voteIcons/rank_3.svg?react';
 import AddDayIcon from '@/assets/voteIcons/vote_addDay.svg?react';
 import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
+import {showResultsState} from '@/recoil/vote/showResults';
 
 import AddToJourney from '../../VoteBottomSlideContent/AddToJourney/AddToJourney';
 import VotedUserList from '../../VoteBottomSlideContent/VotedUserList/VotedUserList';
 
 import {CandidateCardProps} from '@/types/vote';
 
-const CandidateCard = ({onBottomSlideOpen, candidate, showResults, index, isMapStyle}: CandidateCardProps) => {
+const CandidateCard = ({onBottomSlideOpen, candidate, index, isMapStyle}: CandidateCardProps) => {
   const [isVoted, setIsVoted] = useState(false);
   const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
+  const showResults = useRecoilValue(showResultsState);
 
   const placeInfo = candidate.placeInfo;
 

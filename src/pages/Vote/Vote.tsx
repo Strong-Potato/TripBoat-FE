@@ -16,6 +16,7 @@ import VoteHeader from '@/components/Vote/VoteHeader/VoteHeader';
 import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
 import {isBottomSlideOpenState} from '@/recoil/vote/bottomSlide';
 import {selectedCandidatesState} from '@/recoil/vote/candidateList';
+import {showResultsState} from '@/recoil/vote/showResults';
 
 import {VoteInfo} from '@/types/vote';
 
@@ -26,7 +27,7 @@ const Vote = () => {
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const [isCandidateSelecting, setIsCandidateSelecting] = useRecoilState(isCandidateSelectingState);
   const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
-  const [showResults, setShowResults] = useState(false);
+  const [showResults, setShowResults] = useRecoilState(showResultsState);
   const [bottomSlideContent, setBottomSlideContent] = useState<ReactNode | null>(null);
 
   const isZeroCandidates = voteInfo.candidates.length === 0;
@@ -36,13 +37,11 @@ const Vote = () => {
   }
   const allCandidatesNotVoted = areAllCandidatesNotVoted(voteInfo);
 
-  // if (voteInfo.voteStatus === '결정완료') {
-  //   setShowResults(true);
-  // }
-
   useEffect(() => {
+    if (voteInfo.voteStatus === '결정완료') {
+      setShowResults(true);
+    }
     setIsCandidateSelecting(false);
-    setShowResults(false);
     setSelectedCandidates(new Set());
   }, []);
 
@@ -56,6 +55,7 @@ const Vote = () => {
 
   const handleShowResultsClick = () => {
     setShowResults(!showResults);
+    //api넣기
   };
 
   return (

@@ -33,12 +33,7 @@ const CandidateList = ({candidates, onBottomSlideOpen, showResults, isCandidateS
             )}
             <div className={styles.candidateBox}>
               <label htmlFor={`${i}checkbox`}>
-                <CandidateCard
-                  onBottomSlideOpen={onBottomSlideOpen}
-                  candidate={candidate}
-                  showResults={showResults}
-                  index={i + 1}
-                />
+                <CandidateCard onBottomSlideOpen={onBottomSlideOpen} candidate={candidate} index={i + 1} />
               </label>
               <div className={styles.candidateBox__memo}>
                 <Avatar boxSize='24px' />
