@@ -10,15 +10,17 @@ export interface InformationProps {
     rating: number;
     userRatingCount: number;
   };
-  reviews: {
-    content: string;
-    images: string[];
-    isGoogle: boolean;
-    nickname: string;
-    profileImage: string;
-    rating: number;
-    visitedAt: string;
-  }[];
+  reviews:
+    | {
+        content: string;
+        images: string[];
+        isGoogle: boolean;
+        nickname: string;
+        profileImage: string;
+        rating: number;
+        visitedAt: string;
+      }[]
+    | undefined;
 }
 
 function Information({data, onOpen, reviewsRating, reviews}: InformationProps) {

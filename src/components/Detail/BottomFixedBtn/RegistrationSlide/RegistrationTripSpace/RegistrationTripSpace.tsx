@@ -58,6 +58,7 @@ function RegistrationTripSpace({tripSelectedId, setTripSelectedId, spaces}: Regi
                     setTripSelectedId(data.id);
                     setIsValuedArray([]);
                   }}
+                  key={`spaces_${data.id}`}
                 >
                   <div className={styles.container__itemsBox__item__title}>
                     <img

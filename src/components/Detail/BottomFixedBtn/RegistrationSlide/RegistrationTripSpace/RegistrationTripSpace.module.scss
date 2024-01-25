@@ -15,8 +15,6 @@
     padding: 20px 24px;
     cursor: pointer;
 
-    position: fixed;
-
     &__true {
       @include typography(subTitle);
       color: $neutral900;
@@ -39,12 +37,12 @@
     visibility: hidden;
     transition: visibility 0.5s;
 
-    margin-top: 64px;
-
     max-height: 20rem;
 
-    overflow: scroll;
-
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
+    }
     &__item {
       padding: 12px 16px;
       display: flex;

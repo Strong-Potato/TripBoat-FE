@@ -50,15 +50,17 @@ export interface ContentsShortReviewsProps {
     rating: number;
     userRatingCount: number;
   };
-  reviews: {
-    content: string;
-    images: string[];
-    isGoogle: boolean;
-    nickname: string;
-    profileImage: string;
-    rating: number;
-    visitedAt: string;
-  }[];
+  reviews:
+    | {
+        content: string;
+        images: string[];
+        isGoogle: boolean;
+        nickname: string;
+        profileImage: string;
+        rating: number;
+        visitedAt: string;
+      }[]
+    | undefined;
 }
 
 export interface ContentsReviewsProps {
@@ -67,15 +69,17 @@ export interface ContentsReviewsProps {
     rating: number;
     userRatingCount: number;
   };
-  reviews: {
-    content: string;
-    images: string[];
-    isGoogle: boolean;
-    nickname: string;
-    profileImage: string;
-    rating: number;
-    visitedAt: string;
-  }[];
+  reviews:
+    | {
+        content: string;
+        images: string[];
+        isGoogle: boolean;
+        nickname: string;
+        profileImage: string;
+        rating: number;
+        visitedAt: string;
+      }[]
+    | undefined;
 }
 
 export interface ReviewBottomSlideProps {

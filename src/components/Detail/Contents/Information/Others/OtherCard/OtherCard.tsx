@@ -4,7 +4,7 @@ import styles from './OtherCard.module.scss';
 
 import {OtherCardPropsType} from '@/types/detail';
 import {Link} from 'react-router-dom';
-import {translateCategoryToStr} from '@/hooks/Search/useSearch';
+import {translateCategoryToStr} from '@/utils/translateSearchData';
 
 function OtherCard({image, name, point, id, contentTypeId}: OtherCardPropsType) {
   const categoryStr = translateCategoryToStr(contentTypeId);

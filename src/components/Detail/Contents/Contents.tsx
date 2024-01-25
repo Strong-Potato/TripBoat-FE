@@ -9,7 +9,7 @@ import {TabIndexState, TabYPosition} from '@/recoil/detail/detail';
 import Information from './Information/Information';
 import Reviews from './Reviews/Reviews';
 import {placeInfoDataPlace} from '@/types/detail';
-import {useGetReviews} from '@/hooks/Detail/useReviews';
+// import {useGetReviews} from '@/hooks/Detail/useReviews';
 import {useParams} from 'react-router-dom';
 
 interface ContentsProps {
@@ -25,18 +25,20 @@ function Contents({data, onOpen, reviewsRating}: ContentsProps) {
   const [tabIndex, setTabIndex] = useRecoilState(TabIndexState);
   const setTabPosition = useSetRecoilState(TabYPosition);
 
-  const {id: params} = useParams();
+  // const {id: params} = useParams();
 
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
   };
 
-  const {
-    data: {
-      data: {reviews: reviews},
-    },
-  } = useGetReviews(Number(params?.split(' ')[0]), Number(params?.split(' ')[1]), data.title);
-  console.log(reviews, '!!');
+  // const {
+  //   data: {
+  //     data: {reviews: reviews},
+  //   },
+  // } = useGetReviews(Number(params?.split(' ')[0]), Number(params?.split(' ')[1]), data.title);
+  // console.log(reviews, '!!');
+
+  const reviews = undefined;
 
   useEffect(() => {
     const tabRef = document.getElementById('tab');

@@ -1,5 +1,5 @@
 import {useDisclosure} from '@chakra-ui/react';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {CiEdit} from 'react-icons/ci';
 import {useRecoilValue} from 'recoil';
 
@@ -18,6 +18,7 @@ import {RegistrationSlideProps} from '@/types/detail';
 
 import {useGetSpaces} from '@/hooks/Spaces/useSpaces';
 import {useGetVoteListInfo} from '@/hooks/Votes/vote';
+import {VoteListInfo} from '@/types/vote';
 
 function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
   const isValuedArray = useRecoilValue<string[]>(isRegistrationSelectedState);
@@ -29,11 +30,14 @@ function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
 
   console.log(spaces, 'spaces');
 
-  const {data: voteList} = useGetVoteListInfo(tripSelectedId);
+  const data = useGetVoteListInfo(tripSelectedId);
 
-  console.log(voteList, 'voteList');
+  const voteListAllData = data.data;
+  const voteListData: VoteListInfo[] = voteListAllData?.data?.voteResponse.filter(
+    (vote: any) => vote.voteStatus === '진행 중',
+  );
 
-  const exArray = [];
+  console.log(voteListData, 'voteList');
 
   return (
     <>
@@ -52,7 +56,6 @@ function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
             <button
               onClick={() => {
                 onOpen();
-                console.log(1);
               }}
             >
               <CiEdit fontSize='2.2rem' />
@@ -74,16 +77,15 @@ function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
         />
         <div className={styles.container__voteTitle}>투표리스트</div>
         {tripSelectedId ? (
-          exArray.length > 0 ? (
+          voteListData && voteListData.length > 0 ? (
             <div>
               <div className={styles.container__voteSelected}>
                 <span>후보로 등록할 투표 제목을 선택해주세요</span>
               </div>
               <div className={styles.container__voteList}>
-                <RegistrationListItem title='맛집 어디갈까' isSelectedProps={true} />
-                {/*  초과 글씨 ... 처리 해야함*/}
-                <RegistrationListItem title='둘째 날 숙소 어디서 묵지?' isSelectedProps={false} />
-                <RegistrationListItem title='루프탑 카페 정하자~' isSelectedProps={false} />
+                {voteListData.map((data) => (
+                  <RegistrationListItem title={data.title} isSelectedProps={false} key={`votelist_${data.voteId}`} />
+                ))}
               </div>
             </div>
           ) : (
@@ -115,7 +117,7 @@ function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
           후보 등록
         </button>
       </div>
-      <RegistrationModal isOpen={isOpen} onClose={onClose} />
+      <RegistrationModal spaceId={tripSelectedId} isOpen={isOpen} onClose={onClose} />
     </>
   );
 }
