@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import styles from './Tabs.module.scss';
 
@@ -6,31 +6,49 @@ import useComponentSize from '@/hooks/useComponetSize';
 
 import SlideButton from '@/components/SlideButton/SlideButton';
 
+import {translateCategoryToStr} from '@/utils/translateSearchData';
+
 import Tab from './Tab/Tab';
 
-import {ForSearchType} from '@/types/home';
+import {ForSearchType, SearchItemType} from '@/types/home';
 
 interface PropsType {
+  data: SearchItemType[] | undefined;
   forSearch: ForSearchType;
   setCategoryChange: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Tabs({forSearch, setCategoryChange}: PropsType) {
+function Tabs({data, forSearch, setCategoryChange}: PropsType) {
+  const [category, setCategory] = useState<string[]>();
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
-  const thisCategory = ['전체', '맛집', '숙소', '관광지', '문화시설', '레포츠', '쇼핑'];
+
+  useEffect(() => {
+    if (data) {
+      const dataCategory: string[] = [];
+      data.map((data) => {
+        const categoryData = translateCategoryToStr(data.contentTypeId);
+        dataCategory.push(categoryData);
+      });
+      const set = new Set(dataCategory);
+      const push = ['전체', ...set];
+      setCategory(push);
+    }
+  }, [data]);
 
   return (
     <div className={styles.container}>
-      <SlideButton
-        slideLocation={slideLocation}
-        setSlideLocation={setSlideLocation}
-        itemWidth={90}
-        flexGap={0}
-        itemNumber={thisCategory.length}
-        slideSize={size}
-        buttonSize={24}
-      />
+      {category && (
+        <SlideButton
+          slideLocation={slideLocation}
+          setSlideLocation={setSlideLocation}
+          itemWidth={90}
+          flexGap={0}
+          itemNumber={category?.length}
+          slideSize={size}
+          buttonSize={24}
+        />
+      )}
       <div
         className={styles.tabs}
         ref={componentRef}
@@ -39,14 +57,15 @@ function Tabs({forSearch, setCategoryChange}: PropsType) {
           left: slideLocation + 'px',
         }}
       >
-        {thisCategory.map((thisCategory) => (
-          <Tab
-            forSearch={forSearch}
-            setCategoryChange={setCategoryChange}
-            thisCategory={thisCategory}
-            key={thisCategory}
-          />
-        ))}
+        {category &&
+          category.map((thisCategory) => (
+            <Tab
+              forSearch={forSearch}
+              setCategoryChange={setCategoryChange}
+              thisCategory={thisCategory}
+              key={thisCategory}
+            />
+          ))}
       </div>
     </div>
   );

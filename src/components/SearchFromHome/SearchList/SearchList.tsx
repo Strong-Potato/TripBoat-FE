@@ -65,7 +65,7 @@ function SearchList({forSearch}: PropsType) {
         paddingTop: forSearch.placeID !== 'undefinde' ? '24px' : 0,
       }}
     >
-      {forSearch.hot === 'false' && <Tabs forSearch={forSearch} setCategoryChange={setCategoryChange} />}
+      {forSearch.hot === 'false' && <Tabs data={data} forSearch={forSearch} setCategoryChange={setCategoryChange} />}
       {forSearch.map === 'true' && filterData ? (
         <Map data={filterData} categoryChange={categoryChange} />
       ) : (
