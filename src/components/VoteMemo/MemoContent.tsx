@@ -16,7 +16,7 @@ const MemoContent = ({data}: {data: VoteInfo}) => {
         <MemoItem
           candidate={candidate}
           key={candidate.id}
-          existingTagline={existingTaglines?.find((tagline) => tagline.placeId === candidate.placeInfo.placeId)}
+          existingTagline={existingTaglines?.find((tagline) => tagline.id === candidate.placeInfo.placeId)}
         />
       ))}
     </div>

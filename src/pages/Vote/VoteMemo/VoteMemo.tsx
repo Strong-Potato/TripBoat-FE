@@ -1,7 +1,7 @@
 import {Button} from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
-import {useRecoilState} from 'recoil';
+import {useRecoilState, useRecoilValue} from 'recoil';
 
 import styles from './VoteMemo.module.scss';
 
@@ -14,6 +14,7 @@ import VoteHeader from '@/components/Vote/VoteHeader/VoteHeader';
 import MemoContent from '@/components/VoteMemo/MemoContent';
 
 import {isBottomSlideOpenState} from '@/recoil/vote/bottomSlide';
+import {selectedPlaceState} from '@/recoil/vote/selectPlace';
 import {selectedTaglineState} from '@/recoil/vote/voteMemo';
 
 import {TaglineType} from '@/types/vote';
@@ -25,23 +26,24 @@ const VoteMemo = () => {
   // const navigate = useNavigate();
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
-  // const [selectedPlaces,SetSelectedPlaces] = useRecoilState(selectedPlaceState);
+  // const [selectedPlaces, SetSelectedPlaces] = useRecoilState(selectedPlaceState);
+  const selectedPlaces = useRecoilValue(selectedPlaceState);
   const {toggleItemInNewArray} = useGetSelectedArray(selectedTaglineState);
 
   const getExistingTaglines = localStorage.getItem('recoil-persist');
 
   const setInitializeTagline = () => {
-    setSelectedTagline(voteInfo.candidates.map(({placeInfo}) => ({placeId: placeInfo.placeId, tagline: ''})));
+    setSelectedTagline(selectedPlaces?.map((place) => ({id: place.id, tagline: ''})));
   };
 
   const setExistingTagline = () => {
     const existingTaglines: TaglineType[] = getExistingTaglines && JSON.parse(getExistingTaglines).selectedTaglineState;
 
-    const nonExistPlaceIds = voteInfo.candidates
-      .map(({placeInfo}) => placeInfo.placeId)
-      .filter((placeId) => !existingTaglines.some((tagline) => tagline.placeId === placeId));
+    const nonExistPlaceIds = selectedPlaces
+      .map((place) => place.id)
+      .filter((id) => !existingTaglines.some((tagline) => tagline.id === id));
 
-    nonExistPlaceIds.map((placeId) => ({placeId, tagline: ''})).forEach((tagline) => toggleItemInNewArray(tagline));
+    nonExistPlaceIds.map((id) => ({id, tagline: ''})).forEach((tagline) => toggleItemInNewArray(tagline));
   };
 
   useEffect(() => {

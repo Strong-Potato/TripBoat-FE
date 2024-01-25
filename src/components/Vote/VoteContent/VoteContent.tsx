@@ -46,7 +46,6 @@ const VoteContent = ({onBottomSlideOpen, data, isZeroCandidates, showResults}: V
       <CandidateList
         candidates={candidates}
         onBottomSlideOpen={onBottomSlideOpen}
-        showResults={showResults}
         isCandidateSelecting={isCandidateSelecting}
       />
 

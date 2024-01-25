@@ -12,7 +12,7 @@ import VoteContentEmpty from '../VoteContentEmpty/VoteContentEmpty';
 
 import {CandidateListProps} from '@/types/vote';
 
-const CandidateList = ({candidates, onBottomSlideOpen, showResults, isCandidateSelecting}: CandidateListProps) => {
+const CandidateList = ({candidates, onBottomSlideOpen, isCandidateSelecting}: CandidateListProps) => {
   const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
   const {addItemInNewSet} = useGetSelectedSet(setSelectedCandidates);
 

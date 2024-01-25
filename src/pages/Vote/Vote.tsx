@@ -8,6 +8,7 @@ import styles from './Vote.module.scss';
 import {useGetVotesInfo} from '@/hooks/Votes/vote';
 
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
+import AddCandidate from '@/components/Vote/VoteBottomSlideContent/AddCandidate/AddCandidate';
 import VoteMeatball from '@/components/Vote/VoteBottomSlideContent/VoteMeatball/VoteMeatball';
 import VoteContent from '@/components/Vote/VoteContent/VoteContent';
 import VoteContentEmpty from '@/components/Vote/VoteContent/VoteContentEmpty/VoteContentEmpty';
@@ -59,6 +60,7 @@ const Vote = () => {
   };
 
   const handleShowResultsClick = () => {
+    BottomSlideOpen(<AddCandidate />);
     // if (isZeroCandidates) {
     //   return '후보 추가하기'; 후보 추가 연결
     // } else if (showResults) {
@@ -67,7 +69,7 @@ const Vote = () => {
     //   return '결과보기'; //결과보기 api연결
     // }
     // setShowResults(!showResults);
-    console.log('showResults', showResults);
+    // console.log('showResults', showResults);
   };
 
   const getButtonStatus = () => {

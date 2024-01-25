@@ -33,10 +33,6 @@ const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: V
   const changeCompleteMutation = useChangeStatusComplete();
   const resetStatusMutation = useResetVoteStatus();
 
-  const modalConsole = () => {
-    console.log('변경');
-  };
-
   const showAlertModal = ({...content}: AlertModalProps) => {
     setIsBTOpen(false);
     setIsModalOpen(true);

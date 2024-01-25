@@ -109,7 +109,7 @@ export interface AlertModalProps {
 export interface CandidateListProps {
   candidates: CandidatesInfo[];
   onBottomSlideOpen: (content: ReactNode) => void;
-  showResults: boolean;
+
   isCandidateSelecting: boolean;
 }
 
@@ -148,7 +148,7 @@ export interface DeleteCandidatesProps {
 }
 
 export interface TaglineType {
-  placeId: number;
+  id: number;
   tagline: string;
 }
 
