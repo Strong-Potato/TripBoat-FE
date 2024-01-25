@@ -16,7 +16,7 @@ import Invitation from '@/components/Modal/Invitation/Invitation';
 
 function Home() {
   const [onboarding, setOnboarding] = useState(true);
-  const [cookies] = useCookies(['join_space_token', 'isLogin']);
+  const [cookies] = useCookies(['join_space_token']);
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ function Home() {
         </div>
       </div>
       {!onboarding && <Onboarding set={setOnboarding} />}
-      {modal && <Invitation inviteCode={cookies.join_space_token} isLogin={cookies.isLogin} modal={setModal} />}
+      {modal && <Invitation inviteCode={cookies.join_space_token} modal={setModal} />}
     </div>
   );
 }

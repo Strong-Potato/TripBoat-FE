@@ -1,6 +1,7 @@
 import {ChakraProvider} from '@chakra-ui/react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {HelmetProvider} from 'react-helmet-async';
 import {RecoilRoot} from 'recoil';
 
 import App from './App.tsx';
@@ -18,11 +19,13 @@ async function enableMocking() {
 enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-      <RecoilRoot>
-        <ChakraProvider theme={customTheme}>
-          <App />
-        </ChakraProvider>
-      </RecoilRoot>
+      <HelmetProvider>
+        <RecoilRoot>
+          <ChakraProvider theme={customTheme}>
+            <App />
+          </ChakraProvider>
+        </RecoilRoot>
+      </HelmetProvider>
     </React.StrictMode>,
   );
 });

@@ -1,19 +1,19 @@
-import { useDisclosure } from "@chakra-ui/react";
-import { useState } from "react";
+import {useDisclosure} from '@chakra-ui/react';
+import {useState} from 'react';
 
-import styles from "./ReviewImageSlider.module.scss";
+import styles from './ReviewImageSlider.module.scss';
 
-import useComponentSize from "@/hooks/useComponetSize";
+import useComponentSize from '@/hooks/useComponetSize';
 
-import SlideModal from "@/components/Detail/Main/SlideModal/SlideModal";
-import SlideButton from "@/components/SlideButton/SlideButton";
+import SlideModal from '@/components/Detail/Main/SlideModal/SlideModal';
+import SlideButton from '@/components/SlideButton/SlideButton';
 
-function ReviewImageSlider({ images }: { images: string[] }) {
+function ReviewImageSlider({images}: {images: string[]}) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
 
   const [imageIndex, setImageIndex] = useState<number>(0);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {isOpen, onOpen, onClose} = useDisclosure();
 
   const handleIsOpen = (index: number) => {
     setImageIndex(index);
@@ -36,14 +36,15 @@ function ReviewImageSlider({ images }: { images: string[] }) {
           itemNumber={images.length}
           // 목록 전체 넓이
           slideSize={size}
+          buttonSize={24}
         />
       )}
       <div
         className={styles.container__imgWrapper}
         ref={componentRef}
         style={{
-          overflow: window.innerWidth < 450 ? "scroll" : "visible",
-          left: slideLocation + "px",
+          overflow: window.innerWidth < 450 ? 'scroll' : 'visible',
+          left: slideLocation + 'px',
         }}
       >
         {images.map((data, i) => (

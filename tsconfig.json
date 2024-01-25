@@ -35,5 +35,5 @@
     }
   },
   "include": ["src", "svg.d.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{"path": "./tsconfig.node.json"}]
 }

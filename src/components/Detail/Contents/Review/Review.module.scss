@@ -1,10 +1,17 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   display: flex;
   gap: 8px;
   padding: 24px 20px;
   border-bottom: 1px solid $neutral100;
+
+  &__imgWrapper {
+    img {
+      width: 3.2rem;
+      height: 3.2rem;
+    }
+  }
 
   &__contentsBox {
     width: 100%;
@@ -17,6 +24,14 @@
 
     &__name {
       @include typography(button);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      &__google {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
     }
 
     &__secondItems {
