@@ -1,6 +1,6 @@
 import {format} from 'date-fns';
 
-const createDate = (date: string) => {
+export const createDate = (date: string) => {
   const arrayForm = date.split('-').map((el) => Number(el));
 
   return new Date(arrayForm[0], arrayForm[1] - 1, arrayForm[2]);
