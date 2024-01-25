@@ -99,7 +99,8 @@ export interface RegistrationSlideProps {
 }
 
 export interface RegistrationTripSpaceProps {
-  setTripSelected: React.Dispatch<React.SetStateAction<string>>;
+  tripSelectedId: number;
+  setTripSelectedId: React.Dispatch<React.SetStateAction<number>>;
   spaces?: Spaces[] | undefined;
 }
 
