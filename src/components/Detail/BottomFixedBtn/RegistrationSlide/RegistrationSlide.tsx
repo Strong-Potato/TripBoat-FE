@@ -1,5 +1,5 @@
 import {useDisclosure} from '@chakra-ui/react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {CiEdit} from 'react-icons/ci';
 import {useRecoilValue} from 'recoil';
 
@@ -17,6 +17,7 @@ import RegistrationTripSpace from './RegistrationTripSpace/RegistrationTripSpace
 import {RegistrationSlideProps} from '@/types/detail';
 
 import {useGetSpaces} from '@/hooks/Spaces/useSpaces';
+import {useGetVoteListInfo} from '@/hooks/Votes/vote';
 
 function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
   const isValuedArray = useRecoilValue<string[]>(isRegistrationSelectedState);
@@ -27,6 +28,10 @@ function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
   const {data: spaces} = useGetSpaces(true);
 
   console.log(spaces, 'spaces');
+
+  const {data: voteList} = useGetVoteListInfo(tripSelectedId);
+
+  console.log(voteList, 'voteList');
 
   const exArray = [];
 

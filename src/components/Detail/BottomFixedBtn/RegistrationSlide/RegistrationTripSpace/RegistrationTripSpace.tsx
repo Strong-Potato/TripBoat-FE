@@ -1,7 +1,6 @@
 import {useState} from 'react';
 import {IoMdArrowDropdown} from 'react-icons/io';
 import {IoMdArrowDropup} from 'react-icons/io';
-import {IoMdCheckmark} from 'react-icons/io';
 import {useSetRecoilState} from 'recoil';
 
 import styles from './RegistrationTripSpace.module.scss';
