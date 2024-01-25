@@ -37,6 +37,8 @@ export interface NavigationProps {
 export interface NavigationMeatballProps {
   onBottomSlideOpen: (content: ReactNode, isReview: boolean) => void;
   onClose: () => void;
+  id: number;
+  contentTypeId: number;
 }
 
 // Main

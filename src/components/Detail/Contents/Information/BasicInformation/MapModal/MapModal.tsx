@@ -1,11 +1,11 @@
 import {Drawer, DrawerBody, DrawerContent, DrawerFooter, DrawerHeader} from '@chakra-ui/react';
 import {AiOutlineLeft} from 'react-icons/ai';
-import {FaRegHeart} from 'react-icons/fa';
 import {CustomOverlayMap, Map} from 'react-kakao-maps-sdk';
 
 import styles from './MapModal.module.scss';
 
 import BigHomeMarker from '@/assets/homeIcons/map/house_big.svg?react';
+import WishBtn from '@/components/WishBtn/WishBtn';
 
 interface MapModalProps {
   isOpen: boolean;
@@ -14,11 +14,12 @@ interface MapModalProps {
   lng: number;
   title: string;
   thumbnail: string;
+  id: number;
   contentTypeId: number;
   areaCode: number;
 }
 
-function MapModal({isOpen, onClose, lat, lng, title, thumbnail, contentTypeId, areaCode}: MapModalProps) {
+function MapModal({isOpen, onClose, lat, lng, title, thumbnail, id, contentTypeId, areaCode}: MapModalProps) {
   return (
     <Drawer
       isOpen={isOpen}
@@ -51,12 +52,7 @@ function MapModal({isOpen, onClose, lat, lng, title, thumbnail, contentTypeId, a
                 {contentTypeId} {areaCode}
               </p>
             </div>
-            <FaRegHeart
-              fontSize='2.4rem'
-              cursor='pointer'
-              className={styles.footer__card__icon}
-              // onClick={handleHeartClick}
-            />
+            <WishBtn placeId={id} contentTypeId={contentTypeId} size={'2.4rem'} className={styles.footer__card__icon} />
           </div>
         </DrawerFooter>
       </DrawerContent>
