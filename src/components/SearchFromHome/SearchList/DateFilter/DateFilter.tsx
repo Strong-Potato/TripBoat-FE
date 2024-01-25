@@ -21,7 +21,7 @@ function DateFilter({forSearch}: PropsType) {
 
   function selectSort(sort: string) {
     navigate(
-      `/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=${forSearch.map}&location=${forSearch.location}&sort=${sort}&hot=${forSearch.hot}`,
+      `/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=${forSearch.map}&location=${forSearch.location}&sort=${sort}&hot=${forSearch.hot}&placeID=${forSearch.placeID}&tripDate=${forSearch.tripDate}`,
     );
   }
 

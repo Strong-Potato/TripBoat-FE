@@ -55,7 +55,7 @@ function SearchList({forSearch}: PropsType) {
 
   function onMap() {
     navigate(
-      `/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=true&location=${forSearch.location}&sort=${forSearch.sort}&hot=${forSearch.hot}`,
+      `/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=true&location=${forSearch.location}&sort=${forSearch.sort}&hot=${forSearch.hot}&placeID=${forSearch.placeID}&tripDate=${forSearch.tripDate}`,
     );
   }
 
@@ -73,7 +73,7 @@ function SearchList({forSearch}: PropsType) {
           <ul className={styles.slide}>
             {filterData && filterData?.length > 0 ? (
               filterData.map((data, i) => (
-                <SearchItem data={data} key={data.title + i} categoryChange={categoryChange} />
+                <SearchItem forSearch={forSearch} data={data} key={data.title + i} categoryChange={categoryChange} />
               ))
             ) : (
               <div className={styles.nullBox}>

@@ -154,4 +154,6 @@ export interface ForSearchType {
   location: string;
   sort: string;
   hot: string;
+  placeID: string;
+  tripDate: string;
 }

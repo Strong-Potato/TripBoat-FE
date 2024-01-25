@@ -43,7 +43,7 @@ function LocationFliterPage({forSearch, click, handleClick}: PropsType) {
 
   function submit() {
     navigate(
-      `/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=${forSearch.map}&location=${area} ${sigungu}&sort=${forSearch.sort}&hot=${forSearch.hot}`,
+      `/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=${forSearch.map}&location=${area} ${sigungu}&sort=${forSearch.sort}&hot=${forSearch.hot}&placeID=${forSearch.placeID}&tripDate=${forSearch.tripDate}`,
     );
     handleClick();
   }

@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useNavigate, useSearchParams} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import styles from './SearchKeyword.module.scss';
 
@@ -9,15 +9,17 @@ import SlideButton from '@/components/SlideButton/SlideButton';
 
 import {getHotKeyword} from '@/api/search';
 
-import {SearchKeywordType} from '@/types/home';
+import {ForSearchType, SearchKeywordType} from '@/types/home';
 
-function SearchKeyword() {
+interface PropsType {
+  forSearch: ForSearchType;
+}
+
+function SearchKeyword({forSearch}: PropsType) {
   const [data, setData] = useState<SearchKeywordType[] | undefined>();
   const [listWidth, setListWidth] = useState<number>(0);
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
-  const [searchParams] = useSearchParams();
-  const tripspaceID = searchParams.get('tripspaceID');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,13 +68,11 @@ function SearchKeyword() {
             <p
               key={keyword.name + i}
               onClick={() => {
-                if (tripspaceID) {
-                  navigate(
-                    `/search?keyword=${keyword.name}&category=0&map=false&location=전국&sort=등록순&hot=true&tripspaceId=false`,
-                  );
-                } else {
-                  navigate(`/search?keyword=${keyword.name}&category=0&map=false&location=전국&sort=등록순&hot=true`);
-                }
+                console.log(forSearch);
+
+                navigate(
+                  `/search?keyword=${keyword.name}&category=0&map=false&location=전국&sort=등록순&hot=true&placeID=${forSearch.placeID}&tripDate=${forSearch.tripDate}`,
+                );
               }}
             >
               {keyword.name}
