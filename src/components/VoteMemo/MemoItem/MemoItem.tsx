@@ -1,13 +1,11 @@
 import {Checkbox} from '@chakra-ui/react';
 import {useCallback, useEffect, useState} from 'react';
-import {useRecoilValue} from 'recoil';
 
 import styles from './MemoItem.module.scss';
 
 import {useDebounce} from '@/hooks/useDebounce';
 import useGetSelectedArray from '@/hooks/useGetSelectedArray';
 
-import {selectedPlaceState} from '@/recoil/vote/selectPlace';
 import {selectedTaglineState} from '@/recoil/vote/voteMemo';
 
 import {MemoItemProps} from '@/types/vote';
@@ -17,7 +15,7 @@ const MemoItem = ({place, existingTagline}: MemoItemProps) => {
   // const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
   const {toggleItemInNewArray, setMemoArray} = useGetSelectedArray(selectedTaglineState);
   const debouncedText = useDebounce(text, 500);
-  const selectedPlaces = useRecoilValue(selectedPlaceState);
+  // const selectedPlaces = useRecoilValue(selectedPlaceState);
 
   useEffect(() => {
     if (existingTagline) {
