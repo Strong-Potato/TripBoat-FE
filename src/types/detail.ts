@@ -100,7 +100,25 @@ export interface RegistrationSlideProps {
 
 export interface RegistrationTripSpaceProps {
   setTripSelected: React.Dispatch<React.SetStateAction<string>>;
+  spaces?: Spaces[] | undefined;
 }
+
+export type Spaces = {
+  title: string;
+  startDate: string;
+  endDate: string;
+  id: number;
+  city: string;
+  dueDate: number;
+  thumbnail: string;
+  members: Member[];
+};
+
+export type Member = {
+  id: number;
+  nickname: string;
+  profile: string;
+};
 
 export interface RegistrationListItemProps {
   title: string;

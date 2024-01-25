@@ -15,7 +15,8 @@ import RegistrationModal from './RegistrationModal/RegistrationModal';
 import RegistrationTripSpace from './RegistrationTripSpace/RegistrationTripSpace';
 
 import {RegistrationSlideProps} from '@/types/detail';
-import {useGetSpacesCity} from '@/hooks/Detail/useSpaces';
+
+import {useGetSpaces} from '@/hooks/Spaces/useSpaces';
 
 function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
   const isValuedArray = useRecoilValue<string[]>(isRegistrationSelectedState);
@@ -23,13 +24,9 @@ function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const toast = CustomToast();
 
-  const {
-    data: {
-      data: {spaces: spaces},
-    },
-  } = useGetSpacesCity(0, 15, '');
+  const {data: spaces} = useGetSpaces(true);
 
-  console.log(spaces);
+  console.log(spaces, 'spaces');
 
   const exArray = [];
 
@@ -44,6 +41,7 @@ function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
         >
           <CloseIcon width='2rem' height='2rem' />
         </button>
+
         <div className={styles.container__createBtn}>
           {TripSelected ? (
             <button
@@ -62,8 +60,9 @@ function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
             </button>
           )}
         </div>
+
         <div className={styles.container__tripTitle}>여행 스페이스</div>
-        <RegistrationTripSpace setTripSelected={setTripSelected} />
+        <RegistrationTripSpace setTripSelected={setTripSelected} spaces={spaces?.data.spaces} />
         <div className={styles.container__voteTitle}>투표리스트</div>
         {TripSelected ? (
           exArray.length > 0 ? (

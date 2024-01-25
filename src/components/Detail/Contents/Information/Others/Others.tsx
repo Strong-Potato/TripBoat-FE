@@ -37,7 +37,7 @@ function Others({data}: OthersProps) {
   return (
     <div className={styles.container}>
       <div className={styles.container__title}>
-        <h3>주변 다른 숙소</h3>
+        <h3>주변 다른 장소</h3>
       </div>
       <div className={styles.container__slideContainer}>
         {othersData && (

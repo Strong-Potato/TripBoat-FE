@@ -1,10 +1,10 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   border-radius: 16px;
   margin-bottom: 32px;
   transition: height 0.5s;
-  overflow: hidden;
+  overflow: scroll;
 
   &__select {
     display: flex;
