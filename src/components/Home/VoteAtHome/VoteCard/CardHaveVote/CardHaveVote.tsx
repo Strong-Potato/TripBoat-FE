@@ -36,7 +36,7 @@ function CardHaveVote({data}: PropsType) {
         }}
       >
         {data &&
-          data.voteResponse.map((data, i) => {
+          data.voteResponse.map((data) => {
             return (
               <div className={styles.vote_box} key={data.voteId}>
                 <div className={styles.contents}>
