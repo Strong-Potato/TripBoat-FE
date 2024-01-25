@@ -6,7 +6,7 @@ import styles from './RouteMapBody.module.scss';
 
 import RouteMapSlide from '../RouteMapSlide/RouteMapSlide';
 import MapPinActive from '../../CandidatesMap/MapPins/MapPinActive';
-import MapPinNumber from '../../CandidatesMap/MapPins/MapPinNumber';
+import MapPinCommon from '../../CandidatesMap/MapPins/MapPinCommon';
 
 import {Journeys, LatLng} from '@/types/route';
 
@@ -58,7 +58,7 @@ const RouteMapBody = ({journeys}: Journeys) => {
                 className={`pin ${selectedPinIndex === i ? 'active' : ''}`}
                 onClick={() => handleMapMarkerClick({lat: place.place.latitude, lng: place.place.latitude}, i)}
               >
-                {selectedPinIndex === i ? <MapPinActive number={i + 1} /> : <MapPinNumber number={i + 1} />}
+                {selectedPinIndex === i ? <MapPinActive number={i + 1} /> : <MapPinCommon number={i + 1} />}
               </div>
             </CustomOverlayMap>
           </React.Fragment>

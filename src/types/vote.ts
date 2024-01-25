@@ -1,6 +1,8 @@
 import {Dispatch, ReactNode} from 'react';
 import {SwiperRef} from 'swiper/react';
 
+import {SearchItemType} from './home';
+
 interface UserInfo {
   id: number;
   nickName?: string;
@@ -86,7 +88,6 @@ export interface VoteHeaderProps {
 export interface CandidateCardProps {
   onBottomSlideOpen?: (content: ReactNode) => void | undefined;
   candidate: CandidatesInfo;
-  showResults: boolean;
   index: number;
   isMapStyle?: boolean;
 }
@@ -110,7 +111,7 @@ export interface AlertModalProps {
 export interface CandidateListProps {
   candidates: CandidatesInfo[];
   onBottomSlideOpen: (content: ReactNode) => void;
-  showResults: boolean;
+
   isCandidateSelecting: boolean;
 }
 
@@ -145,15 +146,25 @@ export interface EditVoteTitleProps {
 }
 export interface DeleteCandidatesProps {
   voteId: number;
-  candidateId: number[];
+  candidateIds: number[];
 }
 
 export interface TaglineType {
-  placeId: number;
+  id: number;
   tagline: string;
 }
 
 export interface MemoItemProps {
-  candidate: CandidatesInfo;
+  place: SearchItemType;
   existingTagline?: TaglineType;
+}
+
+export interface PostVotingProps {
+  voteId: number;
+  candidateId: number;
+}
+
+export interface PostNewCandidateProps {
+  voteId: number;
+  candidateInfos: TaglineType[];
 }

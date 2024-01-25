@@ -4,7 +4,7 @@ import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './VoteMeatball.module.scss';
 
-import {useDeleteVote} from '@/hooks/Votes/vote';
+import {useChangeStatusComplete, useDeleteVote, useResetVoteStatus} from '@/hooks/Votes/vote';
 
 import AlertModal from '@/components/AlertModal/AlertModal';
 
@@ -30,10 +30,8 @@ const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: V
   const setIsCandidateSelecting = useSetRecoilState(isCandidateSelectingState);
 
   const deleteVoteMutation = useDeleteVote();
-
-  const modalConsole = () => {
-    console.log('변경');
-  };
+  const changeCompleteMutation = useChangeStatusComplete();
+  const resetStatusMutation = useResetVoteStatus();
 
   const showAlertModal = ({...content}: AlertModalProps) => {
     setIsBTOpen(false);
@@ -51,15 +49,25 @@ const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: V
     setIsCreateModalOpen(true);
   };
 
-  const deleteVote = async () => {
+  const handleDeleteVote = async () => {
     const res = await deleteVoteMutation.mutateAsync(Number(voteId));
-    console.log('delete 결과:', res);
+    console.log('delete 리액트쿼리:', res);
+  };
+
+  const handleChangeComplete = async () => {
+    const res = await changeCompleteMutation.mutateAsync(Number(voteId));
+    console.log('결정완료 리액트쿼리:', res);
+  };
+
+  const handleResetStatus = async () => {
+    const res = await resetStatusMutation.mutateAsync(Number(voteId));
+    console.log('재진행 리액트쿼리:', res);
   };
 
   return (
     <div className={styles.container}>
       {state === '결정완료' ? (
-        <button onClick={() => showAlertModal({onClickAction: modalConsole, ...retryVoteContent})}>
+        <button onClick={() => showAlertModal({onClickAction: handleResetStatus, ...retryVoteContent})}>
           <RepeatIcon />
           <p>투표 재진행</p>
         </button>
@@ -68,7 +76,7 @@ const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: V
           disabled={isZeroCandidates || allCandidatesNotVoted}
           onClick={() =>
             showAlertModal({
-              onClickAction: modalConsole,
+              onClickAction: handleChangeComplete,
               ...confirmVoteContent,
             })
           }
@@ -88,7 +96,7 @@ const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: V
         <p>후보 삭제</p>
       </button>
 
-      <button onClick={() => showAlertModal({onClickAction: deleteVote, ...deleteVoteContent})}>
+      <button onClick={() => showAlertModal({onClickAction: handleDeleteVote, ...deleteVoteContent})}>
         <TrashIcon />
         <p>투표 전체 삭제</p>
       </button>

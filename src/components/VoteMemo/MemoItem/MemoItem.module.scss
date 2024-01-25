@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   width: 100%;
@@ -42,6 +42,7 @@
     &__name {
       @include typography(titleSmall);
       color: $neutral900;
+      white-space: pre-wrap;
     }
     &__category {
       @include typography(captionSmall);

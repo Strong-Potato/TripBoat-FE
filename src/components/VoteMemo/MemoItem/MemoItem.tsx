@@ -10,12 +10,12 @@ import {selectedTaglineState} from '@/recoil/vote/voteMemo';
 
 import {MemoItemProps} from '@/types/vote';
 
-const MemoItem = ({candidate, existingTagline}: MemoItemProps) => {
+const MemoItem = ({place, existingTagline}: MemoItemProps) => {
   const [text, setText] = useState('');
   // const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
   const {toggleItemInNewArray, setMemoArray} = useGetSelectedArray(selectedTaglineState);
   const debouncedText = useDebounce(text, 500);
-  const placeInfo = candidate.placeInfo;
+  // const selectedPlaces = useRecoilValue(selectedPlaceState);
 
   useEffect(() => {
     if (existingTagline) {
@@ -25,17 +25,17 @@ const MemoItem = ({candidate, existingTagline}: MemoItemProps) => {
 
   const handleCheckboxChange = () => {
     toggleItemInNewArray({
-      placeId: placeInfo.placeId,
+      id: place.id,
       tagline: debouncedText,
     });
   };
 
   const handleDebouncedTextChange = useCallback(() => {
     setMemoArray({
-      placeId: placeInfo.placeId,
+      id: place.id,
       tagline: debouncedText,
     });
-  }, [debouncedText, placeInfo.placeId, setMemoArray]);
+  }, [debouncedText, place.id, setMemoArray]);
 
   useEffect(() => {
     handleDebouncedTextChange();
@@ -45,23 +45,23 @@ const MemoItem = ({candidate, existingTagline}: MemoItemProps) => {
     <div className={styles.container}>
       <Checkbox
         defaultChecked
-        id={`${placeInfo.placeId}taglineCheck`}
+        id={`${place.id}taglineCheck`}
         variant='candidateCheckbox'
         m='0'
         alignItems='flex-start'
         onChange={handleCheckboxChange}
       />
       <div className={styles.container__rightSide}>
-        <label htmlFor={`${placeInfo.placeId}taglineCheck`} className={styles.candidateBox}>
+        <label htmlFor={`${place.id}taglineCheck`} className={styles.candidateBox}>
           <div className={styles.candidateBox__image}>
-            <img src={placeInfo.placeImageURL} alt={placeInfo.placeName} />
+            <img src={place.thumbnail} alt={place.title} />
           </div>
           <div className={styles.candidateBox__text}>
-            <p className={styles.candidateBox__text__name}>{placeInfo.placeName}</p>
+            <p className={styles.candidateBox__text__name}>{place.title}</p>
             <span className={styles.candidateBox__text__category}>
-              {placeInfo.category}
+              {place.contentTypeId}
               {'ꞏ'}
-              {placeInfo.location}
+              {place.location.areaCode}
             </span>
           </div>
         </label>
