@@ -1,19 +1,18 @@
-import {useState} from 'react';
 import {GoPlus} from 'react-icons/go';
 import {useNavigate} from 'react-router-dom';
+import {useRecoilState} from 'recoil';
 
 import styles from './TravelList.module.scss';
 
 import {useGetSpaces, usePostSpace} from '@/hooks/Spaces/useSpaces';
 
-import FullMembers from '@/components/Modal/FullMembers/FullMembers';
-
+import {isFullMember} from '@/recoil/fullmember/fullmember';
 import {setSpaceDate} from '@/utils/formatDate';
 
 import {TravelListProp} from '@/types/sidebar';
 
 function TravelList({isSideOpen}: TravelListProp) {
-  const [isFull, setIsFull] = useState(true);
+  const [, setIsFull] = useRecoilState(isFullMember);
   const {mutate} = usePostSpace();
   const navigate = useNavigate();
 
@@ -61,7 +60,6 @@ function TravelList({isSideOpen}: TravelListProp) {
           ))}
         </ul>
       </section>
-      {isFull && <FullMembers modal={setIsFull} />}
     </>
   );
 }
