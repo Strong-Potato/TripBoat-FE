@@ -1,11 +1,11 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   position: relative;
 
   width: 100%;
   min-width: 32.3rem;
-  height: 9rem;
+  height: 9.8rem;
 
   display: flex;
   gap: 16px;
@@ -18,6 +18,8 @@
 
     width: 6.6rem;
     height: 100%;
+
+    padding: 26px 12px 32px 20px;
 
     border-radius: 1.6rem 0 0 1.6rem;
 
@@ -53,15 +55,19 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 4px;
+    gap: 2px;
 
-    .trip_title {
+    .trip_city {
       @include typography(titleSmall);
       color: $neutral900;
     }
     .trip_day {
-      @include typography(bodySmall);
+      @include typography(captionSmall);
       color: $neutral700;
+    }
+    .trip_title {
+      @include typography(captionSmall);
+      color: $neutral400;
     }
   }
 

@@ -1,5 +1,4 @@
-import axios from 'axios';
-import {Dispatch, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import styles from './SearchKeyword.module.scss';
@@ -8,9 +7,15 @@ import useComponentSize from '@/hooks/useComponetSize';
 
 import SlideButton from '@/components/SlideButton/SlideButton';
 
-import {Keywords, SearchDataType, SearchKeywordType} from '@/types/home';
+import {getHotKeyword} from '@/api/search';
 
-function SearchKeyword() {
+import {ForSearchType, SearchKeywordType} from '@/types/home';
+
+interface PropsType {
+  forSearch: ForSearchType;
+}
+
+function SearchKeyword({forSearch}: PropsType) {
   const [data, setData] = useState<SearchKeywordType[] | undefined>();
   const [listWidth, setListWidth] = useState<number>(0);
   const [slideLocation, setSlideLocation] = useState<number>(0);
@@ -18,16 +23,7 @@ function SearchKeyword() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function getData(apiURL: string, set: Dispatch<SearchKeywordType[] | undefined>) {
-      try {
-        const fetchData = await axios.get(`${apiURL}`);
-        const data: SearchDataType<Keywords> = fetchData.data;
-        set(data.data.keywords);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getData('/api/places/popular/keywords', setData);
+    getHotKeyword('/api/places/popular/keywords', setData);
   }, []);
 
   // 각 키워드의 너비를 모두 더한 값을 구함
@@ -72,8 +68,10 @@ function SearchKeyword() {
             <p
               key={keyword.name + i}
               onClick={() => {
+                console.log(forSearch);
+
                 navigate(
-                  `/home/search?keyword=${keyword.name}&category=0&map=false&location=전국&sort=등록순&hot=true`,
+                  `/search?keyword=${keyword.name}&category=0&map=false&location=전국&sort=등록순&hot=true&placeID=${forSearch.placeID}&tripDate=${forSearch.tripDate}`,
                 );
               }}
             >

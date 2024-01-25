@@ -3,8 +3,23 @@ import axios from 'axios';
 import {SpaceDateParams, SpaceRegionParams} from '@/types/route';
 
 export const spacesRequest = {
-  getSpaces: () => axios.get('/api/spaces').then((response) => response.data.data.spaces),
-  postSpaces: () => axios.post('/api/spaces'),
+  getUpcoming: async () => {
+    try {
+      const res = await axios.get('/api/members/my-spaces/upcoming', {withCredentials: true});
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  post: async () => {
+    try {
+      const res = await axios.post('/api/spaces', {withCredentials: true});
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 
 // [GET] 지역 리스트 조회

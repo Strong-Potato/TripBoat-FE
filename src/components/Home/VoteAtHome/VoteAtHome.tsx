@@ -2,18 +2,18 @@ import {useEffect, useState} from 'react';
 
 import styles from './VoteAtHome.module.scss';
 
-import {getData} from '@/mocks/handlers/home';
+import {getHomeVote} from '@/api/home';
 
 import CardHaveVote from './VoteCard/CardHaveVote/CardHaveVote';
 import CardNull from './VoteCard/CardNull/CardNull';
 
-import {VoteDataType} from '@/types/home';
+import {Vote} from '@/types/home';
 
 function VoteAtHome() {
-  const [data, setData] = useState<VoteDataType[]>();
+  const [data, setData] = useState<Vote>();
 
   useEffect(() => {
-    getData<VoteDataType[] | undefined>(`api/home/vote`, setData);
+    getHomeVote(setData);
   }, []);
 
   return (
@@ -26,13 +26,13 @@ function VoteAtHome() {
         </p>
       ) : (
         <p className={styles.title}>
-          여행 계획 중이라면
+          <span className={styles.titleNull}>여행 계획 중이라면</span>
           <br />
-          트립보트에서 투표해볼까요?
+          <span>트립보트에서 투표해볼까요?</span>
         </p>
       )}
 
-      {data ? <CardHaveVote data={data} /> : <CardNull />}
+      {data && data?.voteResponse ? <CardHaveVote data={data} /> : <CardNull />}
     </div>
   );
 }

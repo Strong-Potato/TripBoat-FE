@@ -1,4 +1,9 @@
 //브라우저 스타일 초기화 또는 재설정을 정의합니다.
+
+@font-face {
+  font-family: 'agro'; // 이름 선언
+  src: url('../../assets/fonts/agroLarge.ttf'); // 내가 저장한 경로!
+}
 @font-face {
   font-family: 'SpoqaHanSans'; // 이름 선언
   src: url('../../assets/fonts/spoqaHanSans-Thin.ttf');

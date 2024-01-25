@@ -1,4 +1,4 @@
-@use "@/sass";
+@use '@/sass';
 
 .container {
   width: 100%;
@@ -10,10 +10,14 @@
   color: sass.$neutral0;
 
   .title {
-    @include sass.typography(headline);
+    @include sass.typography(titleMedium);
     color: #1d2433;
 
     padding: 8px 20px;
+
+    .titleNull {
+      @include sass.typography(subTitle);
+    }
   }
 
   button {

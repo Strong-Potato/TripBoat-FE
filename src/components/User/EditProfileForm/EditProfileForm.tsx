@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {useState} from 'react';
-import {useForm} from 'react-hook-form';
+import {SubmitHandler, useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
 
 import styles from './EditProfileForm.module.scss';
@@ -9,53 +9,54 @@ import AuthButton from '@/components/Auth/Button/AuthButton';
 import InputImage from '@/components/Auth/Input/InputImage';
 import InputNickname from '@/components/Auth/Input/InputNickname';
 
-import {AuthForm} from '@/types/auth';
-import {UserInfo} from '@/types/user';
+import {s3Request} from '@/api/s3';
+import defaultProfile from '@/assets/profile_default.svg';
 
-function EditProfileForm({data}: {data: UserInfo | undefined}) {
+import {AuthForm} from '@/types/auth';
+import {GetUserProp} from '@/types/sidebar';
+
+function EditProfileForm({data}: {data: GetUserProp | undefined}) {
   const {
     register,
     resetField,
     formState: {errors, dirtyFields},
     handleSubmit,
-    watch,
   } = useForm<AuthForm>({
     mode: 'onChange',
+    defaultValues: {
+      image: undefined,
+      nickname: data?.data.nickname,
+    },
   });
-  const watchFields = watch();
-  const [imageBlob, setImageBlob] = useState<string | undefined>(data?.profile);
+  const [imageUrl, setImageUrl] = useState<string | undefined>(data?.data.profile || defaultProfile);
 
   const navigate = useNavigate();
 
-  const onSubmit = async () => {
+  const onSubmit: SubmitHandler<AuthForm> = async (formData) => {
     try {
-      const {image, nickname} = watchFields;
+      const {image, nickname} = formData;
 
+      // 프로필 이미지 변경 있을 때
       if (dirtyFields.image) {
-        const s3Res = await axios.post('/api/s3/presigned', [image![0].name]);
-        const s3Url = await s3Res.data.data.elements[0];
-        const uploadRes = await axios.put(s3Url, image![0], {
-          headers: {
-            'Content-Type': 'image/*',
-          },
-        });
-        console.log('s3 upload state: ', uploadRes, 's3 Url : ', s3Url);
+        const presignedUrl = await s3Request.uploadImage(image as FileList);
 
         const res = await axios.put('/api/members/my-info', {
           nickname,
-          profile: s3Url,
+          profile: presignedUrl.split('?')[0],
         });
 
-        console.log('api response : ', res);
+        console.log('ModifyProfileImage :', res);
+        navigate('/user');
         return;
       }
 
+      // 프로필 이미지 변경 X, 닉네임만 변경
       const res = await axios.put('/api/members/my-info', {
         nickname,
-        profile: imageBlob,
+        profile: imageUrl,
       });
 
-      console.log('OnlyNickname', res);
+      console.log('OnlyNickname: ', res);
       navigate('/user');
     } catch (error) {
       console.log(error);
@@ -64,7 +65,7 @@ function EditProfileForm({data}: {data: UserInfo | undefined}) {
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
-      <InputImage register={register} imageBlob={imageBlob} setImageBlob={setImageBlob} />
+      <InputImage register={register} imageUrl={imageUrl} setImageUrl={setImageUrl} />
 
       <InputNickname register={register} dirty={dirtyFields.nickname} error={errors.nickname} resetField={resetField} />
 

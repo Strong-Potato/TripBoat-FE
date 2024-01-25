@@ -121,7 +121,6 @@ function Map({data, categoryChange}: PropsType) {
       level: 4,
     };
     setMap(new window.kakao.maps.Map(container, options));
-    console.log(data);
   }, [data]);
 
   // 맵 생성 시 현재 데이터 좌표들의 바운드를 만들어 중심점 생성

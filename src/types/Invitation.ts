@@ -1,6 +1,5 @@
 export type InvitationProps = {
   inviteCode: string;
-  isLogin?: string;
   modal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

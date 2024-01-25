@@ -1,40 +1,40 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
-import styles from "./Onboarding.module.scss";
+import styles from './Onboarding.module.scss';
 
-import CloseButton from "@/assets/homeIcons/home/closeButton.svg?react";
-import FireIcon from "@/assets/homeIcons/home/fireIcon.svg?react";
-import Rank1 from "@/assets/homeIcons/home/rank1.svg?react";
-import Rank2 from "@/assets/homeIcons/home/rank2.svg?react";
-import SnowIcon from "@/assets/homeIcons/home/snowIcon.svg?react";
+import CloseButton from '@/assets/homeIcons/home/closeButton.svg?react';
+import FireIcon from '@/assets/homeIcons/home/fireIcon.svg?react';
+import Rank1 from '@/assets/homeIcons/home/rank1.svg?react';
+import Rank2 from '@/assets/homeIcons/home/rank2.svg?react';
+import SnowIcon from '@/assets/homeIcons/home/snowIcon.svg?react';
 
 interface PropsType {
   set: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Onboarding({ set }: PropsType) {
+function Onboarding({set}: PropsType) {
   const [isVote, setIsVote] = useState(false);
   const navigate = useNavigate();
 
   const data = [
     {
-      title: "뜨끈한 온천탕",
+      title: '뜨끈한 온천탕',
       icon: <FireIcon />,
-      percent: "60%",
+      percent: '63%',
       rank: <Rank1 />,
     },
     {
-      title: "눈 내린 스키장",
+      title: '눈 내린 스키장',
       icon: <SnowIcon />,
-      percent: "40%",
+      percent: '37%',
       rank: <Rank2 />,
     },
   ];
 
   function vote() {
     setIsVote(true);
-    window.localStorage.setItem("onboarding", "true");
+    window.localStorage.setItem('onboarding', 'true');
   }
 
   function exit() {
@@ -43,23 +43,16 @@ function Onboarding({ set }: PropsType) {
 
   function immotalExit() {
     set(true);
-    window.localStorage.setItem("onboarding", "true");
+    window.localStorage.setItem('onboarding', 'true');
   }
 
   return (
     <div className={styles.container}>
-      <div
-        className={styles.modal}
-        style={{ paddingBottom: isVote ? "40px" : "64px" }}
-      >
+      <div className={styles.modal} style={{paddingBottom: isVote ? '0' : '64px'}}>
         <button className={styles.modal__closeButton} onClick={exit}>
           <CloseButton />
         </button>
-        <img
-          src="/onboardingBag.png"
-          alt="온보딩 아이콘"
-          className={styles.modal__bag}
-        />
+        <img src='/onboardingBag.png' alt='온보딩 아이콘' className={styles.modal__bag} />
         <div className={styles.modal__gap}>
           <p className={styles.modal__title}>
             <span>겨울여행 어디로 갈까?</span>
@@ -70,30 +63,20 @@ function Onboarding({ set }: PropsType) {
                 <div className={styles.voteBox__item} key={data.title}>
                   {isVote && (
                     <>
-                      <div
-                        className={styles.voteBox__item__graph}
-                        style={{ width: data.percent }}
-                      >
+                      <div className={styles.voteBox__item__graph} style={{width: data.percent}}>
                         <div />
                       </div>
-                      <div className={styles.voteBox__item__rank}>
-                        {data.rank}
-                      </div>
+                      <div className={styles.voteBox__item__rank}>{data.rank}</div>
                     </>
                   )}
                   <p>
                     {data.title}
-                    <span className={styles.voteBox__item__icon}>
-                      {data.icon}
-                    </span>
+                    <span className={styles.voteBox__item__icon}>{data.icon}</span>
                   </p>
                   {isVote ? (
                     <p className={styles.blue}>{data.percent}</p>
                   ) : (
-                    <button
-                      className={styles.voteBox__item__button}
-                      onClick={vote}
-                    >
+                    <button className={styles.voteBox__item__button} onClick={vote}>
                       <span className={styles.blue}>투표</span>
                     </button>
                   )}
@@ -106,11 +89,11 @@ function Onboarding({ set }: PropsType) {
           className={styles.modal__voteButton}
           onClick={() => {
             vote();
-            navigate("/vote");
+            navigate('/vote');
           }}
           style={{
-            height: isVote ? "4.6rem" : 0,
-            marginTop: isVote ? "32px" : 0,
+            height: isVote ? '6.4rem' : 0,
+            marginTop: isVote ? '32px' : 0,
           }}
         >
           나도 투표만들러 가기

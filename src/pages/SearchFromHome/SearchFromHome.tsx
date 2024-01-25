@@ -16,20 +16,23 @@ function SearchFromHome() {
     location: '전국',
     sort: '등록순',
     hot: 'false',
+    placeID: 'undefined',
+    tripDate: 'undefined',
   });
   const [searchParams] = useSearchParams();
   const vh = window.innerHeight;
 
   useEffect(() => {
     const querystring = {
-      keyword: searchParams.get('keyword'),
+      keyword: searchParams.get('keyword') === '없음' ? '' : searchParams.get('keyword'),
       category: searchParams.get('category'),
       map: searchParams.get('map'),
       location: searchParams.get('location'),
       sort: searchParams.get('sort'),
       hot: searchParams.get('hot'),
+      placeID: searchParams.get('placeID'),
+      tripDate: searchParams.get('tripDate'),
     };
-
     if (
       querystring.keyword &&
       querystring.category &&
@@ -38,14 +41,42 @@ function SearchFromHome() {
       querystring.sort &&
       querystring.hot
     ) {
-      setForSearch({
-        keyword: querystring.keyword,
-        category: parseInt(querystring.category),
-        map: querystring.map,
-        location: querystring.location,
-        sort: querystring.sort,
-        hot: querystring.hot,
-      });
+      if (!querystring.placeID && !querystring.tripDate) {
+        setForSearch({
+          keyword: querystring.keyword,
+          category: parseInt(querystring.category),
+          map: querystring.map,
+          location: querystring.location,
+          sort: querystring.sort,
+          hot: querystring.hot,
+          placeID: 'undefined',
+          tripDate: 'undefined',
+        });
+      }
+      if (querystring.placeID && !querystring.tripDate) {
+        setForSearch({
+          keyword: querystring.keyword,
+          category: parseInt(querystring.category),
+          map: querystring.map,
+          location: querystring.location,
+          sort: querystring.sort,
+          hot: querystring.hot,
+          placeID: querystring.placeID,
+          tripDate: 'undefined',
+        });
+      }
+      if (querystring.placeID && querystring.tripDate) {
+        setForSearch({
+          keyword: querystring.keyword,
+          category: parseInt(querystring.category),
+          map: querystring.map,
+          location: querystring.location,
+          sort: querystring.sort,
+          hot: querystring.hot,
+          placeID: querystring.placeID,
+          tripDate: querystring.tripDate,
+        });
+      }
     }
   }, [searchParams]);
 
@@ -63,7 +94,7 @@ function SearchFromHome() {
       ) : (
         <SearchBar forSearch={forSearch} setForSearch={setForSearch} />
       )}
-      {forSearch.keyword === '' ? <SearchHome /> : <SearchList forSearch={forSearch} />}
+      {forSearch.keyword === '' ? <SearchHome forSearch={forSearch} /> : <SearchList forSearch={forSearch} />}
     </div>
   );
 }

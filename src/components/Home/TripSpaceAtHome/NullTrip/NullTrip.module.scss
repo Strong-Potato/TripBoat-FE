@@ -1,0 +1,86 @@
+@use '@/sass' as *;
+
+.container {
+  position: relative;
+
+  width: 100%;
+  min-width: 32.3rem;
+  height: 9rem;
+
+  display: flex;
+  gap: 16px;
+
+  border: 1px solid $neutral200;
+  border-radius: 1.6rem;
+
+  .img_box {
+    position: relative;
+
+    width: 6.4rem;
+    height: 100%;
+
+    padding: 26px 12px 32px 20px;
+
+    border-radius: 1.6rem 0 0 1.6rem;
+
+    overflow: hidden;
+
+    .trip_img {
+      height: 100%;
+    }
+
+    .text_wall {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      background-color: rgba(0, 0, 0, 0.2);
+
+      width: 100%;
+      height: 100%;
+    }
+
+    .d_day {
+      position: absolute;
+      top: 34px;
+      left: 16px;
+
+      color: $neutral0;
+
+      @include typography(button);
+    }
+  }
+
+  .text_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+
+    .trip_title {
+      @include typography(titleSmall);
+      color: $neutral900;
+    }
+    .trip_day {
+      @include typography(bodySmall);
+      color: $neutral700;
+    }
+  }
+
+  .arrow {
+    position: absolute;
+    top: 33px;
+    right: 8px;
+
+    width: 2.4rem;
+    height: 2.4rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: $neutral400;
+
+    font-size: 1.5rem;
+  }
+}

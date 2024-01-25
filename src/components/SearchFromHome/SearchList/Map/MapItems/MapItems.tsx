@@ -67,7 +67,6 @@ function MapItems({
     } else {
       setSlideLocation(0);
     }
-    console.log(data);
   }, [data, size, componentRef]);
 
   useEffect(() => {
