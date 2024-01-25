@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   width: 100%;
@@ -6,6 +6,7 @@
   flex-direction: column;
   gap: 24px;
   color: $neutral900;
+  margin-bottom: 120px;
 
   h1 {
     padding: 16px 20px;
