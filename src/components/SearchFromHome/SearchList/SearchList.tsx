@@ -1,9 +1,12 @@
 import {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 
 import styles from './SearchList.module.scss';
 
-import {keywordSearch, search} from '@/hooks/Search/useSearch';
+import AddToCandidateButton from '@/components/ButtonsInAddingCandidate/AddToCandidateButton/AddToCandidateButton';
+
+import {keywordSearch, search} from '@/api/search';
+import SearchNull from '@/assets/homeIcons/search/searchNull.svg?react';
 
 import DateFilter from './DateFilter/DateFilter';
 import LocationFilter from './LocationFilter/LocationFilter';
@@ -22,6 +25,8 @@ function SearchList({forSearch}: PropsType) {
   const [data, setData] = useState<SearchItemType[] | undefined>();
   const [filterData, setFilterData] = useState<SearchItemType[] | undefined>();
   const [categoryChange, setCategoryChange] = useState(false);
+  const [searchParams] = useSearchParams();
+  const tripspaceID = searchParams.get('tripspaceID');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,7 +55,7 @@ function SearchList({forSearch}: PropsType) {
 
   function onMap() {
     navigate(
-      `/home/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=true&location=${forSearch.location}&sort=${forSearch.sort}&hot=${forSearch.hot}`,
+      `/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=true&location=${forSearch.location}&sort=${forSearch.sort}&hot=${forSearch.hot}&placeID=${forSearch.placeID}&tripDate=${forSearch.tripDate}`,
     );
   }
 
@@ -66,14 +71,24 @@ function SearchList({forSearch}: PropsType) {
             <DateFilter forSearch={forSearch} />
           </div>
           <ul className={styles.slide}>
-            {filterData &&
+            {filterData && filterData?.length > 0 ? (
               filterData.map((data, i) => (
-                <SearchItem data={data} key={data.title + i} categoryChange={categoryChange} />
-              ))}
+                <SearchItem forSearch={forSearch} data={data} key={data.title + i} categoryChange={categoryChange} />
+              ))
+            ) : (
+              <div className={styles.nullBox}>
+                <SearchNull />
+                <span>검색 결과가 없습니다.</span>
+              </div>
+            )}
           </ul>
-          <button onClick={onMap}>
-            <MapButton />
-          </button>
+          {tripspaceID ? (
+            <AddToCandidateButton />
+          ) : (
+            <button onClick={onMap}>
+              <MapButton />
+            </button>
+          )}
         </>
       )}
     </div>

@@ -4,9 +4,9 @@ import {IoShareSocialOutline} from 'react-icons/io5';
 import styles from './Title.module.scss';
 
 import CustomToast from '@/components/CustomToast/CustomToast';
-
 import WishBtn from '@/components/WishBtn/WishBtn';
-import {translateCategoryToStr} from '@/hooks/Search/useSearch';
+
+import {translateCategoryToStr} from '@/utils/translateSearchData';
 
 interface TitleProps {
   id: number;

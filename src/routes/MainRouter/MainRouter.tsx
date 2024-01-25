@@ -51,7 +51,7 @@ function MainRouter() {
           <Route path='/user/myspace' element={<MySpace />} />
           <Route path='/user/myreview' element={<MyReview />} />
         </Route>
-        <Route path='/home/search' element={<SearchFromHome />} />
+        <Route path='/search' element={<SearchFromHome />} />
         <Route path='/detail/:id' element={<Detail />} />
         <Route path='/votes/:id' element={<Vote />} />
         <Route path='/votes/:id/votememo' element={<VoteMemo />} />

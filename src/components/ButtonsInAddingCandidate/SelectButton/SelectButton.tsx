@@ -7,6 +7,8 @@ import useGetSelectedArray from '@/hooks/useGetSelectedArray';
 
 import {selectedPlaceState} from '@/recoil/vote/selectPlace';
 
+import {SearchItemType} from '@/types/home';
+
 // //"선택된 장소 객체"
 const placeInfo = {
   placeId: 23,
@@ -17,20 +19,31 @@ const placeInfo = {
   latlng: {lat: 33.450936, lng: 126.569477},
 };
 
-const SelectButton = () => {
+interface Propstype {
+  data: SearchItemType;
+}
+
+const SelectButton = ({data}: Propstype) => {
   const [isClicked, setIsClicked] = useState(false);
   const selectedPlaces = useRecoilValue(selectedPlaceState);
 
   const {toggleItemInNewArray} = useGetSelectedArray(selectedPlaceState);
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     setIsClicked((prev) => !prev);
     toggleItemInNewArray(placeInfo);
+    console.log(data);
   };
 
   console.log('선택한 배열', selectedPlaces);
   return (
-    <button className={`${styles.container} ${isClicked ? styles.clicked : ''}`} onClick={handleClick}>
+    <button
+      className={`${styles.container} ${isClicked ? styles.clicked : ''}`}
+      onClick={(e) => {
+        handleClick(e);
+      }}
+    >
       {isClicked ? '선택됨' : '선택'}
     </button>
   );

@@ -5,7 +5,7 @@
 
   width: 100%;
   min-width: 32.3rem;
-  height: 9.8rem;
+  height: 9rem;
 
   display: flex;
   gap: 16px;
@@ -16,7 +16,7 @@
   .img_box {
     position: relative;
 
-    width: 6.6rem;
+    width: 6.4rem;
     height: 100%;
 
     padding: 26px 12px 32px 20px;
@@ -55,19 +55,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 2px;
+    gap: 4px;
 
-    .trip_city {
+    .trip_title {
       @include typography(titleSmall);
       color: $neutral900;
     }
     .trip_day {
-      @include typography(captionSmall);
+      @include typography(bodySmall);
       color: $neutral700;
-    }
-    .trip_title {
-      @include typography(captionSmall);
-      color: $neutral400;
     }
   }
 

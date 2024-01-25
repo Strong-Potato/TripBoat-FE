@@ -35,7 +35,7 @@ function SearchBar({forSearch, setForSearch}: PropsType) {
 
   function search() {
     navigate(
-      `/home/search?keyword=${inputValue}&category=0&map=false&location=${forSearch.location}&sort=등록순&hot=false`,
+      `/search?keyword=${inputValue}&category=0&map=false&location=${forSearch.location}&sort=등록순&hot=false&placeID=${forSearch.placeID}&tripDate=${forSearch.tripDate}`,
     );
   }
 
@@ -43,7 +43,7 @@ function SearchBar({forSearch, setForSearch}: PropsType) {
     if (forSearch.keyword === '') {
       navigate('/');
     } else {
-      navigate('/home/search');
+      navigate('/search');
       setInputValue('');
       const beforeData = forSearch;
       beforeData.keyword = '';
