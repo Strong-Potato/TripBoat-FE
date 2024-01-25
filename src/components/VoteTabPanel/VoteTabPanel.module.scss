@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .cotainer {
   width: 100%;
@@ -14,7 +14,7 @@
   background-color: $neutral0;
 
   position: sticky;
-  top: 97px;
+  top: 46px;
   z-index: 3;
 
   &__counts {
