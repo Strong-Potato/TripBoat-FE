@@ -3,20 +3,18 @@ import {useEffect, useState} from 'react';
 import {HiOutlineTrash as DeleteIcon} from 'react-icons/hi';
 import {RiArrowUpDownFill as MoveIcon} from 'react-icons/ri';
 import {useNavigate} from 'react-router-dom';
-import {useSetRecoilState} from 'recoil';
 
 import styles from './RouteTabPanel.module.scss';
 
-import AlertModal from '@/components/AlertModal/AlertModal';
 import BottomSlideLeft from '@/components/BottomSlide/BottomSlideLeft';
 
 import ZoomInIcon from '@/assets/icons/zoomIn.svg?react';
-import {isModalOpenState} from '@/recoil/vote/alertModal';
 import {getSpaceId} from '@/utils/getSpaceId';
 
 import DayMove from '../DayMove/DayMove';
 import DayNavigationBar from '../DayNavigationBar/DayNavigationBar';
 import DayRoute from '../DayRoute/DayRoute';
+import DeletePlacesModal from '../DeletePlacesModal/DeletePlacesModal';
 import EmptyDate from '../EmptyDate/EmptyDate';
 import MapInTrip from '../MapInTrip/MapInTrip';
 
@@ -118,7 +116,7 @@ function RouteTabPanel({mapRef, center}: MapInTripProps) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [selectedPlaces, setSelectedPlaces] = useState<string[]>([]);
   const {isOpen, onOpen, onClose} = useDisclosure();
-  const setIsModalOpen = useSetRecoilState(isModalOpenState);
+  const {isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose} = useDisclosure();
 
   const handleEditMode = () => {
     setIsEditMode(!isEditMode);
@@ -132,10 +130,6 @@ function RouteTabPanel({mapRef, center}: MapInTripProps) {
     } else {
       setSelectedPlaces((prevSelectedPlaces) => [...prevSelectedPlaces, placeName]);
     }
-  };
-
-  const deletePlaces = (placeList: string[]) => {
-    console.log('삭제', placeList);
   };
 
   useEffect(() => {
@@ -184,7 +178,7 @@ function RouteTabPanel({mapRef, center}: MapInTripProps) {
             <MoveIcon size='2rem' color='#FFFFFF' />
             <span>날짜 이동</span>
           </button>
-          <button onClick={() => setIsModalOpen(selectedPlaces.length > 0)}>
+          <button onClick={selectedPlaces.length > 0 ? onModalOpen : onModalClose}>
             <DeleteIcon size='2rem' color='#FFFFFF' />
             <span>삭제하기</span>
           </button>
@@ -195,13 +189,7 @@ function RouteTabPanel({mapRef, center}: MapInTripProps) {
         onClose={onClose}
         children={<DayMove selectedPlaces={selectedPlaces} />}
       />
-
-      <AlertModal
-        title={'선택된 항목을 삭제하시겠습니까?'}
-        actionButton={'삭제하기'}
-        isSmallSize={true}
-        onClickAction={() => deletePlaces(selectedPlaces)}
-      />
+      <DeletePlacesModal isOpen={isModalOpen} onClose={onModalClose} placeList={selectedPlaces} />
     </div>
   );
 }
