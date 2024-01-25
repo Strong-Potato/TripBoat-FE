@@ -157,3 +157,13 @@ export interface SpaceDateParams {
   startDate: string;
   endDate: string;
 }
+
+export interface Member {
+  id: number;
+  nickname: string;
+  profile: string;
+}
+
+export interface Members {
+  members: Member[];
+}
