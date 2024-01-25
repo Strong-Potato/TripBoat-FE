@@ -29,6 +29,7 @@ function Information({data, onOpen, reviewsRating, reviews}: InformationProps) {
         openTime={data.openTime}
         title={data.title}
         thumbnail={data.thumbnail}
+        id={data.id}
         contentTypeId={data.contentTypeId}
       />
       <ShortReviews onOpen={onOpen} reviewsRating={reviewsRating} reviews={reviews} />

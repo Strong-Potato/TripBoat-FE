@@ -6,9 +6,10 @@ import CustomToast from '../CustomToast/CustomToast';
 import {useDeleteWishes, useGetIsWish, usePostWishes} from '@/hooks/Detail/useWish';
 
 interface WishBtnProps {
-  id: number;
+  placeId: number;
   contentTypeId: number;
   size: string;
+  className?: string;
 }
 
 const notLoginContent = {
@@ -19,13 +20,13 @@ const notLoginContent = {
   isSmallSize: true,
 };
 
-function WishBtn({id, contentTypeId, size}: WishBtnProps) {
+function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: WishBtnProps) {
   const [isWish, setIsWish] = useRecoilState(IsHeartValued);
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
 
   // isLogin 구현해야 함
-  const isLogin = false;
+  const isLogin = true;
 
   const showNotLoginModal = () => {
     setIsModalOpen(true);
@@ -34,21 +35,22 @@ function WishBtn({id, contentTypeId, size}: WishBtnProps) {
 
   const showToast = CustomToast();
 
-  useGetIsWish(id, setIsWish);
+  useGetIsWish(placeId, setIsWish);
   const postWishes = usePostWishes();
   const deleteWishes = useDeleteWishes();
 
   // postWishes error 리턴 시 로그인 모달 띄우기
-  const handleHeartClick = () => {
+  const handleWishClick = () => {
     if (isLogin) {
       if (!isWish) {
-        postWishes.mutate({placeId: id, contentTypeId: contentTypeId});
+        postWishes.mutate({placeId: placeId, contentTypeId: contentTypeId});
 
         setIsWish(true);
         showToast('찜 목록에 저장되었습니다.');
       } else {
-        deleteWishes.mutate(id);
+        deleteWishes.mutate(placeId);
 
+        showToast('찜 목록에서 제거되었습니다.');
         setIsWish(false);
       }
     } else {
@@ -59,9 +61,9 @@ function WishBtn({id, contentTypeId, size}: WishBtnProps) {
   return (
     <>
       {isWish ? (
-        <FaHeart fontSize={size} cursor='pointer' color='#E23774' onClick={handleHeartClick} />
+        <FaHeart fontSize={size} cursor='pointer' color='#E23774' onClick={handleWishClick} className={className} />
       ) : (
-        <FaRegHeart fontSize={size} cursor='pointer' onClick={handleHeartClick} />
+        <FaRegHeart fontSize={size} cursor='pointer' onClick={handleWishClick} className={className} />
       )}
     </>
   );
