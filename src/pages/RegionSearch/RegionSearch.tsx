@@ -1,5 +1,6 @@
 import {Button} from '@chakra-ui/react';
 import {useState} from 'react';
+import {useParams} from 'react-router-dom';
 
 import styles from './RegionSearch.module.scss';
 
@@ -12,15 +13,13 @@ import RegionSearchBox from '@/components/TripSpace/RegionSearchBox/RegionSearch
 import RegionTagItem from '@/components/TripSpace/RegionTagItem/RegionTagItem';
 import SelectHeader from '@/components/TripSpace/SelectHeader/SelectHeader';
 
-import {getSpaceId} from '@/utils/getSpaceId';
-
 import {Region} from '@/types/regionSearch';
 
 function RegionSearch() {
   const showToast = CustomToast();
-  const spaceId = getSpaceId();
+  const {id} = useParams();
   const {data: regions} = useGetRegions();
-  const {data: spaceData} = useGetSpace(spaceId);
+  const {data: spaceData} = useGetSpace(Number(id));
   const putRegion = usePutRegions();
   const prevRegion = spaceData?.data?.city?.split(',');
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -57,7 +56,7 @@ function RegionSearch() {
   };
 
   const editRegions = async () => {
-    await putRegion.mutateAsync({spaceId: spaceId, cities: selectedRegions});
+    await putRegion.mutateAsync({spaceId: Number(id), cities: selectedRegions});
   };
 
   return (
