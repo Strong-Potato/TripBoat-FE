@@ -28,7 +28,7 @@ export async function getHomeVote(set: Dispatch<React.SetStateAction<Vote | unde
       withCredentials: true,
     });
     if (fetchData.data) {
-      set(fetchData.data);
+      set(fetchData.data.data);
     }
     console.log(fetchData);
   } catch (error) {

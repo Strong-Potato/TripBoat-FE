@@ -17,7 +17,7 @@ function TripSpaceItem({data}: PropsData) {
   const dDay = new Date(data.startDate) <= new Date() ? '여행 중' : `D - ${data.dueDate}`;
   return (
     <Link to='/trip/1' className={styles.container}>
-      <div className={styles.img_box}>
+      <div className={styles.img_box} style={{padding: data.thumbnail ? 'none' : '26px 12px 32px 20px'}}>
         <img className={styles.trip_img} src={imgSrc} alt={`${data.title}의 사진`} />
         {data.dueDate !== null && (
           <>
