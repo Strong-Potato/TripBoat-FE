@@ -10,7 +10,7 @@ function TabBar() {
   return (
     <div className={styles.container}>
       <div className={styles.icons}>
-        <Link to='/home/search'>
+        <Link to='/search'>
           <IoSearchSharp />
         </Link>
         <Link to='/alarm' className={styles.icons__wrapper}>

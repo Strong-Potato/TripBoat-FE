@@ -13,6 +13,28 @@ const mySpaces = {
         city: '여행 스페이스 1 (여행스페이스 미정)',
         dueDate: 0,
         thumbnail: '',
+        members: [
+          {
+            id: 12,
+            nickname: '감자깡',
+            profile: '',
+          },
+          {
+            id: 14,
+            nickname: '새우깡',
+            profile: '',
+          },
+          {
+            id: 15,
+            nickname: '옥수수깡',
+            profile: '',
+          },
+          {
+            id: 16,
+            nickname: '고구마깡',
+            profile: '',
+          },
+        ],
       },
       {
         id: 2,
@@ -22,6 +44,23 @@ const mySpaces = {
         city: '강릉, 속초, 전주, 여수 여행',
         dueDate: 3,
         thumbnail: '',
+        members: [
+          {
+            id: 12,
+            nickname: '감자깡',
+            profile: '',
+          },
+          {
+            id: 14,
+            nickname: '새우깡',
+            profile: '',
+          },
+          {
+            id: 15,
+            nickname: '옥수수깡',
+            profile: '',
+          },
+        ],
       },
       {
         id: 3,
@@ -31,6 +70,18 @@ const mySpaces = {
         city: '강릉, 속초, 전주, 여수 여행',
         dueDate: 3,
         thumbnail: '',
+        members: [
+          {
+            id: 12,
+            nickname: '감자깡',
+            profile: '',
+          },
+          {
+            id: 14,
+            nickname: '새우깡',
+            profile: '',
+          },
+        ],
       },
       {
         id: 4,
@@ -40,6 +91,13 @@ const mySpaces = {
         city: '강릉, 속초, 전주, 여수 여행',
         dueDate: 3,
         thumbnail: '',
+        members: [
+          {
+            id: 12,
+            nickname: '감자깡',
+            profile: '',
+          },
+        ],
       },
     ],
     pageNumber: 0,

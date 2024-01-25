@@ -4,10 +4,10 @@ import Camera from '@/assets/icons/camera.svg?react';
 
 import {InputImageProps} from '@/types/auth';
 
-function InputImage({register, imageBlob, setImageBlob}: InputImageProps) {
+function InputImage({register, imageUrl, setImageUrl}: InputImageProps) {
   return (
     <section className={styles.image}>
-      <label htmlFor='image' className={styles.image__label} style={{backgroundImage: `url(${imageBlob})`}}>
+      <label htmlFor='image' className={styles.image__label} style={{backgroundImage: `url(${imageUrl})`}}>
         <div className={styles.image__label__camera}>
           <Camera width={16} height={16} />
         </div>
@@ -22,7 +22,7 @@ function InputImage({register, imageBlob, setImageBlob}: InputImageProps) {
           onChange: (e) => {
             const file = e.target.files[0];
             const fileUrl = URL.createObjectURL(file);
-            setImageBlob!(fileUrl);
+            setImageUrl!(fileUrl);
           },
         })}
       />

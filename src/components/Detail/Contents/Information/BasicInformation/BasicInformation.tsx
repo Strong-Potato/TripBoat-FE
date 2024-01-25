@@ -21,10 +21,11 @@ interface BasicInformationProps {
   openTime: string;
   title: string;
   thumbnail: string;
+  id: number;
   contentTypeId: number;
 }
 
-function BasicInformation({location, openTime, title, thumbnail, contentTypeId}: BasicInformationProps) {
+function BasicInformation({location, openTime, title, thumbnail, id, contentTypeId}: BasicInformationProps) {
   return (
     <div className={styles.container}>
       <div className={styles.container__title}>기본정보</div>
@@ -33,6 +34,7 @@ function BasicInformation({location, openTime, title, thumbnail, contentTypeId}:
         lng={location.longitude}
         title={title}
         thumbnail={thumbnail}
+        id={id}
         contentTypeId={contentTypeId}
         areaCode={location.areaCode}
       />

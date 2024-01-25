@@ -11,6 +11,8 @@ import StepPassword from '@/components/Auth/Signup/Step/StepPassword';
 import StepProfile from '@/components/Auth/Signup/Step/StepProfile';
 import CustomToast from '@/components/CustomToast/CustomToast';
 
+import {s3Request} from '@/api/s3';
+
 import {AuthForm, SignupFormProps} from '@/types/auth';
 
 function SignupForm({signupStep, setSignupStep}: SignupFormProps) {
@@ -37,15 +39,16 @@ function SignupForm({signupStep, setSignupStep}: SignupFormProps) {
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<AuthForm> = async (data) => {
-    console.log(code);
     if (Object.keys(dirtyFields).length < 5) return;
-    console.log(data);
 
     try {
-      const {email, password, nickname} = data;
+      const {email, password, image, nickname} = data;
+      const profile = dirtyFields.image ? await s3Request.uploadImage(image as FileList) : undefined;
+
       const res = await axios.post('/api/auth/register', {
         email,
         password,
+        profile: profile.split('?')[0],
         nickname,
         token: code,
       });

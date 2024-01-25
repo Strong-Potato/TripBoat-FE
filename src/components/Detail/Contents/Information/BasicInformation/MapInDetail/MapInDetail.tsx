@@ -14,12 +14,13 @@ interface MapInDetailProps {
   lng: number;
   title: string;
   thumbnail: string;
+  id: number;
   contentTypeId: number;
   areaCode: number;
 }
 
 // 장소 정보에 따라 마커 다르게 표시
-function MapInDetail({lat, lng, title, thumbnail, contentTypeId, areaCode}: MapInDetailProps) {
+function MapInDetail({lat, lng, title, thumbnail, id, contentTypeId, areaCode}: MapInDetailProps) {
   const {isOpen, onOpen, onClose} = useDisclosure();
 
   // useEffect(() => {
@@ -63,6 +64,7 @@ function MapInDetail({lat, lng, title, thumbnail, contentTypeId, areaCode}: MapI
         thumbnail={thumbnail}
         contentTypeId={contentTypeId}
         areaCode={areaCode}
+        id={id}
       />
     </>
   );

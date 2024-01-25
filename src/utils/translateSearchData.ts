@@ -1,12 +1,7 @@
-import axios from 'axios';
-import {Dispatch} from 'react';
-
 import areaData from '@/utils/areas.json';
 import categoryData from '@/utils/categories.json';
 
-import {SearchItemType} from '@/types/home';
-
-function translateLocation(location: string) {
+export function translateLocation(location: string) {
   const searchLocation = location.split(' ');
   let areaCode = 0;
   let sigunguCode = 0;
@@ -19,7 +14,7 @@ function translateLocation(location: string) {
   return {areaCode, sigunguCode};
 }
 
-function translateSort(sort: string) {
+export function translateSort(sort: string) {
   let sortCode;
   switch (sort) {
     case '등록순':
@@ -100,55 +95,4 @@ export function translateCategoryToStr(category: number) {
 export function translateCategoryCode(name: string) {
   const categoryCode = categoryData.filter((data) => data.name === name)[0];
   return categoryCode.code;
-}
-
-export async function search(
-  keyword: string,
-  location: string,
-  sort: string,
-  set: Dispatch<React.SetStateAction<SearchItemType[] | undefined>>,
-) {
-  try {
-    const searchLocation = translateLocation(location);
-    const fetchData = await axios.get('/api/places/search', {
-      params: {
-        page: 0,
-        size: 20,
-        areaCode: searchLocation.areaCode,
-        sigunguCode: searchLocation.sigunguCode,
-        keyword: keyword,
-        sort: translateSort(sort),
-      },
-    });
-    const data = fetchData.data;
-    set(data?.data.places);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export async function keywordSearch(
-  keyword: string,
-  location: string,
-  sort: string,
-  set: Dispatch<React.SetStateAction<SearchItemType[] | undefined>>,
-) {
-  try {
-    const searchLocation = translateLocation(location);
-    const categoryCode = translateCategoryCode(keyword);
-    const fetchData = await axios.get('/api/places/search', {
-      params: {
-        page: 0,
-        size: 20,
-        areaCode: searchLocation.areaCode,
-        sigunguCode: searchLocation.sigunguCode,
-        sort: translateSort(sort),
-        categoryCode: categoryCode,
-      },
-    });
-    const data = fetchData.data;
-    set(data?.data.places);
-  } catch (error) {
-    console.log(error);
-  }
 }

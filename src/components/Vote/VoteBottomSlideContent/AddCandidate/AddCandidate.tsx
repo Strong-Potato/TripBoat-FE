@@ -1,16 +1,24 @@
-import styles from "./AddCandidate.module.scss";
+import {useNavigate} from 'react-router-dom';
 
-import VoteHeartIcon from "@/assets/voteIcons/vote_heart.svg?react";
-import VoteSearchIcon from "@/assets/voteIcons/vote_search.svg?react";
+import styles from './AddCandidate.module.scss';
+
+import VoteHeartIcon from '@/assets/voteIcons/vote_heart.svg?react';
+import VoteSearchIcon from '@/assets/voteIcons/vote_search.svg?react';
 
 const AddCandidate = () => {
-  const title = "후보 추가하기";
+  const title = '후보 추가하기';
+  const navigate = useNavigate();
 
   return (
     <div className={styles.container}>
       <div className={styles.container__title}>{title}</div>
       <div className={styles.container__buttons}>
-        <button className={styles.container__buttons__item}>
+        <button
+          className={styles.container__buttons__item}
+          onClick={() => {
+            navigate(`/search?keyword=없음&category=0&map=false&location=전국&sort=등록순&hot=false&placeID=true`);
+          }}
+        >
           <VoteSearchIcon />
           <p>장소 검색</p>
         </button>

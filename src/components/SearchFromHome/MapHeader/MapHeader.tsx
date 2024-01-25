@@ -19,7 +19,7 @@ function MapHeader({forSearch, setForSearch}: PropsType) {
     before.map = 'false';
     setForSearch(before);
     navigate(
-      `/home/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=false&location=${forSearch.location}&sort=${forSearch.sort}`,
+      `/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=false&location=${forSearch.location}&sort=${forSearch.sort}&hot=${forSearch.hot}&placeID=${forSearch.placeID}&tripDate=${forSearch.tripDate}`,
     );
   }
 
