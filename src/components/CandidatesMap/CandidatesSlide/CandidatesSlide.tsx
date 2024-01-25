@@ -27,7 +27,7 @@ const CandidatesSlide = ({candidates, setSelectedPinIndex, setCenterMarker, swip
       >
         {candidates.map((candidate, i) => (
           <SwiperSlide key={`${candidate.id}-${i}`}>
-            <CandidateCard isMapStyle={true} candidate={candidate} index={i + 1} showResults={false} />
+            <CandidateCard isMapStyle={true} candidate={candidate} index={i + 1} />
           </SwiperSlide>
         ))}
       </Swiper>

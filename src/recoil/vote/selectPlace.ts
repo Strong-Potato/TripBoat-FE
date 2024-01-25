@@ -1,8 +1,8 @@
 import {atom} from 'recoil';
 
-import {PlaceInfo} from '@/types/vote';
+import {SearchItemType} from '@/types/home';
 
-export const selectedPlaceState = atom<PlaceInfo[]>({
+export const selectedPlaceState = atom<SearchItemType[]>({
   key: 'selectedPlaceState',
   default: [],
 });

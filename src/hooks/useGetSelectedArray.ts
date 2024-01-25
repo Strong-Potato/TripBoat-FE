@@ -1,13 +1,14 @@
 import {RecoilState, useSetRecoilState} from 'recoil';
 
-import {PlaceInfo, TaglineType} from '@/types/vote';
+import {SearchItemType} from '@/types/home';
+import {TaglineType} from '@/types/vote';
 
-const useGetSelectedArray = <T extends PlaceInfo | TaglineType>(selectedState: RecoilState<T[]>) => {
+const useGetSelectedArray = <T extends SearchItemType | TaglineType>(selectedState: RecoilState<T[]>) => {
   const setSelectedState = useSetRecoilState(selectedState);
 
   const toggleItemInNewArray = (data: T) => {
     setSelectedState((currentArray) => {
-      const index = currentArray.findIndex((item) => item.placeId === data.placeId);
+      const index = currentArray.findIndex((item) => item.id === data.id);
 
       if (index !== -1) {
         const newArray = [...currentArray.slice(0, index), ...currentArray.slice(index + 1)];
@@ -23,7 +24,7 @@ const useGetSelectedArray = <T extends PlaceInfo | TaglineType>(selectedState: R
 
   const setMemoArray = (data: T) => {
     setSelectedState((currentArray: T[]) => {
-      const index = currentArray.findIndex((item) => item.placeId === data.placeId);
+      const index = currentArray.findIndex((item) => item.id === data.id);
       if (index !== -1) {
         const newArray = [...currentArray];
         newArray[index] = data;
