@@ -11,21 +11,6 @@ export interface UserDatas {
   email: string;
 }
 
-export type Spaces = {
-  title: string;
-  startDate: string;
-  endDate: string;
-  id: number;
-  city: string;
-  dueDate: number;
-  thumbnail: string;
-};
-
-export type SideBarProps = {
-  sideClose: () => void;
-  isSideOpen: boolean;
-};
-
 export type GetUpcomingProp = {
   status: number;
   message: string;
@@ -34,6 +19,30 @@ export type GetUpcomingProp = {
 
 export type Datas = {
   spaces: Spaces[];
+  pageNumber: number;
+  pageSize: number;
+  totalPages: number;
+  totalResult: number;
+  first: boolean;
+  last: boolean;
+};
+
+export type Spaces = {
+  title: string;
+  startDate: string;
+  endDate: string;
+  id: number;
+  city: string;
+  dueDate: number;
+  thumbnail: string;
+  members: Member[];
+  duedate: number;
+};
+
+export type Member = {
+  id: number;
+  nickname: string;
+  profile: string;
 };
 
 export type spaceInfo = {
@@ -44,3 +53,8 @@ export type spaceInfo = {
 export interface TravelListProp {
   isSideOpen: boolean;
 }
+
+export type SideBarProps = {
+  sideClose: () => void;
+  isSideOpen: boolean;
+};
