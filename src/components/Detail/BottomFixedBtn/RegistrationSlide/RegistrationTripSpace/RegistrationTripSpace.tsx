@@ -67,9 +67,14 @@ function RegistrationTripSpace({tripSelectedId, setTripSelectedId, spaces}: Regi
                       className={styles.container__itemsBox__item__title__img}
                       style={data.thumbnail ? {borderRadius: '2rem'} : {}}
                     />
-                    <span>{data.title}</span>
+                    <div className={styles.container__itemsBox__item__title__spans}>
+                      <span>{data.title}</span>
+                      <span className={styles.container__itemsBox__item__title__spans__members}>
+                        {data.members[0].nickname}
+                        {data.members.length > 1 && `외 ${data.members.length - 1}명`}의 여행
+                      </span>
+                    </div>
                   </div>
-                  <IoMdCheckmark className={styles.container__itemsBox__item__icon} />
                 </div>
               ))}
           </div>
