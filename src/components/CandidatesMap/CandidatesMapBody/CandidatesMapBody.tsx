@@ -6,7 +6,7 @@ import styles from './CandidatesMapBody.module.scss';
 
 import CandidatesSlide from '../CandidatesSlide/CandidatesSlide';
 import MapPinActive from '../MapPins/MapPinActive';
-import MapPinNumber from '../MapPins/MapPinNumber';
+import MapPinCommon from '../MapPins/MapPinCommon';
 
 import {CandidatesInfo, Latlng} from '@/types/vote';
 
@@ -37,7 +37,7 @@ const CandidatesMapBody = ({candidates}: {candidates: CandidatesInfo[]}) => {
               className={`pin ${selectedPinIndex === i ? 'active' : ''}`}
               onClick={() => handleMapMarkerClick(candidate.placeInfo.latlng, i)}
             >
-              {selectedPinIndex === i ? <MapPinActive number={i + 1} /> : <MapPinNumber number={i + 1} />}
+              {selectedPinIndex === i ? <MapPinActive number={i + 1} /> : <MapPinCommon number={i + 1} />}
             </div>
           </CustomOverlayMap>
         ))}
