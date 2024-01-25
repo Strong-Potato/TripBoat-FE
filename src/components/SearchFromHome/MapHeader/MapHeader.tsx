@@ -12,24 +12,27 @@ interface PropsType {
 }
 
 function MapHeader({forSearch, setForSearch}: PropsType) {
+  const dataName = forSearch.placeID !== 'undefined' ? '장소 검색' : forSearch.keyword;
   const navigate = useNavigate();
 
   function offMap() {
-    const before = forSearch;
-    before.map = 'false';
-    setForSearch(before);
-    navigate(
-      `/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=false&location=${forSearch.location}&sort=${forSearch.sort}&hot=${forSearch.hot}&placeID=${forSearch.placeID}&tripDate=${forSearch.tripDate}`,
-    );
+    if (forSearch.placeID !== 'undefined') {
+      history.back();
+    } else {
+      const before = forSearch;
+      before.map = 'false';
+      setForSearch(before);
+      navigate(
+        `/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=false&location=${forSearch.location}&sort=${forSearch.sort}&hot=${forSearch.hot}&placeID=${forSearch.placeID}&tripDate=${forSearch.tripDate}`,
+      );
+    }
   }
 
   return (
-    <div className={styles.container}>
-      <button onClick={offMap}>
-        <BackIcon />
-      </button>
-      <span>{forSearch.keyword}</span>
-    </div>
+    <button className={styles.container} onClick={offMap}>
+      <BackIcon />
+      <span>{dataName}</span>
+    </button>
   );
 }
 

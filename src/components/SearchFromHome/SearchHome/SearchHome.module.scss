@@ -1,9 +1,11 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .lists_box {
   display: flex;
   flex-direction: column;
   gap: 48px;
+
+  padding-top: 24px;
 
   -ms-overflow-style: none;
   scrollbar-width: none;

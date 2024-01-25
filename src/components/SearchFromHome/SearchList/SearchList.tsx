@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useNavigate, useSearchParams} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import styles from './SearchList.module.scss';
 
@@ -25,8 +25,6 @@ function SearchList({forSearch}: PropsType) {
   const [data, setData] = useState<SearchItemType[] | undefined>();
   const [filterData, setFilterData] = useState<SearchItemType[] | undefined>();
   const [categoryChange, setCategoryChange] = useState(false);
-  const [searchParams] = useSearchParams();
-  const tripspaceID = searchParams.get('tripspaceID');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,7 +58,13 @@ function SearchList({forSearch}: PropsType) {
   }
 
   return (
-    <div className={styles.container} style={{height: forSearch.map === 'true' ? '100%' : 'calc(100% - 72px)'}}>
+    <div
+      className={styles.container}
+      style={{
+        height: forSearch.map === 'true' ? '100%' : 'calc(100% - 72px)',
+        paddingTop: forSearch.placeID !== 'undefinde' ? '24px' : 0,
+      }}
+    >
       {forSearch.hot === 'false' && <Tabs forSearch={forSearch} setCategoryChange={setCategoryChange} />}
       {forSearch.map === 'true' && filterData ? (
         <Map data={filterData} categoryChange={categoryChange} />
@@ -82,7 +86,7 @@ function SearchList({forSearch}: PropsType) {
               </div>
             )}
           </ul>
-          {tripspaceID ? (
+          {forSearch.placeID !== 'undefined' ? (
             <AddToCandidateButton />
           ) : (
             <button onClick={onMap}>
