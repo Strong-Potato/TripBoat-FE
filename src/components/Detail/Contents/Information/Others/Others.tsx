@@ -68,7 +68,6 @@ function Others({data}: OthersProps) {
             <OtherCard
               image={data.thumbnail}
               name={data.title}
-              category={data.category}
               point={data.rating}
               id={data.id}
               contentTypeId={data.contentTypeId}

@@ -3,7 +3,6 @@ import {ReactNode} from 'react';
 export interface OtherCardPropsType {
   image: string;
   name: string;
-  category: string;
   point: number;
   id: number;
   contentTypeId: number;
