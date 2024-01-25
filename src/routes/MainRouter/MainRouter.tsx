@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {Route, Routes, useLocation} from 'react-router-dom';
 
@@ -28,8 +29,11 @@ import Dashboard from '@/routes/Dashboard/Dashboard';
 import {getTitle} from '@/utils/getTitle';
 
 function MainRouter() {
+  const [title, setTitle] = useState('');
   const location = useLocation();
-  const title = getTitle(location.pathname);
+  useEffect(() => {
+    setTitle(getTitle(location.pathname));
+  }, [location]);
 
   return (
     <>
