@@ -142,6 +142,7 @@ export interface SpaceResponse {
       },
     ];
   };
+  status: number;
   responseCode: number;
   detail?: string;
 }

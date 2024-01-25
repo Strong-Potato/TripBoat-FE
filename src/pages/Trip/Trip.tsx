@@ -13,8 +13,11 @@ import {useEffect, useRef, useState} from 'react';
 import {AiOutlineBell as AlarmIcon} from 'react-icons/ai';
 import {AiOutlineMenu as MenuIcon} from 'react-icons/ai';
 import {FiPlus as PlusIcon} from 'react-icons/fi';
+import {useNavigate, useParams} from 'react-router-dom';
 
 import styles from './Trip.module.scss';
+
+import {useGetRecentSpace} from '@/hooks/Spaces/space';
 
 import Alarm from '@/components/Alarm/Alarm';
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
@@ -23,7 +26,6 @@ import SlideBar from '@/components/SideBar/SideBar';
 import EditTripSpace from '@/components/TripSpace/EditTripSpace/EditTripSpace';
 import FriendList from '@/components/TripSpace/FriendList/FriendList';
 import InviteFriends from '@/components/TripSpace/InviteFriends/InviteFriends';
-import VoteTabPanel from '@/components/VoteTabPanel/VoteTabPanel';
 
 import {LatLng} from '@/types/route';
 
@@ -41,15 +43,25 @@ function Trip() {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   const mapRef = useRef<kakao.maps.Map>(null);
   const [center, setCenter] = useState<LatLng>({lat: 37, lng: 131}); // 기준: 독도
-
   const {isOpen: isBottomSlideOpen, onOpen: onBottomSlideOpen, onClose: onBottomSlideClose} = useDisclosure();
   const {isOpen: isSlideBarOpen, onOpen: onSlideBarOpen, onClose: onSlideBarClose} = useDisclosure();
-
   const {isOpen: isInviteOpen, onOpen: onInviteOpen, onClose: onInviteClose} = useDisclosure();
-
   const {isOpen: isFriendListOpen, onOpen: onFriendListOpen, onClose: onFriendListClose} = useDisclosure();
-
   const {isOpen: isAlarmOpen, onOpen: onAlarmOpen, onClose: onAlarmClose} = useDisclosure();
+  const {data: recentSpaceData} = useGetRecentSpace();
+  const {id} = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!recentSpaceData.data) {
+      console.log('로그인 안 했음');
+      navigate('/trip');
+    }
+  }, [recentSpaceData]);
+
+  useEffect(() => {
+    console.log(id);
+  }, [id]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -91,7 +103,7 @@ function Trip() {
                   <Avatar w='2.6rem' h='2.6rem' name={user.name} src={user.src} />
                 ))}
               </AvatarGroup>
-              <span>외 {users.length - 3}명</span>
+              {users.length > 3 && <span>외 {users.length - 3}명</span>}
             </button>
             <button className={styles.addPersonButton} onClick={onInviteOpen}>
               <PlusIcon />
@@ -119,9 +131,7 @@ function Trip() {
               <TabIndicator className={styles.contents__tabIndicator} />
             </div>
             <TabPanels bg='#fff'>
-              <TabPanel className={styles.contents__tabContent}>
-                <VoteTabPanel />
-              </TabPanel>
+              <TabPanel className={styles.contents__tabContent}>{/* <VoteTabPanel /> */}</TabPanel>
               <TabPanel className={styles.contents__tabContent}>
                 <RouteTabPanel mapRef={mapRef} center={center} />
               </TabPanel>

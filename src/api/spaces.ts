@@ -1,23 +1,36 @@
 import axios from 'axios';
 
-import {Region} from '@/types/regionSearch';
-import {SpaceDateParams, SpaceRegionParams, SpaceResponse} from '@/types/route';
+import {SpaceDateParams, SpaceRegionParams} from '@/types/route';
 
 export const spacesRequest = {
   getSpaces: () => axios.get('/api/spaces').then((response) => response.data.data.spaces),
   postSpaces: () => axios.post('/api/spaces'),
 };
 
-// [GET] 지역 리스트
-export const getRegions = async (): Promise<Region[]> => {
+// [GET] 지역 리스트 조회
+export const getRegions = async () => {
   const response = await axios.get(`/api/spaces/city`);
   return response.data.data.cities;
 };
 
-// [GET] 단일 여행 스페이스
-export const getSpace = async (spaceId: number): Promise<SpaceResponse> => {
-  const response = await axios.get(`/api/spaces/${spaceId}`, {withCredentials: true});
-  return response.data;
+// [GET] 단일 여행 스페이스 조회
+export const getSpace = async (spaceId: number) => {
+  try {
+    const response = await axios.get(`/api/spaces/${spaceId}`, {withCredentials: true});
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// [GET] 최근 여행 스페이스 조회
+export const getRecentSpace = async () => {
+  try {
+    const response = await axios.get(`/api/spaces/recent`, {withCredentials: true});
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // [PUT] 지역 선택

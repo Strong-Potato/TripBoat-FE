@@ -1,8 +1,8 @@
 import {useMutation, useQueryClient, useSuspenseQuery} from '@tanstack/react-query';
 
-import {getRegions, getSpace, putDates, putRegions} from '@/api/spaces';
+import {getRecentSpace, getRegions, getSpace, putDates, putRegions} from '@/api/spaces';
 
-// [GET] 지역 리스트
+// [GET] 지역 리스트 조회
 export const useGetRegions = () => {
   return useSuspenseQuery({
     queryKey: ['spaces', 'city'],
@@ -10,11 +10,19 @@ export const useGetRegions = () => {
   });
 };
 
-// [GET] 단일 여행 스페이스
+// [GET] 단일 여행 스페이스 조회
 export const useGetSpace = (spaceId: number) => {
   return useSuspenseQuery({
     queryKey: ['spaces', spaceId],
     queryFn: () => getSpace(spaceId),
+  });
+};
+
+// [GET] 최근 여행 스페이스 조회
+export const useGetRecentSpace = () => {
+  return useSuspenseQuery({
+    queryKey: ['spaces', 'recent'],
+    queryFn: () => getRecentSpace(),
   });
 };
 
