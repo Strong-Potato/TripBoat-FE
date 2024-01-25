@@ -1,6 +1,8 @@
 import {Dispatch, ReactNode} from 'react';
 import {SwiperRef} from 'swiper/react';
 
+import {SearchItemType} from './home';
+
 interface UserInfo {
   id: number;
   nickName?: string;
@@ -153,7 +155,7 @@ export interface TaglineType {
 }
 
 export interface MemoItemProps {
-  candidate: CandidatesInfo;
+  place: SearchItemType;
   existingTagline?: TaglineType;
 }
 

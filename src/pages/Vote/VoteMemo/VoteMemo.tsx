@@ -63,7 +63,7 @@ const VoteMemo = () => {
   return (
     <div className={styles.container}>
       <VoteHeader title={voteInfo.title} onBottomSlideOpen={() => setIsBTOpen(true)} />
-      <MemoContent data={voteInfo} />
+      <MemoContent selectedPlaces={selectedPlaces} />
 
       <Button variant='CTAButton' isDisabled={selectedTagline.length === 0} onClick={handleAddCandidates}>
         {selectedTagline.length}개 후보 등록하기
