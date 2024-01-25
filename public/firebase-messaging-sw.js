@@ -22,7 +22,7 @@ self.addEventListener('push', function (e) {
     tag: resultData.tag,
     ...resultData,
   };
-  console.log('출력');
+  console.log('출력', new Date()); // GET 알림 불러오기 갱신
 
   self.registration.showNotification(notificationTitle, notificationOptions);
 });

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {initializeApp} from 'firebase/app';
 import {getMessaging, getToken, onMessage} from 'firebase/messaging';
 
@@ -26,10 +27,13 @@ async function requestPermission() {
   const token = await getToken(messaging, {
     vapidKey: import.meta.env.VITE_VAPID_KEY,
   });
+  console.log(token);
   if (token) {
     await sendNotificationToken({token});
     console.log('[FCM]알림 토큰을 전송했습니다');
   } else console.log('[FCM]알림 토큰을 얻지 못했습니다');
+
+  await axios.post('/api/notifications/subscribe', {isGlobal: false, spaceId: 1}, {withCredentials: true});
   onMessage(messaging, (payload) => {
     console.log('푸시 알람 메세지 출력', payload);
   });
