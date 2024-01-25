@@ -17,6 +17,7 @@ import {isBottomSlideOpenState} from '@/recoil/vote/bottomSlide';
 import {selectedTaglineState} from '@/recoil/vote/voteMemo';
 
 import {TaglineType} from '@/types/vote';
+// import { selectedPlaceState } from '@/recoil/vote/selectPlace';
 
 const VoteMemo = () => {
   const {id: voteId} = useParams();
@@ -24,6 +25,7 @@ const VoteMemo = () => {
   // const navigate = useNavigate();
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
+  // const [selectedPlaces,SetSelectedPlaces] = useRecoilState(selectedPlaceState);
   const {toggleItemInNewArray} = useGetSelectedArray(selectedTaglineState);
 
   const getExistingTaglines = localStorage.getItem('recoil-persist');
