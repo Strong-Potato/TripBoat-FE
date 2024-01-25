@@ -33,7 +33,7 @@ function ImageSwiper({images}: ImageSwiperProps) {
         }}
       >
         {images.map((data) => (
-          <SwiperSlide className={styles.container__swiperSlide} onClick={onOpen}>
+          <SwiperSlide className={styles.container__swiperSlide} onClick={onOpen} key={`imageSwiper_${data}`}>
             <img src={data} alt='#' />
           </SwiperSlide>
         ))}

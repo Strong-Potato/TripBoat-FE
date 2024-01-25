@@ -34,6 +34,8 @@ export const getIsWish = async (id: number, setIsWish: React.Dispatch<React.SetS
 
   setIsWish(response.data.data);
 
+  console.log(response.data);
+
   return response.data;
 };
 
@@ -75,10 +77,28 @@ export const getMySpaces = async (page: number, size: number, sort: string): Pro
 
 // --------------------------- POST ---------------------------
 
-export const PostWishes = async ({placeId, contentTypeId}: Wishes) => {
+export const postWishes = async ({placeId, contentTypeId}: Wishes) => {
   try {
-    const response = await axios.post('/api/wishes', {placeId, contentTypeId});
+    const response = await axios.post(
+      '/api/wishes',
+      {placeId, contentTypeId},
+      {
+        withCredentials: true,
+      },
+    );
     console.log('axios 포스트 성공', response);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// --------------------------- DELETE ---------------------------
+
+export const deleteWishes = async (id: number) => {
+  try {
+    const response = await axios.delete(`/api/wishes/${id}`);
+    console.log('axios delete success', response);
     return response.data;
   } catch (error) {
     console.error(error);

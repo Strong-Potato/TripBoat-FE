@@ -59,7 +59,12 @@ function Detail() {
       <Navigation
         onOpen={() =>
           onBottomSlideOpen(
-            <MeatballBottomSlide onBottomSlideOpen={onBottomSlideOpen} onClose={handleSlideOnClose} />,
+            <MeatballBottomSlide
+              onBottomSlideOpen={onBottomSlideOpen}
+              onClose={handleSlideOnClose}
+              id={placeInfo.id}
+              contentTypeId={placeInfo.contentTypeId}
+            />,
             false,
           )
         }
@@ -69,7 +74,6 @@ function Detail() {
         contentTypeId={placeInfo.contentTypeId}
         images={placeInfo.gallery}
         title={placeInfo.title}
-        category={placeInfo.category}
         rating={reviewsRating.rating}
         reviewsCount={reviewsRating.userRatingCount}
       />
