@@ -1,14 +1,26 @@
-import {useMutation, useQuery, useQueryClient, UseQueryResult} from '@tanstack/react-query';
+import {useInfiniteQuery, useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 
 import {spacesRequest} from '@/api/spaces';
 
-import {GetUpcomingProp} from '@/types/sidebar';
-
-function useGetSpaces(isSideOpen: boolean): UseQueryResult<GetUpcomingProp, Error> {
+function useGetSpaces(enabled: boolean) {
   return useQuery({
     queryKey: ['spaces'],
     queryFn: spacesRequest.getUpcoming,
-    enabled: isSideOpen,
+    enabled,
+  });
+}
+
+function useGetSpacesOut() {
+  return useInfiniteQuery({
+    queryKey: ['spacesOut'],
+    queryFn: spacesRequest.getOutdated,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, _, lastPageParam) => {
+      if (lastPage.length === 0) {
+        return undefined;
+      }
+      return lastPageParam + 1;
+    },
   });
 }
 
@@ -22,4 +34,4 @@ function usePostSpace() {
   });
 }
 
-export {useGetSpaces, usePostSpace};
+export {useGetSpaces, useGetSpacesOut, usePostSpace};

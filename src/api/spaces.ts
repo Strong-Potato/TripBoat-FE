@@ -13,6 +13,21 @@ export const spacesRequest = {
     }
   },
 
+  getOutdated: async ({pageParam}: {pageParam: number}) => {
+    try {
+      const res = await axios.get('/api/members/my-spaces/outdated', {
+        params: {
+          size: 5,
+          page: pageParam,
+        },
+        withCredentials: true,
+      });
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   post: async () => {
     try {
       const res = await axios.post('/api/spaces', {withCredentials: true});

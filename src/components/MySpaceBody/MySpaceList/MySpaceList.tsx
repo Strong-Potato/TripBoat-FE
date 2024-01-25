@@ -1,43 +1,93 @@
-import styles from "./MySpaceList.module.scss";
+import {useEffect} from 'react';
+import {useInView} from 'react-intersection-observer';
 
-import { setSpaceDate } from "@/utils/formatDate";
+import styles from './MySpaceList.module.scss';
 
-import { MySpaceListProps } from "@/types/user";
+import {useGetSpaces, useGetSpacesOut} from '@/hooks/Spaces/useSpaces';
 
-function MySpaceList({ data, tab }: MySpaceListProps) {
+import defaultCity from '@/assets/icons/city_default.svg';
+import {setSpaceDate} from '@/utils/formatDate';
+
+import {Spaces} from '@/types/sidebar';
+import {MySpaceListProps} from '@/types/user';
+
+function MySpaceList({tab}: MySpaceListProps) {
+  const {data: upcomingData} = useGetSpaces(true);
+  const {data: outdatedData, fetchNextPage} = useGetSpacesOut();
+  const [ref, inView] = useInView({
+    rootMargin: '-56px',
+    threshold: 0.8,
+  });
+
+  useEffect(() => {
+    // inView true + next pages exist
+    if (outdatedData) {
+      const {last} = outdatedData.pages.at(-1).data;
+
+      if (inView && !last) {
+        fetchNextPage();
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView]);
+
   return (
     <ul className={styles.container}>
-      {data?.map(({ id, title, startDate, endDate, dueDate, thumbnail }) => (
-        <li
-          key={id}
-          onClick={() => {
-            // navigate(`/trip/${id}`)
-          }}
-        >
-          <div
-            className={styles.img}
-            style={{
-              backgroundImage: `url(${thumbnail})`,
+      {tab === 'upcoming' &&
+        upcomingData?.data.spaces.map(({id, title, startDate, endDate, dueDate, thumbnail}: Spaces) => (
+          <li
+            key={id}
+            onClick={() => {
+              // navigate(`/trip/${id}`)
             }}
           >
-            <span>
-              {dueDate === 0
-                ? tab === "upcomming"
-                  ? "여행중"
-                  : ""
-                : `D-${dueDate}`}
-            </span>
-          </div>
-
-          <div className={styles.content}>
-            <div className={styles.content__title}>{title}</div>
-
-            <div className={styles.content__date}>
-              {setSpaceDate(startDate, endDate)}
+            <div
+              className={`${styles.img} ${thumbnail ? styles.city : styles.default}`}
+              style={{
+                backgroundImage: `url(${thumbnail ? thumbnail : defaultCity})`,
+              }}
+            >
+              <span>{dueDate <= 0 ? '여행중' : `D-${dueDate}`}</span>
             </div>
-          </div>
-        </li>
-      ))}
+
+            <div className={styles.content}>
+              <div className={styles.content__title}>{title}</div>
+
+              <div className={styles.content__date}>{setSpaceDate(startDate, endDate)}</div>
+            </div>
+          </li>
+        ))}
+
+      {tab === 'outdated' &&
+        outdatedData?.pages.map((page) =>
+          page.data.spaces.map(({id, title, startDate, endDate, thumbnail}: Spaces) => (
+            <li
+              key={id}
+              onClick={() => {
+                // navigate(`/trip/${id}`)
+              }}
+            >
+              <div
+                className={`${styles.img} ${thumbnail ? styles.city : styles.default}`}
+                style={{
+                  backgroundImage: `url(${thumbnail ? thumbnail : defaultCity})`,
+                }}
+              ></div>
+
+              <div className={styles.content}>
+                <div className={styles.content__title}>{title}</div>
+
+                <div className={styles.content__date}>{setSpaceDate(startDate, endDate)}</div>
+              </div>
+            </li>
+          )),
+        )}
+
+      {tab === 'outdated' && (
+        <div className={styles.observeTarget} ref={ref}>
+          Fetching...
+        </div>
+      )}
     </ul>
   );
 }

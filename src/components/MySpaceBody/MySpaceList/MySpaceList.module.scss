@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   display: flex;
@@ -24,8 +24,13 @@
     width: 6.6rem;
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
     background-blend-mode: darken;
     border-radius: 16px 0px 0px 16px;
+
+    &.default {
+      background-size: 75% 75%;
+    }
 
     & > span {
       z-index: 100;
@@ -34,7 +39,7 @@
     }
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       width: 100%;
       height: 100%;
@@ -61,5 +66,8 @@
       @include typography(bodySmall);
       color: $neutral400;
     }
+  }
+
+  .observeTarget {
   }
 }
