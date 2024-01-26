@@ -13,11 +13,11 @@ import {useEffect, useRef, useState} from 'react';
 import {AiOutlineBell as AlarmIcon} from 'react-icons/ai';
 import {AiOutlineMenu as MenuIcon} from 'react-icons/ai';
 import {FiPlus as PlusIcon} from 'react-icons/fi';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 import styles from './Trip.module.scss';
 
-import {useGetRecentSpace} from '@/hooks/Spaces/space';
+import {useGetSpace} from '@/hooks/Spaces/space';
 
 import Alarm from '@/components/Alarm/Alarm';
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
@@ -42,17 +42,19 @@ function Trip() {
   const {isOpen: isInviteOpen, onOpen: onInviteOpen, onClose: onInviteClose} = useDisclosure();
   const {isOpen: isFriendListOpen, onOpen: onFriendListOpen, onClose: onFriendListClose} = useDisclosure();
   const {isOpen: isAlarmOpen, onOpen: onAlarmOpen, onClose: onAlarmClose} = useDisclosure();
-  const {data: recentSpaceData} = useGetRecentSpace();
+  const {id} = useParams();
+  const {data: spaceData} = useGetSpace(Number(id));
   const navigate = useNavigate();
-  const users = recentSpaceData?.data?.members;
+  const users = spaceData?.data?.members;
 
-  useEffect(() => {
-    if (!recentSpaceData.data) {
-      console.log('로그인 안 했음');
-      navigate('/trip');
-    }
-    console.log(recentSpaceData.data);
-  }, [recentSpaceData]);
+  if (!spaceData.data) {
+    console.log('로그인 안 했음');
+    navigate('/trip');
+  }
+
+  if (spaceData.data) {
+    console.log(spaceData.data);
+  }
 
   useEffect(() => {
     const map = mapRef.current;
@@ -80,16 +82,14 @@ function Trip() {
           <div className={styles.titleContainer}>
             <div className={styles.titleContainer__dDayTitle}>D-day</div>
             <div className={styles.titleContainer__placeTitle}>
-              {recentSpaceData.data.city ? recentSpaceData.data.city : '여행지를 정해주세요'}
+              {spaceData.data.city ? spaceData.data.city : '여행지를 정해주세요'}
             </div>
             <div className={styles.dateContainer}>
               <span className={styles.dateContainer__dateTitle}>
-                {recentSpaceData.data.endDate
+                {spaceData.data.endDate
                   ? setSpaceDate(
-                      recentSpaceData.data.startDate,
-                      recentSpaceData.data.startDate === recentSpaceData.data.endDate
-                        ? ''
-                        : recentSpaceData.data.endDate,
+                      spaceData.data.startDate,
+                      spaceData.data.startDate === spaceData.data.endDate ? '' : spaceData.data.endDate,
                     )
                   : '날짜를 정해주세요'}
               </span>
