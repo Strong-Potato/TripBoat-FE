@@ -3,6 +3,7 @@ import {useDrag, useDrop} from 'react-dnd';
 import {IoMdMenu as MoveIcon} from 'react-icons/io';
 import {RiCheckboxCircleFill as SelectedIcon} from 'react-icons/ri';
 import {RiCheckboxBlankCircleLine as UnselectedIcon} from 'react-icons/ri';
+import {useNavigate} from 'react-router-dom';
 
 import styles from '../PlaceCard/PlaceCard.module.scss';
 
@@ -15,6 +16,8 @@ function PlaceCard({
   name,
   category,
   address,
+  contentTypeId,
+  placeId,
   editMode,
   onSelect,
   moveCard,
@@ -22,6 +25,7 @@ function PlaceCard({
 }: DraggablePlaceCardProps) {
   const [isChecked, setIsChecked] = useState(false);
   const originalIndex = findCard(id).index;
+  const navigate = useNavigate();
 
   const [, drag] = useDrag(
     () => ({
@@ -69,7 +73,7 @@ function PlaceCard({
           ))}
       </button>
 
-      <div className={styles.placeInformationContainer}>
+      <div className={styles.placeInformationContainer} onClick={() => navigate(`/detail/${placeId} ${contentTypeId}`)}>
         {!editMode && <div className={styles.numberContainer}>{order}</div>}
         <div className={styles.placeContainer}>
           {editMode && <div className={styles.numberContainer}>{order}</div>}

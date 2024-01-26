@@ -7,6 +7,8 @@ export interface DraggablePlaceCardProps {
   name: string;
   category: string;
   address: string;
+  placeId: number;
+  contentTypeId: number;
   editMode: boolean;
   selectedPlaces: string[];
   onSelect: (name: string) => void;
@@ -18,7 +20,7 @@ export type PlaceCardProps = Pick<DraggablePlaceCardProps, 'order' | 'name' | 'c
 
 export interface PlaceOrder {
   id: number;
-  Order: number;
+  order: number;
   place: Place;
 }
 
@@ -31,6 +33,8 @@ export interface Place {
   latitude: number;
   longitude: number;
   category: string;
+  contentTypeId: number;
+  placeId: number;
 }
 
 export interface Journey {
@@ -41,7 +45,7 @@ export interface Journey {
 
 export interface PlaceList {
   id: number;
-  Order: number;
+  order: number;
   place: {
     id: number;
     title: string;
@@ -51,6 +55,8 @@ export interface PlaceList {
     latitude: number;
     longitude: number;
     category: string;
+    contentTypeId: number;
+    placeId: number;
   };
 }
 
@@ -97,6 +103,7 @@ export interface LatLng {
 export interface MapInTripProps {
   mapRef: React.RefObject<kakao.maps.Map>;
   center: LatLng;
+  journeysData: Journeys;
 }
 
 export interface Journeys {

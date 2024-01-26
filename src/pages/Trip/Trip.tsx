@@ -17,7 +17,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 
 import styles from './Trip.module.scss';
 
-import {useGetSpace} from '@/hooks/Spaces/space';
+import {useGetJourneys, useGetSpace} from '@/hooks/Spaces/space';
 
 import Alarm from '@/components/Alarm/Alarm';
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
@@ -26,8 +26,10 @@ import SlideBar from '@/components/SideBar/SideBar';
 import EditTripSpace from '@/components/TripSpace/EditTripSpace/EditTripSpace';
 import FriendList from '@/components/TripSpace/FriendList/FriendList';
 import InviteFriends from '@/components/TripSpace/InviteFriends/InviteFriends';
+import VoteTabPanel from '@/components/VoteTabPanel/VoteTabPanel';
 
 import {setSpaceDate} from '@/utils/formatDate';
+import {getMapCenter} from '@/utils/getMapCenter';
 
 import {LatLng} from '@/types/route';
 import {Member} from '@/types/sidebar';
@@ -35,8 +37,6 @@ import {Member} from '@/types/sidebar';
 function Trip() {
   const news = localStorage.getItem('news');
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
-  const mapRef = useRef<kakao.maps.Map>(null);
-  const [center, setCenter] = useState<LatLng>({lat: 37, lng: 131}); // 기준: 독도
   const {isOpen: isBottomSlideOpen, onOpen: onBottomSlideOpen, onClose: onBottomSlideClose} = useDisclosure();
   const {isOpen: isSlideBarOpen, onOpen: onSlideBarOpen, onClose: onSlideBarClose} = useDisclosure();
   const {isOpen: isInviteOpen, onOpen: onInviteOpen, onClose: onInviteClose} = useDisclosure();
@@ -44,8 +44,15 @@ function Trip() {
   const {isOpen: isAlarmOpen, onOpen: onAlarmOpen, onClose: onAlarmClose} = useDisclosure();
   const {id} = useParams();
   const {data: spaceData} = useGetSpace(Number(id));
+  const {data: journeysData} = useGetJourneys(Number(id));
+  const mapRef = useRef<kakao.maps.Map>(null);
+  const [center, setCenter] = useState<LatLng>(getMapCenter(journeysData.data));
   const navigate = useNavigate();
   const users = spaceData?.data?.members;
+
+  useEffect(() => {
+    console.log('아임센터', center);
+  }, [center]);
 
   if (!spaceData.data) {
     console.log('로그인 안 했음');
@@ -54,6 +61,7 @@ function Trip() {
 
   if (spaceData.data) {
     console.log(spaceData.data);
+    console.log(journeysData.data);
   }
 
   useEffect(() => {
@@ -61,9 +69,9 @@ function Trip() {
 
     if (map) {
       map.relayout();
-      setCenter({lat: 37.76437082535426, lng: 128.87675285339355});
+      setCenter(getMapCenter(journeysData.data));
     }
-  }, [selectedTabIndex]);
+  }, [selectedTabIndex, journeysData]);
 
   return (
     <>
@@ -140,9 +148,11 @@ function Trip() {
               <TabIndicator className={styles.contents__tabIndicator} />
             </div>
             <TabPanels bg='#fff'>
-              <TabPanel className={styles.contents__tabContent}>{/* <VoteTabPanel /> */}</TabPanel>
               <TabPanel className={styles.contents__tabContent}>
-                <RouteTabPanel mapRef={mapRef} center={center} />
+                <VoteTabPanel />
+              </TabPanel>
+              <TabPanel className={styles.contents__tabContent}>
+                <RouteTabPanel mapRef={mapRef} center={center} journeysData={journeysData.data} />
               </TabPanel>
             </TabPanels>
           </Tabs>

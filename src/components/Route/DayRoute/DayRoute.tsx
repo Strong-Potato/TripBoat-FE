@@ -70,10 +70,12 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
                 <DraggablePlaceCard
                   key={place.id}
                   id={place.id}
-                  order={place.Order + 1}
+                  order={place.order}
                   name={place.place.title}
                   category={place.place.category}
                   address={`${place.place.address} ${place.place.addressDetail}`}
+                  contentTypeId={place.place.contentTypeId}
+                  placeId={place.place.placeId}
                   editMode={editMode}
                   selectedPlaces={selectedPlaces}
                   onSelect={handlePlaceSelection}

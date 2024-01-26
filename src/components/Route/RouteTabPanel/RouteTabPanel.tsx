@@ -2,11 +2,9 @@ import {useDisclosure} from '@chakra-ui/react';
 import {useEffect, useState} from 'react';
 import {HiOutlineTrash as DeleteIcon} from 'react-icons/hi';
 import {RiArrowUpDownFill as MoveIcon} from 'react-icons/ri';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import styles from './RouteTabPanel.module.scss';
-
-import {useGetJourneys} from '@/hooks/Spaces/space';
 
 import BottomSlideLeft from '@/components/BottomSlide/BottomSlideLeft';
 
@@ -22,14 +20,11 @@ import MapInTrip from '../MapInTrip/MapInTrip';
 
 import {DateItem, Journey, MapInTripProps} from '@/types/route';
 
-function RouteTabPanel({mapRef, center}: MapInTripProps) {
+function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [selectedPlaces, setSelectedPlaces] = useState<string[]>([]);
   const {isOpen, onOpen, onClose} = useDisclosure();
   const {isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose} = useDisclosure();
-  const {id} = useParams();
-  const {data: journeysData} = useGetJourneys(Number(id));
-  console.log(journeysData);
 
   const handleEditMode = () => {
     setIsEditMode(!isEditMode);
@@ -52,18 +47,18 @@ function RouteTabPanel({mapRef, center}: MapInTripProps) {
   const navigate = useNavigate();
   const spaceId = getSpaceId();
 
-  if (!journeysData.data.journeys || journeysData.data.journeys.length === 0) {
+  if (!journeysData.journeys || journeysData.journeys.length === 0) {
     return <EmptyDate />;
   }
 
-  const dateList: DateItem[] = journeysData.data.journeys.map((journey: Journey) => ({
+  const dateList: DateItem[] = journeysData.journeys.map((journey: Journey) => ({
     date: journey.date,
   }));
 
   return (
     <div className={styles.panelContainer}>
       <div className={styles.mapContainer}>
-        <MapInTrip mapRef={mapRef} center={center} />
+        <MapInTrip mapRef={mapRef} center={center} journeysData={journeysData} />
         <button className={styles.zoomInButton} onClick={() => navigate(`/trip/${spaceId}/map`)}>
           <ZoomInIcon />
         </button>
@@ -71,8 +66,8 @@ function RouteTabPanel({mapRef, center}: MapInTripProps) {
       <div className={styles.routeContainer}>
         <DayNavigationBar dateList={dateList} editMode={isEditMode} handleEditMode={handleEditMode} />
         <div className={styles.journeysContainer}>
-          {journeysData.data.journeys &&
-            journeysData.data.journeys.map((journey: Journey, index: number) => (
+          {journeysData.journeys &&
+            journeysData.journeys.map((journey: Journey, index: number) => (
               <DayRoute
                 key={journey.id}
                 day={index + 1}
