@@ -18,10 +18,10 @@ function MypageList() {
     }
     if (alertOn) {
       setAlertOn(false);
-      await axios.post('/api/notifications/subscribe');
+      await axios.post('/api/notifications/unsubscribe');
     } else {
       setAlertOn(true);
-      await axios.post('/api/notifications/unsubscribe');
+      await axios.post('/api/notifications/subscribe');
     }
   };
 
