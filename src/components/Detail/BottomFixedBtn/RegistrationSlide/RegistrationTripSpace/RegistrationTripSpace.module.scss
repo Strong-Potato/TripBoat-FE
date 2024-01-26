@@ -1,8 +1,10 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   border-radius: 16px;
+
   margin-bottom: 32px;
+
   transition: height 0.5s;
   overflow: hidden;
 
@@ -28,8 +30,19 @@
     padding: 0 8px;
     padding-bottom: 16px;
 
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
     visibility: hidden;
     transition: visibility 0.5s;
+
+    max-height: 20rem;
+
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
+    }
     &__item {
       padding: 12px 16px;
       display: flex;
@@ -47,21 +60,29 @@
 
       &__title {
         display: flex;
-        align-items: center;
+
         gap: 12px;
-        @include typography(subTitle);
+        @include typography(button);
         color: $neutral900;
 
         &__img {
           width: 4rem;
           height: 4rem;
-          border-radius: 2rem;
+          // border-radius: 2rem;
         }
-      }
 
-      &__icon {
-        font-size: 2.4rem;
-        color: $neutral300;
+        &__spans {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+
+          &__members {
+            @include typography(captionSmall);
+            color: $neutral400;
+
+            width: 100%;
+          }
+        }
       }
     }
 

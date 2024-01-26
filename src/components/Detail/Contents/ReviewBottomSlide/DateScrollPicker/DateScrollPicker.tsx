@@ -1,9 +1,6 @@
-import DatePicker from "react-mobile-datepicker";
-import { useRecoilState } from "recoil";
+import DatePicker from 'react-mobile-datepicker';
 
-import { DatePickerIsValued, DatePickerState } from "@/recoil/detail/detail";
-
-import { DateScrollPickerProps } from "@/types/detail";
+import {DateScrollPickerProps} from '@/types/detail';
 
 interface DateConfig {
   year: {
@@ -17,10 +14,7 @@ interface DateConfig {
     step: number;
   };
 }
-function DateScrollPicker({ slideOnClose }: DateScrollPickerProps) {
-  const [time, setTime] = useRecoilState<Date>(DatePickerState);
-  const [isValued, setIsValued] = useRecoilState<boolean>(DatePickerIsValued);
-
+function DateScrollPicker({time, setTime, isValued, setIsValued, slideOnClose}: DateScrollPickerProps) {
   const handleCancel = () => {
     slideOnClose();
     // setIsOpen(false);
@@ -36,13 +30,13 @@ function DateScrollPicker({ slideOnClose }: DateScrollPickerProps) {
 
   const dateConfig: DateConfig = {
     year: {
-      format: "YYYY",
-      caption: "Year",
+      format: 'YYYY',
+      caption: 'Year',
       step: 1,
     },
     month: {
-      format: "MM",
-      caption: "Mon",
+      format: 'MM',
+      caption: 'Mon',
       step: 1,
     },
   };
@@ -51,17 +45,17 @@ function DateScrollPicker({ slideOnClose }: DateScrollPickerProps) {
     <>
       <DatePicker
         dateConfig={dateConfig}
-        theme={"ios"}
+        theme={'ios'}
         value={time}
         min={new Date(1999, 0, 1)}
         max={new Date()}
         onSelect={handleSelect}
         onCancel={handleCancel}
         isPopup={false}
-        headerFormat={"YYYY년 MM월"}
+        headerFormat={'YYYY년 MM월'}
         showHeader={false}
-        confirmText="선택"
-        cancelText="취소"
+        confirmText='선택'
+        cancelText='취소'
       />
     </>
   );

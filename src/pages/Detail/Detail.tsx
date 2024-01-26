@@ -38,6 +38,11 @@ function Detail() {
     data: {data: reviewsRating},
   } = useGetReviewsRating(Number(params?.split(' ')[0]), Number(params?.split(' ')[1]), placeInfo.title);
 
+  // const reviewsRating = {
+  //   rating: 5.0,
+  //   userRatingCount: 5,
+  // };
+
   console.log(reviewsRating);
 
   console.log(placeInfo);
@@ -64,6 +69,7 @@ function Detail() {
               onClose={handleSlideOnClose}
               id={placeInfo.id}
               contentTypeId={placeInfo.contentTypeId}
+              title={placeInfo.title}
             />,
             false,
           )
@@ -80,10 +86,29 @@ function Detail() {
       <Contents
         data={placeInfo}
         reviewsRating={reviewsRating}
-        onOpen={() => onBottomSlideOpen(<ReviewBottomSlide slideOnClose={handleSlideOnClose} />, true)}
+        onOpen={() =>
+          onBottomSlideOpen(
+            <ReviewBottomSlide
+              placeId={placeInfo.id}
+              contentTypeId={placeInfo.contentTypeId}
+              title={placeInfo.title}
+              slideOnClose={handleSlideOnClose}
+            />,
+            true,
+          )
+        }
       />
       <BottomFixedBtn
-        onOpen={() => onBottomSlideOpen(<RegistrationSlide slideOnClose={handleSlideOnClose} />, false)}
+        onOpen={() =>
+          onBottomSlideOpen(
+            <RegistrationSlide
+              placeId={placeInfo.id}
+              placeTypeId={placeInfo.contentTypeId}
+              slideOnClose={handleSlideOnClose}
+            />,
+            false,
+          )
+        }
       />
       <BottomSlideDetail
         isOpen={isOpen}

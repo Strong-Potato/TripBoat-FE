@@ -18,7 +18,7 @@ import {
 
 //단일 보트 GET
 export const useGetVotesInfo = (voteId: number) => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ['vote', voteId],
     queryFn: () => getVoteInfo(voteId),
     retry: false,

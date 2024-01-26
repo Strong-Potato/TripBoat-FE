@@ -36,7 +36,6 @@ export type Spaces = {
   dueDate: number;
   thumbnail: string;
   members: Member[];
-  duedate: number;
 };
 
 export type Member = {

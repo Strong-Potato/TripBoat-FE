@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   z-index: 4;
@@ -61,6 +61,14 @@
     flex-direction: column;
 
     gap: 8px;
+
+    width: 100%;
+    max-height: 30rem;
+
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera*/
+    }
   }
 
   &__voteNotValued {
