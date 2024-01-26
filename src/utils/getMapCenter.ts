@@ -1,7 +1,7 @@
 import {Journeys} from '@/types/route';
 
 export const getMapCenter = (journeysData: Journeys) => {
-  if (journeysData.journeys[0].places.length > 0) {
+  if (journeysData.journeys.length > 0 && journeysData.journeys[0].places.length > 0) {
     const lat = journeysData.journeys[0].places[0].place.latitude;
     const lng = journeysData.journeys[0].places[0].place.longitude;
     return {lat: lat, lng: lng};
