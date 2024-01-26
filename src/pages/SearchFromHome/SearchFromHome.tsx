@@ -24,7 +24,7 @@ function SearchFromHome() {
 
   useEffect(() => {
     const querystring = {
-      keyword: searchParams.get('keyword') === '없음' ? '' : searchParams.get('keyword'),
+      keyword: searchParams.get('keyword'),
       category: searchParams.get('category'),
       map: searchParams.get('map'),
       location: searchParams.get('location'),
@@ -33,6 +33,8 @@ function SearchFromHome() {
       placeID: searchParams.get('placeID'),
       tripDate: searchParams.get('tripDate'),
     };
+    console.log(querystring.keyword);
+
     if (
       querystring.keyword &&
       querystring.category &&
@@ -42,8 +44,10 @@ function SearchFromHome() {
       querystring.hot
     ) {
       if (!querystring.placeID && !querystring.tripDate) {
+        console.log(1);
+
         setForSearch({
-          keyword: querystring.keyword,
+          keyword: querystring.keyword === '없음' ? '' : querystring.keyword,
           category: parseInt(querystring.category),
           map: querystring.map,
           location: querystring.location,
@@ -54,8 +58,10 @@ function SearchFromHome() {
         });
       }
       if (querystring.placeID && !querystring.tripDate) {
+        console.log(2);
+
         setForSearch({
-          keyword: querystring.keyword,
+          keyword: querystring.keyword === '없음' ? '' : querystring.keyword,
           category: parseInt(querystring.category),
           map: querystring.map,
           location: querystring.location,
@@ -66,8 +72,10 @@ function SearchFromHome() {
         });
       }
       if (querystring.placeID && querystring.tripDate) {
+        console.log(3);
+
         setForSearch({
-          keyword: querystring.keyword,
+          keyword: querystring.keyword === '없음' ? '' : querystring.keyword,
           category: parseInt(querystring.category),
           map: querystring.map,
           location: querystring.location,
@@ -80,15 +88,20 @@ function SearchFromHome() {
     }
   }, [searchParams]);
 
+  useEffect(() => {
+    console.log(forSearch);
+  }, [forSearch]);
+
   return (
     <div
       className={styles.container}
       style={{
         height: `${vh}px`,
-        gap: forSearch.map === 'true' || forSearch.hot === 'true' ? '0' : '24px',
+        gap: forSearch.map === 'true' || forSearch.hot === 'true' || forSearch.placeID ? '0' : '24px',
         paddingTop: forSearch.map === 'true' ? '0' : '16px',
       }}
     >
+      {forSearch.placeID !== 'undefined' && <MapHeader forSearch={forSearch} setForSearch={setForSearch} />}
       {forSearch.map === 'true' ? (
         <MapHeader forSearch={forSearch} setForSearch={setForSearch} />
       ) : (
