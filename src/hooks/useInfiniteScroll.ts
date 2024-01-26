@@ -7,8 +7,8 @@ export const useInfiniteScroll = (infiniteQueryFn: () => UseInfiniteQueryResult<
   const {data, fetchNextPage} = infiniteQueryFn();
   const [hasNextData, setHasNextData] = useState(true);
   const {ref: inViewRef, inView} = useInView({
-    rootMargin: '-40px',
-    threshold: 0.8,
+    rootMargin: '0px 0px -56px 0px',
+    threshold: 1,
   });
 
   useEffect(() => {
