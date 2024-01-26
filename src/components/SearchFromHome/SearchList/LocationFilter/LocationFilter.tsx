@@ -6,12 +6,14 @@ import styles from './LocationFilter.module.scss';
 import LocationFliterPage from './LocationFliterPage/LocationFliterPage';
 
 import {ForSearchType} from '@/types/home';
+import {WishFilterType} from '@/types/wish';
 
 interface PropsType {
-  forSearch: ForSearchType;
+  forSearch?: ForSearchType | undefined;
+  wishesFilter?: WishFilterType | undefined;
 }
 
-function LocationFilter({forSearch}: PropsType) {
+function LocationFilter({forSearch = undefined, wishesFilter = undefined}: PropsType) {
   const [click, setClick] = useState(true);
   const [buttonName, setButtonName] = useState('전체 지역');
 
@@ -20,13 +22,20 @@ function LocationFilter({forSearch}: PropsType) {
   }
 
   useEffect(() => {
-    const datas = forSearch.location.split(' ');
-    if (datas[0] === '전국') {
-      setButtonName('전체 지역');
+    let locationData: string[] | undefined;
+    if (forSearch) {
+      locationData = forSearch.location.split(' ');
     } else {
-      setButtonName(datas[0]);
+      locationData = wishesFilter?.location.split(' ');
     }
-  }, [forSearch.location]);
+    if (locationData) {
+      if (locationData[0] === '전국') {
+        setButtonName('전체 지역');
+      } else {
+        setButtonName(locationData[0]);
+      }
+    }
+  }, [forSearch?.location, wishesFilter?.location]);
 
   return (
     <>
@@ -42,7 +51,7 @@ function LocationFilter({forSearch}: PropsType) {
         <span style={{userSelect: 'none'}}>{buttonName}</span>
         <MdOutlineKeyboardArrowDown className={styles.icon} />
       </div>
-      <LocationFliterPage click={click} forSearch={forSearch} handleClick={handleClick} />
+      <LocationFliterPage click={click} forSearch={forSearch} wishesFilter={wishesFilter} handleClick={handleClick} />
     </>
   );
 }
