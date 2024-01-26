@@ -1,5 +1,5 @@
 import {useDisclosure} from '@chakra-ui/react';
-import {ReactNode, useState} from 'react';
+import {ReactNode, useEffect, useState} from 'react';
 import {useRecoilValue} from 'recoil';
 
 import styles from './Detail.module.scss';
@@ -37,13 +37,6 @@ function Detail() {
   const {
     data: {data: reviewsRating},
   } = useGetReviewsRating(Number(params?.split(' ')[0]), Number(params?.split(' ')[1]), placeInfo.title);
-
-  // const reviewsRating = {
-  //   rating: 5.0,
-  //   userRatingCount: 5,
-  // };
-
-  console.log(reviewsRating);
 
   console.log(placeInfo);
 

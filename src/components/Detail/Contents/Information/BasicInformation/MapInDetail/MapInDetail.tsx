@@ -6,6 +6,8 @@ import {CustomOverlayMap, Map} from 'react-kakao-maps-sdk';
 import styles from './MapInDetail.module.scss';
 
 import BigHomeMarker from '@/assets/homeIcons/map/house_big.svg?react';
+import BigFlagMarker from '@/assets/homeIcons/map/flag_big.svg?react';
+import BigRestaurantMarker from '@/assets/homeIcons/map/restaurant_big.svg?react';
 
 import MapModal from '../MapModal/MapModal';
 
@@ -52,7 +54,9 @@ function MapInDetail({lat, lng, title, thumbnail, id, contentTypeId, areaCode}: 
         onDoubleClick={handleMapDoubleClick}
       >
         <CustomOverlayMap position={{lat: lat, lng: lng}}>
-          <BigHomeMarker />
+          {contentTypeId === 32 && <BigHomeMarker />}
+          {contentTypeId === 39 && <BigRestaurantMarker />}
+          {contentTypeId !== 39 && contentTypeId !== 32 && <BigFlagMarker />}
         </CustomOverlayMap>
       </Map>
       <MapModal
