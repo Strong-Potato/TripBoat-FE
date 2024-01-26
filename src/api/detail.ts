@@ -1,4 +1,4 @@
-import {MySpaces, PlacesNearby, Reviews, ReviewsRating, Wishes, placeInfoData} from '@/types/detail';
+import {MySpaces, PlacesNearby, PostReview, Reviews, ReviewsRating, Wishes, placeInfoData} from '@/types/detail';
 import axios from 'axios';
 
 // --------------------------- GET ---------------------------
@@ -82,6 +82,22 @@ export const postWishes = async ({placeId, contentTypeId}: Wishes) => {
     const response = await axios.post(
       '/api/wishes',
       {placeId, contentTypeId},
+      {
+        withCredentials: true,
+      },
+    );
+    console.log('axios 포스트 성공', response);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const postReview = async ({placeId, contentTypeId, title, rating, content, images, visitedAt}: PostReview) => {
+  try {
+    const response = await axios.post(
+      '/api/reviews',
+      {placeId, contentTypeId, title, rating, content, images, visitedAt},
       {
         withCredentials: true,
       },

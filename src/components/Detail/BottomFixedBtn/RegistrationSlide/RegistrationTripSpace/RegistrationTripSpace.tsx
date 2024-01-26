@@ -15,7 +15,7 @@ function RegistrationTripSpace({tripSelectedId, setTripSelectedId, spaces}: Regi
   const [isDropped, setIsDropped] = useState<boolean>(false);
   const [selectItem, setSelectItem] = useState<string>('여행을 선택해주세요');
 
-  const setIsValuedArray = useSetRecoilState<string[]>(isRegistrationSelectedState);
+  const setIsValuedArray = useSetRecoilState<number[]>(isRegistrationSelectedState);
 
   return (
     <div

@@ -17,11 +17,11 @@ import RegistrationTripSpace from './RegistrationTripSpace/RegistrationTripSpace
 import {RegistrationSlideProps} from '@/types/detail';
 
 import {useGetSpaces} from '@/hooks/Spaces/useSpaces';
-import {useGetVoteListInfo} from '@/hooks/Votes/vote';
+import {useGetVoteListInfo, usePostNewCandidate} from '@/hooks/Votes/vote';
 import {VoteListInfo} from '@/types/vote';
 
-function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
-  const isValuedArray = useRecoilValue<string[]>(isRegistrationSelectedState);
+function RegistrationSlide({slideOnClose, placeId}: RegistrationSlideProps) {
+  const isValuedArray = useRecoilValue<number[]>(isRegistrationSelectedState);
   const [tripSelectedId, setTripSelectedId] = useState<number>(0);
   const {isOpen, onOpen, onClose} = useDisclosure();
   const toast = CustomToast();
@@ -38,6 +38,15 @@ function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
   );
 
   console.log(voteListData, 'voteList');
+
+  const postNewCandidate = usePostNewCandidate();
+
+  const handleCreateCandidate = async () => {
+    isValuedArray.map((id: number) => {
+      const res = postNewCandidate.mutateAsync({voteId: id, candidateInfos: [{placeId: placeId, tagline: '1'}]});
+      console.log('res =', res);
+    });
+  };
 
   return (
     <>
@@ -84,7 +93,12 @@ function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
               </div>
               <div className={styles.container__voteList}>
                 {voteListData.map((data) => (
-                  <RegistrationListItem title={data.title} isSelectedProps={false} key={`votelist_${data.voteId}`} />
+                  <RegistrationListItem
+                    voteId={data.voteId}
+                    placeId={placeId}
+                    title={data.title}
+                    key={`votelist_${data.voteId}`}
+                  />
                 ))}
               </div>
             </div>
@@ -108,6 +122,7 @@ function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
           }
           onClick={() => {
             if (isValuedArray.length > 0) {
+              handleCreateCandidate();
               toast('이 장소가 후보로 등록되었습니다.');
               slideOnClose();
               document.body.style.removeProperty('overflow');

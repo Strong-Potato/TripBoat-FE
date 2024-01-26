@@ -1,12 +1,8 @@
-import { useState } from "react";
+import styles from './InputWrapper.module.scss';
 
-import styles from "./InputWrapper.module.scss";
+import {InputWrapperProps} from '@/types/detail';
 
-import { InputWrapperProps } from "@/types/detail";
-
-function InputWrapper({ setIsValuedInput }: InputWrapperProps) {
-  const [text, setText] = useState<string>("");
-
+function InputWrapper({text, setText, setIsValuedInput}: InputWrapperProps) {
   const handleSetValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
 
@@ -25,7 +21,7 @@ function InputWrapper({ setIsValuedInput }: InputWrapperProps) {
     <div className={styles.container}>
       <textarea
         value={text}
-        placeholder="솔직한 후기를 작성해주세요. (최소 5자 이상)"
+        placeholder='솔직한 후기를 작성해주세요. (최소 5자 이상)'
         className={styles.container__input}
         onChange={(e) => handleSetValue(e)}
       />

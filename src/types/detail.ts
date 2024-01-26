@@ -83,14 +83,21 @@ export interface ContentsReviewsProps {
 }
 
 export interface ReviewBottomSlideProps {
+  placeId: number;
+  contentTypeId: number;
+  title: string;
   slideOnClose: () => void;
 }
 
 export interface InputWrapperProps {
+  text: string;
+  setText: React.Dispatch<React.SetStateAction<string>>;
   setIsValuedInput: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface starsWrapperProps {
+  starCount: number;
+  setStarCount: React.Dispatch<React.SetStateAction<number>>;
   setIsValuedCount: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -100,6 +107,7 @@ export interface BottomFixedBtnProps {
 
 export interface RegistrationSlideProps {
   slideOnClose: () => void;
+  placeId: number;
 }
 
 export interface RegistrationTripSpaceProps {
@@ -126,8 +134,9 @@ export type Member = {
 };
 
 export interface RegistrationListItemProps {
+  voteId: number;
+  placeId: number;
   title: string;
-  isSelectedProps: boolean;
 }
 
 export interface RegistrationModalProps {
@@ -136,6 +145,10 @@ export interface RegistrationModalProps {
 }
 
 export interface DateScrollPickerProps {
+  time: Date;
+  setTime: React.Dispatch<React.SetStateAction<Date>>;
+  isValued: boolean;
+  setIsValued: React.Dispatch<React.SetStateAction<boolean>>;
   slideOnClose: () => void;
 }
 
@@ -255,4 +268,16 @@ export interface MySpaces {
 export interface Wishes {
   placeId: number;
   contentTypeId: number;
+}
+
+// post reviews
+
+export interface PostReview {
+  placeId: number;
+  contentTypeId: number;
+  title: string;
+  rating: number;
+  content: string;
+  images: string[];
+  visitedAt: string;
 }

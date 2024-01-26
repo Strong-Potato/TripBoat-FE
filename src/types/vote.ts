@@ -120,15 +120,6 @@ export interface PostVoteTitleProps {
   title: string;
 }
 
-//get아니고 후보메모post
-export interface PostNewCandidateProps {
-  voteId: number;
-  candidates: {
-    placeId: number;
-    tagline: string;
-  }[];
-}
-
 export interface CandidatesSlideProps {
   candidates: CandidatesInfo[];
   setSelectedPinIndex: Dispatch<React.SetStateAction<number>>;
@@ -166,5 +157,8 @@ export interface PostVotingProps {
 
 export interface PostNewCandidateProps {
   voteId: number;
-  candidateInfos: TaglineType[];
+  candidateInfos: {
+    placeId: number;
+    tagline: string;
+  }[];
 }

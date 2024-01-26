@@ -1,6 +1,6 @@
 import {atom} from 'recoil';
 
-export const isRegistrationSelectedState = atom<string[]>({
+export const isRegistrationSelectedState = atom<number[]>({
   key: 'isRegistrationSelectedState',
   default: [],
 });
@@ -13,6 +13,16 @@ export const DatePickerState = atom<Date>({
 export const DatePickerIsValued = atom<boolean>({
   key: 'DatePickerIsValued',
   default: false,
+});
+
+export const ReviewStarCount = atom<number>({
+  key: 'ReviewStarCount',
+  default: 0,
+});
+
+export const ReviewInputValue = atom<string>({
+  key: 'ReviewInputValue',
+  default: '',
 });
 
 export const IsHeartValued = atom<boolean>({
