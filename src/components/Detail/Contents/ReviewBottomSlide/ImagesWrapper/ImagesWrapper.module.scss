@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   margin-top: 32px;
@@ -20,8 +20,13 @@
       position: relative;
       display: flex;
       gap: 8px;
+      padding: 10px 0;
+
+      overflow-x: auto;
+      overflow-y: visible;
 
       &__addBox {
+        flex: 0 0 7.6rem;
         width: 7.6rem;
         height: 7.6rem;
         background-color: $neutral100;
@@ -36,9 +41,7 @@
       }
 
       &__box {
-        width: 7.6rem;
-        height: 7.6rem;
-
+        flex: 0 0 7.6rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -61,5 +64,9 @@
         }
       }
     }
+  }
+
+  &__imageInput {
+    display: none;
   }
 }
