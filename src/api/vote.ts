@@ -54,7 +54,9 @@ export const postVoting = async ({voteId, candidateId}: PostVotingProps) => {
 
 //후보 메모 후 추가
 export const postNewCandidate = async ({voteId, candidateInfos}: PostNewCandidateProps) => {
-  const response = await axios.post(`/api/votes/${voteId}/candidates`, {candidateInfos, withCredentials: true});
+  const response = await axios.post(`/api/votes/${voteId}/candidates`, {
+    candidateInfos,
+  });
   return response.data;
 };
 

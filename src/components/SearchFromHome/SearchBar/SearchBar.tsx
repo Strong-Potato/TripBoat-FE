@@ -54,7 +54,10 @@ function SearchBar({forSearch, setForSearch}: PropsType) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.search_container}>
+      <div
+        className={styles.search_container}
+        style={{padding: forSearch.placeID !== 'undefined' ? '5px 32px 8px 10px' : '5px 32px 8px 32px'}}
+      >
         <div className={styles.searchBar}>
           <input
             type='text'
@@ -70,9 +73,11 @@ function SearchBar({forSearch, setForSearch}: PropsType) {
             ref={inputBar}
           />
         </div>
-        <button className={styles.return} onClick={removeValue}>
-          <BackIcon />
-        </button>
+        {forSearch.placeID === 'undefined' && (
+          <button className={styles.return} onClick={removeValue}>
+            <BackIcon />
+          </button>
+        )}
         <button className={styles.enter} onClick={search}>
           <SearchIcon />
         </button>

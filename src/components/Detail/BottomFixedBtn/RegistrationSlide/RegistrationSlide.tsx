@@ -15,23 +15,41 @@ import RegistrationModal from './RegistrationModal/RegistrationModal';
 import RegistrationTripSpace from './RegistrationTripSpace/RegistrationTripSpace';
 
 import {RegistrationSlideProps} from '@/types/detail';
-import {useGetSpacesCity} from '@/hooks/Detail/useSpaces';
 
-function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
-  const isValuedArray = useRecoilValue<string[]>(isRegistrationSelectedState);
-  const [TripSelected, setTripSelected] = useState<string>('');
+import {useGetSpaces} from '@/hooks/Spaces/useSpaces';
+import {useGetVoteListInfo, usePostNewCandidate} from '@/hooks/Votes/vote';
+import {VoteListInfo} from '@/types/vote';
+
+function RegistrationSlide({slideOnClose, placeId, placeTypeId}: RegistrationSlideProps) {
+  const isValuedArray = useRecoilValue<number[]>(isRegistrationSelectedState);
+  const [tripSelectedId, setTripSelectedId] = useState<number>(0);
   const {isOpen, onOpen, onClose} = useDisclosure();
   const toast = CustomToast();
 
-  const {
-    data: {
-      data: {spaces: spaces},
-    },
-  } = useGetSpacesCity(0, 15, '');
+  const {data: spaces} = useGetSpaces(true);
 
-  console.log(spaces);
+  console.log(spaces, 'spaces');
 
-  const exArray = [];
+  const data = useGetVoteListInfo(tripSelectedId);
+
+  const voteListAllData = data.data;
+  const voteListData: VoteListInfo[] = voteListAllData?.data?.voteResponse.filter(
+    (vote: any) => vote.voteStatus === '진행 중',
+  );
+
+  console.log(voteListData, 'voteList');
+
+  const postNewCandidate = usePostNewCandidate();
+
+  const handleCreateCandidate = async () => {
+    isValuedArray.map((id: number) => {
+      const res = postNewCandidate.mutateAsync({
+        voteId: id,
+        candidateInfos: [{placeId, tagline: '', placeTypeId}],
+      });
+      console.log('res =', res);
+    });
+  };
 
   return (
     <>
@@ -44,12 +62,12 @@ function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
         >
           <CloseIcon width='2rem' height='2rem' />
         </button>
+
         <div className={styles.container__createBtn}>
-          {TripSelected ? (
+          {tripSelectedId ? (
             <button
               onClick={() => {
                 onOpen();
-                console.log(1);
               }}
             >
               <CiEdit fontSize='2.2rem' />
@@ -62,20 +80,29 @@ function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
             </button>
           )}
         </div>
+
         <div className={styles.container__tripTitle}>여행 스페이스</div>
-        <RegistrationTripSpace setTripSelected={setTripSelected} />
+        <RegistrationTripSpace
+          tripSelectedId={tripSelectedId}
+          setTripSelectedId={setTripSelectedId}
+          spaces={spaces?.data.spaces}
+        />
         <div className={styles.container__voteTitle}>투표리스트</div>
-        {TripSelected ? (
-          exArray.length > 0 ? (
+        {tripSelectedId ? (
+          voteListData && voteListData.length > 0 ? (
             <div>
               <div className={styles.container__voteSelected}>
                 <span>후보로 등록할 투표 제목을 선택해주세요</span>
               </div>
               <div className={styles.container__voteList}>
-                <RegistrationListItem title='맛집 어디갈까' isSelectedProps={true} />
-                {/*  초과 글씨 ... 처리 해야함*/}
-                <RegistrationListItem title='둘째 날 숙소 어디서 묵지?' isSelectedProps={false} />
-                <RegistrationListItem title='루프탑 카페 정하자~' isSelectedProps={false} />
+                {voteListData.map((data) => (
+                  <RegistrationListItem
+                    voteId={data.voteId}
+                    placeId={placeId}
+                    title={data.title}
+                    key={`votelist_${data.voteId}`}
+                  />
+                ))}
               </div>
             </div>
           ) : (
@@ -98,6 +125,7 @@ function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
           }
           onClick={() => {
             if (isValuedArray.length > 0) {
+              handleCreateCandidate();
               toast('이 장소가 후보로 등록되었습니다.');
               slideOnClose();
               document.body.style.removeProperty('overflow');
@@ -107,7 +135,7 @@ function RegistrationSlide({slideOnClose}: RegistrationSlideProps) {
           후보 등록
         </button>
       </div>
-      <RegistrationModal isOpen={isOpen} onClose={onClose} />
+      <RegistrationModal spaceId={tripSelectedId} isOpen={isOpen} onClose={onClose} />
     </>
   );
 }

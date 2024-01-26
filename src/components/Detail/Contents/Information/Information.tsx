@@ -1,6 +1,6 @@
 import {placeInfoDataPlace} from '@/types/detail';
 import BasicInformation from './BasicInformation/BasicInformation';
-import Others from './Others/Others';
+// import Others from './Others/Others';
 import ShortReviews from './ShortReveiws/ShortReviews';
 
 export interface InformationProps {
@@ -10,15 +10,17 @@ export interface InformationProps {
     rating: number;
     userRatingCount: number;
   };
-  reviews: {
-    content: string;
-    images: string[];
-    isGoogle: boolean;
-    nickname: string;
-    profileImage: string;
-    rating: number;
-    visitedAt: string;
-  }[];
+  reviews:
+    | {
+        content: string;
+        images: string[];
+        isGoogle: boolean;
+        nickname: string;
+        profileImage: string;
+        rating: number;
+        visitedAt: string;
+      }[]
+    | undefined;
 }
 
 function Information({data, onOpen, reviewsRating, reviews}: InformationProps) {
@@ -33,7 +35,7 @@ function Information({data, onOpen, reviewsRating, reviews}: InformationProps) {
         contentTypeId={data.contentTypeId}
       />
       <ShortReviews onOpen={onOpen} reviewsRating={reviewsRating} reviews={reviews} />
-      <Others data={data} />
+      {/* <Others data={data} /> */}
     </div>
   );
 }

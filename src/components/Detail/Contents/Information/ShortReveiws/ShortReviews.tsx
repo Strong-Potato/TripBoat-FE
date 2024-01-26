@@ -55,18 +55,21 @@ function ShortReviews({onOpen, reviewsRating, reviews}: ContentsShortReviewsProp
         <span className={styles.container__pointBox__reviewsCount}>{`(${reviewsRating.userRatingCount})`}</span>
       </div>
       <div className={styles.container__reviewsBox}>
-        {reviews.slice(0, 2).map((data, i) => (
-          <Review
-            key={`review_${i}`}
-            profileImage={data.profileImage}
-            name={data.nickname}
-            isGoogle={data.isGoogle}
-            rating={data.rating}
-            visitedAt={data.visitedAt}
-            content={data.content}
-            images={data.images}
-          />
-        ))}
+        {reviews &&
+          reviews
+            .slice(0, 2)
+            .map((data, i) => (
+              <Review
+                key={`review_${i}`}
+                profileImage={data.profileImage}
+                name={data.nickname}
+                isGoogle={data.isGoogle}
+                rating={data.rating}
+                visitedAt={data.visitedAt}
+                content={data.content}
+                images={data.images}
+              />
+            ))}
       </div>
       <div
         className={styles.container__allBtn}

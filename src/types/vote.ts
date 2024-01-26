@@ -163,5 +163,9 @@ export interface PostVotingProps {
 
 export interface PostNewCandidateProps {
   voteId: number;
-  candidateInfos: TaglineType[];
+  candidateInfos: {
+    placeId: number;
+    placeTypeId: number;
+    tagline: string;
+  }[];
 }

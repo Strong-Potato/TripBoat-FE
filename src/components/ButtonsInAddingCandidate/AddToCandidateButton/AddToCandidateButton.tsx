@@ -1,12 +1,12 @@
 import {Button} from '@chakra-ui/react';
 import {useRecoilValue} from 'recoil';
 
-import {selectedCandidatesState} from '@/recoil/vote/candidateList';
+import {selectedPlaceState} from '@/recoil/vote/selectPlace';
 
 //prop이나 params로 trip or vote 판별, onClick에 삼항연산자로 함수 넣기
 const AddToCandidateButton = () => {
-  const selectedCandidates = useRecoilValue(selectedCandidatesState);
-  const counts = selectedCandidates.size;
+  const selectedPlaces = useRecoilValue(selectedPlaceState);
+  const counts = selectedPlaces.length;
   // const navigate = useNavigate();
 
   // const addCandidates = () => {

@@ -63,16 +63,29 @@ export interface VoteCeo {
   profileImageUrl: string;
 }
 
+export interface VoteSpaceInfo {
+  spaceId: number;
+  title: string;
+  startDate: string;
+  endDate: string;
+}
+
 export interface VoteData {
   voteId: number;
   title: string;
   voteStatus: string;
   createdBy: VoteCeo;
   votedMemberProfiles: VoteMembers[];
+  spaceInfo: VoteSpaceInfo;
+}
+
+export interface ResultVoteIds {
+  voteIds: number[];
 }
 
 export interface Vote {
   voteResponse: VoteData[];
+  viewResultVoteIds: ResultVoteIds;
 }
 
 export interface LeftButtonPropsType {

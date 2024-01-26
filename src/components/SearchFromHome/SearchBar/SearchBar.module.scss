@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 @mixin icon {
   position: absolute;
@@ -22,8 +22,6 @@
 
   .search_container {
     position: relative;
-
-    padding: 5px 32px 8px 32px;
 
     .bottom_line {
       position: absolute;

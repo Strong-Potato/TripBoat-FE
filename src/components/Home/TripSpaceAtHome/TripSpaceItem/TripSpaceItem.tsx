@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import styles from './TripSpaceItem.module.scss';
 
@@ -15,9 +15,16 @@ function TripSpaceItem({data}: PropsData) {
   const startDate: string = data.startDate ? setSpaceDate_DOW(data.startDate, data.endDate) : '여행 날짜를 정해주세요!';
   const imgSrc: string = data.thumbnail ? data.thumbnail : tripImg;
   const dDay = new Date(data.startDate) <= new Date() ? '여행 중' : `D - ${data.dueDate}`;
+  const navigate = useNavigate();
+
   return (
-    <Link to='/trip/1' className={styles.container}>
-      <div className={styles.img_box}>
+    <div
+      className={styles.container}
+      onClick={() => {
+        navigate(`trip/${data.id}`, {state: {id: data.id}});
+      }}
+    >
+      <div className={styles.img_box} style={{padding: data.thumbnail ? 'none' : '26px 12px 32px 20px'}}>
         <img className={styles.trip_img} src={imgSrc} alt={`${data.title}의 사진`} />
         {data.dueDate !== null && (
           <>
@@ -31,7 +38,7 @@ function TripSpaceItem({data}: PropsData) {
         <span className={styles.trip_day}>{startDate}</span>
         <span className={styles.trip_title}>{data.title}</span>
       </p>
-    </Link>
+    </div>
   );
 }
 
