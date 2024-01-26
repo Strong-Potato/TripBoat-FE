@@ -1,8 +1,10 @@
-import {useInfiniteQuery, useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
+import {useInfiniteQuery, useMutation, useQuery, useQueryClient, UseQueryResult} from '@tanstack/react-query';
 
 import {spacesRequest} from '@/api/spaces';
 
-function useGetSpaces(enabled: boolean) {
+import {GetUpcomingProp} from '@/types/sidebar';
+
+function useGetSpaces(enabled: boolean): UseQueryResult<GetUpcomingProp, Error> {
   return useQuery({
     queryKey: ['spaces'],
     queryFn: spacesRequest.getUpcoming,
