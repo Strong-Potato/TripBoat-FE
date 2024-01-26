@@ -1,7 +1,7 @@
 @use '@/sass' as *;
 
 .container {
-  margin-top: 56px;
+  padding-top: 56px;
   width: 100%;
   min-width: 36rem;
   max-width: 45rem;
@@ -133,7 +133,7 @@
 
   .contents {
     width: 100%;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 112px);
 
     background-color: $neutral0;
     border-radius: 16px 16px 0px 0px;
@@ -144,7 +144,7 @@
     //indicator와 tabList를 하나로 묶은 div입니다
     &__stickyTabList {
       position: sticky;
-      top: 50px;
+      top: 0px;
       z-index: 5;
       border-radius: 16px 16px 0px 0px;
       background-color: $neutral0;
@@ -163,8 +163,9 @@
     }
 
     &__tabContent {
-      height: 100%;
-      min-height: calc(100vh - 5rem);
+      height: calc(100% - 56px);
+      min-height: calc(100vh - 10rem);
+      margin-top: 0;
       // overflow-y: auto;
       // max-height: calc(100vh - 34rem);
     }
