@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {FaRegStar, FaStar} from 'react-icons/fa';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useRecoilValue} from 'recoil';
@@ -31,6 +31,12 @@ const CandidateCard = ({onBottomSlideOpen, candidate, index, isMapStyle}: Candid
   const imgSrc = placeInfo.placeImageUrl ? placeInfo.placeImageUrl : nullImg;
 
   //순위 받아서 색주기, 인덱스 말고
+
+  useEffect(() => {
+    if (candidate.amIVote) {
+      setIsVoted(true);
+    }
+  }, []);
 
   const getRankClassName = (index: number) => {
     switch (index) {
@@ -68,18 +74,13 @@ const CandidateCard = ({onBottomSlideOpen, candidate, index, isMapStyle}: Candid
   };
 
   const onVoteBoxClick = async () => {
-    const res = await votingMutation.mutateAsync({voteId: Number(voteId), candidateId: candidate.id});
-    console.log('보트res', res);
     if (showResults && onBottomSlideOpen) {
       onBottomSlideOpen(<VotedUserList />);
     } else {
       await votingMutation.mutateAsync({voteId: Number(voteId), candidateId: candidate.id});
-
       setIsVoted(!isVoted);
     }
   };
-
-  console.log('candidate', candidate);
 
   return (
     <div className={`${styles.container} ${rankClassName} candidateCard ${isMapStyle ? styles.isMapStyle : ''}`}>
