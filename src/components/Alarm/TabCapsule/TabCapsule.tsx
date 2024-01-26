@@ -1,6 +1,10 @@
 import {Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react';
+import {useNavigate} from 'react-router-dom';
 
+// import {useNavigate} from 'react-router-dom';
 import styles from './TabCapsule.module.scss';
+
+import {useGetAlarm} from '@/hooks/Notification/useNotification';
 
 import Content from './Content/Content';
 
@@ -50,7 +54,17 @@ const SpaceTravelContents = [
   },
 ];
 
-function TabCapsule() {
+function TabCapsule({isAlarmOpen}: {isAlarmOpen: boolean}) {
+  const {data: Alarm} = useGetAlarm(isAlarmOpen);
+  console.log(Alarm);
+  const navigate = useNavigate();
+
+  if (Alarm?.status === 403 || Alarm?.status === 401) {
+    navigate('/auth/login', {
+      replace: true,
+    });
+  }
+
   return (
     <Tabs isFitted variant='unstyled'>
       <TabList>
