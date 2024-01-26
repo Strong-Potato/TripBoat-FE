@@ -20,7 +20,7 @@ import {useGetSpaces} from '@/hooks/Spaces/useSpaces';
 import {useGetVoteListInfo, usePostNewCandidate} from '@/hooks/Votes/vote';
 import {VoteListInfo} from '@/types/vote';
 
-function RegistrationSlide({slideOnClose, placeId}: RegistrationSlideProps) {
+function RegistrationSlide({slideOnClose, placeId, placeTypeId}: RegistrationSlideProps) {
   const isValuedArray = useRecoilValue<number[]>(isRegistrationSelectedState);
   const [tripSelectedId, setTripSelectedId] = useState<number>(0);
   const {isOpen, onOpen, onClose} = useDisclosure();
@@ -43,7 +43,10 @@ function RegistrationSlide({slideOnClose, placeId}: RegistrationSlideProps) {
 
   const handleCreateCandidate = async () => {
     isValuedArray.map((id: number) => {
-      const res = postNewCandidate.mutateAsync({voteId: id, candidateInfos: [{placeId: placeId, tagline: '1'}]});
+      const res = postNewCandidate.mutateAsync({
+        voteId: id,
+        candidateInfos: [{placeId, tagline: '', placeTypeId}],
+      });
       console.log('res =', res);
     });
   };

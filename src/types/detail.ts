@@ -108,6 +108,7 @@ export interface BottomFixedBtnProps {
 export interface RegistrationSlideProps {
   slideOnClose: () => void;
   placeId: number;
+  placeTypeId: number;
 }
 
 export interface RegistrationTripSpaceProps {

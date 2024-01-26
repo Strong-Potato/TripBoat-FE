@@ -99,7 +99,14 @@ function Detail() {
       />
       <BottomFixedBtn
         onOpen={() =>
-          onBottomSlideOpen(<RegistrationSlide placeId={placeInfo.id} slideOnClose={handleSlideOnClose} />, false)
+          onBottomSlideOpen(
+            <RegistrationSlide
+              placeId={placeInfo.id}
+              placeTypeId={placeInfo.contentTypeId}
+              slideOnClose={handleSlideOnClose}
+            />,
+            false,
+          )
         }
       />
       <BottomSlideDetail
