@@ -50,7 +50,7 @@ function DayMove({journeysData, selectedPlaces, onClose, setIsEditMode}: DayMove
       </header>
       <div>
         {Array.from({length: days}, (_, index) => (
-          <div className={styles.dayContainer}>
+          <div key={`day${index}`} className={styles.dayContainer}>
             <p key={index}>DAY {index + 1}</p>
             <button onClick={() => handleSelect(index)}>
               {selectedDays[index] ? (
