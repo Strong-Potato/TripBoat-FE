@@ -39,7 +39,7 @@ export const spacesRequest = {
 
 // [GET] 지역 리스트 조회
 export const getRegions = async () => {
-  const response = await axios.get(`/api/spaces/city`);
+  const response = await axios.get(`/api/spaces/city`, {withCredentials: true});
   return response.data.data.cities;
 };
 
@@ -76,7 +76,11 @@ export const getJourneys = async (spaceId: number) => {
 // [POST] 일정 추가
 export const postPlaces = async ({spaceId, journeyId, placeIds}: PlaceParams) => {
   try {
-    const response = await axios.post(`/api/spaces/${spaceId}/places`, {journeyId: journeyId, placeIds: placeIds});
+    const response = await axios.post(
+      `/api/spaces/${spaceId}/places`,
+      {journeyId: journeyId, placeIds: placeIds},
+      {withCredentials: true},
+    );
     console.log('[SUCCESS]', response);
     return response;
   } catch (error) {
@@ -87,7 +91,7 @@ export const postPlaces = async ({spaceId, journeyId, placeIds}: PlaceParams) =>
 // [PUT] 일정 수정
 export const putPlaces = async ({spaceId, places}: journeyParams) => {
   try {
-    const response = await axios.put(`/api/spaces/${spaceId}/places`, {places: places});
+    const response = await axios.put(`/api/spaces/${spaceId}/places`, {places: places}, {withCredentials: true});
     console.log('[SUCCESS]', response);
     return response;
   } catch (error) {
@@ -98,7 +102,7 @@ export const putPlaces = async ({spaceId, places}: journeyParams) => {
 // [PUT] 지역 선택
 export const putRegions = async ({spaceId, cities}: SpaceRegionParams) => {
   try {
-    const response = await axios.put(`/api/spaces/${spaceId}/title`, {cities: cities});
+    const response = await axios.put(`/api/spaces/${spaceId}/title`, {cities: cities}, {withCredentials: true});
     console.log('[SUCCESS]', response);
     return response;
   } catch (error) {
@@ -109,7 +113,11 @@ export const putRegions = async ({spaceId, cities}: SpaceRegionParams) => {
 // [PUT] 날짜 선택
 export const putDates = async ({spaceId, startDate, endDate}: SpaceDateParams) => {
   try {
-    const response = await axios.put(`/api/spaces/${spaceId}/dates`, {startDate: startDate, endDate: endDate});
+    const response = await axios.put(
+      `/api/spaces/${spaceId}/dates`,
+      {startDate: startDate, endDate: endDate},
+      {withCredentials: true},
+    );
     console.log('[SUCCESS]', response);
     return response;
   } catch (error) {
@@ -131,7 +139,7 @@ export const putExitSpace = async ({spaceId}: ExitSpaceParams) => {
 // [DELETE] 일정 삭제
 export const deletePlaces = async ({spaceId, places}: journeyParams) => {
   try {
-    const response = await axios.delete(`/api/spaces/${spaceId}/places`, {params: {places: places}});
+    const response = await axios.delete(`/api/spaces/${spaceId}/places`, {data: {places: places}});
     console.log('[SUCCESS]', response);
     return response;
   } catch (error) {

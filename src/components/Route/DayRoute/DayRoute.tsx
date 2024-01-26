@@ -16,7 +16,16 @@ import EmptyRoute from '../EmptyRoute/EmptyRoute';
 
 import {DayRouteProps} from '@/types/route';
 
-function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSelection}: DayRouteProps) {
+function DayRoute({
+  day,
+  date,
+  placeList,
+  editMode,
+  journeyId,
+  selectedPlaces,
+  setSelectedPlaces,
+  handlePlaceSelection,
+}: DayRouteProps) {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [placeCards, setPlaceCards] = useState(placeList);
   const [isOptimize, setIsOptimize] = useState(false);
@@ -82,6 +91,7 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
               placeCards.map((place) => (
                 <DraggablePlaceCard
                   key={place.selectedId}
+                  journeyId={journeyId}
                   selectedId={place.selectedId}
                   order={place.order}
                   name={place.place.title}
@@ -91,7 +101,9 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
                   placeId={place.place.placeId}
                   editMode={editMode}
                   selectedPlaces={selectedPlaces}
-                  onSelect={handlePlaceSelection}
+                  onSelect={(journeyId, selectedId) =>
+                    handlePlaceSelection(journeyId, selectedId, selectedPlaces, setSelectedPlaces)
+                  }
                   moveCard={moveCard}
                   findCard={findCard}
                 />

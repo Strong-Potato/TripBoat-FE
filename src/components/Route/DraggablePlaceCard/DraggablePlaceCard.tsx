@@ -11,6 +11,7 @@ import {Item} from '@/types/route';
 import {DraggablePlaceCardProps} from '@/types/route';
 
 function PlaceCard({
+  journeyId,
   selectedId,
   order,
   name,
@@ -59,7 +60,7 @@ function PlaceCard({
   const handleSelect = () => {
     setIsChecked(!isChecked);
     // TODO: place id 넘기기
-    onSelect(name);
+    onSelect(journeyId, selectedId);
   };
 
   return (

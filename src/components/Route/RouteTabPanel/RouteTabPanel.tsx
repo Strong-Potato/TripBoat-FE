@@ -9,6 +9,7 @@ import styles from './RouteTabPanel.module.scss';
 import BottomSlideLeft from '@/components/BottomSlide/BottomSlideLeft';
 
 import ZoomInIcon from '@/assets/icons/zoomIn.svg?react';
+import {handlePlaceSelection, transformSelectedPlaces} from '@/utils/formatJourneyData';
 import {getSpaceId} from '@/utils/getSpaceId';
 
 import DayMove from '../DayMove/DayMove';
@@ -18,11 +19,11 @@ import DeletePlacesModal from '../DeletePlacesModal/DeletePlacesModal';
 import EmptyDate from '../EmptyDate/EmptyDate';
 import MapInTrip from '../MapInTrip/MapInTrip';
 
-import {DateItem, Journey, MapInTripProps} from '@/types/route';
+import {DateItem, Journey, MapInTripProps, SelectedPlace} from '@/types/route';
 
 function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [selectedPlaces, setSelectedPlaces] = useState<string[]>([]);
+  const [selectedPlaces, setSelectedPlaces] = useState<SelectedPlace[]>([]);
   const {isOpen, onOpen, onClose} = useDisclosure();
   const {isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose} = useDisclosure();
 
@@ -32,16 +33,8 @@ function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
     // TODO: 완료 버튼 눌렀을 때 처리
   };
 
-  const handlePlaceSelection = (placeName: string) => {
-    if (selectedPlaces.includes(placeName)) {
-      setSelectedPlaces((prevSelectedPlaces) => prevSelectedPlaces.filter((place) => place !== placeName));
-    } else {
-      setSelectedPlaces((prevSelectedPlaces) => [...prevSelectedPlaces, placeName]);
-    }
-  };
-
   useEffect(() => {
-    console.log(selectedPlaces);
+    console.log(transformSelectedPlaces(selectedPlaces));
   }, [selectedPlaces]);
 
   const navigate = useNavigate();
@@ -72,9 +65,11 @@ function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
                 key={journey.journeyId}
                 day={index + 1}
                 date={journey.date}
+                journeyId={journey.journeyId}
                 placeList={journey.places}
                 editMode={isEditMode}
                 selectedPlaces={selectedPlaces}
+                setSelectedPlaces={setSelectedPlaces}
                 handlePlaceSelection={handlePlaceSelection}
               />
             ))}
@@ -97,7 +92,12 @@ function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
         onClose={onClose}
         children={<DayMove selectedPlaces={selectedPlaces} />}
       />
-      <DeletePlacesModal isOpen={isModalOpen} onClose={onModalClose} placeList={selectedPlaces} />
+      <DeletePlacesModal
+        isOpen={isModalOpen}
+        onClose={onModalClose}
+        setIsEditMode={setIsEditMode}
+        placeList={transformSelectedPlaces(selectedPlaces)}
+      />
     </div>
   );
 }

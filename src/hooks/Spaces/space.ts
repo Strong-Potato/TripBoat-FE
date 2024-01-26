@@ -100,7 +100,7 @@ export const usePutExitSpace = () => {
 };
 
 // [DELETE] 일정 삭제
-export const useDeleteExitSpace = () => {
+export const useDeletePlaces = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deletePlaces,

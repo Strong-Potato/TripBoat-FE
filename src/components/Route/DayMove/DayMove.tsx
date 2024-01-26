@@ -3,8 +3,10 @@ import {RiCheckboxCircleFill as SelectedIcon} from 'react-icons/ri';
 
 import styles from './DayMove.module.scss';
 
+import {SelectedPlace} from '@/types/route';
+
 interface DayMoveProps {
-  selectedPlaces: string[];
+  selectedPlaces: SelectedPlace[];
 }
 
 function DayMove({selectedPlaces}: DayMoveProps) {

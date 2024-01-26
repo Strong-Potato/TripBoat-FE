@@ -2,6 +2,7 @@ import {Dispatch} from 'react';
 import {SwiperRef} from 'swiper/react';
 
 export interface DraggablePlaceCardProps {
+  journeyId: number;
   selectedId: number;
   order: number;
   name: string;
@@ -10,8 +11,8 @@ export interface DraggablePlaceCardProps {
   placeId: number;
   contentTypeId: number;
   editMode: boolean;
-  selectedPlaces: string[];
-  onSelect: (name: string) => void;
+  selectedPlaces: SelectedPlace[];
+  onSelect: (journeyId: number, selectedId: number) => void;
   moveCard: (id: number, atIndex: number) => void;
   findCard: (id: number) => {card: PlaceList; index: number};
 }
@@ -39,10 +40,17 @@ export interface Place {
 export interface DayRouteProps {
   day: number;
   date: string;
+  journeyId: number;
   placeList: PlaceList[];
   editMode: boolean;
-  selectedPlaces: string[];
-  handlePlaceSelection: (name: string) => void;
+  selectedPlaces: SelectedPlace[];
+  setSelectedPlaces: React.Dispatch<React.SetStateAction<SelectedPlace[]>>;
+  handlePlaceSelection: (
+    journeyId: number,
+    selectedId: number,
+    selectedPlaces: SelectedPlace[],
+    setSelectedPlaces: React.Dispatch<React.SetStateAction<SelectedPlace[]>>,
+  ) => void;
 }
 
 export interface RouteTabPanelProps {
@@ -82,28 +90,6 @@ export interface MapInTripProps {
   journeysData: Journeys;
 }
 
-export interface Journey {
-  journeyId: number;
-  date: string;
-  places: PlaceList[];
-}
-
-export interface PlaceList {
-  selectedId: number;
-  order: number;
-  place: {
-    title: string;
-    thumbnail: string;
-    address: string;
-    addressDetail: string;
-    latitude: number;
-    longitude: number;
-    category: string;
-    contentTypeId: number;
-    placeId: number;
-  };
-}
-
 export interface Journeys {
   journeys: Journey[];
   // journeys: {
@@ -126,6 +112,28 @@ export interface Journeys {
   //     },
   //   ];
   // };
+}
+
+export interface Journey {
+  journeyId: number;
+  date: string;
+  places: PlaceList[];
+}
+
+export interface PlaceList {
+  selectedId: number;
+  order: number;
+  place: {
+    title: string;
+    thumbnail: string;
+    address: string;
+    addressDetail: string;
+    latitude: number;
+    longitude: number;
+    category: string;
+    contentTypeId: number;
+    placeId: number;
+  };
 }
 
 export interface RouteMapSlideProps {
@@ -206,10 +214,20 @@ export interface PlaceParams {
 
 export interface SelectPlace {
   journeyId: number;
-  placeIds: number[];
+  selectedId: number[];
 }
 
 export interface journeyParams {
   spaceId: number;
-  places: SelectPlace[];
+  places: TransformedDataItem[];
+}
+
+export interface SelectedPlace {
+  journeyId: number;
+  selectedId: number;
+}
+
+export interface TransformedDataItem {
+  journeyId: number;
+  selectedIds: number[];
 }
