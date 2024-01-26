@@ -1,10 +1,13 @@
 import axios from 'axios';
 
 export const reviewRequest = {
-  getMyReview: async (page: number, size: number) => {
+  getMyReview: async ({pageParam}: {pageParam: number}) => {
     try {
       const res = await axios.get('/api/members/my-reviews', {
-        params: {page, size},
+        params: {
+          size: 5,
+          page: pageParam,
+        },
         withCredentials: true,
       });
       console.log(res);
