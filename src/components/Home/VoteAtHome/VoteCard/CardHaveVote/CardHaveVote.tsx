@@ -8,6 +8,8 @@ import useComponentSize from '@/hooks/useComponetSize';
 
 import SlideButton from '@/components/SlideButton/SlideButton';
 
+import {setSpaceDate_DOW} from '@/utils/formatDate';
+
 import {Vote} from '@/types/home';
 
 interface PropsType {
@@ -37,13 +39,15 @@ function CardHaveVote({data}: PropsType) {
       >
         {data &&
           data.voteResponse.map((data) => {
+            const date = setSpaceDate_DOW(data.spaceInfo.startDate, data.spaceInfo.endDate);
+
             return (
               <div className={styles.vote_box} key={data.voteId}>
                 <div className={styles.contents}>
                   <div className={styles.text_box}>
                     <p className={styles.vote_title}>
-                      <span>{data.title}</span>
-                      <span>{data.title}</span>
+                      <span>{data.spaceInfo.title}</span>
+                      <span>{date}</span>
                     </p>
                     <p className={styles.discussion}>
                       <img
@@ -54,7 +58,7 @@ function CardHaveVote({data}: PropsType) {
                       <span>{data.title}</span>
                     </p>
                   </div>
-                  <Link to={'/vote/1'} className={styles.button_box}>
+                  <Link to={`/votes/${data.voteId}`} className={styles.button_box}>
                     <button>
                       투표하기
                       <p>

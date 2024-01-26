@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useRecoilValue} from 'recoil';
 
 import styles from './SelectButton.module.scss';
@@ -26,7 +26,14 @@ const SelectButton = ({data}: Propstype) => {
     console.log(data);
   };
 
-  console.log('선택한 배열', selectedPlaces);
+  useEffect(() => {
+    selectedPlaces.map((selectData) => {
+      if (selectData.id === data.id) {
+        setIsClicked(true);
+      }
+    });
+  }, [data]);
+
   return (
     <button
       className={`${styles.container} ${isClicked ? styles.clicked : ''}`}

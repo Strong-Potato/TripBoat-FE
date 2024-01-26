@@ -11,7 +11,7 @@ import {Item} from '@/types/route';
 import {DraggablePlaceCardProps} from '@/types/route';
 
 function PlaceCard({
-  id,
+  selectedId,
   order,
   name,
   category,
@@ -24,31 +24,31 @@ function PlaceCard({
   findCard,
 }: DraggablePlaceCardProps) {
   const [isChecked, setIsChecked] = useState(false);
-  const originalIndex = findCard(id).index;
+  const originalIndex = findCard(selectedId).index;
   const navigate = useNavigate();
 
   const [, drag] = useDrag(
     () => ({
       type: 'CARD',
-      item: {id, originalIndex},
+      item: {selectedId, originalIndex},
       canDrag: () => !isChecked && editMode,
       end: (item, monitor) => {
-        const {id: droppedId, originalIndex} = item;
+        const {selectedId: droppedId, originalIndex} = item;
         const didDrop = monitor.didDrop();
         if (!didDrop) {
           moveCard(droppedId, originalIndex);
         }
       },
     }),
-    [id, originalIndex, moveCard, editMode, isChecked],
+    [selectedId, originalIndex, moveCard, editMode, isChecked],
   );
 
   const [, drop] = useDrop(
     () => ({
       accept: 'CARD',
       hover({id: draggedId}: Item) {
-        if (draggedId !== id) {
-          const {index: overIndex} = findCard(id);
+        if (draggedId !== selectedId) {
+          const {index: overIndex} = findCard(selectedId);
           moveCard(draggedId, overIndex);
         }
       },

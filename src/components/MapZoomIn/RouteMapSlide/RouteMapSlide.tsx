@@ -50,9 +50,9 @@ const RouteMapSlide = ({
         breakpoints={{400: {slidesPerView: 1.2}}}
       >
         {journeys[activeDay].places.map((place, j) => (
-          <SwiperSlide key={`${journeys[activeDay].id}-${j}`} className={styles.swiperSlideItem}>
+          <SwiperSlide key={`${journeys[activeDay].journeyId}-${j}`} className={styles.swiperSlideItem}>
             <PlaceCard
-              key={`${journeys[activeDay].id}-${place.id}-${j}`}
+              key={`${journeys[activeDay].journeyId}-${place.selectedId}-${j}`}
               order={j + 1}
               name={place.place.title}
               category={place.place.category}

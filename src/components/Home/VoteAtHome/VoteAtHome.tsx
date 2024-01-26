@@ -18,9 +18,9 @@ function VoteAtHome() {
 
   return (
     <div className={styles.container}>
-      {data ? (
+      {data && data.voteResponse.length > 0 ? (
         <p className={styles.title}>
-          길동님,
+          <span className={styles.titleNull}>길동님</span>
           <br />
           진행 중인 투표가 있어요!
         </p>
@@ -32,7 +32,7 @@ function VoteAtHome() {
         </p>
       )}
 
-      {data && data?.voteResponse ? <CardHaveVote data={data} /> : <CardNull />}
+      {data && data?.voteResponse.length > 0 ? <CardHaveVote data={data} /> : <CardNull />}
     </div>
   );
 }

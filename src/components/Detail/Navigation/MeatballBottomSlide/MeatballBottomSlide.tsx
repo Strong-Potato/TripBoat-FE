@@ -18,7 +18,7 @@ import ReviewBottomSlide from '../../Contents/ReviewBottomSlide/ReviewBottomSlid
 import {NavigationMeatballProps} from '@/types/detail';
 import {useDeleteWishes, usePostWishes} from '@/hooks/Detail/useWish';
 
-const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId}: NavigationMeatballProps) => {
+const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, title}: NavigationMeatballProps) => {
   const [isWish, setIsWish] = useRecoilState(IsHeartValued);
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
@@ -93,7 +93,10 @@ const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId}: Na
         onClick={() => {
           onClose();
           setTimeout(() => {
-            onBottomSlideOpen(<RegistrationSlide slideOnClose={onClose} />, false);
+            onBottomSlideOpen(
+              <RegistrationSlide slideOnClose={onClose} placeId={id} placeTypeId={contentTypeId} />,
+              false,
+            );
           }, 300);
         }}
       >
@@ -106,7 +109,10 @@ const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId}: Na
         onClick={() => {
           onClose();
           setTimeout(() => {
-            onBottomSlideOpen(<ReviewBottomSlide slideOnClose={onClose} />, true);
+            onBottomSlideOpen(
+              <ReviewBottomSlide placeId={id} contentTypeId={contentTypeId} title={title} slideOnClose={onClose} />,
+              true,
+            );
           }, 300);
         }}
       >

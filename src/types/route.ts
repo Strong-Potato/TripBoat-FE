@@ -2,7 +2,7 @@ import {Dispatch} from 'react';
 import {SwiperRef} from 'swiper/react';
 
 export interface DraggablePlaceCardProps {
-  id: number;
+  selectedId: number;
   order: number;
   name: string;
   category: string;
@@ -19,13 +19,12 @@ export interface DraggablePlaceCardProps {
 export type PlaceCardProps = Pick<DraggablePlaceCardProps, 'order' | 'name' | 'category' | 'address'>;
 
 export interface PlaceOrder {
-  id: number;
+  selectedId: number;
   order: number;
   place: Place;
 }
 
 export interface Place {
-  id: number;
   title: string;
   thumbnail: string;
   address: string;
@@ -35,29 +34,6 @@ export interface Place {
   category: string;
   contentTypeId: number;
   placeId: number;
-}
-
-export interface Journey {
-  id: number;
-  date: string;
-  places: PlaceOrder[];
-}
-
-export interface PlaceList {
-  id: number;
-  order: number;
-  place: {
-    id: number;
-    title: string;
-    thumbnail: string;
-    address: string;
-    addressDetail: string;
-    latitude: number;
-    longitude: number;
-    category: string;
-    contentTypeId: number;
-    placeId: number;
-  };
 }
 
 export interface DayRouteProps {
@@ -106,8 +82,50 @@ export interface MapInTripProps {
   journeysData: Journeys;
 }
 
+export interface Journey {
+  journeyId: number;
+  date: string;
+  places: PlaceList[];
+}
+
+export interface PlaceList {
+  selectedId: number;
+  order: number;
+  place: {
+    title: string;
+    thumbnail: string;
+    address: string;
+    addressDetail: string;
+    latitude: number;
+    longitude: number;
+    category: string;
+    contentTypeId: number;
+    placeId: number;
+  };
+}
+
 export interface Journeys {
   journeys: Journey[];
+  // journeys: {
+  //   journeyId: number;
+  //   date: number;
+  //   places: [
+  //     {
+  //       selectedId: number;
+  //       order: 0;
+  //       place: {
+  //         placeId: number;
+  //         title: string;
+  //         thumbnail: string;
+  //         address: string;
+  //         addressDetail: string;
+  //         latitude: number;
+  //         longitude: number;
+  //         category: string;
+  //       };
+  //     },
+  //   ];
+  // };
 }
 
 export interface RouteMapSlideProps {

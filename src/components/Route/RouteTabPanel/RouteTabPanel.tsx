@@ -69,7 +69,7 @@ function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
           {journeysData.journeys &&
             journeysData.journeys.map((journey: Journey, index: number) => (
               <DayRoute
-                key={journey.id}
+                key={journey.journeyId}
                 day={index + 1}
                 date={journey.date}
                 placeList={journey.places}
