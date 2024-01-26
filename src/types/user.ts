@@ -28,6 +28,5 @@ export interface TabProps {
 }
 
 export interface MySpaceListProps {
-  data: MySpaces | null;
   tab: string;
 }

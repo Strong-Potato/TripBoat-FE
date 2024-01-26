@@ -6,16 +6,16 @@ import MapPinCommon from '@/components/CandidatesMap/MapPins/MapPinCommon';
 
 import {MapInTripProps} from '@/types/route';
 
-function MapInTrip({mapRef, center}: MapInTripProps) {
-  const linePath = [
-    {lat: 37.76437082535426, lng: 128.87675285339355},
-    {lat: 37.7911054, lng: 128.9149116},
-    {lat: 37.6964635, lng: 128.890664},
-  ];
+function MapInTrip({mapRef, center, journeysData}: MapInTripProps) {
+  // TODO: active day 동선 보여주기
+  const linePath = journeysData.journeys[0].places.map((place) => ({
+    lat: place.place.latitude,
+    lng: place.place.longitude,
+  }));
 
   return (
-    <Map className={styles.mapInTripContainer} center={center} level={10} ref={mapRef}>
-      <Polyline path={linePath} strokeWeight={3} strokeColor='#3F444D' strokeOpacity={1} strokeStyle='dashed' />
+    <Map className={styles.mapInTripContainer} center={center} level={1} ref={mapRef}>
+      <Polyline path={linePath} strokeWeight={3} strokeColor='#3F444D' strokeOpacity={10} strokeStyle='dashed' />
       {linePath.map((item, index) => (
         <CustomOverlayMap position={item}>
           <div>

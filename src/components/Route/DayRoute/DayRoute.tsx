@@ -8,6 +8,8 @@ import styles from './DayRoute.module.scss';
 
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
 
+import {setRouteDate} from '@/utils/formatDate';
+
 import AddPlace from '../AddPlace/AddPlace';
 import DraggablePlaceCard from '../DraggablePlaceCard/DraggablePlaceCard';
 import EmptyRoute from '../EmptyRoute/EmptyRoute';
@@ -17,10 +19,19 @@ import {DayRouteProps} from '@/types/route';
 function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSelection}: DayRouteProps) {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [placeCards, setPlaceCards] = useState(placeList);
+  const [isOptimize, setIsOptimize] = useState(false);
+  const handleModalClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  const handleBackgroundClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsOptimize(true);
+  };
 
   const findCard = useCallback(
     (id: number) => {
-      const card = placeCards.filter((item) => item.id == id)[0];
+      const card = placeCards.filter((item) => item.selectedId == id)[0];
       return {
         card,
         index: placeCards.indexOf(card),
@@ -47,7 +58,7 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
   const [, drop] = useDrop(() => ({accept: 'CARD'}));
 
   useEffect(() => {
-    console.log(placeList);
+    console.log('placeList', placeList);
   }, [placeList]);
 
   return (
@@ -56,24 +67,28 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
         <header className={styles.dayHeader}>
           <div className={styles.dayContainer}>
             <span className={styles.dayTitle}>DAY {day}</span>
-            <span className={styles.dayDate}>{date}</span>
+            <span className={styles.dayDate}>{setRouteDate(date)}</span>
           </div>
           <button className={styles.editButton} onClick={onOpen}>
             <PlusIcon size='2.4rem' />
           </button>
         </header>
         <div>
-          <button className={styles.optimizationButton}>루트 최적화</button>
+          <button className={styles.optimizationButton} onClick={() => setIsOptimize(true)}>
+            루트 최적화
+          </button>
           <div ref={drop} className={styles.placeListContainer}>
             {placeCards.length ? (
               placeCards.map((place) => (
                 <DraggablePlaceCard
-                  key={place.id}
-                  id={place.id}
-                  order={place.Order + 1}
+                  key={place.selectedId}
+                  selectedId={place.selectedId}
+                  order={place.order}
                   name={place.place.title}
                   category={place.place.category}
-                  address={`${place.place.address}, ${place.place.addressDetail}`}
+                  address={`${place.place.address} ${place.place.addressDetail}`}
+                  contentTypeId={place.place.contentTypeId}
+                  placeId={place.place.placeId}
                   editMode={editMode}
                   selectedPlaces={selectedPlaces}
                   onSelect={handlePlaceSelection}
@@ -88,6 +103,39 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
         </div>
       </div>
       <BottomSlide isOpen={isOpen} onClose={onClose} children={<AddPlace />} />
+      {isOptimize && (
+        <div className={styles.background} onClick={handleBackgroundClick}>
+          <div className={styles.container} onClick={handleModalClick}>
+            <div className={styles.wrapperText}>
+              <p className={styles.wrapperText__title}>일정이 최적화 됩니다</p>
+              <p className={styles.wrapperText__body}>
+                일정 내 첫 번째 장소를 기준으로
+                <br />
+                N일차 일정이 최소 동선으로 재정렬 됩니다.
+              </p>
+            </div>
+            <div className={styles.wrapperButton}>
+              <button
+                className={styles.wrapperButton__cancel}
+                onClick={() => {
+                  setIsOptimize(false);
+                }}
+              >
+                취소
+              </button>
+              <button
+                className={styles.wrapperButton__accept}
+                onClick={() => {
+                  // setPlaceCards(findShortestPath(placeList));
+                  setIsOptimize(false);
+                }}
+              >
+                확인
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

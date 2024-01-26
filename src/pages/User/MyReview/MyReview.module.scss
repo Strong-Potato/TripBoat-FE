@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   margin-top: 80px;
@@ -29,6 +29,12 @@
 
         background-position: center;
         background-size: cover;
+        background-repeat: no-repeat;
+
+        &.default {
+          border: 1px solid $neutral200;
+          background-size: 60% 60%;
+        }
       }
 
       &__text {

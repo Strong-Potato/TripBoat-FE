@@ -3,6 +3,7 @@ import {useDrag, useDrop} from 'react-dnd';
 import {IoMdMenu as MoveIcon} from 'react-icons/io';
 import {RiCheckboxCircleFill as SelectedIcon} from 'react-icons/ri';
 import {RiCheckboxBlankCircleLine as UnselectedIcon} from 'react-icons/ri';
+import {useNavigate} from 'react-router-dom';
 
 import styles from '../PlaceCard/PlaceCard.module.scss';
 
@@ -10,41 +11,44 @@ import {Item} from '@/types/route';
 import {DraggablePlaceCardProps} from '@/types/route';
 
 function PlaceCard({
-  id,
+  selectedId,
   order,
   name,
   category,
   address,
+  contentTypeId,
+  placeId,
   editMode,
   onSelect,
   moveCard,
   findCard,
 }: DraggablePlaceCardProps) {
   const [isChecked, setIsChecked] = useState(false);
-  const originalIndex = findCard(id).index;
+  const originalIndex = findCard(selectedId).index;
+  const navigate = useNavigate();
 
   const [, drag] = useDrag(
     () => ({
       type: 'CARD',
-      item: {id, originalIndex},
+      item: {selectedId, originalIndex},
       canDrag: () => !isChecked && editMode,
       end: (item, monitor) => {
-        const {id: droppedId, originalIndex} = item;
+        const {selectedId: droppedId, originalIndex} = item;
         const didDrop = monitor.didDrop();
         if (!didDrop) {
           moveCard(droppedId, originalIndex);
         }
       },
     }),
-    [id, originalIndex, moveCard, editMode, isChecked],
+    [selectedId, originalIndex, moveCard, editMode, isChecked],
   );
 
   const [, drop] = useDrop(
     () => ({
       accept: 'CARD',
       hover({id: draggedId}: Item) {
-        if (draggedId !== id) {
-          const {index: overIndex} = findCard(id);
+        if (draggedId !== selectedId) {
+          const {index: overIndex} = findCard(selectedId);
           moveCard(draggedId, overIndex);
         }
       },
@@ -69,7 +73,7 @@ function PlaceCard({
           ))}
       </button>
 
-      <div className={styles.placeInformationContainer}>
+      <div className={styles.placeInformationContainer} onClick={() => navigate(`/detail/${placeId} ${contentTypeId}`)}>
         {!editMode && <div className={styles.numberContainer}>{order}</div>}
         <div className={styles.placeContainer}>
           {editMode && <div className={styles.numberContainer}>{order}</div>}

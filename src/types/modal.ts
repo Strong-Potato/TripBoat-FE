@@ -4,4 +4,10 @@ export interface ModalProps {
   onClose: () => void;
 }
 
-export type LeaveTripModalProps = Omit<ModalProps, "onOpen">;
+export type LeaveTripModalProps = Omit<ModalProps, 'onOpen'>;
+
+export interface DeletePlacesModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  placeList: string[];
+}

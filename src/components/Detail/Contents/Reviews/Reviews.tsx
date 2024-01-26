@@ -53,18 +53,19 @@ function Reviews({onOpen, reviewsRating, reviews}: ContentsReviewsProps) {
         <span className={styles.container__pointBox__reviewsCount}>{`(${reviewsRating.userRatingCount})`}</span>
       </div>
       <div className={styles.container__reviewsBox}>
-        {reviews.map((data, i) => (
-          <Review
-            key={`review_${i}`}
-            profileImage={data.profileImage}
-            name={data.nickname}
-            isGoogle={data.isGoogle}
-            rating={data.rating}
-            visitedAt={data.visitedAt}
-            content={data.content}
-            images={data.images}
-          />
-        ))}
+        {reviews &&
+          reviews.map((data, i) => (
+            <Review
+              key={`review_${i}`}
+              profileImage={data.profileImage}
+              name={data.nickname}
+              isGoogle={data.isGoogle}
+              rating={data.rating}
+              visitedAt={data.visitedAt}
+              content={data.content}
+              images={data.images}
+            />
+          ))}
       </div>
     </div>
   );

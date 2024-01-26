@@ -40,6 +40,8 @@ function EditProfileForm({data}: {data: GetUserProp | undefined}) {
       if (dirtyFields.image) {
         const presignedUrl = await s3Request.uploadImage(image as FileList);
 
+        console.log(presignedUrl);
+
         const res = await axios.put('/api/members/my-info', {
           nickname,
           profile: presignedUrl.split('?')[0],
