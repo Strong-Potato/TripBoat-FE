@@ -33,8 +33,6 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [imageFileList, setImageFileList] = useState<File[]>();
 
-  console.log(imageFileList);
-
   const checkBeforeExit = {
     title: '잠깐!',
     subText: '지금 나가면 작성내용이 전부 삭제돼요',
@@ -58,9 +56,11 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
   const handlePostReview = async () => {
     const presignedUrls = await s3Request.uploadImages(imageFileList as File[]);
 
-    presignedUrls.map((url: string, i: number) => {
-      presignedUrls[i] = url.split('?')[0];
-    });
+    if (imageFileList) {
+      presignedUrls.map((url: string, i: number) => {
+        presignedUrls[i] = url.split('?')[0];
+      });
+    }
 
     await postReview.mutateAsync({
       placeId,
