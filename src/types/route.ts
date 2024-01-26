@@ -139,6 +139,7 @@ export interface SpaceResponse {
     title: string;
     startDate: string | null;
     endDate: string | null;
+    dueDate: number;
     city: string | null;
     thumbnail: string | null;
     members: [

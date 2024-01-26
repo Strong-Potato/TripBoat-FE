@@ -63,3 +63,9 @@ export const setMyReviewDate = (visitedAt: string) => {
   const visitFormat = format(createDate(visitedAt), "yyyy'년' M'월'");
   return visitFormat;
 };
+
+// ex) 2024.01.12(월)
+export const setRouteDate = (date: string) => {
+  const dateFormat = format(createDate(date), 'yyyy.MM.dd(EEEEEE)');
+  return changeDOWFormat(dateFormat);
+};

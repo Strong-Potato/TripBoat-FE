@@ -28,6 +28,7 @@ import FriendList from '@/components/TripSpace/FriendList/FriendList';
 import InviteFriends from '@/components/TripSpace/InviteFriends/InviteFriends';
 import VoteTabPanel from '@/components/VoteTabPanel/VoteTabPanel';
 
+import {checkDDay} from '@/utils/checkDday';
 import {setSpaceDate} from '@/utils/formatDate';
 import {getMapCenter} from '@/utils/getMapCenter';
 
@@ -88,7 +89,7 @@ function Trip() {
 
         <header className={styles.header}>
           <div className={styles.titleContainer}>
-            <div className={styles.titleContainer__dDayTitle}>D-day</div>
+            <div className={styles.titleContainer__dDayTitle}>{checkDDay(spaceData.data.dueDate)}</div>
             <div className={styles.titleContainer__placeTitle}>
               {spaceData.data.city ? spaceData.data.city : '여행지를 정해주세요'}
             </div>

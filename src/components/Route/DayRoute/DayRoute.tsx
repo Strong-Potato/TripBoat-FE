@@ -8,6 +8,8 @@ import styles from './DayRoute.module.scss';
 
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
 
+import {setRouteDate} from '@/utils/formatDate';
+
 import AddPlace from '../AddPlace/AddPlace';
 import DraggablePlaceCard from '../DraggablePlaceCard/DraggablePlaceCard';
 import EmptyRoute from '../EmptyRoute/EmptyRoute';
@@ -56,7 +58,7 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
         <header className={styles.dayHeader}>
           <div className={styles.dayContainer}>
             <span className={styles.dayTitle}>DAY {day}</span>
-            <span className={styles.dayDate}>{date}</span>
+            <span className={styles.dayDate}>{setRouteDate(date)}</span>
           </div>
           <button className={styles.editButton} onClick={onOpen}>
             <PlusIcon size='2.4rem' />
