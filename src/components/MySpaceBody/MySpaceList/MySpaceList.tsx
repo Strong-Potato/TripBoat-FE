@@ -5,8 +5,9 @@ import styles from './MySpaceList.module.scss';
 
 import {useGetSpaces, useGetSpacesOut} from '@/hooks/Spaces/useSpaces';
 
+import ObserveTarget from '@/components/Route/ObserveTarget/ObserveTarget';
+
 import defaultCity from '@/assets/icons/city_default.svg';
-import spinner from '@/assets/spinner.gif';
 import {setSpaceDate} from '@/utils/formatDate';
 
 import {Spaces} from '@/types/sidebar';
@@ -16,7 +17,7 @@ function MySpaceList({tab}: MySpaceListProps) {
   const {data: upcomingData} = useGetSpaces(true);
   const {data: outdatedData, fetchNextPage} = useGetSpacesOut();
   const [hasNextData, setHasNextData] = useState(true);
-  const [ref, inView] = useInView({
+  const {ref: inViewRef, inView} = useInView({
     rootMargin: '-56px',
     threshold: 0.8,
   });
@@ -88,11 +89,7 @@ function MySpaceList({tab}: MySpaceListProps) {
           )),
         )}
 
-      {tab === 'outdated' && hasNextData && (
-        <div className={styles.observeTarget} ref={ref}>
-          <img src={spinner} alt='데이터 로딩 중' />
-        </div>
-      )}
+      {tab === 'outdated' && hasNextData && <ObserveTarget inViewRef={inViewRef} />}
     </ul>
   );
 }
