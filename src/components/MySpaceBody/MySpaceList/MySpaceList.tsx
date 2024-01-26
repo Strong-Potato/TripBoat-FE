@@ -1,3 +1,5 @@
+import {useNavigate} from 'react-router-dom';
+
 import styles from './MySpaceList.module.scss';
 
 import {useGetSpaces, useGetSpacesOut} from '@/hooks/Spaces/useSpaces';
@@ -14,6 +16,7 @@ import {MySpaceListProps} from '@/types/user';
 function MySpaceList({tab}: MySpaceListProps) {
   const {data: upcomingData} = useGetSpaces(true);
   const [outdatedData, hasNextData, inViewRef] = useInfiniteScroll(useGetSpacesOut);
+  const navigate = useNavigate();
 
   return (
     <ul className={styles.container}>
@@ -22,7 +25,7 @@ function MySpaceList({tab}: MySpaceListProps) {
           <li
             key={id}
             onClick={() => {
-              // navigate(`/trip/${id}`)
+              navigate(`/trip/${id}`);
             }}
           >
             <div
@@ -48,7 +51,7 @@ function MySpaceList({tab}: MySpaceListProps) {
             <li
               key={id}
               onClick={() => {
-                // navigate(`/trip/${id}`)
+                navigate(`/trip/${id}`);
               }}
             >
               <div
