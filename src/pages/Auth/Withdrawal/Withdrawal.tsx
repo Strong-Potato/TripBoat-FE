@@ -1,11 +1,66 @@
-import styles from "./Withdrawal.module.scss";
+import {useForm} from 'react-hook-form';
+import {useNavigate} from 'react-router-dom';
+import {useSetRecoilState} from 'recoil';
 
-import AuthButton from "@/components/Auth/Button/AuthButton";
-import Header from "@/components/Auth/Header/Header";
+import styles from './Withdrawal.module.scss';
+
+import {useGetMyInfo} from '@/hooks/User/useUser';
+
+import AlertModal from '@/components/AlertModal/AlertModal';
+import AuthButton from '@/components/Auth/Button/AuthButton';
+import Header from '@/components/Auth/Header/Header';
+import CustomToast from '@/components/CustomToast/CustomToast';
+
+import {authRequest} from '@/api/auth';
+import {isModalOpenState} from '@/recoil/vote/alertModal';
+
+import {AuthForm} from '@/types/auth';
 
 function Withdrawal() {
+  const {data} = useGetMyInfo(true);
+  const {
+    register,
+    formState: {dirtyFields},
+    watch,
+    resetField,
+  } = useForm<AuthForm>({
+    mode: 'onChange',
+    defaultValues: {
+      password: '',
+    },
+  });
+  const password = watch('password');
+  const setIsModalOpen = useSetRecoilState(isModalOpenState);
+  const showToast = CustomToast();
+  const navigate = useNavigate();
+
+  const signout = async () => {
+    try {
+      const res =
+        data?.data.provider === 'NONE' ? await authRequest.withdrawal(password) : await authRequest.withdrawal();
+
+      console.log(res);
+
+      if (res.data.responseCode === 206) {
+        showToast('비밀번호가 일치하지 않습니다.');
+        resetField('password');
+        setIsModalOpen(false);
+        return;
+      }
+
+      setIsModalOpen(false);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+      // 백엔드 validation 오류 - 리팩토링 시 responseCode 조건 걸 예정
+      showToast('비밀번호가 일치하지 않습니다.');
+      resetField('password');
+      setIsModalOpen(false);
+    }
+  };
+
   const onClickButton = () => {
-    // 회원탈퇴 api
+    setIsModalOpen(true);
   };
 
   return (
@@ -34,11 +89,27 @@ function Withdrawal() {
           <li>4. 내가 작성한 리뷰</li>
         </ul>
 
-        <AuthButton
-          content="탈퇴합니다"
-          disabled={false}
-          onClick={onClickButton}
-          type="button"
+        {data?.data.provider === 'NONE' && (
+          <input
+            id='password'
+            type='password'
+            className={styles.input}
+            placeholder='비밀번호를 입력해주세요'
+            {...register('password', {
+              required: true,
+            })}
+          />
+        )}
+
+        <AuthButton content='탈퇴합니다' disabled={!dirtyFields?.password} onClick={onClickButton} type='button' />
+
+        <AlertModal
+          title='정말 탈퇴하시겠습니까?'
+          subText='탈퇴 즉시 계정 정보가 모두 삭제됩니다.'
+          cancelText='안할게요!'
+          actionButton='탈퇴하기'
+          isSmallSize={true}
+          onClickAction={signout}
         />
       </main>
     </div>

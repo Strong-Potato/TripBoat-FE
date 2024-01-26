@@ -24,12 +24,12 @@ export const s3Request = {
     }
   },
 
-  uploadImages: async (images: FileList[]) => {
+  uploadImages: async (images: File[]) => {
     try {
       // 이미지 당 presigned url 발급
       const res = await axios.post(
         '/api/s3/presigned',
-        images.map((image) => image[0].name),
+        images.map((image) => image.name),
       );
       const presignedUrls = await res.data.data.elements.map((element: PresignedUrlElement) => element.preSignedUrl);
       console.log('api/s3/presigned response', res);

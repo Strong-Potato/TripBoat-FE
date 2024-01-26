@@ -1,14 +1,17 @@
+import {useState} from 'react';
 import {FaHeart, FaRegHeart} from 'react-icons/fa';
-import {useRecoilState, useSetRecoilState} from 'recoil';
-import {IsHeartValued} from '@/recoil/detail/detail';
-import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
-import CustomToast from '../CustomToast/CustomToast';
+import {useSetRecoilState} from 'recoil';
+
 import {useDeleteWishes, useGetIsWish, usePostWishes} from '@/hooks/Detail/useWish';
+
+import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
+
+import CustomToast from '../CustomToast/CustomToast';
 
 interface WishBtnProps {
   placeId: number;
   contentTypeId: number;
-  size: string;
+  size?: string;
   className?: string;
 }
 
@@ -21,7 +24,6 @@ const notLoginContent = {
 };
 
 function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: WishBtnProps) {
-  const [isWish, setIsWish] = useRecoilState(IsHeartValued);
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
 
@@ -35,7 +37,10 @@ function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: Wish
 
   const showToast = CustomToast();
 
-  useGetIsWish(placeId, setIsWish);
+  const {
+    data: {data: wish},
+  } = useGetIsWish(placeId);
+  const [isWish, setIsWish] = useState(wish);
   const postWishes = usePostWishes();
   const deleteWishes = useDeleteWishes();
 
@@ -61,9 +66,28 @@ function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: Wish
   return (
     <>
       {isWish ? (
-        <FaHeart fontSize={size} cursor='pointer' color='#E23774' onClick={handleWishClick} className={className} />
+        <FaHeart
+          fontSize={size}
+          cursor='pointer'
+          color='#E23774'
+          onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            e.stopPropagation();
+            e.preventDefault();
+            handleWishClick();
+          }}
+          className={className}
+        />
       ) : (
-        <FaRegHeart fontSize={size} cursor='pointer' onClick={handleWishClick} className={className} />
+        <FaRegHeart
+          fontSize={size}
+          cursor='pointer'
+          onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            e.stopPropagation();
+            e.preventDefault();
+            handleWishClick();
+          }}
+          className={className}
+        />
       )}
     </>
   );
