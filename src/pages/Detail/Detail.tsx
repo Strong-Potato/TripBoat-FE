@@ -17,7 +17,7 @@ import Navigation from '@/components/Detail/Navigation/Navigation';
 import {modalContentState} from '@/recoil/vote/alertModal';
 
 import {useParams} from 'react-router-dom';
-import {useGetReviewsRating} from '@/hooks/Detail/useReviews';
+// import {useGetReviewsRating} from '@/hooks/Detail/useReviews';
 import {useGetPlaceInfo} from '@/hooks/Detail/usePlaces';
 
 function Detail() {
@@ -34,14 +34,14 @@ function Detail() {
     },
   } = useGetPlaceInfo(Number(params?.split(' ')[0]), Number(params?.split(' ')[1]));
 
-  const {
-    data: {data: reviewsRating},
-  } = useGetReviewsRating(Number(params?.split(' ')[0]), Number(params?.split(' ')[1]), placeInfo.title);
+  // const {
+  //   data: {data: reviewsRating},
+  // } = useGetReviewsRating(Number(params?.split(' ')[0]), Number(params?.split(' ')[1]), placeInfo.title);
 
-  // const reviewsRating = {
-  //   rating: 5.0,
-  //   userRatingCount: 5,
-  // };
+  const reviewsRating = {
+    rating: 5.0,
+    userRatingCount: 5,
+  };
 
   console.log(reviewsRating);
 
