@@ -11,7 +11,7 @@ import {CandidatesSlideProps} from '@/types/vote';
 const CandidatesSlide = ({candidates, setSelectedPinIndex, setCenterMarker, swiperRef}: CandidatesSlideProps) => {
   const handleSlideChange = (swiper: SwiperClass) => {
     const activeCandidate = candidates[swiper.activeIndex];
-    setCenterMarker(activeCandidate.placeInfo.latlng);
+    setCenterMarker(activeCandidate.placeInfo.latLng);
     setSelectedPinIndex(swiper.activeIndex);
   };
 

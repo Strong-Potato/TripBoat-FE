@@ -37,7 +37,7 @@ const CandidateList = ({candidates, onBottomSlideOpen, isCandidateSelecting}: Ca
               </label>
               {candidate.tagline && (
                 <div className={styles.candidateBox__memo}>
-                  <Avatar boxSize='24px' />
+                  <Avatar boxSize='24px' src={candidate.createdBy.profileImageUrl} />
                   <div className={styles.candidateBox__memo__text}>{candidate.tagline}</div>
                 </div>
               )}
