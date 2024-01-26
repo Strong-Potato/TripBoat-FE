@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .email,
 .sertCode,
@@ -124,6 +124,7 @@
     height: 7.2rem;
     padding: 8px;
     border-radius: 50%;
+    border: 1px solid $neutral200;
 
     &__camera {
       background-color: $neutral100;
