@@ -48,7 +48,7 @@ function ReviewImageSlider({images}: {images: string[]}) {
         }}
       >
         {images.map((data, i) => (
-          <img src={data} onClick={() => handleIsOpen(i)} />
+          <img src={data} onClick={() => handleIsOpen(i)} key={`reviewImages_${data}`} />
         ))}
       </div>
       <SlideModal

@@ -27,3 +27,36 @@ export const useInfiniteScroll = (infiniteQueryFn: () => UseInfiniteQueryResult<
 
   return [data, hasNextData, inViewRef] as const;
 };
+
+export const useInfiniteScrollReviews = (
+  infiniteQueryFn: () => UseInfiniteQueryResult<InfiniteData<any, unknown>, Error>,
+) => {
+  const {data, fetchNextPage} = infiniteQueryFn();
+  const [hasNextData, setHasNextData] = useState(true);
+  const {ref: inViewRef, inView} = useInView({
+    rootMargin: '0px 0px -56px 0px',
+    threshold: 1,
+  });
+
+  useEffect(() => {
+    if (data) {
+      const {last} = data.pages.at(-1).data;
+
+      if (data.pages[data.pages.length - 1].data.reviews.length === 0) {
+        setHasNextData(false);
+      }
+
+      console.log(data.pages, '1');
+
+      if (inView && !last) {
+        fetchNextPage();
+      }
+      if (last) {
+        setHasNextData(false);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView]);
+
+  return [data, hasNextData, inViewRef] as const;
+};
