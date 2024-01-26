@@ -14,11 +14,11 @@ self.addEventListener('push', function (e) {
   // 필수! 알람 제목
   const notificationTitle = resultData.title;
   const notificationOptions = {
+    // 푸시 알람 받아오는 데이터 파싱 (코드에 따라서)
     //필수! 알람 설명
     body: resultData.body,
-    //필수! 알람 이미지(프로필, 로고)
+    //필수! 알림 메세지 파싱
     icon: resultData.image,
-    //필수! 알람 분류태그 (전체, 투표, 나가기...)
     tag: resultData.tag,
     ...resultData,
   };
