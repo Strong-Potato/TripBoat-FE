@@ -1,5 +1,5 @@
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './Contents.module.scss';
@@ -11,7 +11,7 @@ import Reviews from './Reviews/Reviews';
 import {placeInfoDataPlace} from '@/types/detail';
 // import {useGetReviews} from '@/hooks/Detail/useReviews';
 // import {useParams} from 'react-router-dom';
-import {useInfiniteScroll, useInfiniteScrollReviews} from '@/hooks/useInfiniteScroll';
+import {useInfiniteScrollReviews} from '@/hooks/useInfiniteScroll';
 import {useGetReviews} from '@/hooks/Detail/useReviews';
 
 interface ContentsProps {
