@@ -73,7 +73,7 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
                   order={place.Order + 1}
                   name={place.place.title}
                   category={place.place.category}
-                  address={`${place.place.address}, ${place.place.addressDetail}`}
+                  address={`${place.place.address} ${place.place.addressDetail}`}
                   editMode={editMode}
                   selectedPlaces={selectedPlaces}
                   onSelect={handlePlaceSelection}
