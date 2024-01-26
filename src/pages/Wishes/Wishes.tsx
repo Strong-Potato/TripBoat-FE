@@ -11,6 +11,7 @@ import WishesHeader from '@/components/WishItem/WishesHeader/WishesHeader';
 
 import {getUserWishes} from '@/api/wishes';
 import SearchNull from '@/assets/homeIcons/search/searchNull.svg?react';
+import {translateLocation} from '@/utils/translateSearchData';
 
 import WishItem from '../../components/WishItem/WishItem';
 
@@ -74,6 +75,31 @@ function Wishes() {
     getUserWishes(setData);
   }, []);
 
+  function filterLocation(location: string, data: SearchItemType[]) {
+    if (location.split(' ')[0] === '전국') {
+      return data;
+    }
+    const currentLocation = translateLocation(location);
+    const filterData: SearchItemType[] = [];
+    data.map((data) => {
+      console.log(
+        data.location.areaCode,
+        data.location.sigunguCode,
+        currentLocation.areaCode,
+        currentLocation.sigunguCode,
+      );
+
+      if (data.location.areaCode === currentLocation.areaCode) {
+        if (currentLocation.sigunguCode === 0) {
+          filterData.push(data);
+        } else if (data.location.sigunguCode === currentLocation.sigunguCode) {
+          filterData.push(data);
+        }
+      }
+    });
+    return filterData;
+  }
+
   useEffect(() => {
     if (data) {
       if (filter.category !== 0) {
@@ -83,12 +109,16 @@ function Wishes() {
         } else {
           filterData = data.places.filter((data) => data.contentTypeId === filter.category);
         }
+        if (filter.location !== '전국') {
+          filterData = filterLocation(filter.location, filterData);
+        }
         setFilterData(filterData);
       } else {
-        setFilterData(data.places);
+        const filterData = filterLocation(filter.location, data.places);
+        setFilterData(filterData);
       }
     }
-  }, [data, filter.category]);
+  }, [data, filter.category, filter.location]);
 
   return (
     <div className={styles.container}>

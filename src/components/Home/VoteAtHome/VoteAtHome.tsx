@@ -25,7 +25,7 @@ function VoteAtHome() {
     <div className={styles.container}>
       {userData && data && data.voteResponse.length > 0 ? (
         <p className={styles.title}>
-          <span className={styles.titleNull}>{userData} 님</span>
+          <span className={styles.titleNull}>{userData}님</span>
           <br />
           진행 중인 투표가 있어요!
         </p>

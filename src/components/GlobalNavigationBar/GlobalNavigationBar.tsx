@@ -15,12 +15,11 @@ function GlobalNavigationBar() {
         <AiOutlineHome fontSize='24px' color={!pathname ? '#0086ff' : 'rgba(35, 39, 47, 1)'} />
       </Link>
 
-      <Link to='/trip/1'>
+      <Link to='/trip'>
         <AiOutlineCarryOut fontSize='24px' color={pathname === 'trip' ? '#0086ff' : 'rgba(35, 39, 47, 1)'} />
       </Link>
       <Link to='/wishes'>
         <FaRegHeart fontSize='24px' color={pathname === 'wishes' ? '#0086ff' : 'rgba(35, 39, 47, 1)'} />
-
       </Link>
       <Link to='/user'>
         <LuUser2 fontSize='24px' color={pathname === 'user' ? '#0086ff' : 'rgba(35, 39, 47, 1)'} />
