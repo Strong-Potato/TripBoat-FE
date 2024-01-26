@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {FaHeart, FaRegHeart} from 'react-icons/fa';
 import {useSetRecoilState} from 'recoil';
 
@@ -7,6 +7,7 @@ import {useDeleteWishes, useGetIsWish, usePostWishes} from '@/hooks/Detail/useWi
 import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
 
 import CustomToast from '../CustomToast/CustomToast';
+import {useDebounce} from '@/hooks/useDebounce';
 
 interface WishBtnProps {
   placeId: number;
@@ -26,6 +27,7 @@ const notLoginContent = {
 function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: WishBtnProps) {
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
+  const [wishInitial, setWishInitial] = useState<boolean>(false);
 
   // isLogin 구현해야 함
   const isLogin = true;
@@ -45,23 +47,37 @@ function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: Wish
   const deleteWishes = useDeleteWishes();
 
   // postWishes error 리턴 시 로그인 모달 띄우기
+  const debounce = useDebounce(isWish, 1000);
+
   const handleWishClick = () => {
     if (isLogin) {
       if (!isWish) {
-        postWishes.mutate({placeId: placeId, contentTypeId: contentTypeId});
+        // postWishes.mutate({placeId: placeId, contentTypeId: contentTypeId});
 
         setIsWish(true);
         showToast('찜 목록에 저장되었습니다.');
       } else {
-        deleteWishes.mutate(placeId);
+        // deleteWishes.mutate(placeId);
 
         showToast('찜 목록에서 제거되었습니다.');
         setIsWish(false);
       }
+      setWishInitial(true);
     } else {
       showNotLoginModal();
     }
   };
+
+  useEffect(() => {
+    if (wishInitial) {
+      if (debounce) {
+        postWishes.mutate({placeId: placeId, contentTypeId: contentTypeId});
+      } else {
+        deleteWishes.mutate(placeId);
+      }
+    }
+    console.log(debounce);
+  }, [debounce]);
 
   return (
     <>
