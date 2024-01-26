@@ -2,6 +2,8 @@ import {useEffect, useState} from 'react';
 
 import styles from './VoteAtHome.module.scss';
 
+import {useGetMyInfo} from '@/hooks/User/useUser';
+
 import {getHomeVote} from '@/api/home';
 
 import CardHaveVote from './VoteCard/CardHaveVote/CardHaveVote';
@@ -11,16 +13,19 @@ import {Vote} from '@/types/home';
 
 function VoteAtHome() {
   const [data, setData] = useState<Vote>();
+  const userData = useGetMyInfo(true).data?.data.nickname;
 
   useEffect(() => {
-    getHomeVote(setData);
-  }, []);
+    if (userData) {
+      getHomeVote(setData);
+    }
+  }, [userData]);
 
   return (
     <div className={styles.container}>
-      {data && data.voteResponse.length > 0 ? (
+      {userData && data && data.voteResponse.length > 0 ? (
         <p className={styles.title}>
-          <span className={styles.titleNull}>길동님</span>
+          <span className={styles.titleNull}>{userData} 님</span>
           <br />
           진행 중인 투표가 있어요!
         </p>

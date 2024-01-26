@@ -23,7 +23,6 @@ const SelectButton = ({data}: Propstype) => {
     e.preventDefault();
     setIsClicked((prev) => !prev);
     toggleItemInNewArray(data);
-    console.log(data);
   };
 
   useEffect(() => {

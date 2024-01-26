@@ -12,7 +12,6 @@ import MainRouter from './routes/MainRouter/MainRouter';
 window.Kakao.init(import.meta.env.VITE_KAKAO_KEY);
 
 const queryClient = new QueryClient();
-
 queryClient.setDefaultOptions({
   queries: {
     refetchOnWindowFocus: false,

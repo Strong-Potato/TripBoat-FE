@@ -17,6 +17,7 @@ import StarsWrapper from './StarsWrapper/StarsWrapper';
 import {ReviewBottomSlideProps} from '@/types/detail';
 
 import {usePostReview} from '@/hooks/Detail/useReviews';
+import {s3Request} from '@/api/s3';
 
 function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: ReviewBottomSlideProps) {
   const [isValuedInput, setIsValuedInput] = useState<boolean>(false);
@@ -29,6 +30,10 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
   const [starCount, setStarCount] = useState<number>(0);
   const [text, setText] = useState<string>('');
   const [time, setTime] = useState<Date>(new Date());
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [imageFileList, setImageFileList] = useState<File[]>();
+
+  console.log(imageFileList);
 
   const checkBeforeExit = {
     title: '잠깐!',
@@ -51,13 +56,19 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
   const postReview = usePostReview();
 
   const handlePostReview = async () => {
+    const presignedUrls = await s3Request.uploadImages(imageFileList as File[]);
+
+    presignedUrls.map((url: string, i: number) => {
+      presignedUrls[i] = url.split('?')[0];
+    });
+
     await postReview.mutateAsync({
       placeId,
       contentTypeId,
       title,
       rating: starCount,
       content: text,
-      images: [],
+      images: presignedUrls,
       visitedAt: `${time.getFullYear()}-${('00' + (time.getMonth() + 1).toString()).slice(-2)}-${(
         '00' + (time.getDay() + 1).toString()
       ).slice(-2)}`,
@@ -104,7 +115,7 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
         }
       />
       <InputWrapper text={text} setText={setText} setIsValuedInput={setIsValuedInput} />
-      <ImagesWrapper />
+      <ImagesWrapper imageUrls={imageUrls} setImageUrls={setImageUrls} setImageFileList={setImageFileList} />
       <button
         className={styles.container__addBtn}
         style={

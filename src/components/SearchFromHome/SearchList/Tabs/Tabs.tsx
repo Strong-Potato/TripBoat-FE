@@ -11,14 +11,16 @@ import {translateCategoryToStr} from '@/utils/translateSearchData';
 import Tab from './Tab/Tab';
 
 import {ForSearchType, SearchItemType} from '@/types/home';
+import {WishFilterType} from '@/types/wish';
 
 interface PropsType {
   data: SearchItemType[] | undefined;
-  forSearch: ForSearchType;
+  forSearch?: ForSearchType | undefined;
+  wishFilter?: WishFilterType | undefined;
   setCategoryChange: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Tabs({data, forSearch, setCategoryChange}: PropsType) {
+function Tabs({data, forSearch = undefined, wishFilter = undefined, setCategoryChange}: PropsType) {
   const [category, setCategory] = useState<string[]>();
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
@@ -28,7 +30,9 @@ function Tabs({data, forSearch, setCategoryChange}: PropsType) {
       const dataCategory: string[] = [];
       data.map((data) => {
         const categoryData = translateCategoryToStr(data.contentTypeId);
-        dataCategory.push(categoryData);
+        if (categoryData !== '전체') {
+          dataCategory.push(categoryData);
+        }
       });
       const set = new Set(dataCategory);
       const push = ['전체', ...set];
@@ -61,6 +65,7 @@ function Tabs({data, forSearch, setCategoryChange}: PropsType) {
           category.map((thisCategory) => (
             <Tab
               forSearch={forSearch}
+              wishFilter={wishFilter}
               setCategoryChange={setCategoryChange}
               thisCategory={thisCategory}
               key={thisCategory}

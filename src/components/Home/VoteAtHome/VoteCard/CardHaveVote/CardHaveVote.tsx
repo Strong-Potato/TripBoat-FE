@@ -39,14 +39,17 @@ function CardHaveVote({data}: PropsType) {
       >
         {data &&
           data.voteResponse.map((data) => {
-            const date = setSpaceDate_DOW(data.spaceInfo.startDate, data.spaceInfo.endDate);
+            const voteTripTitle = data.spaceInfo.title ? data.spaceInfo.title : '여행지 미정';
+            const date = data.spaceInfo.startDate
+              ? setSpaceDate_DOW(data.spaceInfo.startDate, data.spaceInfo.endDate)
+              : '날짜 미정';
 
             return (
               <div className={styles.vote_box} key={data.voteId}>
                 <div className={styles.contents}>
                   <div className={styles.text_box}>
                     <p className={styles.vote_title}>
-                      <span>{data.spaceInfo.title}</span>
+                      <span>{voteTripTitle}</span>
                       <span>{date}</span>
                     </p>
                     <p className={styles.discussion}>

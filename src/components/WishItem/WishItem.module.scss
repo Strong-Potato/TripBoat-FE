@@ -1,0 +1,50 @@
+@use '@/sass' as *;
+
+.container {
+  width: 100%;
+  min-height: 64px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+
+  .itemBox {
+    min-height: 64px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    img {
+      width: 64px;
+      height: 64px;
+
+      border-radius: 0.8rem;
+
+      opacity: 1;
+
+      transition: 0.3s all linear;
+
+      background-color: $neutral200;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+
+      opacity: 1;
+
+      transition: 0.3s all linear;
+
+      .title {
+        @include typography(titleSmall);
+      }
+      .info {
+        color: $neutral400;
+
+        @include typography(captionSmall);
+      }
+    }
+  }
+}

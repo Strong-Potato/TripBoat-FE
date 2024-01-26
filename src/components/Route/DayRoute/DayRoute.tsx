@@ -8,7 +8,7 @@ import styles from './DayRoute.module.scss';
 
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
 
-import {findShortestPath} from '@/utils/optimizePlace';
+import {setRouteDate} from '@/utils/formatDate';
 
 import AddPlace from '../AddPlace/AddPlace';
 import DraggablePlaceCard from '../DraggablePlaceCard/DraggablePlaceCard';
@@ -31,7 +31,7 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
 
   const findCard = useCallback(
     (id: number) => {
-      const card = placeCards.filter((item) => item.id == id)[0];
+      const card = placeCards.filter((item) => item.selectedId == id)[0];
       return {
         card,
         index: placeCards.indexOf(card),
@@ -58,7 +58,7 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
   const [, drop] = useDrop(() => ({accept: 'CARD'}));
 
   useEffect(() => {
-    console.log(placeList);
+    console.log('placeList', placeList);
   }, [placeList]);
 
   return (
@@ -67,7 +67,7 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
         <header className={styles.dayHeader}>
           <div className={styles.dayContainer}>
             <span className={styles.dayTitle}>DAY {day}</span>
-            <span className={styles.dayDate}>{date}</span>
+            <span className={styles.dayDate}>{setRouteDate(date)}</span>
           </div>
           <button className={styles.editButton} onClick={onOpen}>
             <PlusIcon size='2.4rem' />
@@ -81,12 +81,14 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
             {placeCards.length ? (
               placeCards.map((place) => (
                 <DraggablePlaceCard
-                  key={place.id}
-                  id={place.id}
-                  order={place.Order + 1}
+                  key={place.selectedId}
+                  selectedId={place.selectedId}
+                  order={place.order}
                   name={place.place.title}
                   category={place.place.category}
-                  address={`${place.place.address}, ${place.place.addressDetail}`}
+                  address={`${place.place.address} ${place.place.addressDetail}`}
+                  contentTypeId={place.place.contentTypeId}
+                  placeId={place.place.placeId}
                   editMode={editMode}
                   selectedPlaces={selectedPlaces}
                   onSelect={handlePlaceSelection}
@@ -124,7 +126,7 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
               <button
                 className={styles.wrapperButton__accept}
                 onClick={() => {
-                  setPlaceCards(findShortestPath(placeList));
+                  // setPlaceCards(findShortestPath(placeList));
                   setIsOptimize(false);
                 }}
               >

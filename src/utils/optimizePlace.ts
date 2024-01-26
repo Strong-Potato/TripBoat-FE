@@ -1,60 +1,26 @@
-interface PlaceDetail {
-  id: number;
-  title: string;
-  thumbnail: string;
-  address: string;
-  addressDetail: string;
-  latitude: number;
-  longitude: number;
-  category: string;
+import {PlaceList} from '@/types/route';
+function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const dx = lat1 - lat2;
+  const dy = lon1 - lon2;
+  return Math.sqrt(dx * dx + dy * dy);
 }
-
-interface Place {
-  id: number;
-  Order: number;
-  place: PlaceDetail;
-}
-
-function calculateDistance(x1: number, y1: number, x2: number, y2: number): number {
-  return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-}
-
-export function findShortestPath(places: Place[]): Place[] {
-  const startPoint: Place = places[0];
-  const endPoint: Place = places
+export function findShortestPath(places: PlaceList[]): PlaceList[] {
+  if (places.length === 0) return [];
+  const start = places[0];
+  let end = places
     .slice()
     .reverse()
-    .find((place) => place.place.category === '숙소') as Place;
-
-  let waypoints: Place[] = places.slice(1, places.length);
-  waypoints = waypoints.filter((place) => place.id !== endPoint.id);
-
-  const sortedPlaces: Place[] = [startPoint];
-  let currentPlaceDetail: PlaceDetail = startPoint.place;
-
-  while (waypoints.length > 0) {
-    waypoints.sort((a, b) => {
-      const distA: number = calculateDistance(
-        currentPlaceDetail.latitude,
-        currentPlaceDetail.longitude,
-        a.place.latitude,
-        a.place.longitude,
-      );
-      const distB: number = calculateDistance(
-        currentPlaceDetail.latitude,
-        currentPlaceDetail.longitude,
-        b.place.latitude,
-        b.place.longitude,
-      );
-      return distA - distB;
-    });
-
-    const nextPlace = waypoints.shift() as Place;
-    sortedPlaces.push(nextPlace);
-    currentPlaceDetail = nextPlace.place;
-  }
-
-  sortedPlaces.push(endPoint);
-
-  return sortedPlaces;
+    .find((p) => p.place.category === '숙소');
+  if (!end) end = places[places.length - 1];
+  const waypoints = places.slice(1, places.length - 1).filter((p) => p !== end);
+  const waypointsWithDistance = waypoints.map((p) => ({
+    ...p,
+    distance: calculateDistance(start.place.latitude, start.place.longitude, p.place.latitude, p.place.longitude),
+  }));
+  waypointsWithDistance.sort((a, b) => a.distance - b.distance);
+  return [
+    start,
+    ...waypointsWithDistance.map((p) => ({selectedId: p.selectedId, order: p.order, place: p.place})),
+    end,
+  ].filter(Boolean);
 }
