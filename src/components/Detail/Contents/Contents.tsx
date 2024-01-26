@@ -1,5 +1,5 @@
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './Contents.module.scss';
@@ -11,6 +11,8 @@ import Reviews from './Reviews/Reviews';
 import {placeInfoDataPlace} from '@/types/detail';
 // import {useGetReviews} from '@/hooks/Detail/useReviews';
 // import {useParams} from 'react-router-dom';
+import {useInfiniteScroll, useInfiniteScrollReviews} from '@/hooks/useInfiniteScroll';
+import {useGetReviews} from '@/hooks/Detail/useReviews';
 
 interface ContentsProps {
   data: placeInfoDataPlace;
@@ -25,20 +27,21 @@ function Contents({data, onOpen, reviewsRating}: ContentsProps) {
   const [tabIndex, setTabIndex] = useRecoilState(TabIndexState);
   const setTabPosition = useSetRecoilState(TabYPosition);
 
-  // const {id: params} = useParams();
-
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
   };
 
-  // const {
-  //   data: {
-  //     data: {reviews: reviews},
-  //   },
-  // } = useGetReviews(Number(params?.split(' ')[0]), Number(params?.split(' ')[1]), data.title);
-  // console.log(reviews, '!!');
+  const [reviewsData, hasNextData, inViewRef] = useInfiniteScrollReviews(() =>
+    useGetReviews(data.id, data.contentTypeId, data.title),
+  );
 
-  const reviews = undefined;
+  const reviews: any[] = [];
+
+  if (reviewsData) {
+    reviewsData?.pages.map((data: any) => {
+      data.data.reviews.map((data: any) => reviews.push(data));
+    });
+  }
 
   useEffect(() => {
     const tabRef = document.getElementById('tab');
@@ -78,7 +81,13 @@ function Contents({data, onOpen, reviewsRating}: ContentsProps) {
           <Information onOpen={onOpen} data={data} reviewsRating={reviewsRating} reviews={reviews} />
         </TabPanel>
         <TabPanel padding='0'>
-          <Reviews onOpen={onOpen} reviewsRating={reviewsRating} reviews={reviews} />
+          <Reviews
+            hasNextData={hasNextData}
+            inViewRef={inViewRef}
+            onOpen={onOpen}
+            reviewsRating={reviewsRating}
+            reviews={reviews}
+          />
         </TabPanel>
       </TabPanels>
     </Tabs>

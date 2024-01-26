@@ -1,9 +1,9 @@
-import styles from "./SlideButton.module.scss";
+import styles from './SlideButton.module.scss';
 
-import LeftButton from "./LeftButton/LeftButton";
-import RightButton from "./RightButton/RightButton";
+import LeftButton from './LeftButton/LeftButton';
+import RightButton from './RightButton/RightButton';
 
-import { SlideButtonPropsType } from "@/types/home";
+import {SlideButtonPropsType} from '@/types/home';
 
 function SlideButton({
   slideLocation,
@@ -17,7 +17,7 @@ function SlideButton({
   return (
     <div
       className={styles.container}
-      style={{ display: window.innerWidth < 450 ? "none" : "block" }}
+      style={{display: window.innerWidth < 450 || itemWidth * itemNumber < 450 ? 'none' : 'block'}}
     >
       <LeftButton
         slideLocation={slideLocation}

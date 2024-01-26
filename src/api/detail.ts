@@ -20,14 +20,6 @@ export const getReviewsRating = async (id: number, typeId: number, title: string
   return response.data;
 };
 
-export const getReviews = async (id: number, typeId: number, title: string): Promise<Reviews> => {
-  const response = await axios.get('/api/reviews', {
-    params: {placeId: id, contentTypeId: typeId, placeTitle: title},
-  });
-
-  return response.data;
-};
-
 export const getIsWish = async (id: number) => {
   const response = await axios.get(`/api/wishes/${id}`, {
     withCredentials: true,

@@ -10,8 +10,9 @@ import {IsLoginState} from '@/recoil/detail/detail';
 import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
 
 import {ContentsReviewsProps} from '@/types/detail';
+import ObserveTarget from '@/components/Route/ObserveTarget/ObserveTarget';
 // 무한 스크롤 구현 필요
-function Reviews({onOpen, reviewsRating, reviews}: ContentsReviewsProps) {
+function Reviews({onOpen, reviewsRating, reviews, hasNextData, inViewRef}: ContentsReviewsProps) {
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
   const isLogin = useRecoilValue(IsLoginState);
@@ -67,6 +68,7 @@ function Reviews({onOpen, reviewsRating, reviews}: ContentsReviewsProps) {
             />
           ))}
       </div>
+      {hasNextData && <ObserveTarget inViewRef={inViewRef} />}
     </div>
   );
 }
