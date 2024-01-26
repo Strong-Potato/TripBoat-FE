@@ -4,7 +4,10 @@ import {useSearchParams} from 'react-router-dom';
 import styles from './Wishes.module.scss';
 
 import AddToCandidateButton from '@/components/ButtonsInAddingCandidate/AddToCandidateButton/AddToCandidateButton';
+import DateFilter from '@/components/SearchFromHome/SearchList/DateFilter/DateFilter';
+import LocationFilter from '@/components/SearchFromHome/SearchList/LocationFilter/LocationFilter';
 import Tabs from '@/components/SearchFromHome/SearchList/Tabs/Tabs';
+import WishesHeader from '@/components/WishItem/WishesHeader/WishesHeader';
 
 import {getUserWishes} from '@/api/wishes';
 import SearchNull from '@/assets/homeIcons/search/searchNull.svg?react';
@@ -21,25 +24,46 @@ function Wishes() {
   const [searchParams] = useSearchParams();
   const [filter, setFilter] = useState({
     category: 0,
+    location: '전국',
     placeID: 'undefined',
     tripDate: 'undefinde',
+    sort: '등록순',
   });
 
   useEffect(() => {
     const querystring = {
+      category: searchParams.get('category'),
+      location: searchParams.get('location'),
       placeID: searchParams.get('placeID'),
       tripDate: searchParams.get('tripDate'),
+      sort: searchParams.get('sort'),
     };
-    if (querystring.placeID && !querystring.tripDate) {
+    if (
+      querystring.category &&
+      querystring.placeID &&
+      querystring.location &&
+      querystring.sort &&
+      !querystring.tripDate
+    ) {
       setFilter({
-        category: filter.category,
+        category: parseInt(querystring.category),
+        location: querystring.location,
+        sort: querystring.sort,
         placeID: querystring.placeID,
         tripDate: filter.tripDate,
       });
     }
-    if (querystring.placeID && querystring.tripDate) {
+    if (
+      querystring.category &&
+      querystring.placeID &&
+      querystring.location &&
+      querystring.sort &&
+      querystring.tripDate
+    ) {
       setFilter({
-        category: filter.category,
+        category: parseInt(querystring.category),
+        location: querystring.location,
+        sort: querystring.sort,
         placeID: querystring.placeID,
         tripDate: querystring.tripDate,
       });
@@ -68,10 +92,18 @@ function Wishes() {
 
   return (
     <div className={styles.container}>
-      <p className={styles.header}>
-        <span>찜 목록</span>
-      </p>
+      {filter.placeID === 'undefined' ? (
+        <p className={styles.header}>
+          <span>찜 목록</span>
+        </p>
+      ) : (
+        <WishesHeader />
+      )}
       {data && <Tabs data={data?.places} wishFilter={filter} setCategoryChange={setCategoryChange} />}
+      <div className={styles.filter}>
+        <LocationFilter wishesFilter={filter} />
+        <DateFilter wishesFilter={filter} />
+      </div>
       <ul className={styles.slide}>
         {filterData && filterData?.length > 0 ? (
           filterData.map((data) => <WishItem filter={filter} data={data} categoryChange={categoryChange} />)

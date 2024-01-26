@@ -11,12 +11,7 @@ import titleCaseChange from '@/utils/titleCaseChange';
 import {translateCategoryToStr} from '@/utils/translateSearchData';
 
 import {SearchItemType} from '@/types/home';
-
-interface WishFilterType {
-  category: number;
-  placeID: string;
-  tripDate: string;
-}
+import {WishFilterType} from '@/types/wish';
 
 interface PropsType {
   filter: WishFilterType;

@@ -16,12 +16,14 @@ function VoteAtHome() {
   const userData = useGetMyInfo(true).data?.data.nickname;
 
   useEffect(() => {
-    getHomeVote(setData);
-  }, []);
+    if (userData) {
+      getHomeVote(setData);
+    }
+  }, [userData]);
 
   return (
     <div className={styles.container}>
-      {data && data.voteResponse.length > 0 ? (
+      {userData && data && data.voteResponse.length > 0 ? (
         <p className={styles.title}>
           <span className={styles.titleNull}>{userData} 님</span>
           <br />
