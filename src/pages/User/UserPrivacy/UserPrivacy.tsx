@@ -1,3 +1,4 @@
+import {useQueryClient} from '@tanstack/react-query';
 import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
 
@@ -10,12 +11,20 @@ import Header from '@/components/Auth/Header/Header';
 function UserPrivacy() {
   const navigate = useNavigate();
   const {data, error, isFetching} = useGetMyInfo(true);
+  const queryClient = useQueryClient();
 
   if (isFetching) {
     return <div></div>;
   }
-
   if (error) navigate('/auth/login');
+
+  const clickLogout = () => {
+    axios.post('/api/logout', {}, {withCredentials: true});
+
+    // remove query cache for logout
+    queryClient.removeQueries({queryKey: ['myInfo']});
+    navigate('/');
+  };
 
   return (
     <div className={styles.container}>
@@ -32,14 +41,7 @@ function UserPrivacy() {
           <Link to='/auth/password/modify'>재설정</Link>
         </li>
 
-        <li
-          onClick={() => {
-            axios.post('/api/logout');
-            navigate('/auth/login');
-          }}
-        >
-          로그아웃
-        </li>
+        <li onClick={clickLogout}>로그아웃</li>
 
         <li>
           <Link to='/auth/withdrawal'>회원 탈퇴</Link>
