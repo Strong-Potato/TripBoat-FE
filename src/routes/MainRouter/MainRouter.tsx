@@ -1,6 +1,6 @@
-import {useEffect, useState} from 'react';
-import {Helmet} from 'react-helmet-async';
-import {Route, Routes, useLocation} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
+
+import Head from '@/components/Head/Head';
 
 import AddPlaceFromVote from '@/pages/AddPlaceFromVote/AddPlaceFromVote';
 import FindPassword from '@/pages/Auth/FindPassword/FindPassword';
@@ -28,51 +28,247 @@ import Vote from '@/pages/Vote/Vote';
 import VoteMemo from '@/pages/Vote/VoteMemo/VoteMemo';
 import Wishes from '@/pages/Wishes/Wishes';
 import Dashboard from '@/routes/Dashboard/Dashboard';
-import {getTitle} from '@/utils/getTitle';
 
 function MainRouter() {
-  const [title, setTitle] = useState('');
-  const location = useLocation();
-  useEffect(() => {
-    setTitle(getTitle(location.pathname));
-  }, [location]);
-
   return (
-    <>
-      <Helmet>
-        <title>TRIPVOTE | {title}</title>
-      </Helmet>
-      <Routes>
-        <Route element={<Dashboard />}>
-          <Route index element={<Home />} />
-          <Route path='/trip' element={<CheckTrip />} />
-          <Route path='/trip/:id' element={<Trip />} />
-          <Route path='/wishes' element={<Wishes />} />
-          <Route path='/user' element={<User />} />
-          <Route path='/user/privacy' element={<UserPrivacy />} />
-          <Route path='/user/profile/edit' element={<ModifyProfile />} />
-          <Route path='/user/myspace' element={<MySpace />} />
-          <Route path='/user/myreview' element={<MyReview />} />
-        </Route>
-        <Route path='/search' element={<SearchFromHome />} />
-        <Route path='/detail/:id' element={<Detail />} />
-        <Route path='/votes/:id' element={<Vote />} />
-        <Route path='/votes/:id/votememo' element={<VoteMemo />} />
-        <Route path='/votes/:id/map' element={<CandidatesMap />} />
-        <Route path='/auth/login' element={<Login />} />
-        <Route path='/auth/signup' element={<Signup />} />
-        <Route path='/auth/signup/agreePrivacy' element={<AgreePrivacy />} />
-        <Route path='/auth/signup/agreeService' element={<AgreeService />} />
-        <Route path='/auth/password/find' element={<FindPassword />} />
-        <Route path='/auth/password/modify' element={<ModifyPassword />} />
-        <Route path='/auth/withdrawal' element={<Withdrawal />} />
-        <Route path='/trip/:id/selectDate' element={<Calendar />} />
-        <Route path='/trip/:id/selectRegion' element={<RegionSearch />} />
-        <Route path='/trip/:id/map' element={<MapZoomIn />} />
-        <Route path='/trip/:id/add/vote' element={<AddPlaceFromVote />} />
-        <Route path='/wishes/bring' element={<Wishes />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route element={<Dashboard />}>
+        <Route
+          index
+          element={
+            <>
+              <Head title='홈' />
+              <Home />
+            </>
+          }
+        />
+        <Route
+          path='/trip'
+          element={
+            <>
+              <Head title='여행스페이스' />
+              <CheckTrip />
+            </>
+          }
+        />
+        <Route
+          path='/trip/:id'
+          element={
+            <>
+              <Head title='여행스페이스' />
+              <Trip />
+            </>
+          }
+        />
+        <Route
+          path='/wishes'
+          element={
+            <>
+              <Head title='찜' />
+              <Wishes />
+            </>
+          }
+        />
+        <Route
+          path='/user'
+          element={
+            <>
+              <Head title='마이페이지' />
+              <User />
+            </>
+          }
+        />
+        <Route
+          path='/user/privacy'
+          element={
+            <>
+              <Head title='계정관리' />
+              <UserPrivacy />
+            </>
+          }
+        />
+        <Route
+          path='/user/profile/edit'
+          element={
+            <>
+              <Head title='프로필 수정' />
+              <ModifyProfile />
+            </>
+          }
+        />
+        <Route
+          path='/user/myspace'
+          element={
+            <>
+              <Head title='내 여행스페이스' />
+              <MySpace />
+            </>
+          }
+        />
+        <Route
+          path='/user/myreview'
+          element={
+            <>
+              <Head title='내 리뷰' />
+              <MyReview />
+            </>
+          }
+        />
+      </Route>
+      <Route
+        path='/search'
+        element={
+          <>
+            <Head title='검색' />
+            <SearchFromHome />
+          </>
+        }
+      />
+      <Route
+        path='/detail/:id'
+        element={
+          <>
+            <Head title='상세' />
+            <Detail />
+          </>
+        }
+      />
+      <Route
+        path='/votes/:id'
+        element={
+          <>
+            <Head title='투표' />
+            <Vote />
+          </>
+        }
+      />
+      <Route
+        path='/votes/:id/votememo'
+        element={
+          <>
+            <Head title='투표 메모' />
+            <VoteMemo />
+          </>
+        }
+      />
+      <Route
+        path='/votes/:id/map'
+        element={
+          <>
+            <Head title='지도' />
+            <CandidatesMap />
+          </>
+        }
+      />
+      <Route
+        path='/auth/login'
+        element={
+          <>
+            <Head title='로그인' />
+            <Login />
+          </>
+        }
+      />
+      <Route
+        path='/auth/signup'
+        element={
+          <>
+            <Head title='회원가입' />
+            <Signup />
+          </>
+        }
+      />
+      <Route
+        path='/auth/signup/agreePrivacy'
+        element={
+          <>
+            <Head title='개인정보수집 약관' />
+            <AgreePrivacy />
+          </>
+        }
+      />
+      <Route
+        path='/auth/signup/agreeService'
+        element={
+          <>
+            <Head title='서비스 이용 약관 ' />
+            <AgreeService />
+          </>
+        }
+      />
+      <Route
+        path='/auth/password/find'
+        element={
+          <>
+            <Head title='비밀번호 찾기' />
+            <FindPassword />
+          </>
+        }
+      />
+      <Route
+        path='/auth/password/modify'
+        element={
+          <>
+            <Head title='비밀번호 수정' />
+            <ModifyPassword />
+          </>
+        }
+      />
+      <Route
+        path='/auth/withdrawal'
+        element={
+          <>
+            <Head title='다음에 또 만나요' />
+            <Withdrawal />
+          </>
+        }
+      />
+      <Route
+        path='/trip/:id/selectDate'
+        element={
+          <>
+            <Head title='날짜 선택' />
+            <Calendar />
+          </>
+        }
+      />
+      <Route
+        path='/trip/:id/selectRegion'
+        element={
+          <>
+            <Head title='지역 탐색' />
+            <RegionSearch />
+          </>
+        }
+      />
+      <Route
+        path='/trip/:id/map'
+        element={
+          <>
+            <Head title='지도' />
+            <MapZoomIn />
+          </>
+        }
+      />
+      <Route
+        path='/trip/:id/add/vote'
+        element={
+          <>
+            <Head title='장소 추가' />
+            <AddPlaceFromVote />
+          </>
+        }
+      />
+      <Route
+        path='/wishes/bring'
+        element={
+          <>
+            <Head title='찜 가져오기' />
+            <Wishes />
+          </>
+        }
+      />
+    </Routes>
   );
 }
 
