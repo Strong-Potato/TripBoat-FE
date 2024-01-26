@@ -1,12 +1,11 @@
 @use '@/sass' as *;
 
-.cotainer {
+.container {
   width: 100%;
   max-width: 45rem;
   min-width: 36rem;
 }
 .header {
-  width: 45rem;
   min-width: 36rem;
   height: 12.4rem;
   padding: 24px 20px 14px;
