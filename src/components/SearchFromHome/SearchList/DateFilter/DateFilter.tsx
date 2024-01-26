@@ -40,6 +40,7 @@ function DateFilter({forSearch}: PropsType) {
             onClick={() => {
               selectSort(data);
             }}
+            key={data}
           >
             {data}
           </span>

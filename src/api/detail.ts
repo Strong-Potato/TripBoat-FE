@@ -1,5 +1,6 @@
-import {MySpaces, PlacesNearby, Reviews, ReviewsRating, Wishes, placeInfoData} from '@/types/detail';
 import axios from 'axios';
+
+import {MySpaces, placeInfoData, PlacesNearby, Reviews, ReviewsRating, Wishes} from '@/types/detail';
 
 // --------------------------- GET ---------------------------
 
@@ -27,13 +28,10 @@ export const getReviews = async (id: number, typeId: number, title: string): Pro
   return response.data;
 };
 
-export const getIsWish = async (id: number, setIsWish: React.Dispatch<React.SetStateAction<boolean>>) => {
+export const getIsWish = async (id: number) => {
   const response = await axios.get(`/api/wishes/${id}`, {
     withCredentials: true,
   });
-
-  setIsWish(response.data.data);
-
   console.log(response.data);
 
   return response.data;

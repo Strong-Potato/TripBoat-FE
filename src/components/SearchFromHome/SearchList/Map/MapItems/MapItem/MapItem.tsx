@@ -2,6 +2,8 @@ import {Link} from 'react-router-dom';
 
 import styles from './MapItem.module.scss';
 
+import WishBtn from '@/components/WishBtn/WishBtn';
+
 import areas from '@/utils/areas.json';
 import {translateCategoryToStr} from '@/utils/translateSearchData';
 
@@ -25,6 +27,7 @@ function MapItem({data, categoryChange}: PropsType) {
           {category}·{location}
         </span>
       </p>
+      <WishBtn contentTypeId={data.contentTypeId} placeId={data.id} className={styles.wishBtn} />
     </Link>
   );
 }

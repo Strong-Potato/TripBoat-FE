@@ -25,6 +25,7 @@ import User from '@/pages/User/User';
 import UserPrivacy from '@/pages/User/UserPrivacy/UserPrivacy';
 import Vote from '@/pages/Vote/Vote';
 import VoteMemo from '@/pages/Vote/VoteMemo/VoteMemo';
+import Wishes from '@/pages/Wishes/Wishes';
 import Dashboard from '@/routes/Dashboard/Dashboard';
 import {getTitle} from '@/utils/getTitle';
 
@@ -44,7 +45,7 @@ function MainRouter() {
         <Route element={<Dashboard />}>
           <Route index element={<Home />} />
           <Route path='/trip/:id' element={<Trip />} />
-          <Route path='/heart' element={<Home />} />
+          <Route path='/wishes' element={<Wishes />} />
           <Route path='/user' element={<User />} />
           <Route path='/user/privacy' element={<UserPrivacy />} />
           <Route path='/user/profile/edit' element={<ModifyProfile />} />
@@ -67,6 +68,7 @@ function MainRouter() {
         <Route path='/trip/:id/selectRegion' element={<RegionSearch />} />
         <Route path='/trip/:id/map' element={<MapZoomIn />} />
         <Route path='/trip/:id/add/vote' element={<AddPlaceFromVote />} />
+        <Route path='/wishes/bring' element={<Wishes />} />
       </Routes>
     </>
   );
