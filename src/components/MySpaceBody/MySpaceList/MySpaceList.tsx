@@ -21,7 +21,7 @@ function MySpaceList({tab}: MySpaceListProps) {
   return (
     <ul className={styles.container}>
       {tab === 'upcoming' &&
-        upcomingData?.data.spaces.map(({id, title, startDate, endDate, dueDate, thumbnail}: Spaces) => (
+        upcomingData?.data.spaces.map(({id, title, city, startDate, endDate, dueDate, thumbnail}: Spaces) => (
           <li
             key={id}
             onClick={() => {
@@ -29,25 +29,31 @@ function MySpaceList({tab}: MySpaceListProps) {
             }}
           >
             <div
-              className={`${styles.img} ${thumbnail ? styles.city : styles.default}`}
+              className={`${styles.img} ${thumbnail ? styles.city : styles.default} ${
+                dueDate !== null && styles.dimmed
+              }`}
               style={{
                 backgroundImage: `url(${thumbnail ? thumbnail : defaultCity})`,
               }}
             >
-              <span>{dueDate <= 0 ? '여행중' : `D-${dueDate}`}</span>
+              <span>{dueDate !== null ? (dueDate <= 0 ? '여행중' : `D-${dueDate}`) : ''}</span>
             </div>
 
             <div className={styles.content}>
-              <div className={styles.content__title}>{title}</div>
+              <div className={styles.content__city}>{city ? `${city}` : '여행지 미정'}</div>
 
-              <div className={styles.content__date}>{setSpaceDate(startDate, endDate)}</div>
+              <div className={styles.content__date}>
+                {startDate ? setSpaceDate(startDate, endDate) : '여행 날짜를 정해주세요!'}
+              </div>
+
+              <div className={styles.content__title}>{title}</div>
             </div>
           </li>
         ))}
 
       {tab === 'outdated' &&
         outdatedData?.pages.map((page) =>
-          page.data.spaces.map(({id, title, startDate, endDate, thumbnail}: Spaces) => (
+          page.data.spaces.map(({id, title, city, startDate, endDate, thumbnail}: Spaces) => (
             <li
               key={id}
               onClick={() => {
@@ -62,9 +68,13 @@ function MySpaceList({tab}: MySpaceListProps) {
               ></div>
 
               <div className={styles.content}>
-                <div className={styles.content__title}>{title}</div>
+                <div className={styles.content__city}>{city ? `${city}` : '여행지 미정'}</div>
 
-                <div className={styles.content__date}>{setSpaceDate(startDate, endDate)}</div>
+                <div className={styles.content__date}>
+                  {startDate ? setSpaceDate(startDate, endDate) : '여행 날짜를 정해주세요!'}
+                </div>
+
+                <div className={styles.content__title}>{title}</div>
               </div>
             </li>
           )),
