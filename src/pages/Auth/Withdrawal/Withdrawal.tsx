@@ -29,33 +29,36 @@ function Withdrawal() {
       password: '',
     },
   });
+
   const password = watch('password');
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const showToast = CustomToast();
   const navigate = useNavigate();
+
+  const showFailedSignout = () => {
+    showToast('비밀번호가 일치하지 않습니다.');
+    resetField('password');
+    setIsModalOpen(false);
+  };
 
   const signout = async () => {
     try {
       const res =
         data?.data.provider === 'NONE' ? await authRequest.withdrawal(password) : await authRequest.withdrawal();
 
-      console.log(res);
+      console.log('signout response', res);
 
       if (res.data.responseCode === 206) {
-        showToast('비밀번호가 일치하지 않습니다.');
-        resetField('password');
-        setIsModalOpen(false);
+        showFailedSignout();
         return;
       }
 
       setIsModalOpen(false);
-      navigate('/');
+      navigate('/', {replace: true});
     } catch (error) {
       console.log(error);
       // 백엔드 validation 오류 - 리팩토링 시 responseCode 조건 걸 예정
-      showToast('비밀번호가 일치하지 않습니다.');
-      resetField('password');
-      setIsModalOpen(false);
+      showFailedSignout();
     }
   };
 

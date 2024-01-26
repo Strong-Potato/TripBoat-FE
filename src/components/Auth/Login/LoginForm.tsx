@@ -1,12 +1,12 @@
-import axios from 'axios';
-import {useState} from 'react';
-import {SubmitHandler, useForm} from 'react-hook-form';
+import {FormEvent, useState} from 'react';
+import {useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
 
 import styles from './LoginForm.module.scss';
 
 import AuthButton from '@/components/Auth/Button/AuthButton';
 
+import {authRequest} from '@/api/auth';
 import validationForm from '@/utils/inputValidation';
 
 import InputEmail from './LoginInput/InputEmail';
@@ -18,7 +18,7 @@ function LoginForm() {
   const {
     register,
     resetField,
-    handleSubmit,
+    getValues,
     formState: {dirtyFields},
   } = useForm<AuthForm>({
     defaultValues: {
@@ -41,21 +41,16 @@ function LoginForm() {
     return false;
   };
 
-  const onSubmit: SubmitHandler<AuthForm> = async (data) => {
-    const {email, password} = data;
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const {email, password} = getValues();
 
     if (showError(email as string, password as string)) return;
 
     try {
-      const res = await axios.post(
-        '/api/login',
-        {
-          email,
-          password,
-        },
-        {withCredentials: true},
-      );
-      console.log(res);
+      const res = await authRequest.login(email as string, password as string);
+      console.log('login response', res);
 
       if (res.data.responseCode === 401) {
         setValidationError(true);
@@ -69,7 +64,7 @@ function LoginForm() {
   };
 
   return (
-    <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.container} onSubmit={onSubmit}>
       <InputEmail label='이메일' register={register} resetField={resetField} dirtyFields={dirtyFields} />
 
       <InputPassword label='비밀번호' register={register} resetField={resetField} dirtyFields={dirtyFields} />

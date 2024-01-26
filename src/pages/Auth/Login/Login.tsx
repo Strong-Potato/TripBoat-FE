@@ -7,6 +7,7 @@ import {useGetMyInfo} from '@/hooks/User/useUser';
 
 import LoginForm from '@/components/Auth/Login/LoginForm';
 
+import {authRequest} from '@/api/auth';
 import KakaoIcon from '@/assets/kakao/kakao_path.svg?react';
 import Logo from '@/assets/logo.svg?react';
 
@@ -22,10 +23,8 @@ function Login() {
 
   const onClickKakao = async () => {
     try {
-      const res = axios.post('/api/oauth2/authorization/kakao', null, {
-        withCredentials: true,
-      });
-      console.log(res);
+      const res = await authRequest.login_kakao();
+      console.log('login_kakao response', res);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error);
