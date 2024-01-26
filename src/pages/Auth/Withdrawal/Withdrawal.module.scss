@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   color: $neutral900;
@@ -16,7 +16,7 @@
         margin-left: 4px;
         vertical-align: text-top;
 
-        background-image: url("@/assets/icons/crying_imoji.svg");
+        background-image: url('@/assets/icons/crying_imoji.svg');
         background-position: center;
         background-repeat: no-repeat;
       }
@@ -41,6 +41,36 @@
 
       & > li {
         margin-bottom: 8px;
+      }
+    }
+
+    .input {
+      width: 100%;
+      margin-top: 6px;
+      margin-bottom: 24px;
+      padding: 16px;
+      border: 1px solid $neutral200;
+      border-radius: 8px;
+
+      @include typography(bodyLarge);
+      color: $neutral900;
+
+      &:focus {
+        outline: none;
+        border-width: 1px;
+        border-color: $primary300;
+      }
+
+      &::placeholder {
+        color: $neutral400;
+      }
+
+      &.error {
+        border-color: $danger300;
+      }
+
+      &:disabled {
+        color: $neutral300;
       }
     }
   }
