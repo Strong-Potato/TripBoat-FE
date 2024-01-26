@@ -69,6 +69,7 @@ function Detail() {
               onClose={handleSlideOnClose}
               id={placeInfo.id}
               contentTypeId={placeInfo.contentTypeId}
+              title={placeInfo.title}
             />,
             false,
           )

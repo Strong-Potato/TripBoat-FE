@@ -38,6 +38,7 @@ export interface NavigationMeatballProps {
   onClose: () => void;
   id: number;
   contentTypeId: number;
+  title: string;
 }
 
 // Main
