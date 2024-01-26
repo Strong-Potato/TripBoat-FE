@@ -2,11 +2,13 @@ import {Dispatch} from 'react';
 import {SwiperRef} from 'swiper/react';
 
 export interface DraggablePlaceCardProps {
-  id: number;
+  selectedId: number;
   order: number;
   name: string;
   category: string;
   address: string;
+  placeId: number;
+  contentTypeId: number;
   editMode: boolean;
   selectedPlaces: string[];
   onSelect: (name: string) => void;
@@ -17,13 +19,12 @@ export interface DraggablePlaceCardProps {
 export type PlaceCardProps = Pick<DraggablePlaceCardProps, 'order' | 'name' | 'category' | 'address'>;
 
 export interface PlaceOrder {
-  id: number;
-  Order: number;
+  selectedId: number;
+  order: number;
   place: Place;
 }
 
 export interface Place {
-  id: number;
   title: string;
   thumbnail: string;
   address: string;
@@ -31,27 +32,8 @@ export interface Place {
   latitude: number;
   longitude: number;
   category: string;
-}
-
-export interface Journey {
-  id: number;
-  date: string;
-  places: PlaceOrder[];
-}
-
-export interface PlaceList {
-  id: number;
-  Order: number;
-  place: {
-    id: number;
-    title: string;
-    thumbnail: string;
-    address: string;
-    addressDetail: string;
-    latitude: number;
-    longitude: number;
-    category: string;
-  };
+  contentTypeId: number;
+  placeId: number;
 }
 
 export interface DayRouteProps {
@@ -97,10 +79,53 @@ export interface LatLng {
 export interface MapInTripProps {
   mapRef: React.RefObject<kakao.maps.Map>;
   center: LatLng;
+  journeysData: Journeys;
+}
+
+export interface Journey {
+  journeyId: number;
+  date: string;
+  places: PlaceList[];
+}
+
+export interface PlaceList {
+  selectedId: number;
+  order: number;
+  place: {
+    title: string;
+    thumbnail: string;
+    address: string;
+    addressDetail: string;
+    latitude: number;
+    longitude: number;
+    category: string;
+    contentTypeId: number;
+    placeId: number;
+  };
 }
 
 export interface Journeys {
   journeys: Journey[];
+  // journeys: {
+  //   journeyId: number;
+  //   date: number;
+  //   places: [
+  //     {
+  //       selectedId: number;
+  //       order: 0;
+  //       place: {
+  //         placeId: number;
+  //         title: string;
+  //         thumbnail: string;
+  //         address: string;
+  //         addressDetail: string;
+  //         latitude: number;
+  //         longitude: number;
+  //         category: string;
+  //       };
+  //     },
+  //   ];
+  // };
 }
 
 export interface RouteMapSlideProps {
@@ -132,6 +157,7 @@ export interface SpaceResponse {
     title: string;
     startDate: string | null;
     endDate: string | null;
+    dueDate: number;
     city: string | null;
     thumbnail: string | null;
     members: [
@@ -142,6 +168,7 @@ export interface SpaceResponse {
       },
     ];
   };
+  status: number;
   responseCode: number;
   detail?: string;
 }
@@ -155,4 +182,34 @@ export interface SpaceDateParams {
   spaceId: number;
   startDate: string;
   endDate: string;
+}
+
+export interface Member {
+  id: number;
+  nickname: string;
+  profile: string;
+}
+
+export interface Members {
+  members: Member[];
+}
+
+export interface ExitSpaceParams {
+  spaceId: number;
+}
+
+export interface PlaceParams {
+  spaceId: number;
+  journeyId: number;
+  placeIds: number[];
+}
+
+export interface SelectPlace {
+  journeyId: number;
+  placeIds: number[];
+}
+
+export interface journeyParams {
+  spaceId: number;
+  places: SelectPlace[];
 }

@@ -17,6 +17,7 @@ import Home from '@/pages/Home/Home';
 import MapZoomIn from '@/pages/MapZoomIn/MapZoomIn';
 import RegionSearch from '@/pages/RegionSearch/RegionSearch';
 import SearchFromHome from '@/pages/SearchFromHome/SearchFromHome';
+import CheckTrip from '@/pages/Trip/CheckTrip';
 import Trip from '@/pages/Trip/Trip';
 import ModifyProfile from '@/pages/User/ModifyProfile/ModifyProfile';
 import MyReview from '@/pages/User/MyReview/MyReview';
@@ -43,6 +44,7 @@ function MainRouter() {
       <Routes>
         <Route element={<Dashboard />}>
           <Route index element={<Home />} />
+          <Route path='/trip' element={<CheckTrip />} />
           <Route path='/trip/:id' element={<Trip />} />
           <Route path='/heart' element={<Home />} />
           <Route path='/user' element={<User />} />
