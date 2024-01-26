@@ -2,24 +2,23 @@
 
 .container {
   width: 100%;
-  max-height: 70px;
+  min-height: 64px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
 
-  padding: 16px 0;
-
   .itemBox {
-    max-height: 70px;
+    min-height: 64px;
 
     display: flex;
+    align-items: center;
     gap: 12px;
 
     img {
-      width: 4rem;
-      height: 4rem;
+      width: 64px;
+      height: 64px;
 
       border-radius: 0.8rem;
 

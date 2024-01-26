@@ -21,6 +21,8 @@ export interface Wishes {
 
 export interface WishFilterType {
   category: number;
+  location: string;
   placeID: string;
   tripDate: string;
+  sort: string;
 }
