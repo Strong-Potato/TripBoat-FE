@@ -8,7 +8,6 @@ export const useGetIsWish = (id: number) => {
   return useSuspenseQuery({
     queryKey: ['isWish', id],
     queryFn: () => getIsWish(id),
-    refetchOnWindowFocus: false,
   });
 };
 

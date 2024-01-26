@@ -1,9 +1,6 @@
-
-import {MySpaces, PlacesNearby, PostReview, Reviews, ReviewsRating, Wishes, placeInfoData} from '@/types/detail';
-
 import axios from 'axios';
 
-import {MySpaces, placeInfoData, PlacesNearby, Reviews, ReviewsRating, Wishes} from '@/types/detail';
+import {MySpaces, placeInfoData, PlacesNearby, PostReview, Reviews, ReviewsRating, Wishes} from '@/types/detail';
 
 // --------------------------- GET ---------------------------
 
