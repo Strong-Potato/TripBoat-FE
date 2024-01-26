@@ -55,6 +55,7 @@ function InputEmailSert({register, email, due, setDue, type}: InputEmailSertProp
         maxLength={8}
         placeholder='인증코드 8자리를 입력해주세요'
         disabled={due === 0}
+        autoComplete='off'
         {...register('emailSert', {
           required: true,
           pattern: {
