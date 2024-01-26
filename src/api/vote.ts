@@ -6,12 +6,13 @@ import {
   PostNewCandidateProps,
   PostVoteTitleProps,
   PostVotingProps,
+  VoteInfoRes,
 } from '@/types/vote';
 
 /* ----------------------------------- G E T ---------------------------------- */
 
 //단일 보트
-export const getVoteInfo = async (voteId: number) => {
+export const getVoteInfo = async (voteId: number): Promise<VoteInfoRes> => {
   const response = await axios.get(`/api/votes/${voteId}`, {withCredentials: true});
   return response.data;
 };
@@ -53,7 +54,7 @@ export const postVoting = async ({voteId, candidateId}: PostVotingProps) => {
 
 //후보 메모 후 추가
 export const postNewCandidate = async ({voteId, candidateInfos}: PostNewCandidateProps) => {
-  const response = await axios.post(`/api/votes/${voteId}/candidates`, {params: {candidateInfos}});
+  const response = await axios.post(`/api/votes/${voteId}/candidates`, {candidateInfos, withCredentials: true});
   return response.data;
 };
 
@@ -69,8 +70,8 @@ export const editVoteTitle = async ({title, voteId}: EditVoteTitleProps) => {
   }
 };
 
-//투표 상태 결과보기로 변경
-export const changeStatusComplete = async (voteId: number) => {
+//투표 상태 결과보기/진행중 변경
+export const changeStatus = async (voteId: number) => {
   try {
     const response = await axios.put(`/api/votes/${voteId}/voteStatus`);
     return response.data;
@@ -80,9 +81,9 @@ export const changeStatusComplete = async (voteId: number) => {
 };
 
 //재투표, 리셋
-export const resetVoteStatus = async (voteId: number) => {
+export const resetShowResults = async (voteId: number) => {
   try {
-    const response = await axios.put(`/api/votes/${voteId}`);
+    const response = await axios.put(`/api/votes/${voteId}/reset`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -95,14 +96,13 @@ export const resetVoteStatus = async (voteId: number) => {
 export const deleteVote = async (voteId: number) => {
   try {
     const response = await axios.delete(`/api/votes/${voteId}/voteStatus`, {withCredentials: true});
-    console.log('투표삭제', response.data);
     return response.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-//candidate 삭제- api 미정 / candidateId:number[] 여러아이디 배열에 담음
+//candidate 삭제- api 미정 / candidateId:number[] 여러아이디 배열에 담음 -> params 빼면 에러
 export const deleteCandidates = async ({voteId, candidateIds}: DeleteCandidatesProps) => {
   try {
     const response = await axios.delete(`/api/votes/${voteId}/candidates`, {
