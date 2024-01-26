@@ -1,12 +1,17 @@
 import {AiOutlineHeart as WishIcon} from 'react-icons/ai';
 import {AiOutlineSearch as SearchIcon} from 'react-icons/ai';
 import {BiTask as VoteIcon} from 'react-icons/bi';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 import styles from './AddPlace.module.scss';
 
-function AddPlace() {
+import {AddPlaceProps} from '@/types/route';
+
+function AddPlace({journeyId}: AddPlaceProps) {
   const navigate = useNavigate();
+  const {id} = useParams();
+
+  console.log(journeyId);
 
   return (
     <>
@@ -32,7 +37,7 @@ function AddPlace() {
             <p>찜 목록 검색</p>
           </div>
           <div className={styles.buttonContainer}>
-            <button>
+            <button onClick={() => navigate(`/trip/${id}/add/vote`, {state: {id: id, journeyId: journeyId}})}>
               <VoteIcon color='#62AAFF' size='2.4rem' />
             </button>
             <p>투표 불러오기</p>

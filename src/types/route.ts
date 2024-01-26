@@ -52,6 +52,7 @@ export interface DayRouteProps {
     selectedPlaces: SelectedPlace[],
     setSelectedPlaces: React.Dispatch<React.SetStateAction<SelectedPlace[]>>,
   ) => void;
+  onEditButtonClick: (journeyId: number) => void;
 }
 
 export interface RouteTabPanelProps {
@@ -239,4 +240,8 @@ export interface DayMoveProps {
   selectedPlaces: SelectedPlace[];
   onClose: () => void;
   setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface AddPlaceProps {
+  journeyId: number;
 }

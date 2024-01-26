@@ -27,6 +27,10 @@ function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const {isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose} = useDisclosure();
 
+  const handleAddButtonClick = (journeyId: number) => {
+    console.log(journeyId, '에 일정 추가하기');
+  };
+
   const handleEditMode = () => {
     setIsEditMode(!isEditMode);
 
@@ -40,7 +44,7 @@ function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
   const navigate = useNavigate();
   const spaceId = getSpaceId();
 
-  if (!journeysData.journeys || journeysData.journeys.length === 0) {
+  if (!journeysData?.journeys || journeysData?.journeys?.length === 0) {
     return <EmptyDate />;
   }
 
@@ -71,6 +75,7 @@ function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
                 selectedPlaces={selectedPlaces}
                 setSelectedPlaces={setSelectedPlaces}
                 handlePlaceSelection={handlePlaceSelection}
+                onEditButtonClick={handleAddButtonClick}
               />
             ))}
         </div>
