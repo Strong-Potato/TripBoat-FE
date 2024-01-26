@@ -101,8 +101,8 @@ function DayRoute({
                   placeId={place.place.placeId}
                   editMode={editMode}
                   selectedPlaces={selectedPlaces}
-                  onSelect={(journeyId, selectedId) =>
-                    handlePlaceSelection(journeyId, selectedId, selectedPlaces, setSelectedPlaces)
+                  onSelect={(journeyId, selectedId, placeId) =>
+                    handlePlaceSelection(journeyId, selectedId, placeId, selectedPlaces, setSelectedPlaces)
                   }
                   moveCard={moveCard}
                   findCard={findCard}

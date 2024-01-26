@@ -12,7 +12,7 @@ export interface DraggablePlaceCardProps {
   contentTypeId: number;
   editMode: boolean;
   selectedPlaces: SelectedPlace[];
-  onSelect: (journeyId: number, selectedId: number) => void;
+  onSelect: (journeyId: number, selectedId: number, placeId: number) => void;
   moveCard: (id: number, atIndex: number) => void;
   findCard: (id: number) => {card: PlaceList; index: number};
 }
@@ -48,6 +48,7 @@ export interface DayRouteProps {
   handlePlaceSelection: (
     journeyId: number,
     selectedId: number,
+    placeId: number,
     selectedPlaces: SelectedPlace[],
     setSelectedPlaces: React.Dispatch<React.SetStateAction<SelectedPlace[]>>,
   ) => void;
@@ -225,9 +226,17 @@ export interface journeyParams {
 export interface SelectedPlace {
   journeyId: number;
   selectedId: number;
+  placeId: number;
 }
 
 export interface TransformedDataItem {
   journeyId: number;
   selectedIds: number[];
+}
+
+export interface DayMoveProps {
+  journeysData: Journeys;
+  selectedPlaces: SelectedPlace[];
+  onClose: () => void;
+  setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
 }

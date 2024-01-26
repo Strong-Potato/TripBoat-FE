@@ -7,6 +7,8 @@ import {useNavigate} from 'react-router-dom';
 
 import styles from '../PlaceCard/PlaceCard.module.scss';
 
+import titleCaseChange from '@/utils/titleCaseChange';
+
 import {Item} from '@/types/route';
 import {DraggablePlaceCardProps} from '@/types/route';
 
@@ -60,7 +62,7 @@ function PlaceCard({
   const handleSelect = () => {
     setIsChecked(!isChecked);
     // TODO: place id 넘기기
-    onSelect(journeyId, selectedId);
+    onSelect(journeyId, selectedId, placeId);
   };
 
   return (
@@ -79,7 +81,7 @@ function PlaceCard({
         <div className={styles.placeContainer}>
           {editMode && <div className={styles.numberContainer}>{order}</div>}
           <div className={styles.placeInformation}>
-            <h1>{name}</h1>
+            <h1>{titleCaseChange(name)}</h1>
             <h2>{category}</h2>
             <p>{address}</p>
           </div>

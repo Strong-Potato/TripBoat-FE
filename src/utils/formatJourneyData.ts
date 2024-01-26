@@ -5,10 +5,11 @@ import {SelectedPlace, TransformedDataItem} from '@/types/route';
 export const handlePlaceSelection = (
   journeyId: number,
   selectedId: number,
+  placeId: number,
   selectedPlaces: SelectedPlace[],
   setSelectedPlaces: React.Dispatch<React.SetStateAction<SelectedPlace[]>>,
 ) => {
-  const selectedPlace: SelectedPlace = {journeyId, selectedId};
+  const selectedPlace: SelectedPlace = {journeyId, selectedId, placeId};
 
   if (isSelected(selectedPlace, selectedPlaces)) {
     setSelectedPlaces((prevSelectedPlaces) =>

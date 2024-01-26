@@ -90,7 +90,14 @@ function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
       <BottomSlideLeft
         isOpen={selectedPlaces.length > 0 && isOpen}
         onClose={onClose}
-        children={<DayMove selectedPlaces={selectedPlaces} />}
+        children={
+          <DayMove
+            journeysData={journeysData}
+            selectedPlaces={selectedPlaces}
+            onClose={onClose}
+            setIsEditMode={setIsEditMode}
+          />
+        }
       />
       <DeletePlacesModal
         isOpen={isModalOpen}
