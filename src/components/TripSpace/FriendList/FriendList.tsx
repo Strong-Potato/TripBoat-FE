@@ -4,6 +4,7 @@ import styles from './FriendList.module.scss';
 
 import {Member, Members} from '@/types/route';
 function FriendList({members}: Members) {
+  if (!members) return <div></div>;
   return (
     <div className={styles.container}>
       <p className={styles.container__title}>여행을 함께하는 친구 {members.length}명</p>
