@@ -1,7 +1,7 @@
 import {Button} from '@chakra-ui/react';
 import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
-import {useRecoilState, useRecoilValue} from 'recoil';
+import {useRecoilState} from 'recoil';
 
 import styles from './VoteMemo.module.scss';
 
@@ -17,17 +17,18 @@ import {isBottomSlideOpenState} from '@/recoil/vote/bottomSlide';
 import {selectedPlaceState} from '@/recoil/vote/selectPlace';
 import {selectedTaglineState} from '@/recoil/vote/voteMemo';
 
-import {TaglineType} from '@/types/vote';
+import {TaglineType, VoteInfo} from '@/types/vote';
 // import { selectedPlaceState } from '@/recoil/vote/selectPlace';
 
 const VoteMemo = () => {
   const {id: voteId} = useParams();
-  const {data: voteInfo} = useGetVotesInfo(Number(voteId));
+  const {data: voteInfoData} = useGetVotesInfo(Number(voteId));
+  const voteInfo = voteInfoData?.data as VoteInfo;
   // const navigate = useNavigate();
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
-  // const [selectedPlaces, SetSelectedPlaces] = useRecoilState(selectedPlaceState);
-  const selectedPlaces = useRecoilValue(selectedPlaceState);
+  const [selectedPlaces, SetSelectedPlaces] = useRecoilState(selectedPlaceState);
+  // const selectedPlaces = useRecoilValue(selectedPlaceState);
   const {toggleItemInNewArray} = useGetSelectedArray(selectedTaglineState);
 
   const getExistingTaglines = localStorage.getItem('recoil-persist');
@@ -56,6 +57,7 @@ const VoteMemo = () => {
 
   const handleAddCandidates = () => {
     console.log('최종 내용 : ', selectedTagline);
+    SetSelectedPlaces([]);
     localStorage.removeItem('recoil-persist');
     //navigate(`/votes/${voteInfo.id}`)
   };

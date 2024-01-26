@@ -5,7 +5,7 @@ import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './Vote.module.scss';
 
-import {useGetVotesInfo} from '@/hooks/Votes/vote';
+import {useGetVotesInfo, useResetShowResults} from '@/hooks/Votes/vote';
 
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
 import AddCandidate from '@/components/Vote/VoteBottomSlideContent/AddCandidate/AddCandidate';
@@ -23,29 +23,30 @@ import {VoteInfo} from '@/types/vote';
 
 const Vote = () => {
   const {id: voteId} = useParams();
-  const data = useGetVotesInfo(Number(voteId));
-  const voteInfo = data.data?.data;
-
-  console.log('voteInfo', voteInfo);
-
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const [isCandidateSelecting, setIsCandidateSelecting] = useRecoilState(isCandidateSelectingState);
   const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
   const [showResults, setShowResults] = useRecoilState(showResultsState);
   const [bottomSlideContent, setBottomSlideContent] = useState<ReactNode | null>(null);
+  const {data: voteInfoData} = useGetVotesInfo(Number(voteId));
+  const voteInfo = voteInfoData?.data;
 
-  const isZeroCandidates = voteInfo.candidates.length === 0;
+  const isZeroCandidates = voteInfo?.candidates.length === 0;
+  // const resultsInfoData = useGetVotesResults(Number(voteId));
+  // const resultsInfo = resultsInfoData.data?.data;
+  const resetShowResultsMutation = useResetShowResults();
 
   function areAllCandidatesNotVoted(voteInfo: VoteInfo): boolean {
-    return voteInfo.candidates.every((candidate) => !candidate.amIVoted);
+    return voteInfo?.candidates.every((candidate) => !candidate.amIVote);
   }
-  const allCandidatesNotVoted = areAllCandidatesNotVoted(voteInfo);
+  const allCandidatesNotVoted = voteInfo && areAllCandidatesNotVoted(voteInfo);
 
-  // console.log()
-
+  console.log('voteInfo', voteInfo);
   useEffect(() => {
-    if (voteInfo.voteStatus === '결정완료') {
+    if (voteInfo?.voteStatus === '결정완료') {
       setShowResults(true);
+    } else if (voteInfo?.voteStatus === '진행 중') {
+      setShowResults(false);
     }
     setIsCandidateSelecting(false);
     setSelectedCandidates(new Set());
@@ -59,17 +60,21 @@ const Vote = () => {
     setIsCandidateSelecting(false);
   };
 
+  const resetShowResults = async () => {
+    await resetShowResultsMutation.mutateAsync(Number(voteId));
+  };
+
   const handleShowResultsClick = () => {
-    BottomSlideOpen(<AddCandidate />);
-    // if (isZeroCandidates) {
-    //   return '후보 추가하기'; 후보 추가 연결
-    // } else if (showResults) {
-    //   return '다시 투표하기'; //리셋 mutate
-    // } else {
-    //   return '결과보기'; //결과보기 api연결
-    // }
-    // setShowResults(!showResults);
-    // console.log('showResults', showResults);
+    if (isZeroCandidates) {
+      BottomSlideOpen(<AddCandidate />);
+    } else if (showResults) {
+      resetShowResults(); //리셋
+    } else {
+      //   resultsInfo
+      // }
+      // setShowResults(!showResults);
+      // console.log('showResults', showResults);
+    }
   };
 
   const getButtonStatus = () => {
@@ -81,6 +86,10 @@ const Vote = () => {
       return '결과보기';
     }
   };
+
+  if (!voteInfo) {
+    return;
+  }
 
   return (
     <div className={styles.container}>
@@ -109,14 +118,13 @@ const Vote = () => {
           showResults={voteInfo.voteStatus === '결정완료' ? true : showResults}
         />
       )}
-      {!isCandidateSelecting && voteInfo.voteStatus === 'VOTING' && (
+      {!isCandidateSelecting && voteInfo.voteStatus === '진행 중' && (
         <Button
           variant='CTAButton'
           onClick={handleShowResultsClick}
           isDisabled={!isZeroCandidates && allCandidatesNotVoted}
         >
           {getButtonStatus()}
-          {/* {showResults ? '다시 투표하기' : '결과보기'} */}
         </Button>
       )}
       <BottomSlide isOpen={isBTOpen} onClose={() => setIsBTOpen(false)} children={bottomSlideContent} />

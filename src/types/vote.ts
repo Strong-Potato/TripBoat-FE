@@ -18,7 +18,7 @@ export interface PlaceInfo {
   placeId: number;
   placeName: string;
   category: string;
-  location?: string; // 빠짐
+  areaCode: string;
   placeImageURL: string;
   latlng: Latlng;
 }
@@ -29,7 +29,7 @@ export interface CandidatesInfo {
   placeInfo: PlaceInfo;
   createdBy: UserInfo;
   tagline: string;
-  amIVoted: boolean;
+  amIVote: boolean;
   //임시
   votedMemberProfiles?: UserInfo[];
   voteCount?: number;
@@ -61,11 +61,17 @@ export interface VoteResultInfo {
   id: number;
   title: string;
   voteStatus: string;
-  ownerProfile: UserInfo; // 이름 통일 요청
+  createdBy: UserInfo; // 이름 통일 요청
   candidates: ResultCandidatesInfo[];
 }
 
 ////////////////INFO//////////////////
+
+export interface VoteInfoRes {
+  status: number;
+  message: string;
+  data: VoteInfo;
+}
 
 export interface VoteBottomButtonProps {
   onClick: () => void;
@@ -96,7 +102,7 @@ export interface VoteMeatballProps {
   state: string;
   title: string;
   isZeroCandidates: boolean;
-  allCandidatesNotVoted: boolean;
+  allCandidatesNotVoted: boolean | undefined;
 }
 
 export interface AlertModalProps {
@@ -118,15 +124,6 @@ export interface CandidateListProps {
 export interface PostVoteTitleProps {
   spaceId: number;
   title: string;
-}
-
-//get아니고 후보메모post
-export interface PostNewCandidateProps {
-  voteId: number;
-  candidates: {
-    placeId: number;
-    tagline: string;
-  }[];
 }
 
 export interface CandidatesSlideProps {

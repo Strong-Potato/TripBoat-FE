@@ -55,7 +55,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, index, isMapStyle}: Candid
   const RankIcon = showResults && getRankIcon(index);
 
   const voteStarIcon = () => {
-    if (isVoted || candidate.amIVoted) return <FaStar style={{color: '#fee500'}} />;
+    if (isVoted || candidate.amIVote) return <FaStar style={{color: '#fee500'}} />;
     else if (isMapStyle) return <FaStar style={{color: '#e3e5e5'}} />;
     else return <FaRegStar />;
   };
@@ -90,7 +90,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, index, isMapStyle}: Candid
           <div className={styles.main__contextBox__category}>
             {placeInfo.category}
             {'ꞏ'}
-            {placeInfo.location}
+            {placeInfo.areaCode}
           </div>
 
           {/* 일정 담기

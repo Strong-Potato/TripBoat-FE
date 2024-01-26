@@ -1,10 +1,10 @@
 // import { useState } from "react";
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './VoteMeatball.module.scss';
 
-import {useChangeStatusComplete, useDeleteVote, useResetVoteStatus} from '@/hooks/Votes/vote';
+import {useChangeStatus, useDeleteVote} from '@/hooks/Votes/vote';
 
 import AlertModal from '@/components/AlertModal/AlertModal';
 
@@ -23,6 +23,7 @@ import {AlertModalProps, VoteMeatballProps} from '@/types/vote';
 
 const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: VoteMeatballProps) => {
   const {id: voteId} = useParams();
+  const navigate = useNavigate();
   const setIsCreateModalOpen = useSetRecoilState(isCreateModalOpenState);
   const setIsBTOpen = useSetRecoilState(isBottomSlideOpenState);
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
@@ -30,8 +31,7 @@ const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: V
   const setIsCandidateSelecting = useSetRecoilState(isCandidateSelectingState);
 
   const deleteVoteMutation = useDeleteVote();
-  const changeCompleteMutation = useChangeStatusComplete();
-  const resetStatusMutation = useResetVoteStatus();
+  const changeVoteStatusMutation = useChangeStatus();
 
   const showAlertModal = ({...content}: AlertModalProps) => {
     setIsBTOpen(false);
@@ -50,24 +50,20 @@ const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: V
   };
 
   const handleDeleteVote = async () => {
-    const res = await deleteVoteMutation.mutateAsync(Number(voteId));
-    console.log('delete 리액트쿼리:', res);
+    await deleteVoteMutation.mutateAsync(Number(voteId));
+    navigate('/trip/2');
+    setIsModalOpen(false);
   };
 
-  const handleChangeComplete = async () => {
-    const res = await changeCompleteMutation.mutateAsync(Number(voteId));
-    console.log('결정완료 리액트쿼리:', res);
-  };
-
-  const handleResetStatus = async () => {
-    const res = await resetStatusMutation.mutateAsync(Number(voteId));
-    console.log('재진행 리액트쿼리:', res);
+  const handleChangeVoteStatus = async () => {
+    await changeVoteStatusMutation.mutateAsync(Number(voteId));
+    setIsModalOpen(false);
   };
 
   return (
     <div className={styles.container}>
       {state === '결정완료' ? (
-        <button onClick={() => showAlertModal({onClickAction: handleResetStatus, ...retryVoteContent})}>
+        <button onClick={() => showAlertModal({onClickAction: handleChangeVoteStatus, ...retryVoteContent})}>
           <RepeatIcon />
           <p>투표 재진행</p>
         </button>
@@ -76,7 +72,7 @@ const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: V
           disabled={isZeroCandidates || allCandidatesNotVoted}
           onClick={() =>
             showAlertModal({
-              onClickAction: handleChangeComplete,
+              onClickAction: handleChangeVoteStatus,
               ...confirmVoteContent,
             })
           }
