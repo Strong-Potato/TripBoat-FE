@@ -15,7 +15,7 @@ const MemoContent = ({selectedPlaces}: {selectedPlaces: SearchItemType[]}) => {
         <MemoItem
           place={place}
           key={place.id}
-          existingTagline={existingTaglines?.find((tagline) => tagline.id === place.id)}
+          existingTagline={existingTaglines?.find((tagline) => tagline.placeId === place.id)}
         />
       ))}
     </div>

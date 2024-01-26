@@ -46,6 +46,7 @@ export const postNewVote = async ({spaceId, title}: PostVoteTitleProps) => {
 export const postVoting = async ({voteId, candidateId}: PostVotingProps) => {
   try {
     const response = await axios.post('/api/votes/voting', {voteId, candidateId});
+    console.log('투표 성공', response);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -63,9 +64,9 @@ export const postNewCandidate = async ({voteId, candidateInfos}: PostNewCandidat
 /* ----------------------------------- P U T ---------------------------------- */
 
 //voteTitle 수정 PUT - api미정
-export const editVoteTitle = async ({title, voteId}: EditVoteTitleProps) => {
+export const editVoteTitle = async ({title, voteId, spaceId}: EditVoteTitleProps) => {
   try {
-    const response = await axios.put(`/api/votes/${voteId}`, {params: {title, withCredentials: true}});
+    const response = await axios.patch(`/api/votes/${voteId}`, {spaceId, title, withCredentials: true});
     return response.data;
   } catch (error) {
     console.error(error);
@@ -108,7 +109,7 @@ export const deleteVote = async (voteId: number) => {
 export const deleteCandidates = async ({voteId, candidateIds}: DeleteCandidatesProps) => {
   try {
     const response = await axios.delete(`/api/votes/${voteId}/candidates`, {
-      params: {candidateIds, withCredentials: true},
+      data: {candidateIds},
     });
     return response.data;
   } catch (error) {

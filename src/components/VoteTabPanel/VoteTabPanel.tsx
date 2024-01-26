@@ -26,8 +26,6 @@ const VoteTabPanel = () => {
 
   const getVotesCount = (vote: VoteListInfo[] | undefined) => `총 ${vote ? vote.length : '0'}개`;
 
-  // console.log('voteListData', data);
-  console.log('voteListData', voteListData);
   console.log('voteListAllData', voteListAllData);
 
   return (

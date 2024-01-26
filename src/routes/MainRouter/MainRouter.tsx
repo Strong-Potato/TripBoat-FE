@@ -53,9 +53,9 @@ function MainRouter() {
         </Route>
         <Route path='/search' element={<SearchFromHome />} />
         <Route path='/detail/:id' element={<Detail />} />
-        <Route path='/votes/:id' element={<Vote />} />
-        <Route path='/votes/:id/votememo' element={<VoteMemo />} />
-        <Route path='/votes/:id/map' element={<CandidatesMap />} />
+        <Route path='/trip/:id/votes/:id' element={<Vote />} />
+        <Route path='/trip/:id/votes/:id/votememo' element={<VoteMemo />} />
+        <Route path='/trip/:id/votes/:id/map' element={<CandidatesMap />} />
         <Route path='/auth/login' element={<Login />} />
         <Route path='/auth/signup' element={<Signup />} />
         <Route path='/auth/signup/agreePrivacy' element={<AgreePrivacy />} />

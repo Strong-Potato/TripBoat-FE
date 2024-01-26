@@ -21,18 +21,21 @@ const MemoItem = ({place, existingTagline}: MemoItemProps) => {
     if (existingTagline) {
       setText(existingTagline.tagline);
     }
+    // return () => {};
   }, []);
 
   const handleCheckboxChange = () => {
     toggleItemInNewArray({
-      id: place.id,
+      placeId: place.id,
+      placeTypeId: place.contentTypeId,
       tagline: debouncedText,
     });
   };
 
   const handleDebouncedTextChange = useCallback(() => {
     setMemoArray({
-      id: place.id,
+      placeId: place.id,
+      placeTypeId: place.contentTypeId,
       tagline: debouncedText,
     });
   }, [debouncedText, place.id, setMemoArray]);

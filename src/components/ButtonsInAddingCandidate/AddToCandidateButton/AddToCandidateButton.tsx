@@ -1,4 +1,5 @@
 import {Button} from '@chakra-ui/react';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {useRecoilValue} from 'recoil';
 
 import {selectedPlaceState} from '@/recoil/vote/selectPlace';
@@ -7,21 +8,21 @@ import {selectedPlaceState} from '@/recoil/vote/selectPlace';
 const AddToCandidateButton = () => {
   const selectedPlaces = useRecoilValue(selectedPlaceState);
   const counts = selectedPlaces.length;
-  // const navigate = useNavigate();
-
-  // const addCandidates = () => {
-  //   // 경로 추후 수정
-  //   // navigate(`${pathname}/`, { replace: true })
-  // };
-  const trip = true;
-
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const spaceId = queryParams.get('placeID');
+  const navigate = useNavigate();
+  const tripDateParam = queryParams.get('tripDate');
+  const isInVote = tripDateParam === 'undefined';
+  const voteIdArray = tripDateParam?.split(' ') as string[]; // 띄어쓰기를 기준으로 문자열 분할
+  const voteId = voteIdArray[1];
+  const handleAddCandidates = () => {
+    // 경로 추후 수정
+    navigate(`trip/${spaceId}/votes/${voteId}/votememo`, {replace: true});
+  };
   return (
-    <Button
-      variant='CTAButton'
-      isDisabled={counts === 0}
-      // onClick={}
-    >
-      {counts ? `${counts}개 장소 ${trip ? '일정' : '후보'}에 추가하기` : '장소를 선택해주세요'}
+    <Button variant='CTAButton' isDisabled={counts === 0} onClick={handleAddCandidates}>
+      {counts ? `${counts}개 장소 ${isInVote ? '후보' : '일정'}에 추가하기` : '장소를 선택해주세요'}
     </Button>
   );
 };

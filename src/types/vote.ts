@@ -1,8 +1,6 @@
 import {Dispatch, ReactNode} from 'react';
 import {SwiperRef} from 'swiper/react';
 
-import {SearchItemType} from './home';
-
 interface UserInfo {
   id: number;
   nickName?: string;
@@ -19,7 +17,7 @@ export interface PlaceInfo {
   placeName: string;
   category: string;
   areaCode: string;
-  placeImageURL: string;
+  placeImageUrl: string;
   latlng: Latlng;
 }
 
@@ -140,15 +138,11 @@ export interface CreateVoteModalProps {
 export interface EditVoteTitleProps {
   title: string;
   voteId: number;
+  spaceId: number;
 }
 export interface DeleteCandidatesProps {
   voteId: number;
   candidateIds: number[];
-}
-
-export interface TaglineType {
-  id: number;
-  tagline: string;
 }
 
 export interface MemoItemProps {
@@ -161,11 +155,33 @@ export interface PostVotingProps {
   candidateId: number;
 }
 
+export interface TaglineType {
+  placeId: number;
+  placeTypeId: number;
+  tagline: string;
+}
+
 export interface PostNewCandidateProps {
   voteId: number;
-  candidateInfos: {
-    placeId: number;
-    placeTypeId: number;
-    tagline: string;
-  }[];
+  candidateInfos: TaglineType[];
+}
+/////
+
+export interface SearchItemType {
+  id: number;
+  contentTypeId: number;
+  title: string;
+  thumbnail: string;
+  location: SearchItemLocationType;
+  category: string;
+}
+export interface SearchItemLocationType {
+  address: string;
+  addressDetail: string;
+  phone: string;
+  areaCode: number;
+  sigunguCode: number;
+  zipCode: number;
+  latitude: number;
+  longitude: number;
 }

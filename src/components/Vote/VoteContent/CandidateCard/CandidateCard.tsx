@@ -1,9 +1,13 @@
 import {useState} from 'react';
 import {FaRegStar, FaStar} from 'react-icons/fa';
+import {useNavigate, useParams} from 'react-router-dom';
 import {useRecoilValue} from 'recoil';
 
 import styles from './CandidateCard.module.scss';
 
+import {usePostVoting} from '@/hooks/Votes/vote';
+
+import nullImg from '@/assets/homeIcons/search/nullImg.svg';
 import FirstIcon from '@/assets/voteIcons/rank_1.svg?react';
 import SecondIcon from '@/assets/voteIcons/rank_2.svg?react';
 import ThirdIcon from '@/assets/voteIcons/rank_3.svg?react';
@@ -17,11 +21,14 @@ import VotedUserList from '../../VoteBottomSlideContent/VotedUserList/VotedUserL
 import {CandidateCardProps} from '@/types/vote';
 
 const CandidateCard = ({onBottomSlideOpen, candidate, index, isMapStyle}: CandidateCardProps) => {
+  const navigate = useNavigate();
   const [isVoted, setIsVoted] = useState(false);
   const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
+  const {id: voteId} = useParams();
+  const votingMutation = usePostVoting();
   const showResults = useRecoilValue(showResultsState);
-
   const placeInfo = candidate.placeInfo;
+  const imgSrc = placeInfo.placeImageUrl ? placeInfo.placeImageUrl : nullImg;
 
   //순위 받아서 색주기, 인덱스 말고
 
@@ -60,17 +67,23 @@ const CandidateCard = ({onBottomSlideOpen, candidate, index, isMapStyle}: Candid
     else return <FaRegStar />;
   };
 
-  const onVoteBoxClick = () => {
+  const onVoteBoxClick = async () => {
+    const res = await votingMutation.mutateAsync({voteId: Number(voteId), candidateId: candidate.id});
+    console.log('보트res', res);
     if (showResults && onBottomSlideOpen) {
       onBottomSlideOpen(<VotedUserList />);
     } else {
+      await votingMutation.mutateAsync({voteId: Number(voteId), candidateId: candidate.id});
+
       setIsVoted(!isVoted);
     }
   };
 
+  console.log('candidate', candidate);
+
   return (
     <div className={`${styles.container} ${rankClassName} candidateCard ${isMapStyle ? styles.isMapStyle : ''}`}>
-      <img src={placeInfo.placeImageURL} alt={placeInfo.placeName} />
+      <img className={styles.placeImg} src={imgSrc} alt={placeInfo.placeName} />
       {RankIcon && (
         <div className={styles.rankTag}>
           <RankIcon />
@@ -81,7 +94,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, index, isMapStyle}: Candid
         <div className={styles.main__contextBox}>
           <button
             className={styles.main__contextBox__name}
-            // onClick={navigate로 넣기}
+            onClick={() => navigate(`/detail/${candidate.id}`)}
             disabled={isCandidateSelecting}
           >
             {placeInfo.placeName.length >= 10 ? placeInfo.placeName.slice(0, 10) + ' ⋯' : placeInfo.placeName}

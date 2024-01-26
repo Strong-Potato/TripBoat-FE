@@ -1,12 +1,12 @@
 import {Button} from '@chakra-ui/react';
 import {useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 
 import styles from './VoteMemo.module.scss';
 
 import useGetSelectedArray from '@/hooks/useGetSelectedArray';
-import {useGetVotesInfo} from '@/hooks/Votes/vote';
+import {useGetVotesInfo, usePostNewCandidate} from '@/hooks/Votes/vote';
 
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
 import AddCandidate from '@/components/Vote/VoteBottomSlideContent/AddCandidate/AddCandidate';
@@ -24,7 +24,8 @@ const VoteMemo = () => {
   const {id: voteId} = useParams();
   const {data: voteInfoData} = useGetVotesInfo(Number(voteId));
   const voteInfo = voteInfoData?.data as VoteInfo;
-  // const navigate = useNavigate();
+  const postCandidateMutation = usePostNewCandidate();
+  const navigate = useNavigate();
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
   const [selectedPlaces, SetSelectedPlaces] = useRecoilState(selectedPlaceState);
@@ -32,39 +33,53 @@ const VoteMemo = () => {
   const {toggleItemInNewArray} = useGetSelectedArray(selectedTaglineState);
 
   const getExistingTaglines = localStorage.getItem('recoil-persist');
+  const existingTaglines: TaglineType[] = getExistingTaglines && JSON.parse(getExistingTaglines).selectedTaglineState;
+
+  // console.log('selectedPlaces', selectedPlaces);
 
   const setInitializeTagline = () => {
-    setSelectedTagline(selectedPlaces?.map((place) => ({id: place.id, tagline: ''})));
+    console.log('새로 세팅');
+    setSelectedTagline(
+      selectedPlaces?.map((place) => ({placeId: place.id, placeTypeId: place.contentTypeId, tagline: ''})),
+    );
   };
 
   const setExistingTagline = () => {
-    const existingTaglines: TaglineType[] = getExistingTaglines && JSON.parse(getExistingTaglines).selectedTaglineState;
-
-    const nonExistPlaceIds = selectedPlaces
-      .map((place) => place.id)
-      .filter((id) => !existingTaglines.some((tagline) => tagline.id === id));
-
-    nonExistPlaceIds.map((id) => ({id, tagline: ''})).forEach((tagline) => toggleItemInNewArray(tagline));
+    console.log('추가 세팅');
+    const nonExistTaglines = selectedPlaces.map((place) => {
+      const existingTagline = existingTaglines.find((tagline) => tagline.placeId === place.id);
+      if (!existingTagline) {
+        return {
+          placeId: place.id,
+          placeTypeId: place.contentTypeId,
+          tagline: '',
+        };
+      }
+      return existingTagline;
+    });
+    nonExistTaglines.forEach((tagline) => toggleItemInNewArray(tagline));
   };
 
   useEffect(() => {
-    if (getExistingTaglines) {
-      setExistingTagline();
-    } else {
+    setIsBTOpen(false);
+    if (!existingTaglines || existingTaglines.length === 0) {
       setInitializeTagline();
+    } else {
+      setExistingTagline();
     }
   }, []);
 
-  const handleAddCandidates = () => {
+  const handleAddCandidates = async () => {
     console.log('최종 내용 : ', selectedTagline);
+    await postCandidateMutation.mutateAsync({voteId: Number(voteId), candidateInfos: selectedTagline});
     SetSelectedPlaces([]);
     localStorage.removeItem('recoil-persist');
-    //navigate(`/votes/${voteInfo.id}`)
+    navigate(`/votes/${voteInfo.id}`);
   };
 
   return (
     <div className={styles.container}>
-      <VoteHeader title={voteInfo.title} onBottomSlideOpen={() => setIsBTOpen(true)} />
+      <VoteHeader title={voteInfo?.title} onBottomSlideOpen={() => setIsBTOpen(true)} />
       <MemoContent selectedPlaces={selectedPlaces} />
 
       <Button variant='CTAButton' isDisabled={selectedTagline.length === 0} onClick={handleAddCandidates}>

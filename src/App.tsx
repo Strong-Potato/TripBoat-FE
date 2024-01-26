@@ -12,6 +12,12 @@ import MainRouter from './routes/MainRouter/MainRouter';
 window.Kakao.init(import.meta.env.VITE_KAKAO_KEY);
 
 const queryClient = new QueryClient();
+
+queryClient.setDefaultOptions({
+  queries: {
+    refetchOnWindowFocus: false,
+  },
+});
 function App() {
   return (
     <Suspense fallback='서스펜스 로딩입니다, 추후에 폴백UI를 추가하거나 아니면 지우겠습니다~~'>

@@ -1,6 +1,6 @@
 import {Button} from '@chakra-ui/react';
 import {ReactNode, useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './Vote.module.scss';
@@ -22,13 +22,16 @@ import {showResultsState} from '@/recoil/vote/showResults';
 import {VoteInfo} from '@/types/vote';
 
 const Vote = () => {
-  const {id: voteId} = useParams();
+  // const {id: voteId} = useParams();
+  const location = useLocation();
+  const voteId = Number(location.pathname.split('/')[4]);
+
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const [isCandidateSelecting, setIsCandidateSelecting] = useRecoilState(isCandidateSelectingState);
   const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
   const [showResults, setShowResults] = useRecoilState(showResultsState);
   const [bottomSlideContent, setBottomSlideContent] = useState<ReactNode | null>(null);
-  const {data: voteInfoData} = useGetVotesInfo(Number(voteId));
+  const {data: voteInfoData} = useGetVotesInfo(voteId);
   const voteInfo = voteInfoData?.data;
 
   const isZeroCandidates = voteInfo?.candidates.length === 0;
@@ -41,7 +44,6 @@ const Vote = () => {
   }
   const allCandidatesNotVoted = voteInfo && areAllCandidatesNotVoted(voteInfo);
 
-  console.log('voteInfo', voteInfo);
   useEffect(() => {
     if (voteInfo?.voteStatus === '결정완료') {
       setShowResults(true);
@@ -61,7 +63,7 @@ const Vote = () => {
   };
 
   const resetShowResults = async () => {
-    await resetShowResultsMutation.mutateAsync(Number(voteId));
+    await resetShowResultsMutation.mutateAsync(voteId);
   };
 
   const handleShowResultsClick = () => {

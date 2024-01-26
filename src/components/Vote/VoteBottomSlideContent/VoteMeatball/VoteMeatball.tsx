@@ -1,5 +1,5 @@
 // import { useState } from "react";
-import {useNavigate, useParams} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './VoteMeatball.module.scss';
@@ -22,7 +22,9 @@ import CreateVoteModal from '../../CreateVoteModal/CreateVoteModal';
 import {AlertModalProps, VoteMeatballProps} from '@/types/vote';
 
 const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: VoteMeatballProps) => {
-  const {id: voteId} = useParams();
+  const location = useLocation();
+  const voteId = Number(location.pathname.split('/')[4]);
+
   const navigate = useNavigate();
   const setIsCreateModalOpen = useSetRecoilState(isCreateModalOpenState);
   const setIsBTOpen = useSetRecoilState(isBottomSlideOpenState);

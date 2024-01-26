@@ -66,7 +66,7 @@ export const usePostNewVote = () => {
   return useCustomMutation(postNewVote, ['votes']);
 };
 
-//투표하기&취소 POST
+//투표하기&취소 POST --
 export const usePostVoting = () => {
   return useCustomMutation(postVoting, ['vote', 'candidates']); //vote?
 };
@@ -76,7 +76,7 @@ export const usePostNewCandidate = () => {
   return useMutation({mutationFn: postNewCandidate}); //onSuccess?
 };
 
-//voteTitle 수정 PUT //
+//voteTitle 수정 PATCH
 export const useEditVoteTitle = () => {
   return useCustomMutation(editVoteTitle, ['vote']);
 };
@@ -86,7 +86,7 @@ export const useChangeStatus = () => {
   return useCustomMutation(changeStatus, ['vote']);
 };
 
-//결과보기 취소 ---
+//결과보기 취소 --
 export const useResetShowResults = () => {
   return useCustomMutation(resetShowResults, ['vote']);
 };
@@ -96,9 +96,9 @@ export const useDeleteVote = () => {
   return useMutation({mutationFn: deleteVote});
 };
 
-// //candidate 삭제 ---
+// //candidate 삭제
 export const useDeleteCandidates = () => {
-  return useCustomMutation(deleteCandidates, ['votes']);
+  return useCustomMutation(deleteCandidates, ['vote']);
 };
 
 //커스텀 mutation 사용 전
