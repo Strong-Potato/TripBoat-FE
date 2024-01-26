@@ -167,3 +167,23 @@ export interface Member {
 export interface Members {
   members: Member[];
 }
+
+export interface ExitSpaceParams {
+  spaceId: number;
+}
+
+export interface PlaceParams {
+  spaceId: number;
+  journeyId: number;
+  placeIds: number[];
+}
+
+export interface SelectPlace {
+  journeyId: number;
+  placeIds: number[];
+}
+
+export interface journeyParams {
+  spaceId: number;
+  places: SelectPlace[];
+}

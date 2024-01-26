@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {SpaceDateParams, SpaceRegionParams} from '@/types/route';
+import {ExitSpaceParams, journeyParams, PlaceParams, SpaceDateParams, SpaceRegionParams} from '@/types/route';
 
 export const spacesRequest = {
   getUpcoming: async () => {
@@ -48,6 +48,38 @@ export const getRecentSpace = async () => {
   }
 };
 
+// [GET] 여행 일정 조회
+export const getJourneys = async (spaceId: number) => {
+  try {
+    const response = await axios.get(`/api/spaces/${spaceId}/journey`, {withCredentials: true});
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// [POST] 일정 추가
+export const postPlaces = async ({spaceId, journeyId, placeIds}: PlaceParams) => {
+  try {
+    const response = await axios.post(`/api/spaces/${spaceId}/places`, {journeyId: journeyId, placeIds: placeIds});
+    console.log('[SUCCESS]', response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// [PUT] 일정 수정
+export const putPlaces = async ({spaceId, places}: journeyParams) => {
+  try {
+    const response = await axios.put(`/api/spaces/${spaceId}/places`, {places: places});
+    console.log('[SUCCESS]', response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // [PUT] 지역 선택
 export const putRegions = async ({spaceId, cities}: SpaceRegionParams) => {
   try {
@@ -63,6 +95,28 @@ export const putRegions = async ({spaceId, cities}: SpaceRegionParams) => {
 export const putDates = async ({spaceId, startDate, endDate}: SpaceDateParams) => {
   try {
     const response = await axios.put(`/api/spaces/${spaceId}/dates`, {startDate: startDate, endDate: endDate});
+    console.log('[SUCCESS]', response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// [PUT] 여행 나가기
+export const putExitSpace = async ({spaceId}: ExitSpaceParams) => {
+  try {
+    const response = await axios.put(`/api/spaces/${spaceId}/exit`);
+    console.log('[SUCCESS]', response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// [DELETE] 일정 삭제
+export const deletePlaces = async ({spaceId, places}: journeyParams) => {
+  try {
+    const response = await axios.delete(`/api/spaces/${spaceId}/places`, {params: {places: places}});
     console.log('[SUCCESS]', response);
     return response;
   } catch (error) {
