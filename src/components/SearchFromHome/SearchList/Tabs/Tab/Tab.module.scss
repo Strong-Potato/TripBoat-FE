@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 .container {
   min-width: 90px;
   height: 33px;
@@ -8,6 +8,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @include typography(tabLabel);
 
   cursor: pointer;
 }

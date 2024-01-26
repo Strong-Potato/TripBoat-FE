@@ -28,16 +28,18 @@ function Tab({forSearch, thisCategory, wishFilter, setCategoryChange}: PropsType
   }, [forSearch, wishFilter]);
 
   function handleCategory(key: number) {
-    setCategoryChange(true);
-    setTimeout(() => {
-      setCategoryChange(false);
-    }, 150);
     if (forSearch) {
+      setCategoryChange(true);
+      setTimeout(() => {
+        setCategoryChange(false);
+      }, 150);
       navigate(
         `/search?keyword=${forSearch.keyword}&category=${key}&map=${forSearch.map}&location=${forSearch.location}&sort=${forSearch.sort}&hot=${forSearch.hot}&placeID=${forSearch.placeID}&tripDate=${forSearch.tripDate}`,
       );
     } else if (wishFilter) {
-      navigate(`/wishes?category=${key}&placeID=${wishFilter.placeID}&tripDate=${wishFilter.tripDate}`);
+      navigate(
+        `/wishes?category=${key}&location=${wishFilter.location}&sort=${wishFilter.sort}&placeID=${wishFilter.placeID}&tripDate=${wishFilter.tripDate}`,
+      );
     }
   }
 

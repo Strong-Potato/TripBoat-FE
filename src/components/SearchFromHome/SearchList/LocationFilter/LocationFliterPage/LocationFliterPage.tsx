@@ -9,10 +9,12 @@ import PopularList from './PopularList/PopularList';
 import SelectLocation from './SelectLocation/SelectLocation';
 
 import {ForSearchType} from '@/types/home';
+import {WishFilterType} from '@/types/wish';
 
 interface PropsType {
   click: boolean;
-  forSearch: ForSearchType;
+  forSearch: ForSearchType | undefined;
+  wishesFilter?: WishFilterType | undefined;
   handleClick: () => void;
 }
 
@@ -21,7 +23,7 @@ interface AreaDataType {
   sigunguCode: number;
 }
 
-function LocationFliterPage({forSearch, click, handleClick}: PropsType) {
+function LocationFliterPage({forSearch, wishesFilter, click, handleClick}: PropsType) {
   const [area, setArea] = useState('전국');
   const [areaData, setAreaData] = useState<AreaDataType[]>();
   const [sigungu, setSigungu] = useState('전체 지역');
@@ -31,20 +33,41 @@ function LocationFliterPage({forSearch, click, handleClick}: PropsType) {
   const vh = window.innerHeight / 100;
 
   useEffect(() => {
-    const locationData = forSearch.location.split(' ');
-    if (locationData[0] === '전국') {
-      setArea('전국');
-      setSigungu('전체 지역');
-    } else {
-      setArea(locationData[0]);
-      setSigungu(locationData[1]);
+    if (forSearch) {
+      const locationData = forSearch.location.split(' ');
+      if (locationData[0] === '전국') {
+        setArea('전국');
+        setSigungu('전체 지역');
+      } else {
+        setArea(locationData[0]);
+        setSigungu(locationData[1]);
+      }
     }
-  }, [forSearch.location]);
+    if (wishesFilter) {
+      const locationData = wishesFilter.location.split(' ');
+      if (locationData[0] === '전국') {
+        setArea('전국');
+        setSigungu('전체 지역');
+      } else {
+        setArea(locationData[0]);
+        setSigungu(locationData[1]);
+      }
+    }
+  }, [forSearch?.location, wishesFilter?.location]);
 
   function submit() {
-    navigate(
-      `/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=${forSearch.map}&location=${area} ${sigungu}&sort=${forSearch.sort}&hot=${forSearch.hot}&placeID=${forSearch.placeID}&tripDate=${forSearch.tripDate}`,
-    );
+    if (forSearch) {
+      navigate(
+        `/search?keyword=${forSearch.keyword}&category=${forSearch.category}&map=${forSearch.map}&location=${area} ${sigungu}&sort=${forSearch.sort}&hot=${forSearch.hot}&placeID=${forSearch.placeID}&tripDate=${forSearch.tripDate}`,
+      );
+    }
+    console.log(wishesFilter);
+
+    if (wishesFilter) {
+      navigate(
+        `/wishes?category=${wishesFilter.category}&location=${area} ${sigungu}&placeID=${wishesFilter.placeID}&tripDate=${wishesFilter.tripDate}&sort=${wishesFilter.sort}`,
+      );
+    }
     handleClick();
   }
 
@@ -62,9 +85,21 @@ function LocationFliterPage({forSearch, click, handleClick}: PropsType) {
         <button
           onClick={() => {
             handleClick();
-            const locationData = forSearch.location.split(' ');
-            setArea(locationData[0]);
-            setSigungu(locationData[1]);
+            let locationData: string[] | undefined;
+            if (forSearch) {
+              locationData = forSearch.location.split(' ');
+            } else {
+              locationData = wishesFilter?.location.split(' ');
+            }
+            if (locationData) {
+              if (locationData[0] === '전국') {
+                setArea('전국');
+                setSigungu('전체 지역');
+              } else {
+                setArea(locationData[0]);
+                setSigungu(locationData[1]);
+              }
+            }
           }}
         >
           <BackIcon />
