@@ -7,7 +7,7 @@ interface UserInfo {
   profileImageUrl: string;
 }
 
-export interface Latlng {
+export interface LatLng {
   lat: number;
   lng: number;
 }
@@ -18,7 +18,7 @@ export interface PlaceInfo {
   category: string;
   areaCode: string;
   placeImageUrl: string;
-  latlng: Latlng;
+  latLng: LatLng;
 }
 
 ////////////////INFO//////////////////
@@ -127,7 +127,7 @@ export interface PostVoteTitleProps {
 export interface CandidatesSlideProps {
   candidates: CandidatesInfo[];
   setSelectedPinIndex: Dispatch<React.SetStateAction<number>>;
-  setCenterMarker: Dispatch<React.SetStateAction<Latlng>>;
+  setCenterMarker: Dispatch<React.SetStateAction<LatLng>>;
   swiperRef: React.RefObject<SwiperRef>;
 }
 
