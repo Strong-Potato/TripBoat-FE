@@ -4,9 +4,8 @@ import {Link} from 'react-router-dom';
 
 import styles from './TabBar.module.scss';
 
-interface Alarmprop {
-  onAlarmOpen: () => void;
-}
+import {Alarmprop} from '@/types/alarm';
+
 function TabBar({onAlarmOpen}: Alarmprop) {
   const news = localStorage.getItem('news');
 
