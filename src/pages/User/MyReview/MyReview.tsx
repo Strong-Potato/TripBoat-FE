@@ -1,9 +1,9 @@
 import {useDisclosure} from '@chakra-ui/react';
-import {useEffect, useRef, useState} from 'react';
-import {useInView} from 'react-intersection-observer';
+import {useRef} from 'react';
 
 import styles from './MyReview.module.scss';
 
+import {useInfiniteScroll} from '@/hooks/useInfiniteScroll';
 import {useGetMyReview} from '@/hooks/User/useMyReview';
 
 import Header from '@/components/Auth/Header/Header';
@@ -21,27 +21,9 @@ import {Reviews} from '@/types/myReview';
 
 function MyReview() {
   const {isOpen: isBottomSlideOpen, onOpen: onBottomSlideOpen, onClose: onBottomSlideClose} = useDisclosure();
-  const {data: reviews, fetchNextPage} = useGetMyReview();
-  const [hasNextData, setHasNextData] = useState(true);
-  const {ref: inViewRef, inView} = useInView({
-    rootMargin: '-40px',
-    threshold: 0.8,
-  });
+  const [reviews, hasNextData, inViewRef] = useInfiniteScroll(useGetMyReview);
+
   const clickedReviewId = useRef<number | undefined>();
-
-  useEffect(() => {
-    if (reviews) {
-      const {last} = reviews.pages.at(-1).data;
-
-      if (inView && !last) {
-        fetchNextPage();
-      }
-      if (last) {
-        setHasNextData(false);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inView]);
 
   return (
     <div className={styles.container}>

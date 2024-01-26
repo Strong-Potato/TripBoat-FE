@@ -1,9 +1,7 @@
-import {useEffect, useState} from 'react';
-import {useInView} from 'react-intersection-observer';
-
 import styles from './MySpaceList.module.scss';
 
 import {useGetSpaces, useGetSpacesOut} from '@/hooks/Spaces/useSpaces';
+import {useInfiniteScroll} from '@/hooks/useInfiniteScroll';
 
 import ObserveTarget from '@/components/Route/ObserveTarget/ObserveTarget';
 
@@ -15,27 +13,7 @@ import {MySpaceListProps} from '@/types/user';
 
 function MySpaceList({tab}: MySpaceListProps) {
   const {data: upcomingData} = useGetSpaces(true);
-  const {data: outdatedData, fetchNextPage} = useGetSpacesOut();
-  const [hasNextData, setHasNextData] = useState(true);
-  const {ref: inViewRef, inView} = useInView({
-    rootMargin: '-56px',
-    threshold: 0.8,
-  });
-
-  useEffect(() => {
-    // inView true + next pages exist
-    if (outdatedData) {
-      const {last} = outdatedData.pages.at(-1).data;
-
-      if (inView && !last) {
-        fetchNextPage();
-      }
-      if (last) {
-        setHasNextData(false);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inView]);
+  const [outdatedData, hasNextData, inViewRef] = useInfiniteScroll(useGetSpacesOut);
 
   return (
     <ul className={styles.container}>
