@@ -1,28 +1,34 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import {useSetRecoilState} from 'recoil';
 
-import styles from "./BottomFixedBtn.module.scss";
+import styles from './BottomFixedBtn.module.scss';
 
-import { IsLoginState } from "@/recoil/detail/detail";
-import { isModalOpenState, modalContentState } from "@/recoil/vote/alertModal";
+import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
 
-import { BottomFixedBtnProps } from "@/types/detail";
+import {BottomFixedBtnProps} from '@/types/detail';
+import {Cookies} from 'react-cookie';
+import {useNavigate} from 'react-router-dom';
 
-function BottomFixedBtn({ onOpen }: BottomFixedBtnProps) {
+function BottomFixedBtn({onOpen}: BottomFixedBtnProps) {
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
-  const isLogin = useRecoilValue(IsLoginState);
+
+  const cookies = new Cookies();
+  const isLogin = cookies.get('isLogin');
+  const navigate = useNavigate();
 
   const notLoginContent = {
-    title: "로그인이 필요한 기능입니다.",
-    subText: "로그인하고 모든 서비스를 이용해 보세요! ",
-    cancelText: "닫기",
-    actionButton: "로그인하기",
+    title: '로그인이 필요한 기능입니다.',
+    subText: '로그인하고 모든 서비스를 이용해 보세요! ',
+    cancelText: '닫기',
+    actionButton: '로그인하기',
     isSmallSize: true,
+    onClickAction: () => {
+      navigate('/auth/login');
+    },
   };
-
   const showNotLoginModal = () => {
     setIsModalOpen(true);
-    setModalContent({ ...notLoginContent });
+    setModalContent({...notLoginContent});
   };
 
   return (
@@ -30,7 +36,7 @@ function BottomFixedBtn({ onOpen }: BottomFixedBtnProps) {
       <div
         className={styles.container__wrapper}
         style={{
-          backgroundColor: "#2388FF",
+          backgroundColor: '#2388FF',
         }}
         onClick={() => {
           if (isLogin) {

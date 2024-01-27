@@ -2,12 +2,9 @@ import {BiTask} from 'react-icons/bi';
 import {CiEdit} from 'react-icons/ci';
 import {FaRegHeart} from 'react-icons/fa';
 import {IoShareSocialOutline} from 'react-icons/io5';
-import {useLocation} from 'react-router-dom';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './MeatballBottomSlide.module.scss';
-
-import {useDeleteWishes, usePostWishes} from '@/hooks/Detail/useWish';
 
 import CustomToast from '@/components/CustomToast/CustomToast';
 
@@ -19,14 +16,18 @@ import RegistrationSlide from '../../BottomFixedBtn/RegistrationSlide/Registrati
 import ReviewBottomSlide from '../../Contents/ReviewBottomSlide/ReviewBottomSlide';
 
 import {NavigationMeatballProps} from '@/types/detail';
+import {useDeleteWishes, usePostWishes} from '@/hooks/Detail/useWish';
+import {useLocation, useNavigate} from 'react-router-dom';
+import {Cookies} from 'react-cookie';
 
 const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, title}: NavigationMeatballProps) => {
   const [isWish, setIsWish] = useRecoilState(IsHeartValued);
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
 
-  // isLogin 구현해야 함
-  const isLogin = true;
+  const cookies = new Cookies();
+  const isLogin = cookies.get('isLogin');
+  const navigate = useNavigate();
 
   const notLoginContent = {
     title: '로그인이 필요한 기능입니다.',
@@ -34,6 +35,9 @@ const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, tit
     cancelText: '닫기',
     actionButton: '로그인하기',
     isSmallSize: true,
+    onClickAction: () => {
+      navigate('/auth/login');
+    },
   };
 
   const showNotLoginModal = () => {
@@ -106,13 +110,17 @@ const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, tit
       </button>
       <button
         onClick={() => {
-          onClose();
-          setTimeout(() => {
-            onBottomSlideOpen(
-              <RegistrationSlide slideOnClose={onClose} placeId={id} placeTypeId={contentTypeId} />,
-              false,
-            );
-          }, 300);
+          if (isLogin) {
+            onClose();
+            setTimeout(() => {
+              onBottomSlideOpen(
+                <RegistrationSlide slideOnClose={onClose} placeId={id} placeTypeId={contentTypeId} />,
+                false,
+              );
+            }, 300);
+          } else {
+            showNotLoginModal();
+          }
         }}
       >
         <div className={styles.container__iconWrapper}>
@@ -122,13 +130,17 @@ const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, tit
       </button>
       <button
         onClick={() => {
-          onClose();
-          setTimeout(() => {
-            onBottomSlideOpen(
-              <ReviewBottomSlide placeId={id} contentTypeId={contentTypeId} title={title} slideOnClose={onClose} />,
-              true,
-            );
-          }, 300);
+          if (isLogin) {
+            onClose();
+            setTimeout(() => {
+              onBottomSlideOpen(
+                <ReviewBottomSlide placeId={id} contentTypeId={contentTypeId} title={title} slideOnClose={onClose} />,
+                true,
+              );
+            }, 300);
+          } else {
+            showNotLoginModal();
+          }
         }}
       >
         <div className={styles.container__iconWrapper}>

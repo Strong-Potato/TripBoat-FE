@@ -1,7 +1,7 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
-  padding: 40px 0;
+  padding-bottom: 48px;
   border-bottom: 12px solid $neutral100;
 
   &__title {
@@ -52,6 +52,12 @@
 
   &__reviewsBox {
     margin-bottom: 16px;
+    &__notReviews {
+      margin: 64px 0;
+      text-align: center;
+      @include typography(subTitle);
+      color: $neutral400;
+    }
   }
 
   &__allBtn {

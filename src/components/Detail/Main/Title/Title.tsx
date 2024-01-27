@@ -42,7 +42,9 @@ function Title({id, contentTypeId, title, rating, reviewsCount}: TitleProps) {
       <div className={styles.container__alignCenter}>
         <GoStarFill className={styles.container__alignCenter__star} />
         <span className={styles.container__alignCenter__point}>{rating}</span>
-        <span className={styles.container__alignCenter__reviewsCount}>{`(${reviewsCount})`}</span>
+        <span className={styles.container__alignCenter__reviewsCount}>{`(${
+          reviewsCount ? reviewsCount : '리뷰 없음'
+        })`}</span>
       </div>
       <div className={styles.container__positionAbsoluteIcons}>
         <WishBtn placeId={id} contentTypeId={contentTypeId} size={'2.4rem'} />
