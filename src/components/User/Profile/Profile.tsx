@@ -3,9 +3,10 @@ import {useNavigate} from 'react-router-dom';
 import styles from './Profile.module.scss';
 
 import Pencil from '@/assets/icons/pencil.svg?react';
-import defaultImage from '@/assets/profile_default.svg';
 
 import {ProfileProps} from '@/types/user';
+
+import defaultImage from '/profile_default.svg';
 
 function Profile({data}: ProfileProps) {
   const navigate = useNavigate();
