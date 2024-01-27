@@ -1,10 +1,9 @@
 import styles from './Content.module.scss';
 
+import DefaultProfile from '@/assets/icons/profile_default.svg?react';
 import formatTimeAgo from '@/utils/formatTimeAgo';
 
 import {ContentProps} from '@/types/alarm';
-
-import DefaultProfile from '/profile_default.svg?react';
 
 function Content({contents}: ContentProps) {
   if (!contents[0]) {
