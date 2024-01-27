@@ -1,6 +1,8 @@
 import {NotificationData, NotificationDetails} from '@/types/notification';
 
-export function parsingAlarmTravel(notificationDetails: NotificationDetails[]): NotificationData[] {
+export function parsingAlarmTravel(notificationDetails: NotificationDetails[]) {
+  if (!notificationDetails || notificationDetails.length === 0) return [];
+
   const travelNoti: NotificationData[] = [];
 
   try {

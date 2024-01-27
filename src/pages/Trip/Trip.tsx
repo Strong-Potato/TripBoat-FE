@@ -17,7 +17,6 @@ import {useNavigate, useParams} from 'react-router-dom';
 
 import styles from './Trip.module.scss';
 
-import {useGetAlarm} from '@/hooks/Notification/useNotification';
 import {useGetJourneys, useGetSpace} from '@/hooks/Spaces/space';
 
 import Alarm from '@/components/Alarm/Alarm';
@@ -51,10 +50,6 @@ function Trip() {
   const [center, setCenter] = useState<LatLng>(getMapCenter(journeysData.data));
   const navigate = useNavigate();
   const users = spaceData?.data?.members;
-  const {data: AlarmData} = useGetAlarm(true);
-  if (AlarmData?.data.data.notificationDetail[0].isRead === false) {
-    localStorage.setItem('news', 'true');
-  }
 
   useEffect(() => {
     console.log('아임센터', center);

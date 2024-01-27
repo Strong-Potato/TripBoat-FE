@@ -1,4 +1,5 @@
 import {Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react';
+import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import styles from './TabCapsule.module.scss';
@@ -10,20 +11,29 @@ import {parsingAlarmTravel} from '@/utils/parsingAlarm';
 
 import Content from './Content/Content';
 
-function TabCapsule({isAlarmOpen}: {isAlarmOpen: boolean}) {
-  const navigate = useNavigate();
-  const {data: Alarm} = useGetAlarm(isAlarmOpen);
-  localStorage.removeItem('news');
+import {NotificationData} from '@/types/notification';
 
-  Alarm && PostReadAlarm(Alarm?.data.data.notificationDetail[0].id);
-  if (Alarm?.status === 403 || Alarm?.status === 401) {
+function TabCapsule({isAlarmOpen}: {isAlarmOpen: boolean}) {
+  const [allContents, setAllContents] = useState<NotificationData[]>([]);
+  const [spaceTravelContents, setSpaceTravelContents] = useState<NotificationData[]>([]);
+  const navigate = useNavigate();
+  const {data: AlarmData} = useGetAlarm(isAlarmOpen);
+
+  if (AlarmData?.status === 403 || AlarmData?.status === 401) {
     navigate('/auth/login', {
       replace: true,
     });
   }
 
-  const AllContents = parsingAlarmTravel(Alarm?.data.data.notificationDetail);
-  const SpaceTravelContents = parsingAlarmTravel(Alarm?.data.data.notificationDetail);
+  useEffect(() => {
+    setAllContents(parsingAlarmTravel(AlarmData?.data.data.notificationDetail));
+    setSpaceTravelContents(parsingAlarmTravel(AlarmData?.data.data.notificationDetail));
+  }, [AlarmData]);
+
+  useEffect(() => {
+    localStorage.removeItem('news');
+    PostReadAlarm(AlarmData?.data.data.notificationDetail[0].id);
+  }, []);
 
   return (
     <Tabs isFitted variant='unstyled'>
@@ -38,10 +48,10 @@ function TabCapsule({isAlarmOpen}: {isAlarmOpen: boolean}) {
       <TabIndicator mt='-1.5px' height='2px' bg='#2388FF' borderRadius='2px' width='50% !important' />
       <TabPanels>
         <TabPanel p={0}>
-          <Content contents={AllContents} />
+          <Content contents={allContents} />
         </TabPanel>
         <TabPanel p={0}>
-          <Content contents={SpaceTravelContents} />
+          <Content contents={spaceTravelContents} />
         </TabPanel>
       </TabPanels>
     </Tabs>
