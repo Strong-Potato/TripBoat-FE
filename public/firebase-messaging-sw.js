@@ -16,7 +16,7 @@ function createNotificationBody(data) {
     return '필요한 데이터가 누락되었습니다.';
   }
 
-  const spaceTitle = data.spaceEventInfo.spaceTitle;
+  const spaceTitle = data.spaceEventInfo.spaceTitle ? data.spaceEventInfo.spaceTitle : '여행지 미정';
   const memberNickname = data.memberEventInfo.memberNickname;
   let notificationBody = '';
 
@@ -62,10 +62,14 @@ function createNotificationBody(data) {
       notificationBody = `[${spaceTitle}] ${memberNickname} 님이 "${voteTitleAdd}"에 새로운 후보를 등록했습니다.`;
       break;
     case 'SPACE_LOCATION_CHANGED':
-      notificationBody = `여행지가 []에서 []으로 변경되었습니다.`;
+      notificationBody = `여행지가 [${data.spaceEventInfo.oldTitle || '여행지 미정'}]에서 [${
+        data.spaceEventInfo.spaceTitle
+      }]으로 변경되었습니다.`;
       break;
     case 'SPACE_SCHEDULE_CHANGED':
-      notificationBody = `여행날짜가 []에서 []으로 변경되었습니다.`;
+      notificationBody = `여행날짜가 [${data.spaceEventInfo.oldDates || '날짜 미정'}]에서 [${
+        data.spaceEventInfo.changeDate
+      }]으로 변경되었습니다.`;
       break;
     default:
       notificationBody = '알 수 없는 이벤트입니다.';
