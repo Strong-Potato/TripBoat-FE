@@ -40,6 +40,37 @@ export const authRequest = {
       token,
     }),
 
+  /* ------------------------------ FIND PASSWORD ----------------------------- */
+  lostPassword_sendEmail: (email?: string) =>
+    axios.post('/api/auth/modify/lost-password/send-email', {
+      email,
+    }),
+
+  lostPassword_emailSert: (email?: string, code?: string) =>
+    axios.post('/api/auth/modify/lost-password/check-token', {
+      email,
+      code,
+    }),
+
+  lostPassword_submit: (email?: string, password?: string, token?: string) =>
+    axios.post('/api/auth/modify/lost-password', {
+      email,
+      password,
+      token,
+    }),
+
+  /* ----------------------------- MODIFY PASSWORD ---------------------------- */
+  modifyPassword_check: (password?: string) =>
+    axios.post('/api/auth/modify/password/check', {
+      password,
+    }),
+
+  modifyPassword_submit: (token?: string, password?: string) =>
+    axios.post('/api/auth/modify/password', {
+      token,
+      password,
+    }),
+
   /* ------------------------------- WITHDRAWAL ------------------------------- */
   withdrawal: (password?: string) =>
     axios.post(

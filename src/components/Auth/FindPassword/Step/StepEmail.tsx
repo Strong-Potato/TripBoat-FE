@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useSetRecoilState} from 'recoil';
@@ -7,6 +6,7 @@ import styles from './Step.module.scss';
 
 import CustomToast from '@/components/CustomToast/CustomToast';
 
+import {authRequest} from '@/api/auth';
 import {isModalOpenState} from '@/recoil/vote/alertModal';
 
 import ExpireAlert from '../../Alert/ExpireAlert';
@@ -23,9 +23,7 @@ function StepEmail({setFindPasswordStep, register, watchFields: {email}, dirty, 
 
   const onClickEmail = async () => {
     try {
-      const res = await axios.post('/api/auth/modify/lost-password/send-email', {
-        email,
-      });
+      const res = await authRequest.lostPassword_sendEmail(email);
       console.log(res);
 
       if (res.data.responseCode === 404) {
