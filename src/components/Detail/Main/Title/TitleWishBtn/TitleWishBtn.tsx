@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {Cookies} from 'react-cookie';
 import {FaHeart, FaRegHeart} from 'react-icons/fa';
 
-import styles from './TtitleWishBtn.module.scss';
+import styles from './TitleWishBtn.module.scss';
 
 import {useDeleteWishes, useGetIsWish, usePostWishes} from '@/hooks/Detail/useWish';
 import {useDebounceBoolean} from '@/hooks/useDebounce';
@@ -23,6 +23,7 @@ function TitleWishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}:
   const [isWish, setIsWish] = useRecoilState(IsHeartValued);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [wishInitial, setWishInitial] = useState<boolean>(false);
+  const [isMount, setIsMount] = useState<boolean>(true);
 
   const cookies = new Cookies();
   const isLogin = cookies.get('isLogin');
@@ -38,12 +39,15 @@ function TitleWishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}:
   const wish = useGetIsWish(placeId, isLogin);
 
   useEffect(() => {
+    console.log(wish.data);
+
     if (isLogin) {
-      if (typeof wish.data === 'boolean') {
+      if (typeof wish.data === 'boolean' && isMount) {
+        setIsMount(false);
         setIsWish(wish.data);
       }
     }
-  }, []);
+  }, [wish]);
 
   const postWishes = usePostWishes(placeId);
   const deleteWishes = useDeleteWishes(placeId);
