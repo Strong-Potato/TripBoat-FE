@@ -1,21 +1,25 @@
 import {CiEdit} from 'react-icons/ci';
 import {GoStarFill} from 'react-icons/go';
-import {useRecoilValue, useSetRecoilState} from 'recoil';
+import {useSetRecoilState} from 'recoil';
 
 import styles from './Reviews.module.scss';
 
 import Review from '@/components/Detail/Contents/Review/Review';
 
-import {IsLoginState} from '@/recoil/detail/detail';
 import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
 
 import {ContentsReviewsProps} from '@/types/detail';
 import ObserveTarget from '@/components/Route/ObserveTarget/ObserveTarget';
+import {Cookies} from 'react-cookie';
+import {useNavigate} from 'react-router-dom';
 // 무한 스크롤 구현 필요
 function Reviews({onOpen, reviewsRating, reviews, hasNextData, inViewRef}: ContentsReviewsProps) {
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
-  const isLogin = useRecoilValue(IsLoginState);
+
+  const cookies = new Cookies();
+  const isLogin = cookies.get('isLogin');
+  const navigate = useNavigate();
 
   const notLoginContent = {
     title: '로그인이 필요한 기능입니다.',
@@ -23,6 +27,9 @@ function Reviews({onOpen, reviewsRating, reviews, hasNextData, inViewRef}: Conte
     cancelText: '닫기',
     actionButton: '로그인하기',
     isSmallSize: true,
+    onClickAction: () => {
+      navigate('/auth/login');
+    },
   };
 
   const showNotLoginModal = () => {

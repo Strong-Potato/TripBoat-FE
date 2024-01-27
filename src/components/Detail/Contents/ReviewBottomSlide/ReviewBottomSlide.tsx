@@ -96,7 +96,7 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
         >
           <CloseIcon width='2rem' height='2rem' />
         </button>
-        <div className={styles.container__top__title}>롯데시티 호텔</div>
+        <div className={styles.container__top__title}>{title}</div>
       </div>
       <StarsWrapper starCount={starCount} setStarCount={setStarCount} setIsValuedCount={setIsValuedCount} />
       <DateWrapper
