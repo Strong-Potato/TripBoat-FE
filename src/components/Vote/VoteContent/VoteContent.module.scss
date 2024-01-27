@@ -2,35 +2,39 @@
 
 .container {
   width: 100%;
-  padding: 20px;
 
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 
-  &__stateBar {
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .paddingBox {
+    padding: 16px 20px 0 20px;
 
-    &__state {
-      @include typography(captionSmall);
-
+    .stateBar {
+      margin-bottom: 15px;
       display: flex;
-      gap: 4px;
+      justify-content: space-between;
       align-items: center;
 
-      & > svg {
-        font-size: 1.5rem;
-      }
-    }
-    &__addCandidate {
-      @include typography(captionSmall);
-      color: $neutral900;
+      &__state {
+        @include typography(captionSmall);
 
-      &:disabled {
-        color: $neutral300;
+        display: flex;
+        gap: 4px;
+        align-items: center;
+
+        & > svg {
+          font-size: 1.5rem;
+        }
+      }
+
+      &__addCandidate {
+        @include typography(captionSmall);
+        color: $neutral900;
+
+        &:disabled {
+          color: $neutral300;
+        }
       }
     }
   }

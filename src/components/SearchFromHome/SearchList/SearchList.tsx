@@ -66,9 +66,6 @@ function SearchList({forSearch}: PropsType) {
   });
 
   useEffect(() => {
-    console.log(isEnd);
-    console.log(inView);
-
     if (!isEnd && inView) {
       console.log(1);
 
@@ -99,6 +96,10 @@ function SearchList({forSearch}: PropsType) {
       }
     }
   }, [forSearch.category, data]);
+
+  useEffect(() => {
+    setIsEnd(false);
+  }, [forSearch.location, forSearch.sort]);
 
   function onMap() {
     navigate(

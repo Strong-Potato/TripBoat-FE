@@ -30,7 +30,7 @@ const AddCandidate = () => {
         <button
           className={styles.container__buttons__item}
           onClick={() => {
-            navigate(`/wishes?category=0&location=전국&sort=등록순&placeID=spaceId&tripDate=vote voteID`);
+            navigate(`/wishes/bring?category=0&location=전국&sort=등록순&placeID=${spaceId}&tripDate=vote ${voteId}`);
           }}
         >
           <VoteHeartIcon />
