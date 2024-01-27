@@ -4,6 +4,7 @@ import styles from './MapItem.module.scss';
 
 import WishBtn from '@/components/WishBtn/WishBtn';
 
+import nullImg from '@/assets/homeIcons/search/nullImg.svg';
 import areas from '@/utils/areas.json';
 import {translateCategoryToStr} from '@/utils/translateSearchData';
 
@@ -17,10 +18,15 @@ interface PropsType {
 function MapItem({data, categoryChange}: PropsType) {
   const location = areas.filter((area) => area.areaCode === data.location.areaCode)[0].name;
   const category = translateCategoryToStr(data.contentTypeId);
+  const imgSrc = data.thumbnail ? data.thumbnail : nullImg;
 
   return (
     <Link to={`/detail/${data.id} ${data.contentTypeId}`} className={styles.container}>
-      <img src={data.thumbnail} alt={`${data.title}의 사진`} style={{opacity: categoryChange ? 0 : 1}} />
+      <img
+        src={imgSrc}
+        alt={`${data.title}의 사진`}
+        style={{opacity: categoryChange ? 0 : 1, padding: data.thumbnail ? 0 : '30px'}}
+      />
       <p className={styles.text} style={{opacity: categoryChange ? 0 : 1}}>
         <span className={styles.title}>{data.title}</span>
         <span className={styles.info}>

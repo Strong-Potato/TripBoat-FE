@@ -1,12 +1,13 @@
-import {useSuspenseQuery} from '@tanstack/react-query';
+import {useQuery} from '@tanstack/react-query';
 
 import {deleteWishes, getIsWish, postWishes} from '@/api/detail';
 
 import {useCustomMutation} from '../Votes/vote';
 
-export const useGetIsWish = (id: number) => {
-  return useSuspenseQuery({
+export const useGetIsWish = (id: number, enabled: boolean) => {
+  return useQuery({
     queryKey: ['isWish', id],
+    enabled,
     queryFn: () => getIsWish(id),
   });
 };

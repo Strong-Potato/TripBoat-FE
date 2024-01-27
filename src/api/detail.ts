@@ -25,9 +25,8 @@ export const getIsWish = async (id: number) => {
     const response = await axios.get(`/api/wishes/${id}`, {
       withCredentials: true,
     });
-    console.log(response.data);
-
-    return response.data;
+    const data: boolean = response.data;
+    return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.log(error);

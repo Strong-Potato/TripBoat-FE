@@ -32,13 +32,15 @@ function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: Wish
 
   const [isWish, setIsWish] = useState<boolean>(false);
 
-  if (isLogin) {
-    const {
-      data: {data: wish},
-    } = useGetIsWish(placeId);
+  const wish = useGetIsWish(placeId, isLogin);
 
-    setIsWish(wish);
-  }
+  useEffect(() => {
+    if (isLogin) {
+      if (typeof wish === 'boolean') {
+        setIsWish(wish);
+      }
+    }
+  }, []);
 
   const postWishes = usePostWishes();
   const deleteWishes = useDeleteWishes();
