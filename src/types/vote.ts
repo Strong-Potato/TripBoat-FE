@@ -9,7 +9,7 @@ interface UserInfo {
   profileImageUrl: string;
 }
 
-export interface Latlng {
+export interface LatLng {
   lat: number;
   lng: number;
 }
@@ -18,9 +18,9 @@ export interface PlaceInfo {
   placeId: number;
   placeName: string;
   category: string;
-  location?: string; // 빠짐
-  placeImageURL: string;
-  latlng: Latlng;
+  areaCode: string;
+  placeImageUrl: string;
+  latLng: LatLng;
 }
 
 ////////////////INFO//////////////////
@@ -29,7 +29,7 @@ export interface CandidatesInfo {
   placeInfo: PlaceInfo;
   createdBy: UserInfo;
   tagline: string;
-  amIVoted: boolean;
+  amIVote: boolean;
   //임시
   votedMemberProfiles?: UserInfo[];
   voteCount?: number;
@@ -61,11 +61,28 @@ export interface VoteResultInfo {
   id: number;
   title: string;
   voteStatus: string;
-  ownerProfile: UserInfo; // 이름 통일 요청
+  createdBy: UserInfo; // 이름 통일 요청
   candidates: ResultCandidatesInfo[];
 }
 
 ////////////////INFO//////////////////
+
+export interface VoteInfoRes {
+  status: number;
+  message: string;
+  data: VoteInfo;
+}
+
+export interface VoteListInfoRes {
+  status: number;
+  message: string;
+  data: {
+    voteResponse: VoteListInfo[];
+    viewResultVoteIds: {
+      voteIds: number[];
+    };
+  };
+}
 
 export interface VoteBottomButtonProps {
   onClick: () => void;
@@ -74,7 +91,7 @@ export interface VoteBottomButtonProps {
 
 export interface VoteContentProps {
   onBottomSlideOpen: (content: ReactNode) => void;
-  data: VoteInfo;
+  data: VoteResultInfo | VoteInfo;
   showResults: boolean;
   isZeroCandidates: boolean;
 }
@@ -96,7 +113,7 @@ export interface VoteMeatballProps {
   state: string;
   title: string;
   isZeroCandidates: boolean;
-  allCandidatesNotVoted: boolean;
+  allCandidatesNotVoted: boolean | undefined;
 }
 
 export interface AlertModalProps {
@@ -123,7 +140,7 @@ export interface PostVoteTitleProps {
 export interface CandidatesSlideProps {
   candidates: CandidatesInfo[];
   setSelectedPinIndex: Dispatch<React.SetStateAction<number>>;
-  setCenterMarker: Dispatch<React.SetStateAction<Latlng>>;
+  setCenterMarker: Dispatch<React.SetStateAction<LatLng>>;
   swiperRef: React.RefObject<SwiperRef>;
 }
 
@@ -134,15 +151,11 @@ export interface CreateVoteModalProps {
 export interface EditVoteTitleProps {
   title: string;
   voteId: number;
+  spaceId: number;
 }
 export interface DeleteCandidatesProps {
   voteId: number;
   candidateIds: number[];
-}
-
-export interface TaglineType {
-  id: number;
-  tagline: string;
 }
 
 export interface MemoItemProps {
@@ -155,6 +168,12 @@ export interface PostVotingProps {
   candidateId: number;
 }
 
+export interface TaglineType {
+  id: number;
+  placeTypeId: number;
+  tagline: string;
+}
+
 export interface PostNewCandidateProps {
   voteId: number;
   candidateInfos: {
@@ -163,3 +182,23 @@ export interface PostNewCandidateProps {
     tagline: string;
   }[];
 }
+/////
+
+// export interface SearchItemType {
+//   id: number;
+//   contentTypeId: number;
+//   title: string;
+//   thumbnail: string;
+//   location: SearchItemLocationType;
+//   category: string;
+// }
+// export interface SearchItemLocationType {
+//   address: string;
+//   addressDetail: string;
+//   phone: string;
+//   areaCode: number;
+//   sigunguCode: number;
+//   zipCode: number;
+//   latitude: number;
+//   longitude: number;
+// }

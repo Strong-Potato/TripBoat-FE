@@ -4,37 +4,12 @@ import {useRecoilState} from 'recoil';
 
 import styles from './RegistrationListItem.module.scss';
 
+import {useGetVotesInfo} from '@/hooks/Votes/vote';
+
 import {isRegistrationSelectedState} from '@/recoil/detail/detail';
 
 import {RegistrationListItemProps} from '@/types/detail';
-import {useGetVotesInfo} from '@/hooks/Votes/vote';
-
-interface LatLng {
-  lat: number;
-  lng: number;
-}
-
-interface PlaceInfo {
-  placeId: number;
-  placeName: string;
-  category: string;
-  placeImageUrl: string;
-  latLng: LatLng;
-}
-
-interface CreatedBy {
-  id: number;
-  nickName: string;
-  profileImageUrl: string;
-}
-
-interface Candidate {
-  id: number;
-  placeInfo: PlaceInfo;
-  createdBy: CreatedBy;
-  tagline: string;
-  amIVote: boolean;
-}
+import {CandidatesInfo} from '@/types/vote';
 
 // 투표리스트 item id값으로 title을 대체해야 함
 function RegistrationListItem({voteId, placeId, title}: RegistrationListItemProps) {
@@ -45,11 +20,11 @@ function RegistrationListItem({voteId, placeId, title}: RegistrationListItemProp
 
   const voteInfo = data?.data?.data;
 
-  const voteCandidate: Candidate[] = voteInfo?.candidates;
+  const voteCandidate: CandidatesInfo[] | undefined = voteInfo?.candidates;
 
   console.log(voteCandidate, 'voteCandidates');
 
-  const checkCandidate = voteCandidate ? voteCandidate.filter((data: any) => data.placeInfo.placeId === placeId) : [];
+  const checkCandidate = voteCandidate ? voteCandidate.filter((data) => data.placeInfo.placeId === placeId) : [];
 
   return (
     <div

@@ -5,6 +5,9 @@ import {useRecoilValue} from 'recoil';
 
 import styles from './RegistrationSlide.module.scss';
 
+import {useGetSpaces} from '@/hooks/Spaces/useSpaces';
+import {useGetVoteListInfo, usePostNewCandidate} from '@/hooks/Votes/vote';
+
 import CustomToast from '@/components/CustomToast/CustomToast';
 
 import CloseIcon from '@/assets/close.svg?react';
@@ -15,10 +18,7 @@ import RegistrationModal from './RegistrationModal/RegistrationModal';
 import RegistrationTripSpace from './RegistrationTripSpace/RegistrationTripSpace';
 
 import {RegistrationSlideProps} from '@/types/detail';
-
-import {useGetSpaces} from '@/hooks/Spaces/useSpaces';
-import {useGetVoteListInfo, usePostNewCandidate} from '@/hooks/Votes/vote';
-import {VoteListInfo} from '@/types/vote';
+import {VoteListInfo, VoteListInfoRes} from '@/types/vote';
 
 function RegistrationSlide({slideOnClose, placeId, placeTypeId}: RegistrationSlideProps) {
   const isValuedArray = useRecoilValue<number[]>(isRegistrationSelectedState);
@@ -32,9 +32,9 @@ function RegistrationSlide({slideOnClose, placeId, placeTypeId}: RegistrationSli
 
   const data = useGetVoteListInfo(tripSelectedId);
 
-  const voteListAllData = data.data;
+  const voteListAllData = data.data as VoteListInfoRes;
   const voteListData: VoteListInfo[] = voteListAllData?.data?.voteResponse.filter(
-    (vote: any) => vote.voteStatus === '진행 중',
+    (vote) => vote.voteStatus === '진행 중',
   );
 
   console.log(voteListData, 'voteList');
