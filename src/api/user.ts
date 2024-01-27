@@ -7,6 +7,9 @@ export const memberRequest = {
       return res.data;
     } catch (error) {
       console.log(error);
+      if (axios.isAxiosError(error)) {
+        return error.response;
+      }
     }
   },
 };

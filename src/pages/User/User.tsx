@@ -10,13 +10,15 @@ import Profile from '@/components/User/Profile/Profile';
 
 function User() {
   const navigate = useNavigate();
-  const {data, error, isFetching} = useGetMyInfo(true);
+  const {data, isFetching} = useGetMyInfo(true);
 
   if (isFetching) {
     return <div></div>;
   }
 
-  if (error) navigate('/auth/login');
+  if (data?.status === 403 || data?.status === 401) {
+    navigate('/auth/login');
+  }
 
   return (
     <div className={styles.container}>
