@@ -73,8 +73,6 @@ function SearchList({forSearch}: PropsType) {
   }, [inView]);
 
   useEffect(() => {
-    console.log(data);
-
     if (data) {
       if (forSearch.category !== 0) {
         const filterData: SearchItemType[][] = [];

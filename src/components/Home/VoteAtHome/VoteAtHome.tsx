@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import {Cookies} from 'react-cookie';
 
 import styles from './VoteAtHome.module.scss';
 
@@ -13,13 +14,14 @@ import {Vote} from '@/types/home';
 
 function VoteAtHome() {
   const [data, setData] = useState<Vote>();
+  const cookie = new Cookies().get('isLogin');
   const userData = useGetMyInfo(true).data?.data.nickname;
 
   useEffect(() => {
-    if (userData) {
+    if (cookie) {
       getHomeVote(setData);
     }
-  }, [userData]);
+  }, []);
 
   return (
     <div className={styles.container}>
