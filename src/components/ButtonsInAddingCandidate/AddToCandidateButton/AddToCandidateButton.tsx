@@ -13,12 +13,12 @@ const AddToCandidateButton = () => {
   const spaceId = queryParams.get('placeID');
   const navigate = useNavigate();
   const tripDateParam = queryParams.get('tripDate');
-  const isInVote = tripDateParam === 'undefined';
   const voteIdArray = tripDateParam?.split(' ') as string[]; // 띄어쓰기를 기준으로 문자열 분할
+  const isInVote = voteIdArray[0] === 'vote';
   const voteId = voteIdArray[1];
   const handleAddCandidates = () => {
     // 경로 추후 수정
-    navigate(`trip/${spaceId}/votes/${voteId}/votememo`, {replace: true});
+    navigate(`/trip/${spaceId}/votes/${voteId}/votememo`, {replace: true});
   };
   return (
     <Button variant='CTAButton' isDisabled={counts === 0} onClick={handleAddCandidates}>

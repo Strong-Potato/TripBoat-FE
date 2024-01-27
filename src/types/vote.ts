@@ -1,6 +1,8 @@
 import {Dispatch, ReactNode} from 'react';
 import {SwiperRef} from 'swiper/react';
 
+import {SearchItemType} from './home';
+
 interface UserInfo {
   id: number;
   nickName?: string;
@@ -167,32 +169,36 @@ export interface PostVotingProps {
 }
 
 export interface TaglineType {
-  placeId: number;
+  id: number;
   placeTypeId: number;
   tagline: string;
 }
 
 export interface PostNewCandidateProps {
   voteId: number;
-  candidateInfos: TaglineType[];
+  candidateInfos: {
+    placeId: number;
+    placeTypeId: number;
+    tagline: string;
+  }[];
 }
 /////
 
-export interface SearchItemType {
-  id: number;
-  contentTypeId: number;
-  title: string;
-  thumbnail: string;
-  location: SearchItemLocationType;
-  category: string;
-}
-export interface SearchItemLocationType {
-  address: string;
-  addressDetail: string;
-  phone: string;
-  areaCode: number;
-  sigunguCode: number;
-  zipCode: number;
-  latitude: number;
-  longitude: number;
-}
+// export interface SearchItemType {
+//   id: number;
+//   contentTypeId: number;
+//   title: string;
+//   thumbnail: string;
+//   location: SearchItemLocationType;
+//   category: string;
+// }
+// export interface SearchItemLocationType {
+//   address: string;
+//   addressDetail: string;
+//   phone: string;
+//   areaCode: number;
+//   sigunguCode: number;
+//   zipCode: number;
+//   latitude: number;
+//   longitude: number;
+// }

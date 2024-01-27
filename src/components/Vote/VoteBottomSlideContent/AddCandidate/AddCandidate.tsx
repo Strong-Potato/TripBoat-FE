@@ -10,7 +10,7 @@ const AddCandidate = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const spaceId = Number(location.pathname.split('/')[2]);
-  const voteId = Number(location.pathname.split('/')[4]);
+  const voteId = location.pathname.split('/')[4];
 
   return (
     <div className={styles.container}>
