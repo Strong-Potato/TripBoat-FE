@@ -20,7 +20,7 @@ export interface SelectedPlaces {
 }
 
 function VoteCard({id, title}: VoteCardProps) {
-  const {data} = useGetVotesResults(id);
+  const {data} = useGetVotesResults(true, id);
   const [selectedPlaces, setSelectedPlaces] = useState<SelectedPlaces[]>([]);
   const setSelectedPlacesFromVote = useSetRecoilState<SelectedPlaces[]>(selectedPlaceFromVoteState);
 
