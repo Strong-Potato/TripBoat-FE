@@ -2,10 +2,14 @@ import {useState} from 'react';
 
 import styles from './PlaceList.module.scss';
 
+import areas from '@/utils/areas.json';
+import {translateCategoryName} from '@/utils/translateSearchData';
+
 import {PlaceListProps} from '@/types/route';
 
 function PlaceList({id, name, category, areaCode, placeImageUrl, rank, onSelect}: PlaceListProps) {
   const [isChecked, setIsChecked] = useState(false);
+  const location = areas.filter((area) => area.areaCode === Number(areaCode))[0].name;
 
   const handleSelect = () => {
     setIsChecked(!isChecked);
@@ -21,7 +25,7 @@ function PlaceList({id, name, category, areaCode, placeImageUrl, rank, onSelect}
       <div className={styles.textContainer}>
         <h1>{name}</h1>
         <h2>
-          {category} ・ {areaCode}
+          {translateCategoryName(category)} ・ {location}
         </h2>
       </div>
     </button>
