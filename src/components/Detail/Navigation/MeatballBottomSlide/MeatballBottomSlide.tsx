@@ -46,8 +46,8 @@ const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, tit
   };
   const showToast = CustomToast();
 
-  const postWishes = usePostWishes();
-  const deleteWishes = useDeleteWishes();
+  const postWishes = usePostWishes(id);
+  const deleteWishes = useDeleteWishes(id);
 
   const handleHeartClick = () => {
     if (isLogin) {
