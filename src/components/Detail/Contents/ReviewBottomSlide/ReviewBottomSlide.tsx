@@ -74,6 +74,7 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
       ).slice(-2)}`,
     });
     slideOnClose();
+    document.body.style.removeProperty('overflow');
   };
 
   const {isOpen, onOpen, onClose} = useDisclosure();

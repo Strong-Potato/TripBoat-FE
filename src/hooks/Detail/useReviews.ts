@@ -29,8 +29,8 @@ export const usePostReview = (id: number) => {
   return useMutation({
     mutationFn: postReview,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: [`vote_${id}`]});
-      queryClient.invalidateQueries({queryKey: [`candidates_${id}`]});
+      queryClient.invalidateQueries({queryKey: [`reviews_${id}`]});
+      queryClient.invalidateQueries({queryKey: [`reviewsRating_${id}`]});
     },
   });
 };

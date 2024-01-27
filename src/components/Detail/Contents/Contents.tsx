@@ -13,6 +13,7 @@ import {placeInfoDataPlace} from '@/types/detail';
 // import {useParams} from 'react-router-dom';
 import {useInfiniteScrollReviews} from '@/hooks/useInfiniteScroll';
 import {useGetReviews} from '@/hooks/Detail/useReviews';
+import {useLocation} from 'react-router-dom';
 
 interface ContentsProps {
   data: placeInfoDataPlace;
@@ -31,11 +32,14 @@ function Contents({data, onOpen, reviewsRating}: ContentsProps) {
     setTabIndex(index);
   };
 
-  const [reviewsData, hasNextData, inViewRef] = useInfiniteScrollReviews(() =>
-    useGetReviews(data.id, data.contentTypeId, data.title),
-  );
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
 
-  console.log(reviewsData, 'rd');
+  const title = searchParams.get('title') || data.title;
+
+  const [reviewsData, hasNextData, inViewRef] = useInfiniteScrollReviews(() =>
+    useGetReviews(data.id, data.contentTypeId, title),
+  );
 
   const reviews: any[] = [];
 
