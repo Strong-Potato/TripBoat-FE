@@ -1,7 +1,7 @@
 import {Button} from '@chakra-ui/react';
 import {ReactNode, useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
-import {useRecoilState, useSetRecoilState} from 'recoil';
+import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 
 import styles from './Vote.module.scss';
 
@@ -17,26 +17,26 @@ import VoteHeader from '@/components/Vote/VoteHeader/VoteHeader';
 import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
 import {isBottomSlideOpenState} from '@/recoil/vote/bottomSlide';
 import {selectedCandidatesState} from '@/recoil/vote/candidateList';
-import {showResultsState} from '@/recoil/vote/showResults';
+import {showResultIdsState} from '@/recoil/vote/showResults';
 
 import {VoteInfo} from '@/types/vote';
 
 const Vote = () => {
-  // const {id: voteId} = useParams();
   const location = useLocation();
   const voteId = Number(location.pathname.split('/')[4]);
 
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const [isCandidateSelecting, setIsCandidateSelecting] = useRecoilState(isCandidateSelectingState);
   const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
-  const [showResults, setShowResults] = useRecoilState(showResultsState);
+  const showResultIds = useRecoilValue(showResultIdsState);
+  const [showResults, setShowResults] = useState(false);
   const [bottomSlideContent, setBottomSlideContent] = useState<ReactNode | null>(null);
   const {data: voteInfoData} = useGetVotesInfo(voteId);
   const voteInfo = voteInfoData?.data;
-
   const isZeroCandidates = voteInfo?.candidates.length === 0;
-  // const resultsInfoData = useGetVotesResults(Number(voteId));
+  // const resultsInfoData = useGetVotesResults(showResults, Number(voteId));
   // const resultsInfo = resultsInfoData.data?.data;
+  // const [newVoteData, setNewVoteData] = useState(voteInfoData)
   const resetShowResultsMutation = useResetShowResults();
 
   function areAllCandidatesNotVoted(voteInfo: VoteInfo): boolean {
@@ -45,10 +45,13 @@ const Vote = () => {
   const allCandidatesNotVoted = voteInfo && areAllCandidatesNotVoted(voteInfo);
 
   useEffect(() => {
+    const isShowResults = showResultIds.some((id) => id === voteId);
+    setShowResults(isShowResults);
+  }, [showResultIds, voteId]);
+
+  useEffect(() => {
     if (voteInfo?.voteStatus === '결정완료') {
       setShowResults(true);
-    } else if (voteInfo?.voteStatus === '진행 중') {
-      setShowResults(false);
     }
     setIsCandidateSelecting(false);
     setSelectedCandidates(new Set());
@@ -63,19 +66,18 @@ const Vote = () => {
   };
 
   const resetShowResults = async () => {
-    await resetShowResultsMutation.mutateAsync(voteId);
+    const res = await resetShowResultsMutation.mutateAsync(voteId);
+    setShowResults(false);
+    console.log('리셋 반응', res);
   };
 
   const handleShowResultsClick = () => {
     if (isZeroCandidates) {
       BottomSlideOpen(<AddCandidate />);
     } else if (showResults) {
-      resetShowResults(); //리셋
+      resetShowResults();
     } else {
-      //   resultsInfo
-      // }
-      // setShowResults(!showResults);
-      // console.log('showResults', showResults);
+      setShowResults(true);
     }
   };
 
@@ -117,7 +119,7 @@ const Vote = () => {
           data={voteInfo}
           onBottomSlideOpen={BottomSlideOpen}
           isZeroCandidates={isZeroCandidates}
-          showResults={voteInfo.voteStatus === '결정완료' ? true : showResults}
+          showResults={showResults}
         />
       )}
       {!isCandidateSelecting && voteInfo.voteStatus === '진행 중' && (

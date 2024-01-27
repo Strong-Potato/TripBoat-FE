@@ -1,4 +1,4 @@
-import {useMutation, useQuery, useQueryClient, useSuspenseQuery} from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 
 import {
   changeStatus,
@@ -35,11 +35,12 @@ export const useGetVoteListInfo = (spaceId: number) => {
 };
 
 //결과보기 GET
-export const useGetVotesResults = (voteId: number) => {
-  return useSuspenseQuery({
+export const useGetVotesResults = (enabled: boolean, voteId: number) => {
+  return useQuery({
     queryKey: ['votes', voteId],
     queryFn: () => getVoteResults(voteId),
     retry: false,
+    enabled,
   });
 };
 

@@ -71,6 +71,17 @@ export interface VoteInfoRes {
   data: VoteInfo;
 }
 
+export interface VoteListInfoRes {
+  status: number;
+  message: string;
+  data: {
+    voteResponse: VoteListInfo[];
+    viewResultVoteIds: {
+      voteIds: number[];
+    };
+  };
+}
+
 export interface VoteBottomButtonProps {
   onClick: () => void;
   title: string;
@@ -78,7 +89,7 @@ export interface VoteBottomButtonProps {
 
 export interface VoteContentProps {
   onBottomSlideOpen: (content: ReactNode) => void;
-  data: VoteInfo;
+  data: VoteResultInfo | VoteInfo;
   showResults: boolean;
   isZeroCandidates: boolean;
 }

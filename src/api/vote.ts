@@ -7,6 +7,7 @@ import {
   PostVoteTitleProps,
   PostVotingProps,
   VoteInfoRes,
+  VoteListInfoRes,
 } from '@/types/vote';
 
 /* ----------------------------------- G E T ---------------------------------- */
@@ -18,7 +19,7 @@ export const getVoteInfo = async (voteId: number): Promise<VoteInfoRes> => {
 };
 
 //보트 리스트
-export const getVoteListInfo = async (spaceId: number) => {
+export const getVoteListInfo = async (spaceId: number): Promise<VoteListInfoRes> => {
   const response = await axios.get(`/api/votes`, {params: {spaceId, voteStatusOption: 'ALL', withCredentials: true}});
   return response.data;
 };

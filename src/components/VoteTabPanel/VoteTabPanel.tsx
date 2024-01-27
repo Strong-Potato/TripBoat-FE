@@ -1,10 +1,13 @@
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
+import {useSetRecoilState} from 'recoil';
 
 import styles from './VoteTabPanel.module.scss';
 
 import {useGetVoteListInfo} from '@/hooks/Votes/vote';
+
+import {showResultIdsState} from '@/recoil/vote/showResults';
 
 import TabsVoteCard from './TabsVoteCard/TabsVoteCard';
 import VoteTabPanelEmpty from './VoteTabPanelEmpty/VoteTabPanelEmpty';
@@ -15,19 +18,24 @@ import {VoteListInfo} from '@/types/vote';
 
 const VoteTabPanel = () => {
   const {id: spaceId} = useParams();
-  const data = useGetVoteListInfo(Number(spaceId));
-  const voteListAllData = data.data;
-  const voteListData: VoteListInfo[] = voteListAllData?.data?.voteResponse;
-  // const viewResultVoteIdsData = voteListAllData?.viewResultVoteIds;
+  const {data: voteListAllData} = useGetVoteListInfo(Number(spaceId));
+  const voteListData: VoteListInfo[] | undefined = voteListAllData?.data.voteResponse;
+  const viewResultVoteIdsData: number[] | undefined = voteListAllData?.data.viewResultVoteIds.voteIds;
+  const setShowResultIds = useSetRecoilState(showResultIdsState);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
-
   const inProgressVotes = voteListData?.filter((vote) => vote.voteStatus === '진행 중');
   const completeVotes = voteListData?.filter((vote) => vote.voteStatus === '결정완료');
 
   const getVotesCount = (vote: VoteListInfo[] | undefined) => `총 ${vote ? vote.length : '0'}개`;
 
-  console.log('voteListAllData', voteListAllData);
+  useEffect(() => {
+    if (viewResultVoteIdsData) {
+      setShowResultIds(viewResultVoteIdsData);
+    }
+  }, [viewResultVoteIdsData]);
 
+  console.log('voteListAllData', voteListAllData);
+  console.log('viewResultVoteIdsData', viewResultVoteIdsData);
   return (
     <div className={styles.container}>
       <Tabs variant='voteFilter' onChange={(index) => setActiveTabIndex(index)}>
