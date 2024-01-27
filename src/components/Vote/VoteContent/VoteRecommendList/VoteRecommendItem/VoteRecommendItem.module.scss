@@ -10,12 +10,15 @@
     width: 14.4rem;
     height: 14.4rem;
 
+    border-radius: 16px;
+
     margin-bottom: 4px;
+
+    background-color: $neutral200;
     & > img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-
       border-radius: 16px;
     }
   }

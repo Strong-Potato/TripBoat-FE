@@ -4,10 +4,24 @@
   margin-bottom: 70px;
   position: relative;
 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
   &__title {
+    padding-left: 20px;
     @include typography(titleLarge);
 
     margin-bottom: 15px;
+  }
+  .slide {
+    @include slide_button_container;
+    &__list {
+      @include slide_list_container;
+      gap: 16px;
+    }
   }
 }
 
