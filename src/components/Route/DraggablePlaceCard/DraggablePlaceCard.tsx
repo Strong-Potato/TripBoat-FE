@@ -87,7 +87,7 @@ function PlaceCard({
           </div>
         </div>
       </div>
-      <div className='MoveButton'>{editMode && <MoveIcon size='2.4rem' color='#CDCFD0' />}</div>
+      <div className={styles.moveButton}>{editMode && <MoveIcon size='2.4rem' color='#CDCFD0' />}</div>
     </div>
   );
 }

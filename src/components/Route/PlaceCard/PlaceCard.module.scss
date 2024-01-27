@@ -37,6 +37,10 @@
     background-color: $neutral0;
     box-shadow: $shadow200;
 
+    :hover {
+      cursor: pointer;
+    }
+
     .placeInformation {
       display: flex;
       flex-direction: column;
@@ -55,6 +59,12 @@
         @include typography(captionSmall);
         color: $neutral400;
       }
+    }
+  }
+
+  .moveButton {
+    :hover {
+      cursor: pointer;
     }
   }
 }
