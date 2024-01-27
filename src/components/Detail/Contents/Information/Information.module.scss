@@ -1,0 +1,38 @@
+@use '@/sass' as *;
+
+.linkContainer {
+  padding: 32px 20px;
+
+  display: flex;
+  justify-content: space-between;
+
+  border-top: 1px solid $neutral100;
+  border-bottom: 1px solid $neutral100;
+
+  &__text {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    &__sale {
+      @include typography(button);
+
+      color: $primary300;
+
+      margin-right: 8px;
+    }
+
+    &__reserve {
+      @include typography(titleSmall);
+      color: $neutral900;
+      margin-right: 20px;
+    }
+
+    &__icon {
+      position: absolute;
+      top: 45%;
+      right: 0;
+      transform: translate(0, -50%);
+    }
+  }
+}
