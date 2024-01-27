@@ -21,7 +21,7 @@ function MapItem({data, categoryChange}: PropsType) {
   const imgSrc = data.thumbnail ? data.thumbnail : nullImg;
 
   return (
-    <Link to={`/detail/${data.id} ${data.contentTypeId}`} className={styles.container}>
+    <Link to={`/detail/${data.id} ${data.contentTypeId}?title=${data.title}`} className={styles.container}>
       <img
         src={imgSrc}
         alt={`${data.title}의 사진`}
