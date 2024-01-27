@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   display: flex;
@@ -28,7 +28,6 @@
   &__addBtn {
     padding: 12px 0;
     width: 100%;
-    max-width: 40.2rem;
 
     position: fixed;
     bottom: 26px;

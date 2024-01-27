@@ -125,8 +125,16 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
         className={styles.container__addBtn}
         style={
           isValuedInput && isValuedCount && isValuedDate
-            ? {backgroundColor: '#2388FF', color: '#FFFFFF'}
-            : {backgroundColor: '#E3E5E5', color: '#979C9E'}
+            ? {
+                backgroundColor: '#2388FF',
+                color: '#FFFFFF',
+                width: window.innerWidth > 450 ? '40.2rem' : window.innerWidth - 48 + 'px',
+              }
+            : {
+                backgroundColor: '#E3E5E5',
+                color: '#979C9E',
+                width: window.innerWidth > 450 ? '40.2rem' : window.innerWidth - 48 + 'px',
+              }
         }
         onClick={handlePostReview}
         disabled={isDisabled}
