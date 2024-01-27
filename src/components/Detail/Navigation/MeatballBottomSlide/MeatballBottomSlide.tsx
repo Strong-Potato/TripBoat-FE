@@ -18,11 +18,6 @@ import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
 import RegistrationSlide from '../../BottomFixedBtn/RegistrationSlide/RegistrationSlide';
 import ReviewBottomSlide from '../../Contents/ReviewBottomSlide/ReviewBottomSlide';
 
-import {NavigationMeatballProps} from '@/types/detail';
-import {useDeleteWishes, usePostWishes} from '@/hooks/Detail/useWish';
-import {useLocation, useNavigate} from 'react-router-dom';
-import {Cookies} from 'react-cookie';
-
 const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, title}: NavigationMeatballProps) => {
   const [isWish, setIsWish] = useRecoilState(IsHeartValued);
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
