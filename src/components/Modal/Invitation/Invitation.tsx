@@ -16,7 +16,7 @@ import {InvitationProps} from '@/types/Invitation';
 
 function Invitation({inviteCode, modal}: InvitationProps) {
   const [isFull, setIsFull] = useRecoilState(isFullMember);
-  const [, , removeCookie] = useCookies(['join_space_token']);
+  const [, setcookie] = useCookies(['join_space_token']);
   const {data} = useGetMyInfo(true);
   const navigate = useNavigate();
   const parsedInviteCode = parseInviteCode(inviteCode);
@@ -33,10 +33,10 @@ function Invitation({inviteCode, modal}: InvitationProps) {
   const handleJoin = async () => {
     const response = await postJoin(parsedInviteCode!.space_id);
     if (response.status === 200) {
-      removeCookie('join_space_token');
+      setcookie('join_space_token', '');
       navigate(`/trip/${parsedInviteCode!.space_id}`);
     } else if (response.status === 400) {
-      removeCookie('join_space_token');
+      setcookie('join_space_token', '');
       modal(false);
       setIsFull(true);
     }
@@ -62,7 +62,7 @@ function Invitation({inviteCode, modal}: InvitationProps) {
                   className={styles.wrapperInvalidButton__confirm}
                   onClick={() => {
                     modal(false);
-                    removeCookie('join_space_token');
+                    setcookie('join_space_token', '');
                   }}
                 >
                   확인
@@ -87,7 +87,7 @@ function Invitation({inviteCode, modal}: InvitationProps) {
                 className={styles.wrapperButton__cancel}
                 onClick={() => {
                   modal(false);
-                  removeCookie('join_space_token');
+                  setcookie('join_space_token', '');
                 }}
               >
                 취소
@@ -114,7 +114,7 @@ function Invitation({inviteCode, modal}: InvitationProps) {
                 className={styles.wrapperButton__cancel}
                 onClick={() => {
                   modal(false);
-                  removeCookie('join_space_token');
+                  setcookie('join_space_token', '');
                 }}
               >
                 취소
