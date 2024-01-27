@@ -50,7 +50,7 @@ function TravelList({isSideOpen}: TravelListProp) {
           {spaces.data.spaces.map((item, index) => (
             <li key={index}>
               <button className={styles.travelSpaceList__items__item} onClick={() => navigate(`/trip/${item.id}`)}>
-                <p className={styles.travelSpaceList__items__item__name}>{item.city}</p>
+                <p className={styles.travelSpaceList__items__item__name}>{item.city ? item.city : `여행지 미정`}</p>
                 <p className={styles.travelSpaceList__items__item__date}>
                   {item.startDate && item.endDate ? setSpaceDate(item.startDate, item.endDate) : '날짜 미정'}
                 </p>

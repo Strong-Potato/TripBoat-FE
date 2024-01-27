@@ -14,19 +14,18 @@ const VoteRecommendItem = ({state}: {state: string}) => {
         <img src='https://img-cf.kurly.com/shop/data/goodsview/20210218/gv30000159355_1.jpg' />
       </Link>
 
-      <button>
-        {state === '결정완료' ? (
-          <>
-            <AiOutlineDownload />
-            <span>일정에 담기</span>
-          </>
-        ) : (
-          <>
-            <BiTask />
-            <span>후보에 추가</span>
-          </>
-        )}
-      </button>
+      {state === '결정완료' ? (
+        <button>
+          <AiOutlineDownload />
+          <span>일정에 담기</span>
+        </button>
+      ) : (
+        <button>
+          <BiTask />
+          <span>후보에 추가</span>
+        </button>
+      )}
+
       <div>
         <Link to='' className={styles.textBox}>
           <p className={styles.textBox__name}>카페 리젠트마린</p>

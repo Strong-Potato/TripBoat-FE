@@ -16,3 +16,7 @@ export type AlarmProps = {
 export type BackProps = {
   alarmClose: () => void;
 };
+
+export interface Alarmprop {
+  onAlarmOpen: () => void;
+}
