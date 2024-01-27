@@ -7,7 +7,7 @@ import styles from './MapModal.module.scss';
 import BigHomeMarker from '@/assets/homeIcons/map/house_big.svg?react';
 import BigFlagMarker from '@/assets/homeIcons/map/flag_big.svg?react';
 import BigRestaurantMarker from '@/assets/homeIcons/map/restaurant_big.svg?react';
-import WishBtn from '@/components/WishBtn/WishBtn';
+import WishBtn from '@/components/Detail/Main/Title/TitleWishBtn/TitleWishBtn';
 
 interface MapModalProps {
   isOpen: boolean;

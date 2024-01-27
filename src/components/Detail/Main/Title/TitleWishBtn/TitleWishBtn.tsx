@@ -3,12 +3,14 @@ import {useEffect, useState} from 'react';
 import {Cookies} from 'react-cookie';
 import {FaHeart, FaRegHeart} from 'react-icons/fa';
 
-import styles from './WishBtn.module.scss';
+import styles from './TtitleWishBtn.module.scss';
 
 import {useDeleteWishes, useGetIsWish, usePostWishes} from '@/hooks/Detail/useWish';
 import {useDebounceBoolean} from '@/hooks/useDebounce';
 
-import CustomToast from '../CustomToast/CustomToast';
+import CustomToast from '../../../../CustomToast/CustomToast';
+import {useRecoilState} from 'recoil';
+import {IsHeartValued} from '@/recoil/detail/detail';
 
 interface WishBtnProps {
   placeId: number;
@@ -17,7 +19,8 @@ interface WishBtnProps {
   className?: string;
 }
 
-function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: WishBtnProps) {
+function TitleWishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: WishBtnProps) {
+  const [isWish, setIsWish] = useRecoilState(IsHeartValued);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [wishInitial, setWishInitial] = useState<boolean>(false);
 
@@ -30,7 +33,7 @@ function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: Wish
 
   const showToast = CustomToast();
 
-  const [isWish, setIsWish] = useState<boolean>(false);
+  // const [isWish, setIsWish] = useState<boolean>(false);
 
   const wish = useGetIsWish(placeId, isLogin);
 
@@ -126,4 +129,4 @@ function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: Wish
   );
 }
 
-export default WishBtn;
+export default TitleWishBtn;

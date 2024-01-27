@@ -23,6 +23,7 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
   const [isValuedInput, setIsValuedInput] = useState<boolean>(false);
   const [isValuedCount, setIsValuedCount] = useState<boolean>(false);
   const [isValuedDate, setIsValuedDate] = useState<boolean>(false);
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
@@ -54,6 +55,7 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
   const postReview = usePostReview(placeId);
 
   const handlePostReview = async () => {
+    setIsDisabled(true);
     const presignedUrls = await s3Request.uploadImages(imageFileList as File[]);
 
     if (imageFileList) {
@@ -69,13 +71,15 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
       rating: starCount,
       content: text,
       images: presignedUrls,
-      visitedAt: `${time.getFullYear()}-${('00' + (time.getMonth() + 1).toString()).slice(-2)}-${(
-        '00' + (time.getDay() + 1).toString()
-      ).slice(-2)}`,
+      visitedAt: `${time.getFullYear()}-${('00' + (time.getMonth() + 1).toString()).slice(-2)}-01`,
     });
     slideOnClose();
     document.body.style.removeProperty('overflow');
   };
+
+  //  `${time.getFullYear()}-${('00' + (time.getMonth() + 1).toString()).slice(-2)}-${(
+  //       '00' + (time.getDay() + 1).toString()
+  //     ).slice(-2)}`,
 
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [bottomSlideContent, setBottomSlideContent] = useState<ReactNode | null>(null);
@@ -125,6 +129,7 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
             : {backgroundColor: '#E3E5E5', color: '#979C9E'}
         }
         onClick={handlePostReview}
+        disabled={isDisabled}
       >
         리뷰 등록
       </button>
