@@ -1,6 +1,12 @@
-// placeSelectionUtils.ts
-
 import {SelectedPlace, TransformedDataItem} from '@/types/route';
+
+const arePlacesEqual = (place1: SelectedPlace, place2: SelectedPlace) => {
+  return place1.journeyId === place2.journeyId && place1.selectedId === place2.selectedId;
+};
+
+const isSelected = (place: SelectedPlace, selectedPlaces: SelectedPlace[]) => {
+  return selectedPlaces.some((selectedPlace) => arePlacesEqual(selectedPlace, place));
+};
 
 export const handlePlaceSelection = (
   journeyId: number,
@@ -32,12 +38,4 @@ export const transformSelectedPlaces = (selectedPlaces: SelectedPlace[]) => {
 
     return result;
   }, []);
-};
-
-const arePlacesEqual = (place1: SelectedPlace, place2: SelectedPlace) => {
-  return place1.journeyId === place2.journeyId && place1.selectedId === place2.selectedId;
-};
-
-const isSelected = (place: SelectedPlace, selectedPlaces: SelectedPlace[]) => {
-  return selectedPlaces.some((selectedPlace) => arePlacesEqual(selectedPlace, place));
 };

@@ -6,7 +6,7 @@ import styles from './DayMove.module.scss';
 
 import {useDeletePlaces, usePostPlaces} from '@/hooks/Spaces/space';
 
-import {transformSelectedPlaces} from '@/utils/formatJourneyData';
+import {transformSelectedPlaces} from '@/components/Route/RouteTabPanel/formatJourneyData';
 
 import {DayMoveProps} from '@/types/route';
 

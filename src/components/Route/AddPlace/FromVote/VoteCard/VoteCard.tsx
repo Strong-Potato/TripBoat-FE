@@ -8,7 +8,7 @@ import styles from './VoteCard.module.scss';
 
 import {useGetVotesResults} from '@/hooks/Votes/vote';
 
-import {selectedPlaceFromVoteState} from '@/recoil/\bspaces/selectPlace';
+import {selectedPlaceFromVoteState} from '@/recoil/spaces/selectPlace';
 
 import PlaceList from '../PlaceList/PlaceList';
 
