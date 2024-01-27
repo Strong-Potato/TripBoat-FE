@@ -2,12 +2,9 @@ import {BiTask} from 'react-icons/bi';
 import {CiEdit} from 'react-icons/ci';
 import {FaRegHeart} from 'react-icons/fa';
 import {IoShareSocialOutline} from 'react-icons/io5';
-import {useLocation} from 'react-router-dom';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './MeatballBottomSlide.module.scss';
-
-import {useDeleteWishes, usePostWishes} from '@/hooks/Detail/useWish';
 
 import CustomToast from '@/components/CustomToast/CustomToast';
 
@@ -17,6 +14,11 @@ import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
 
 import RegistrationSlide from '../../BottomFixedBtn/RegistrationSlide/RegistrationSlide';
 import ReviewBottomSlide from '../../Contents/ReviewBottomSlide/ReviewBottomSlide';
+
+import {NavigationMeatballProps} from '@/types/detail';
+import {useDeleteWishes, usePostWishes} from '@/hooks/Detail/useWish';
+import {useLocation, useNavigate} from 'react-router-dom';
+import {Cookies} from 'react-cookie';
 
 const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, title}: NavigationMeatballProps) => {
   const [isWish, setIsWish] = useRecoilState(IsHeartValued);
@@ -44,8 +46,8 @@ const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, tit
   };
   const showToast = CustomToast();
 
-  const postWishes = usePostWishes(id);
-  const deleteWishes = useDeleteWishes(id);
+  const postWishes = usePostWishes();
+  const deleteWishes = useDeleteWishes();
 
   const handleHeartClick = () => {
     if (isLogin) {
