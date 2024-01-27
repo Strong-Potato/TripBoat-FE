@@ -35,10 +35,12 @@ const CandidateList = ({candidates, onBottomSlideOpen, isCandidateSelecting}: Ca
               <label htmlFor={`${i}checkbox`}>
                 <CandidateCard onBottomSlideOpen={onBottomSlideOpen} candidate={candidate} index={i + 1} />
               </label>
-              <div className={styles.candidateBox__memo}>
-                <Avatar boxSize='24px' />
-                <div className={styles.candidateBox__memo__text}>{candidate.tagline}</div>
-              </div>
+              {candidate.tagline && (
+                <div className={styles.candidateBox__memo}>
+                  <Avatar boxSize='24px' src={candidate.createdBy.profileImageUrl} />
+                  <div className={styles.candidateBox__memo__text}>{candidate.tagline}</div>
+                </div>
+              )}
             </div>
           </div>
         ))

@@ -12,7 +12,7 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react';
 import {useEffect, useState} from 'react';
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {useRecoilState} from 'recoil';
 
 import {useEditVoteTitle, usePostNewVote} from '@/hooks/Votes/vote';
@@ -24,11 +24,13 @@ import {CreateVoteModalProps} from '@/types/vote';
 const CreateVoteModal = ({isEditMode, existingTitle}: CreateVoteModalProps) => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useRecoilState(isCreateModalOpenState);
   const location = useLocation();
-  const path = Number(location.pathname.split('/')[2]);
+  const spaceId = Number(location.pathname.split('/')[2]);
+  const voteId = Number(location.pathname.split('/')[4]);
+
   const [inputValue, setInputValue] = useState('');
   const postNewVoteMutation = usePostNewVote();
   const editTitleMutation = useEditVoteTitle();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (existingTitle) {
@@ -42,15 +44,15 @@ const CreateVoteModal = ({isEditMode, existingTitle}: CreateVoteModalProps) => {
   };
 
   const handleCreateVote = async (inputValue: string) => {
-    const res = await postNewVoteMutation.mutateAsync({spaceId: path, title: inputValue});
+    const res = await postNewVoteMutation.mutateAsync({spaceId, title: inputValue});
     newClose();
     console.log('만들기~~', res);
-    // navigate(`/vote/${data.id}`)
+    navigate(`/trip/${spaceId}${res.data}`);
   };
 
-  const handleEditVoteTitle = (inputValue: string) => {
+  const handleEditVoteTitle = async (inputValue: string) => {
+    await editTitleMutation.mutate({voteId, spaceId, title: inputValue});
     setIsCreateModalOpen(false);
-    editTitleMutation.mutate({voteId: path, title: inputValue});
   };
 
   return (

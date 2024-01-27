@@ -1,7 +1,7 @@
-import {useMutation, useQuery, useQueryClient, useSuspenseQuery} from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 
 import {
-  changeStatusComplete,
+  changeStatus,
   deleteCandidates,
   deleteVote,
   editVoteTitle,
@@ -11,7 +11,7 @@ import {
   postNewCandidate,
   postNewVote,
   postVoting,
-  resetVoteStatus,
+  resetShowResults,
 } from '@/api/vote';
 
 /* ----------------------------------- Q U E R Y ---------------------------------- */
@@ -34,11 +34,13 @@ export const useGetVoteListInfo = (spaceId: number) => {
   });
 };
 
-export const useGetVotesResults = (voteId: number) => {
-  return useSuspenseQuery({
+//결과보기 GET
+export const useGetVotesResults = (enabled: boolean, voteId: number) => {
+  return useQuery({
     queryKey: ['votes', voteId],
     queryFn: () => getVoteResults(voteId),
     retry: false,
+    enabled,
   });
 };
 
@@ -65,7 +67,7 @@ export const usePostNewVote = () => {
   return useCustomMutation(postNewVote, ['votes']);
 };
 
-//투표하기&취소 POST
+//투표하기&취소 POST --
 export const usePostVoting = () => {
   return useCustomMutation(postVoting, ['vote', 'candidates']); //vote?
 };
@@ -75,60 +77,29 @@ export const usePostNewCandidate = () => {
   return useMutation({mutationFn: postNewCandidate}); //onSuccess?
 };
 
-// //voteTitle 수정 PUT
+//voteTitle 수정 PATCH
 export const useEditVoteTitle = () => {
   return useCustomMutation(editVoteTitle, ['vote']);
 };
 
-//투표 상태 결과보기로 변경 PUT
-export const useChangeStatusComplete = () => {
-  return useCustomMutation(changeStatusComplete, ['vote']);
+//투표 상태 결정완료/진행중 변경 PUT
+export const useChangeStatus = () => {
+  return useCustomMutation(changeStatus, ['vote']);
 };
 
-//재투표, 리셋
-export const useResetVoteStatus = () => {
-  return useCustomMutation(resetVoteStatus, ['vote']);
+//결과보기 취소 --
+export const useResetShowResults = () => {
+  return useCustomMutation(resetShowResults, ['vote']);
 };
 
-// //vote 삭제 DELETE  -> 쿼리 무효화 필요없는지 확인하기
+// //vote 삭제 DELETE
 export const useDeleteVote = () => {
   return useMutation({mutationFn: deleteVote});
 };
 
-// //candidate 삭제- api 미정
+// //candidate 삭제
 export const useDeleteCandidates = () => {
-  return useCustomMutation(deleteCandidates, ['votes']);
+  return useCustomMutation(deleteCandidates, ['vote']);
 };
 
 //커스텀 mutation 사용 전
-
-//vote 추가 POST
-// export const usePostNewVote = () => {
-//   const queryClient = useQueryClient();
-//   return useMutation({
-//     mutationFn: PostNewVote,
-//     onSuccess: () =>  queryClient.invalidateQueries({queryKey: ['votes']});
-//   });
-// };
-
-//voteTitle 수정 PUT
-// export const useEditVoteTitle = () => {
-//   const queryClient = useQueryClient();
-//   return useMutation({
-//     mutationFn: editVoteTitle,
-//     onSuccess: () => {
-//       queryClient.invalidateQueries({queryKey: ['vote']});
-//     },
-//   });
-// };
-
-//vote 삭제 DELETE
-// export const useDeleteVote = () => {
-//   const queryClient = useQueryClient();
-//   return useMutation({
-//     mutationFn: deleteVote,
-//     onSuccess: () => {
-//       queryClient.invalidateQueries({queryKey: ['votes']});
-//     },
-//   });
-// };

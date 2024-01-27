@@ -1,15 +1,14 @@
+import {Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay} from '@chakra-ui/react';
 import {useEffect, useState} from 'react';
+import {Cookies} from 'react-cookie';
 import {FaHeart, FaRegHeart} from 'react-icons/fa';
 
+import styles from './WishBtn.module.scss';
+
 import {useDeleteWishes, useGetIsWish, usePostWishes} from '@/hooks/Detail/useWish';
+import {useDebounceBoolean} from '@/hooks/useDebounce';
 
 import CustomToast from '../CustomToast/CustomToast';
-import {useDebounceBoolean} from '@/hooks/useDebounce';
-import {Cookies} from 'react-cookie';
-
-import {Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay} from '@chakra-ui/react';
-
-import styles from './WishBtn.module.scss';
 
 interface WishBtnProps {
   placeId: number;
@@ -33,28 +32,31 @@ function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: Wish
 
   const [isWish, setIsWish] = useState<boolean>(false);
 
-  if (isLogin) {
-    const {
-      data: {data: wish},
-    } = useGetIsWish(placeId);
+  const wish = useGetIsWish(placeId, isLogin);
 
-    setIsWish(wish);
-  }
+  useEffect(() => {
+    if (isLogin) {
+      if (typeof wish.data === 'boolean') {
+        setIsWish(wish.data);
+      }
+    }
+  }, []);
 
-  const postWishes = usePostWishes();
-  const deleteWishes = useDeleteWishes();
+  const postWishes = usePostWishes(placeId);
+  const deleteWishes = useDeleteWishes(placeId);
 
   const debounce = useDebounceBoolean(isWish, 1000);
 
   const handleWishClick = () => {
     if (isLogin) {
       if (!isWish) {
-        postWishes.mutate({placeId: placeId, contentTypeId: contentTypeId});
+        // 여기서 한 번 요청하고 밑에 디바운스에서 또 요청해서 주석처리 해놨습니다!
+        // postWishes.mutate({placeId: placeId, contentTypeId: contentTypeId});
 
         setIsWish(true);
         showToast('찜 목록에 저장되었습니다.');
       } else {
-        deleteWishes.mutate(placeId);
+        // deleteWishes.mutate(placeId);
 
         showToast('찜 목록에서 제거되었습니다.');
         setIsWish(false);
@@ -115,7 +117,7 @@ function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: Wish
               닫기
             </button>
             <button onClick={() => {}} className={styles.buttons__action}>
-              로그인하
+              로그인하기
             </button>
           </ModalFooter>
         </ModalContent>

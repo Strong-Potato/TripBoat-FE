@@ -22,7 +22,7 @@ function HotItems({type}: PropsType) {
   const [componentRef, size] = useComponentSize();
 
   useEffect(() => {
-    getPopularItem('/api/places/popular', type, setData);
+    getPopularItem(type, setData);
   }, [type]);
   return (
     <div className={styles.container}>

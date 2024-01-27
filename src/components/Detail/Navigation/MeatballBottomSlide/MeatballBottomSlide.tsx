@@ -2,9 +2,12 @@ import {BiTask} from 'react-icons/bi';
 import {CiEdit} from 'react-icons/ci';
 import {FaRegHeart} from 'react-icons/fa';
 import {IoShareSocialOutline} from 'react-icons/io5';
+import {useLocation} from 'react-router-dom';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './MeatballBottomSlide.module.scss';
+
+import {useDeleteWishes, usePostWishes} from '@/hooks/Detail/useWish';
 
 import CustomToast from '@/components/CustomToast/CustomToast';
 
@@ -46,8 +49,8 @@ const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, tit
   };
   const showToast = CustomToast();
 
-  const postWishes = usePostWishes();
-  const deleteWishes = useDeleteWishes();
+  const postWishes = usePostWishes(id);
+  const deleteWishes = useDeleteWishes(id);
 
   const handleHeartClick = () => {
     if (isLogin) {

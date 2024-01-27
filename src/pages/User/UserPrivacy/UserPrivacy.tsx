@@ -1,5 +1,4 @@
 import {useQueryClient} from '@tanstack/react-query';
-import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
 
 import styles from './UserPrivacy.module.scss';
@@ -7,6 +6,8 @@ import styles from './UserPrivacy.module.scss';
 import {useGetMyInfo} from '@/hooks/User/useUser';
 
 import Header from '@/components/Auth/Header/Header';
+
+import {authRequest} from '@/api/auth';
 
 function UserPrivacy() {
   const navigate = useNavigate();
@@ -18,8 +19,8 @@ function UserPrivacy() {
   }
   if (error) navigate('/auth/login');
 
-  const clickLogout = () => {
-    axios.post('/api/logout', {}, {withCredentials: true});
+  const clickLogout = async () => {
+    authRequest.logout();
 
     // remove query cache for logout
     queryClient.removeQueries({queryKey: ['myInfo']});

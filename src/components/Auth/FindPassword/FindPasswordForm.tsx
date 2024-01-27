@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
@@ -6,6 +5,8 @@ import {useNavigate} from 'react-router-dom';
 import styles from './FindPasswordForm.module.scss';
 
 import CustomToast from '@/components/CustomToast/CustomToast';
+
+import {authRequest} from '@/api/auth';
 
 import StepEmail from './Step/StepEmail';
 import StepEmailSert from './Step/StepEmailSert';
@@ -43,11 +44,7 @@ function FindPasswordForm() {
 
     try {
       const {email, password} = data;
-      const res = await axios.post('/api/auth/modify/lost-password', {
-        email,
-        newPassword: password,
-        token: code,
-      });
+      const res = await authRequest.lostPassword_submit(email, password, code);
       console.log(res);
 
       if (res.data.responseCode === 204) {

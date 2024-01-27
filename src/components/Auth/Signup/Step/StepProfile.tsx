@@ -4,12 +4,12 @@ import styles from './Step.module.scss';
 
 import AuthButton from '@/components/Auth/Button/AuthButton';
 
-import defaultProfile from '@/assets/profile_default.svg';
-
 import InputImage from '../../Input/InputImage';
 import InputNickname from '../../Input/InputNickname';
 
 import {StepProfileProps} from '@/types/auth';
+
+const defaultProfile = '/profile_default.svg';
 
 function StepProfile({register, resetField, dirty, error}: StepProfileProps) {
   const [imageUrl, setImageUrl] = useState<string | undefined>(defaultProfile);
