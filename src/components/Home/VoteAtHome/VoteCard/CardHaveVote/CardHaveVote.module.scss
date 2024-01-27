@@ -61,6 +61,11 @@
               border: 1px solid $neutral0;
               border-radius: 3.2rem;
             }
+            .title {
+              text-overflow: ellipsis;
+              overflow: hidden;
+              text-wrap: nowrap;
+            }
           }
         }
         .button_box {

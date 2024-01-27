@@ -14,6 +14,7 @@ import ThirdIcon from '@/assets/voteIcons/rank_3.svg?react';
 import AddDayIcon from '@/assets/voteIcons/vote_addDay.svg?react';
 import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
 import {showResultsState} from '@/recoil/vote/showResults';
+import {translateAreaCode, translateCategoryName} from '@/utils/translateSearchData';
 
 import AddToJourney from '../../VoteBottomSlideContent/AddToJourney/AddToJourney';
 import VotedUserList from '../../VoteBottomSlideContent/VotedUserList/VotedUserList';
@@ -102,9 +103,9 @@ const CandidateCard = ({onBottomSlideOpen, candidate, index, isMapStyle}: Candid
           </button>
 
           <div className={styles.main__contextBox__category}>
-            {placeInfo.category}
+            {translateCategoryName(placeInfo.category)}
             {'ꞏ'}
-            {placeInfo.areaCode}
+            {translateAreaCode(parseInt(placeInfo.areaCode))}
           </div>
 
           {/* 일정 담기

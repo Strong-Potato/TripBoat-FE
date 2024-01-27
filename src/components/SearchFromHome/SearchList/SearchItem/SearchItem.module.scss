@@ -8,12 +8,11 @@
   justify-content: space-between;
   gap: 12px;
 
-  padding: 16px 0;
-
   .itemBox {
     max-height: 70px;
 
     display: flex;
+    align-items: center;
     gap: 12px;
 
     img {
@@ -32,12 +31,18 @@
     .text {
       display: flex;
       flex-direction: column;
+      gap: 2px;
 
       opacity: 1;
 
       transition: 0.3s all linear;
 
       .title {
+        height: 24px;
+
+        text-overflow: ellipsis;
+        overflow: hidden;
+        text-wrap: nowrap;
         @include typography(titleSmall);
       }
       .info {
