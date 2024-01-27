@@ -21,7 +21,7 @@ export const useGetVotesInfo = (voteId: number) => {
   return useQuery({
     queryKey: ['vote', voteId],
     queryFn: () => getVoteInfo(voteId),
-    retry: false,
+    retry: 2,
   });
 };
 
@@ -37,9 +37,9 @@ export const useGetVoteListInfo = (spaceId: number) => {
 //결과보기 GET
 export const useGetVotesResults = (enabled: boolean, voteId: number) => {
   return useQuery({
-    queryKey: ['votes', voteId],
+    queryKey: ['vote', voteId],
     queryFn: () => getVoteResults(voteId),
-    retry: false,
+    retry: 2,
     enabled,
   });
 };
@@ -67,14 +67,21 @@ export const usePostNewVote = () => {
   return useCustomMutation(postNewVote, ['votes']);
 };
 
-//투표하기&취소 POST --
+//투표하기&취소 POST
 export const usePostVoting = () => {
-  return useCustomMutation(postVoting, ['vote', 'candidates']); //vote?
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: postVoting,
+    onSuccess: () => queryClient.invalidateQueries({queryKey: ['vote']}),
+    // queryClient.invalidateQueries({queryKey: ['voteResults']});
+
+    retry: false,
+  });
 };
 
 //후보 메모 후 추가 POST
 export const usePostNewCandidate = () => {
-  return useMutation({mutationFn: postNewCandidate}); //onSuccess?
+  return useCustomMutation(postNewCandidate, ['vote']);
 };
 
 //voteTitle 수정 PATCH
@@ -87,19 +94,17 @@ export const useChangeStatus = () => {
   return useCustomMutation(changeStatus, ['vote']);
 };
 
-//결과보기 취소 --
+//결과보기 취소
 export const useResetShowResults = () => {
   return useCustomMutation(resetShowResults, ['vote']);
 };
 
-// //vote 삭제 DELETE
+//vote 삭제 DELETE
 export const useDeleteVote = () => {
   return useMutation({mutationFn: deleteVote});
 };
 
-// //candidate 삭제
+//candidate 삭제
 export const useDeleteCandidates = () => {
   return useCustomMutation(deleteCandidates, ['vote']);
 };
-
-//커스텀 mutation 사용 전

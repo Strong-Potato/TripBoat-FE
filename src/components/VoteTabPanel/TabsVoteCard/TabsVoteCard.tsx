@@ -24,9 +24,7 @@ const TabsVoteCard = ({data}: {data: VoteListInfo}) => {
         </div>
 
         <AvatarGroup variant='tabsVoteCard' max={3} spacing='0'>
-          {users.map((user) => (
-            <Avatar name={user.nickName} variant='tabsVoteCard' key={user.id} />
-          ))}
+          {users?.map((user) => <Avatar name={user.nickName} variant='tabsVoteCard' key={user.id} />)}
         </AvatarGroup>
       </div>
     </Link>

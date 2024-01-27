@@ -1,7 +1,7 @@
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react';
 import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {useSetRecoilState} from 'recoil';
+import {useRecoilState} from 'recoil';
 
 import styles from './VoteTabPanel.module.scss';
 
@@ -21,7 +21,7 @@ const VoteTabPanel = () => {
   const {data: voteListAllData} = useGetVoteListInfo(Number(spaceId));
   const voteListData: VoteListInfo[] | undefined = voteListAllData?.data.voteResponse;
   const viewResultVoteIdsData: number[] | undefined = voteListAllData?.data.viewResultVoteIds.voteIds;
-  const setShowResultIds = useSetRecoilState(showResultIdsState);
+  const [showResultIds, setShowResultIds] = useRecoilState(showResultIdsState);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const inProgressVotes = voteListData?.filter((vote) => vote.voteStatus === '진행 중');
   const completeVotes = voteListData?.filter((vote) => vote.voteStatus === '결정완료');
@@ -33,6 +33,9 @@ const VoteTabPanel = () => {
       setShowResultIds(viewResultVoteIdsData);
     }
   }, [viewResultVoteIdsData]);
+
+  console.log('showResultIds', showResultIds);
+  console.log('viewResultVoteIdsData', viewResultVoteIdsData);
 
   return (
     <div className={styles.container}>

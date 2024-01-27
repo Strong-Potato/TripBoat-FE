@@ -26,6 +26,9 @@ const DeleteCandidatesButton = () => {
   const deleteCandidate = async () => {
     await deleteCandidateMutation.mutateAsync({voteId: Number(voteId), candidateIds: [...selectedCandidates]});
     setSelectedCandidates(new Set());
+    console.log('삭제', selectedCandidates);
+    setIsModalOpen(false);
+    setIsCandidateSelecting(false);
   };
 
   const showDeleteCandidateModal = () => {
