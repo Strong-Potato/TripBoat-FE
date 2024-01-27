@@ -51,7 +51,7 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
     setModalContent({...checkBeforeExit});
   };
 
-  const postReview = usePostReview();
+  const postReview = usePostReview(placeId);
 
   const handlePostReview = async () => {
     const presignedUrls = await s3Request.uploadImages(imageFileList as File[]);
