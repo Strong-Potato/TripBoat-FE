@@ -33,7 +33,6 @@ function EditProfileForm({data}: {data: GetUserProp | undefined}) {
 
   const navigate = useNavigate();
 
-  const a = 1;
   const onSubmit: SubmitHandler<AuthForm> = async (formData) => {
     try {
       const {image, nickname} = formData;
