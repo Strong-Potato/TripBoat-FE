@@ -13,33 +13,34 @@ import SecondIcon from '@/assets/voteIcons/rank_2.svg?react';
 import ThirdIcon from '@/assets/voteIcons/rank_3.svg?react';
 import AddDayIcon from '@/assets/voteIcons/vote_addDay.svg?react';
 import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
-import {showResultsState} from '@/recoil/vote/showResults';
 
 import AddToJourney from '../../VoteBottomSlideContent/AddToJourney/AddToJourney';
 import VotedUserList from '../../VoteBottomSlideContent/VotedUserList/VotedUserList';
 
-import {CandidateCardProps} from '@/types/vote';
+import {CandidateCardProps, ResultCandidatesInfo} from '@/types/vote';
 
-const CandidateCard = ({onBottomSlideOpen, candidate, index, isMapStyle}: CandidateCardProps) => {
+const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, showResults}: CandidateCardProps) => {
   const navigate = useNavigate();
-  const [isVoted, setIsVoted] = useState(false);
+  // const [isVoted, setIsVoted] = useState(false);
+  const [starIcon, setStarIcon] = useState(<FaRegStar />);
   const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
   const {id: voteId} = useParams();
   const votingMutation = usePostVoting();
-  const showResults = useRecoilValue(showResultsState);
   const placeInfo = candidate.placeInfo;
   const imgSrc = placeInfo.placeImageUrl ? placeInfo.placeImageUrl : nullImg;
 
-  //순위 받아서 색주기, 인덱스 말고
-
   useEffect(() => {
     if (candidate.amIVote) {
-      setIsVoted(true);
+      setStarIcon(<FaStar style={{color: '#fee500'}} />);
+    } else if (isMapStyle) {
+      setStarIcon(<FaStar style={{color: '#e3e5e5'}} />);
+    } else if (!candidate.amIVote) {
+      setStarIcon(<FaRegStar />);
     }
-  }, []);
+  }, [isMapStyle, candidate.amIVote, candidate]);
 
-  const getRankClassName = (index: number) => {
-    switch (index) {
+  const getRankClassName = (rank: number) => {
+    switch (rank) {
       case 1:
         return styles.firstBorder;
       case 2:
@@ -51,8 +52,8 @@ const CandidateCard = ({onBottomSlideOpen, candidate, index, isMapStyle}: Candid
     }
   };
 
-  const getRankIcon = (index: number) => {
-    switch (index) {
+  const getRankIcon = (rank: number) => {
+    switch (rank) {
       case 1:
         return FirstIcon;
       case 2:
@@ -64,21 +65,14 @@ const CandidateCard = ({onBottomSlideOpen, candidate, index, isMapStyle}: Candid
     }
   };
 
-  const rankClassName = showResults && getRankClassName(index);
-  const RankIcon = showResults && getRankIcon(index);
-
-  const voteStarIcon = () => {
-    if (isVoted || candidate.amIVote) return <FaStar style={{color: '#fee500'}} />;
-    else if (isMapStyle) return <FaStar style={{color: '#e3e5e5'}} />;
-    else return <FaRegStar />;
-  };
+  const rankClassName = candidate.rank && getRankClassName(candidate.rank);
+  const RankIcon = candidate.rank && getRankIcon(candidate.rank);
 
   const onVoteBoxClick = async () => {
     if (showResults && onBottomSlideOpen) {
       onBottomSlideOpen(<VotedUserList />);
     } else {
       await votingMutation.mutateAsync({voteId: Number(voteId), candidateId: candidate.id});
-      setIsVoted(!isVoted);
     }
   };
 
@@ -124,8 +118,10 @@ const CandidateCard = ({onBottomSlideOpen, candidate, index, isMapStyle}: Candid
           onClick={onVoteBoxClick}
           disabled={isCandidateSelecting || isMapStyle || isCandidateSelecting}
         >
-          <div className={styles.main__voteBox__star}>{voteStarIcon()}</div>
-          <div className={styles.main__voteBox__vote}>{showResults ? candidate.voteCount : '투표'}</div>
+          <div className={styles.main__voteBox__star}>{starIcon}</div>
+          <div className={styles.main__voteBox__vote}>
+            {showResults ? (candidate as ResultCandidatesInfo).voteCount : '투표'}
+          </div>
         </button>
       </div>
     </div>

@@ -18,7 +18,7 @@ const AddToCandidateButton = () => {
   const voteId = voteIdArray[1];
   const handleAddCandidates = () => {
     // 경로 추후 수정
-    navigate(`/trip/${spaceId}/votes/${voteId}/votememo`, {replace: true});
+    navigate(`/trip/${spaceId}/votes/${voteId}/votememo`);
   };
   return (
     <Button variant='CTAButton' isDisabled={counts === 0} onClick={handleAddCandidates}>

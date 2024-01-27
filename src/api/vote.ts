@@ -8,6 +8,7 @@ import {
   PostVotingProps,
   VoteInfoRes,
   VoteListInfoRes,
+  VoteResultInfoRes,
 } from '@/types/vote';
 
 /* ----------------------------------- G E T ---------------------------------- */
@@ -25,7 +26,7 @@ export const getVoteListInfo = async (spaceId: number): Promise<VoteListInfoRes>
 };
 
 //투표 결과 조회
-export const getVoteResults = async (voteId: number) => {
+export const getVoteResults = async (voteId: number): Promise<VoteResultInfoRes> => {
   const response = await axios.get(`/api/votes/${voteId}/result`, {withCredentials: true});
   return response.data;
 };

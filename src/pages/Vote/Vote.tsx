@@ -17,7 +17,7 @@ import VoteHeader from '@/components/Vote/VoteHeader/VoteHeader';
 import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
 import {isBottomSlideOpenState} from '@/recoil/vote/bottomSlide';
 import {selectedCandidatesState} from '@/recoil/vote/candidateList';
-import {showResultIdsState} from '@/recoil/vote/showResults';
+import {isShowResultsState, showResultIdsState} from '@/recoil/vote/showResults';
 
 import {VoteInfo} from '@/types/vote';
 
@@ -29,25 +29,26 @@ const Vote = () => {
   const [isCandidateSelecting, setIsCandidateSelecting] = useRecoilState(isCandidateSelectingState);
   const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
   const showResultIds = useRecoilValue(showResultIdsState);
-  const [showResults, setShowResults] = useState(false);
+  // const [showResults, setShowResults] = useState(false);
+  const [showResults, setShowResults] = useRecoilState(isShowResultsState(voteId));
   const [bottomSlideContent, setBottomSlideContent] = useState<ReactNode | null>(null);
   const {data: voteInfoData} = useGetVotesInfo(voteId);
   const voteInfo = voteInfoData?.data;
-  const isZeroCandidates = voteInfo?.candidates.length === 0;
-  // const resultsInfoData = useGetVotesResults(showResults, Number(voteId));
-  // const resultsInfo = resultsInfoData.data?.data;
-  // const [newVoteData, setNewVoteData] = useState(voteInfoData)
+  const isZeroCandidates = voteInfo?.candidates?.length === 0;
+
   const resetShowResultsMutation = useResetShowResults();
 
-  function areAllCandidatesNotVoted(voteInfo: VoteInfo): boolean {
-    return voteInfo?.candidates.every((candidate) => !candidate.amIVote);
+  function areAllCandidatesNotVoted(voteInfo: VoteInfo | undefined): boolean {
+    return voteInfo?.candidates?.every((candidate) => !candidate.amIVote) ?? true;
   }
-  const allCandidatesNotVoted = voteInfo && areAllCandidatesNotVoted(voteInfo);
+  const allCandidatesNotVoted = !showResults && areAllCandidatesNotVoted(voteInfo);
 
   useEffect(() => {
     const isShowResults = showResultIds.some((id) => id === voteId);
     setShowResults(isShowResults);
-  }, [showResultIds, voteId]);
+  }, []);
+
+  console.log('Vote페이지 showResultIds', showResultIds);
 
   useEffect(() => {
     if (voteInfo?.voteStatus === '결정완료') {
@@ -55,7 +56,7 @@ const Vote = () => {
     }
     setIsCandidateSelecting(false);
     setSelectedCandidates(new Set());
-  }, []);
+  }, [setIsCandidateSelecting, setSelectedCandidates, voteInfo?.voteStatus]);
 
   const BottomSlideOpen = (content: ReactNode) => {
     setBottomSlideContent(content);
@@ -76,6 +77,7 @@ const Vote = () => {
       BottomSlideOpen(<AddCandidate />);
     } else if (showResults) {
       resetShowResults();
+      setShowResults(false);
     } else {
       setShowResults(true);
     }
@@ -95,6 +97,7 @@ const Vote = () => {
     return;
   }
 
+  console.log('allCandidatesNotVoted', allCandidatesNotVoted);
   return (
     <div className={styles.container}>
       <VoteHeader
@@ -119,7 +122,7 @@ const Vote = () => {
           data={voteInfo}
           onBottomSlideOpen={BottomSlideOpen}
           isZeroCandidates={isZeroCandidates}
-          showResults={showResults}
+          // showResults={showResults}
         />
       )}
       {!isCandidateSelecting && voteInfo.voteStatus === '진행 중' && (

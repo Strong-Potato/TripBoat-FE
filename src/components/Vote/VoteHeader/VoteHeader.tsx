@@ -14,7 +14,7 @@ import {VoteHeaderProps} from '@/types/vote';
 const VoteHeader = ({onBottomSlideOpen, title, isZeroCandidates}: VoteHeaderProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const path = location.pathname.split('/')[3];
+  const path = location.pathname.split('/')[5];
   const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
 
   const setRightIcons = (path: string) => {

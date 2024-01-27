@@ -4,7 +4,7 @@ import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './VoteMeatball.module.scss';
 
-import {useChangeStatus, useDeleteVote} from '@/hooks/Votes/vote';
+import {useChangeStatus, useDeleteVote, useResetShowResults} from '@/hooks/Votes/vote';
 
 import AlertModal from '@/components/AlertModal/AlertModal';
 
@@ -15,6 +15,7 @@ import TrashIcon from '@/assets/voteIcons/vote_trash.svg?react';
 import {isCandidateSelectingState, isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
 import {isBottomSlideOpenState} from '@/recoil/vote/bottomSlide';
 import {isCreateModalOpenState} from '@/recoil/vote/createVoteTitleModal';
+import {isShowResultsState} from '@/recoil/vote/showResults';
 
 import {confirmVoteContent, deleteVoteContent, retryVoteContent} from './modalContent';
 import CreateVoteModal from '../../CreateVoteModal/CreateVoteModal';
@@ -24,7 +25,7 @@ import {AlertModalProps, VoteMeatballProps} from '@/types/vote';
 const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: VoteMeatballProps) => {
   const location = useLocation();
   const voteId = Number(location.pathname.split('/')[4]);
-
+  const setShowResults = useSetRecoilState(isShowResultsState(voteId));
   const navigate = useNavigate();
   const setIsCreateModalOpen = useSetRecoilState(isCreateModalOpenState);
   const setIsBTOpen = useSetRecoilState(isBottomSlideOpenState);
@@ -34,6 +35,7 @@ const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: V
 
   const deleteVoteMutation = useDeleteVote();
   const changeVoteStatusMutation = useChangeStatus();
+  const resetShowResultsMutation = useResetShowResults();
 
   const showAlertModal = ({...content}: AlertModalProps) => {
     setIsBTOpen(false);
@@ -62,10 +64,17 @@ const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: V
     setIsModalOpen(false);
   };
 
+  const handleResetShowResults = async () => {
+    await changeVoteStatusMutation.mutateAsync(Number(voteId));
+    await resetShowResultsMutation.mutateAsync(voteId);
+    setShowResults(false);
+    setIsModalOpen(false);
+  };
+
   return (
     <div className={styles.container}>
       {state === '결정완료' ? (
-        <button onClick={() => showAlertModal({onClickAction: handleChangeVoteStatus, ...retryVoteContent})}>
+        <button onClick={() => showAlertModal({onClickAction: handleResetShowResults, ...retryVoteContent})}>
           <RepeatIcon />
           <p>투표 재진행</p>
         </button>
