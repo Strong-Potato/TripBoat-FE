@@ -38,13 +38,6 @@ function Detail() {
     data: {data: reviewsRating},
   } = useGetReviewsRating(Number(params?.split(' ')[0]), Number(params?.split(' ')[1]), placeInfo.title);
 
-  // const reviewsRating = {
-  //   rating: 5.0,
-  //   userRatingCount: 5,
-  // };
-
-  console.log(reviewsRating);
-
   console.log(placeInfo);
 
   const onBottomSlideOpen = (content: ReactNode, isReview: boolean) => {

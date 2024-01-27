@@ -7,6 +7,7 @@ import CustomToast from '@/components/CustomToast/CustomToast';
 import WishBtn from '@/components/WishBtn/WishBtn';
 
 import {translateCategoryToStr} from '@/utils/translateSearchData';
+import {useLocation} from 'react-router-dom';
 
 interface TitleProps {
   id: number;
@@ -21,6 +22,19 @@ function Title({id, contentTypeId, title, rating, reviewsCount}: TitleProps) {
 
   const categoryStr = translateCategoryToStr(contentTypeId);
 
+  // 링크 복사
+  const location = useLocation();
+
+  const handleCopyClipBoard = async () => {
+    try {
+      console.log(location);
+      await navigator.clipboard.writeText(`tripvote.site${location.pathname}`);
+      showToast('링크가 복사되었습니다.');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <h2 className={styles.container__header}>{title}</h2>
@@ -32,13 +46,7 @@ function Title({id, contentTypeId, title, rating, reviewsCount}: TitleProps) {
       </div>
       <div className={styles.container__positionAbsoluteIcons}>
         <WishBtn placeId={id} contentTypeId={contentTypeId} size={'2.4rem'} />
-        <IoShareSocialOutline
-          fontSize='2.4rem'
-          cursor='pointer'
-          onClick={() => {
-            showToast('링크가 복사되었습니다.');
-          }}
-        />
+        <IoShareSocialOutline fontSize='2.4rem' cursor='pointer' onClick={() => handleCopyClipBoard()} />
       </div>
     </div>
   );
