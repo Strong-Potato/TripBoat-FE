@@ -20,7 +20,7 @@ function HotItem({data}: PropsData) {
   const imgSrc = data.thumbnail ? data.thumbnail : nullImg;
 
   return (
-    <Link to={`/detail/${data.id} ${data.contentTypeId}`} className={styles.container}>
+    <Link to={`/detail/${data.id} ${data.contentTypeId}?title=${data.title}`} className={styles.container}>
       <img src={imgSrc} alt={`${data.title}의 사진`} style={{padding: data.thumbnail ? 0 : '30px'}} />
       <p className={styles.text_box}>
         <span className={styles.title}>{title}</span>
