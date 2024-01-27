@@ -12,12 +12,19 @@ export const getPlaceInfo = async (id: number, typeId: number): Promise<placeInf
   return response.data;
 };
 
-export const getReviewsRating = async (id: number, typeId: number, title: string): Promise<ReviewsRating> => {
-  const response = await axios.get('/api/reviews/rating', {
-    params: {placeId: id, contentTypeId: typeId, placeTitle: title},
-  });
+export const getReviewsRating = async (id: number, typeId: number, title: string): Promise<ReviewsRating | any> => {
+  try {
+    const response = await axios.get('/api/reviews/rating', {
+      params: {placeId: id, contentTypeId: typeId, placeTitle: title},
+    });
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log(error);
+      return error.response;
+    }
+  }
 };
 
 export const getIsWish = async (id: number) => {
@@ -25,8 +32,8 @@ export const getIsWish = async (id: number) => {
     const response = await axios.get(`/api/wishes/${id}`, {
       withCredentials: true,
     });
-    const data: boolean = response.data;
-    return data;
+    const data = response.data;
+    return data.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.log(error);

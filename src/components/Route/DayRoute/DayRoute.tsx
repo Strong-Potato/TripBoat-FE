@@ -3,12 +3,15 @@ import update from 'immutability-helper';
 import {useCallback, useEffect, useState} from 'react';
 import {useDrop} from 'react-dnd';
 import {AiOutlinePlus as PlusIcon} from 'react-icons/ai';
+import {useSetRecoilState} from 'recoil';
 
 import styles from './DayRoute.module.scss';
 
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
 
+import {editedPlacesState} from '@/recoil/spaces/selectPlace';
 import {setRouteDate} from '@/utils/formatDate';
+import {findShortestPath} from '@/utils/optimizePlace';
 
 import AddPlace from '../AddPlace/AddPlace';
 import DraggablePlaceCard from '../DraggablePlaceCard/DraggablePlaceCard';
@@ -16,10 +19,22 @@ import EmptyRoute from '../EmptyRoute/EmptyRoute';
 
 import {DayRouteProps} from '@/types/route';
 
-function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSelection}: DayRouteProps) {
+function DayRoute({
+  day,
+  date,
+  placeList,
+  editMode,
+  editPlaces,
+  journeyId,
+  selectedPlaces,
+  setSelectedPlaces,
+  handlePlaceSelection,
+}: DayRouteProps) {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [placeCards, setPlaceCards] = useState(placeList);
   const [isOptimize, setIsOptimize] = useState(false);
+  const setEditedPlaces = useSetRecoilState(editedPlacesState);
+
   const handleModalClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
@@ -57,9 +72,15 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
 
   const [, drop] = useDrop(() => ({accept: 'CARD'}));
 
+  const handleConfirmClick = () => {
+    setPlaceCards(findShortestPath(placeCards));
+    setIsOptimize(false);
+    editPlaces(journeyId, findShortestPath(placeCards));
+  };
+
   useEffect(() => {
-    console.log('placeList', placeList);
-  }, [placeList]);
+    setEditedPlaces({journeyId: journeyId, placeCards: placeCards});
+  }, [journeyId, placeCards]);
 
   return (
     <>
@@ -69,12 +90,19 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
             <span className={styles.dayTitle}>DAY {day}</span>
             <span className={styles.dayDate}>{setRouteDate(date)}</span>
           </div>
-          <button className={styles.editButton} onClick={onOpen}>
+          <button onClick={onOpen}>
             <PlusIcon size='2.4rem' />
           </button>
         </header>
         <div>
-          <button className={styles.optimizationButton} onClick={() => setIsOptimize(true)}>
+          <button
+            className={styles.optimizationButton}
+            style={{
+              color: placeCards.length > 2 ? '#2388FF' : '#979C9E',
+              cursor: placeCards.length > 2 ? 'pointer' : 'default',
+            }}
+            onClick={() => setIsOptimize(placeCards.length > 2)}
+          >
             루트 최적화
           </button>
           <div ref={drop} className={styles.placeListContainer}>
@@ -82,6 +110,7 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
               placeCards.map((place) => (
                 <DraggablePlaceCard
                   key={place.selectedId}
+                  journeyId={journeyId}
                   selectedId={place.selectedId}
                   order={place.order}
                   name={place.place.title}
@@ -91,7 +120,9 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
                   placeId={place.place.placeId}
                   editMode={editMode}
                   selectedPlaces={selectedPlaces}
-                  onSelect={handlePlaceSelection}
+                  onSelect={(journeyId, selectedId, placeId) =>
+                    handlePlaceSelection(journeyId, selectedId, placeId, selectedPlaces, setSelectedPlaces)
+                  }
                   moveCard={moveCard}
                   findCard={findCard}
                 />
@@ -102,7 +133,7 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
           </div>
         </div>
       </div>
-      <BottomSlide isOpen={isOpen} onClose={onClose} children={<AddPlace />} />
+      <BottomSlide isOpen={isOpen} onClose={onClose} children={<AddPlace journeyId={journeyId} day={day} />} />
       {isOptimize && (
         <div className={styles.background} onClick={handleBackgroundClick}>
           <div className={styles.container} onClick={handleModalClick}>
@@ -111,7 +142,7 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
               <p className={styles.wrapperText__body}>
                 일정 내 첫 번째 장소를 기준으로
                 <br />
-                N일차 일정이 최소 동선으로 재정렬 됩니다.
+                {day}일차 일정이 최소 동선으로 재정렬 됩니다.
               </p>
             </div>
             <div className={styles.wrapperButton}>
@@ -123,13 +154,7 @@ function DayRoute({day, date, placeList, editMode, selectedPlaces, handlePlaceSe
               >
                 취소
               </button>
-              <button
-                className={styles.wrapperButton__accept}
-                onClick={() => {
-                  // setPlaceCards(findShortestPath(placeList));
-                  setIsOptimize(false);
-                }}
-              >
+              <button className={styles.wrapperButton__accept} onClick={handleConfirmClick}>
                 확인
               </button>
             </div>

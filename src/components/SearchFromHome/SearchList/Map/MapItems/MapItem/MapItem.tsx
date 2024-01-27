@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 
 import styles from './MapItem.module.scss';
 
-import WishBtn from '@/components/WishBtn/WishBtn';
+import WishBtn from '@/components/Detail/Main/Title/TitleWishBtn/TitleWishBtn';
 
 import nullImg from '@/assets/homeIcons/search/nullImg.svg';
 import areas from '@/utils/areas.json';

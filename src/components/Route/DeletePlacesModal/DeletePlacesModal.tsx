@@ -1,10 +1,19 @@
 import {Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay} from '@chakra-ui/react';
+import {useParams} from 'react-router-dom';
+
+import {useDeletePlaces} from '@/hooks/Spaces/space';
 
 import {DeletePlacesModalProps} from '@/types/modal';
 
-function DeletePlacesModal({isOpen, onClose, placeList}: DeletePlacesModalProps) {
-  const deletePlaces = () => {
-    console.log('삭제', placeList);
+function DeletePlacesModal({isOpen, onClose, setIsEditMode, placeList}: DeletePlacesModalProps) {
+  const {id} = useParams();
+  const deletePlaces = useDeletePlaces();
+
+  const deleteJourneys = async () => {
+    await deletePlaces.mutateAsync({spaceId: Number(id), places: placeList});
+    onClose();
+    setIsEditMode(false);
+    // FIXME: 삭제 후 리스트 자동 갱신 안 됨
   };
 
   return (
@@ -37,7 +46,7 @@ function DeletePlacesModal({isOpen, onClose, placeList}: DeletePlacesModalProps)
             취소
           </Button>
           <Button
-            onClick={deletePlaces}
+            onClick={deleteJourneys}
             variant='none'
             fontSize='button'
             fontWeight='button'

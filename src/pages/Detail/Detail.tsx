@@ -16,7 +16,7 @@ import Navigation from '@/components/Detail/Navigation/Navigation';
 
 import {modalContentState} from '@/recoil/vote/alertModal';
 
-import {useParams} from 'react-router-dom';
+import {useLocation, useParams} from 'react-router-dom';
 import {useGetReviewsRating} from '@/hooks/Detail/useReviews';
 import {useGetPlaceInfo} from '@/hooks/Detail/usePlaces';
 
@@ -34,11 +34,14 @@ function Detail() {
     },
   } = useGetPlaceInfo(Number(params?.split(' ')[0]), Number(params?.split(' ')[1]));
 
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  const title = searchParams.get('title') || placeInfo.title;
+
   const {
     data: {data: reviewsRating},
-  } = useGetReviewsRating(Number(params?.split(' ')[0]), Number(params?.split(' ')[1]), placeInfo.title);
-
-  console.log(placeInfo);
+  } = useGetReviewsRating(Number(params?.split(' ')[0]), Number(params?.split(' ')[1]), title);
 
   const onBottomSlideOpen = (content: ReactNode, isReview: boolean) => {
     setIsReviewModal(isReview);

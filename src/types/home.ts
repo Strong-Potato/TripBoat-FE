@@ -136,7 +136,7 @@ export interface SearchItemLocationType {
   phone: string;
   areaCode: number;
   sigunguCode: number;
-  zipCode: number;
+  zipCode: string;
   latitude: number;
   longitude: number;
 }

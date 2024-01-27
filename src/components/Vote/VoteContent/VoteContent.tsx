@@ -45,14 +45,15 @@ const VoteContent = ({onBottomSlideOpen, data, isZeroCandidates}: VoteContentPro
 
   return (
     <div className={styles.container}>
-      <div className={styles.container__stateBar}>
-        <div
-          className={styles.container__stateBar__state}
-          style={{color: data.voteStatus === '결정완료' ? '#979C9E' : '#2388FF'}}
-        >
-          {data.voteStatus === '결정완료' ? <Icon as={IoMdCheckmark} /> : <Icon as={GoDotFill} />}
-          {data.voteStatus}
-        </div>
+      <div className={styles.paddingBox}>
+        <div className={styles.stateBar}>
+          <div
+            className={styles.stateBar__state}
+            style={{color: data.voteStatus === '결정완료' ? '#979C9E' : '#2388FF'}}
+          >
+            {data.voteStatus === '결정완료' ? <Icon as={IoMdCheckmark} /> : <Icon as={GoDotFill} />}
+            {data.voteStatus}
+          </div>
 
         {!showResults && (
           <button
@@ -72,7 +73,13 @@ const VoteContent = ({onBottomSlideOpen, data, isZeroCandidates}: VoteContentPro
         showResults={showResults}
       />
 
-      {!isZeroCandidates && <VoteRecommendList state={data.voteStatus} isCandidateSelecting={isCandidateSelecting} />}
+      {!isZeroCandidates && (
+        <VoteRecommendList
+          state={data.voteStatus}
+          isCandidateSelecting={isCandidateSelecting}
+          categoryCode={data.candidates[0].placeInfo.category}
+        />
+      )}
 
       {isCandidateSelecting && <DeleteCandidatesButton />}
     </div>

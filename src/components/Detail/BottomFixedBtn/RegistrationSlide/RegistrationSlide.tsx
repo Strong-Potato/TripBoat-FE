@@ -120,8 +120,16 @@ function RegistrationSlide({slideOnClose, placeId, placeTypeId}: RegistrationSli
           className={styles.container__bottomFixedBtn}
           style={
             isValuedArray.length > 0
-              ? {backgroundColor: '#2388FF', color: '#FFFFFF'}
-              : {backgroundColor: '#E3E5E5', color: '#979C9E'}
+              ? {
+                  backgroundColor: '#2388FF',
+                  color: '#FFFFFF',
+                  width: window.innerWidth > 450 ? '40.2rem' : window.innerWidth - 48 + 'px',
+                }
+              : {
+                  backgroundColor: '#E3E5E5',
+                  color: '#979C9E',
+                  width: window.innerWidth > 450 ? '40.2rem' : window.innerWidth - 48 + 'px',
+                }
           }
           onClick={() => {
             if (isValuedArray.length > 0) {

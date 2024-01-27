@@ -7,10 +7,13 @@ import {useNavigate} from 'react-router-dom';
 
 import styles from '../PlaceCard/PlaceCard.module.scss';
 
+import titleCaseChange from '@/utils/titleCaseChange';
+
 import {Item} from '@/types/route';
 import {DraggablePlaceCardProps} from '@/types/route';
 
 function PlaceCard({
+  journeyId,
   selectedId,
   order,
   name,
@@ -24,10 +27,10 @@ function PlaceCard({
   findCard,
 }: DraggablePlaceCardProps) {
   const [isChecked, setIsChecked] = useState(false);
-  const originalIndex = findCard(selectedId).index;
+  const originalIndex = findCard(selectedId)?.index;
   const navigate = useNavigate();
 
-  const [, drag] = useDrag(
+  const [, drag, preview] = useDrag(
     () => ({
       type: 'CARD',
       item: {selectedId, originalIndex},
@@ -46,9 +49,9 @@ function PlaceCard({
   const [, drop] = useDrop(
     () => ({
       accept: 'CARD',
-      hover({id: draggedId}: Item) {
+      hover({selectedId: draggedId}: Item) {
         if (draggedId !== selectedId) {
-          const {index: overIndex} = findCard(selectedId);
+          const {index: overIndex} = findCard(selectedId) || {};
           moveCard(draggedId, overIndex);
         }
       },
@@ -58,12 +61,11 @@ function PlaceCard({
 
   const handleSelect = () => {
     setIsChecked(!isChecked);
-    // TODO: place id 넘기기
-    onSelect(name);
+    onSelect(journeyId, selectedId, placeId);
   };
 
   return (
-    <div ref={(node) => drag(drop(node))} className={styles.cardContainer}>
+    <div ref={preview} className={styles.cardContainer}>
       <button onClick={handleSelect}>
         {editMode &&
           (isChecked ? (
@@ -78,13 +80,15 @@ function PlaceCard({
         <div className={styles.placeContainer}>
           {editMode && <div className={styles.numberContainer}>{order}</div>}
           <div className={styles.placeInformation}>
-            <h1>{name}</h1>
+            <h1>{titleCaseChange(name)}</h1>
             <h2>{category}</h2>
             <p>{address}</p>
           </div>
         </div>
       </div>
-      <div className='MoveButton'>{editMode && <MoveIcon size='2.4rem' color='#CDCFD0' />}</div>
+      <div ref={(node) => drag(drop(node))} className={styles.moveButton}>
+        {editMode && <MoveIcon size='2.4rem' color='#CDCFD0' />}
+      </div>
     </div>
   );
 }

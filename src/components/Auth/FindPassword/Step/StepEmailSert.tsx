@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {useEffect, useState} from 'react';
 
 import styles from './Step.module.scss';
@@ -6,6 +5,8 @@ import styles from './Step.module.scss';
 import AuthButton from '@/components/Auth/Button/AuthButton';
 import InputEmailSert from '@/components/Auth/Input/InputEmailSert';
 import CustomToast from '@/components/CustomToast/CustomToast';
+
+import {authRequest} from '@/api/auth';
 
 import {StepEmailSertProps} from '@/types/auth';
 
@@ -34,10 +35,7 @@ function StepEmailSert({
 
   const onClickEmailSert = async () => {
     try {
-      const res = await axios.post('/api/auth/modify/lost-password/check-token', {
-        email,
-        code: emailSert,
-      });
+      const res = await authRequest.lostPassword_emailSert(email, emailSert);
       console.log(res);
 
       if (res.data.responseCode === 203) {
@@ -45,7 +43,6 @@ function StepEmailSert({
         return;
       }
 
-      console.log(res.data.data.token);
       setCode!(await res.data.data.token);
       setFindPasswordStep!('password');
     } catch (error) {

@@ -126,16 +126,6 @@ function RecommendedItemList({apiNum}: PropsType) {
     ],
     [
       {
-        id: 3065360,
-        contentTypeId: 28,
-        title: '부산 요트투어 요트야',
-        thumbnail: 'https://d2ur7st6jjikze.cloudfront.net/offer_photos/119386/832573_large_1686709791.jpg?1686709791',
-        areaCode: 6,
-        sigunguCode: 16,
-        category: '관광',
-        rating: '5.0',
-      },
-      {
         id: 2774550,
         contentTypeId: 28,
         title: '알펜시아리조트 눈썰매장',
@@ -228,6 +218,16 @@ function RecommendedItemList({apiNum}: PropsType) {
         sigunguCode: 24,
         category: '관광',
         rating: '4.5',
+      },
+      {
+        id: 3065360,
+        contentTypeId: 28,
+        title: '부산 요트투어 요트야',
+        thumbnail: 'https://d2ur7st6jjikze.cloudfront.net/offer_photos/119386/832573_large_1686709791.jpg?1686709791',
+        areaCode: 6,
+        sigunguCode: 16,
+        category: '관광',
+        rating: '5.0',
       },
     ],
   ];

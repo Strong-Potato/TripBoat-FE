@@ -1,23 +1,46 @@
 import {useState} from 'react';
 import {RiCheckboxCircleFill as SelectedIcon} from 'react-icons/ri';
+import {useParams} from 'react-router-dom';
 
 import styles from './DayMove.module.scss';
 
-interface DayMoveProps {
-  selectedPlaces: string[];
-}
+import {useDeletePlaces, usePostPlaces} from '@/hooks/Spaces/space';
 
-function DayMove({selectedPlaces}: DayMoveProps) {
-  const days = 5;
+import {transformSelectedPlaces} from '@/components/Route/RouteTabPanel/formatJourneyData';
+
+import {DayMoveProps} from '@/types/route';
+
+function DayMove({journeysData, selectedPlaces, onClose, setIsEditMode}: DayMoveProps) {
+  const days = journeysData?.journeys?.length;
   const [selectedDays, setSelectedDays] = useState(Array(days).fill(false));
+  const {id} = useParams();
+  const deletePlaces = useDeletePlaces();
+  const postPlaces = usePostPlaces();
 
-  const handleSelect = (index: number) => {
+  const handleSelect = async (index: number) => {
     const updatedSelectedDays = [...selectedDays];
     updatedSelectedDays[index] = !updatedSelectedDays[index];
     setSelectedDays(updatedSelectedDays);
 
     // TODO: 선택된 장소 카드 선택한 날짜 동선으로 이동
-    console.log(index + 1, '여기로 이것을 옮기겠다', selectedPlaces);
+    const journeysId = journeysData?.journeys?.[index]?.journeyId;
+    console.log('지우겠다', transformSelectedPlaces(selectedPlaces));
+    console.log('추가하겠다.', {
+      journeyId: journeysId,
+      placeIds: selectedPlaces.flatMap((place) => place.placeId),
+    });
+
+    await deletePlaces.mutateAsync({spaceId: Number(id), places: transformSelectedPlaces(selectedPlaces)});
+    await postPlaces.mutateAsync({
+      spaceId: Number(id),
+      journeyId: journeysId,
+      placeIds: selectedPlaces.flatMap((place) => place.placeId),
+    });
+
+    setTimeout(() => {
+      onClose();
+      setIsEditMode(false);
+    }, 300);
   };
 
   return (
@@ -27,7 +50,7 @@ function DayMove({selectedPlaces}: DayMoveProps) {
       </header>
       <div>
         {Array.from({length: days}, (_, index) => (
-          <div className={styles.dayContainer}>
+          <div key={`day${index}`} className={styles.dayContainer}>
             <p key={index}>DAY {index + 1}</p>
             <button onClick={() => handleSelect(index)}>
               {selectedDays[index] ? (

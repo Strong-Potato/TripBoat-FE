@@ -76,8 +76,6 @@
       &__placeTitle {
         @include typography(titleLarge);
         line-height: 3.2rem;
-        text-decoration-line: underline;
-        text-decoration-thickness: 1px;
       }
 
       .dateContainer {
@@ -87,8 +85,6 @@
 
         &__dateTitle {
           @include typography(bodySmall);
-          letter-spacing: -0.14px;
-          text-decoration-line: underline;
         }
 
         &__editButton {

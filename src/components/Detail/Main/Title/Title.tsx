@@ -4,7 +4,7 @@ import {IoShareSocialOutline} from 'react-icons/io5';
 import styles from './Title.module.scss';
 
 import CustomToast from '@/components/CustomToast/CustomToast';
-import WishBtn from '@/components/WishBtn/WishBtn';
+import TitleWishBtn from './TitleWishBtn/TitleWishBtn';
 
 import {translateCategoryToStr} from '@/utils/translateSearchData';
 import {useLocation} from 'react-router-dom';
@@ -42,10 +42,12 @@ function Title({id, contentTypeId, title, rating, reviewsCount}: TitleProps) {
       <div className={styles.container__alignCenter}>
         <GoStarFill className={styles.container__alignCenter__star} />
         <span className={styles.container__alignCenter__point}>{rating}</span>
-        <span className={styles.container__alignCenter__reviewsCount}>{`(${reviewsCount})`}</span>
+        <span className={styles.container__alignCenter__reviewsCount}>{`(${
+          reviewsCount ? reviewsCount : '리뷰 없음'
+        })`}</span>
       </div>
       <div className={styles.container__positionAbsoluteIcons}>
-        <WishBtn placeId={id} contentTypeId={contentTypeId} size={'2.4rem'} />
+        <TitleWishBtn placeId={id} contentTypeId={contentTypeId} size={'2.4rem'} />
         <IoShareSocialOutline fontSize='2.4rem' cursor='pointer' onClick={() => handleCopyClipBoard()} />
       </div>
     </div>

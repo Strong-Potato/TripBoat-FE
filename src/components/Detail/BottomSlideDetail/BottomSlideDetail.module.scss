@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .slideContainer {
   position: absolute;
@@ -17,7 +17,8 @@
   display: flex;
   justify-content: center;
   z-index: 10;
-  max-height: 80rem;
+
+  max-height: 95vh;
 
   &__content {
     width: 45rem;

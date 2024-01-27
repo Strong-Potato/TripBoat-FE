@@ -1,9 +1,12 @@
+import {InfiniteData, useInfiniteQuery} from '@tanstack/react-query';
 import {useEffect, useState} from 'react';
+import {useInView} from 'react-intersection-observer';
 import {useNavigate} from 'react-router-dom';
 
 import styles from './SearchList.module.scss';
 
 import AddToCandidateButton from '@/components/ButtonsInAddingCandidate/AddToCandidateButton/AddToCandidateButton';
+import ObserveTarget from '@/components/Route/ObserveTarget/ObserveTarget';
 
 import {keywordSearch, search} from '@/api/search';
 import SearchNull from '@/assets/homeIcons/search/searchNull.svg?react';
@@ -22,34 +25,80 @@ interface PropsType {
 }
 
 function SearchList({forSearch}: PropsType) {
-  const [data, setData] = useState<SearchItemType[] | undefined>();
   const [filterData, setFilterData] = useState<SearchItemType[] | undefined>();
+  const [isEnd, setIsEnd] = useState(false);
   const [categoryChange, setCategoryChange] = useState(false);
+  const {ref: inViewRef, inView} = useInView({
+    rootMargin: '100px 0px 0px 0px',
+    threshold: 1,
+  });
   const navigate = useNavigate();
 
-  useEffect(() => {
+  async function getData(page: number) {
     if (forSearch.hot === 'true') {
-      keywordSearch(forSearch.keyword, forSearch.location, forSearch.sort, setData);
+      const fetchData = await keywordSearch(forSearch.keyword, forSearch.location, forSearch.sort, page + 1);
+      if (fetchData?.length === 0) {
+        setIsEnd(true);
+        return [];
+      }
+      return fetchData;
     } else {
-      search(forSearch.keyword, forSearch.location, forSearch.sort, setData);
+      const fetchData = await search(forSearch.keyword, forSearch.location, forSearch.sort, page + 1);
+      if (fetchData?.length === 0) {
+        setIsEnd(true);
+        return [];
+      }
+      return fetchData;
     }
-  }, [forSearch.keyword, forSearch.location, forSearch.sort, forSearch.hot]);
+  }
+
+  const {data, fetchNextPage} = useInfiniteQuery<unknown, Error, InfiniteData<SearchItemType[], unknown>>({
+    queryKey: [`${forSearch.keyword} ${forSearch.location} ${forSearch.sort} ${forSearch.hot}`],
+    queryFn: ({pageParam = 0}) => getData(pageParam as number),
+    initialPageParam: 0,
+    refetchOnWindowFocus: false,
+    staleTime: 50000,
+    getNextPageParam: (pageParam, allPage) => {
+      if (!allPage) {
+        return pageParam;
+      }
+      return allPage.length;
+    },
+  });
 
   useEffect(() => {
+    if (!isEnd && inView) {
+      fetchNextPage();
+    }
+  }, [inView]);
+
+  useEffect(() => {
+    console.log(data);
+
     if (data) {
       if (forSearch.category !== 0) {
-        let filterData;
+        const filterData: SearchItemType[][] = [];
         if (forSearch.category === 14) {
-          filterData = data.filter((data) => data.contentTypeId === 14 || data.contentTypeId === 15);
+          data.pages.map((data) => {
+            const filter = data.filter((data) => data.contentTypeId === 14 || data.contentTypeId === 15);
+            filterData.push(filter);
+          });
         } else {
-          filterData = data.filter((data) => data.contentTypeId === forSearch.category);
+          data.pages.map((data) => {
+            const filter = data.filter((data) => data.contentTypeId === forSearch.category);
+            filterData.push(filter);
+          });
         }
-        setFilterData(filterData);
+        setFilterData(filterData.flat());
       } else {
-        setFilterData(data);
+        setFilterData(data.pages.flat());
       }
     }
-  }, [data, forSearch.category]);
+  }, [forSearch.category, data]);
+
+  useEffect(() => {
+    setIsEnd(false);
+  }, [forSearch.location, forSearch.sort]);
 
   function onMap() {
     navigate(
@@ -65,7 +114,9 @@ function SearchList({forSearch}: PropsType) {
         paddingTop: forSearch.placeID !== 'undefinde' ? '24px' : 0,
       }}
     >
-      {forSearch.hot === 'false' && <Tabs data={data} forSearch={forSearch} setCategoryChange={setCategoryChange} />}
+      {forSearch.hot === 'false' && (
+        <Tabs data={data?.pages.flat()} forSearch={forSearch} setCategoryChange={setCategoryChange} />
+      )}
       {forSearch.map === 'true' && filterData ? (
         <Map data={filterData} categoryChange={categoryChange} />
       ) : (
@@ -85,6 +136,7 @@ function SearchList({forSearch}: PropsType) {
                 <span>검색 결과가 없습니다.</span>
               </div>
             )}
+            {filterData && filterData?.length > 0 && !isEnd && <ObserveTarget inViewRef={inViewRef} />}
           </ul>
           {forSearch.placeID !== 'undefined' ? (
             <AddToCandidateButton />

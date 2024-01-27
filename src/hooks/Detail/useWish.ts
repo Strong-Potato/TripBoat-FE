@@ -6,16 +6,18 @@ import {useCustomMutation} from '../Votes/vote';
 
 export const useGetIsWish = (id: number, enabled: boolean) => {
   return useQuery({
-    queryKey: ['isWish', id],
+    // 키 동적으로 바뀌게 바꾸어놨습니다!
+    queryKey: [`wish ${id}`],
     enabled,
     queryFn: () => getIsWish(id),
+    staleTime: 100000,
   });
 };
 
-export const usePostWishes = () => {
-  return useCustomMutation(postWishes, ['isWish']);
+export const usePostWishes = (id: number) => {
+  return useCustomMutation(postWishes, [`wish ${id}`]);
 };
 
-export const useDeleteWishes = () => {
-  return useCustomMutation(deleteWishes, ['isWish']);
+export const useDeleteWishes = (id: number) => {
+  return useCustomMutation(deleteWishes, [`wish ${id}`]);
 };

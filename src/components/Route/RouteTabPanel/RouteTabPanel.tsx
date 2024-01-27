@@ -2,14 +2,18 @@ import {useDisclosure} from '@chakra-ui/react';
 import {useEffect, useState} from 'react';
 import {HiOutlineTrash as DeleteIcon} from 'react-icons/hi';
 import {RiArrowUpDownFill as MoveIcon} from 'react-icons/ri';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useRecoilValue} from 'recoil';
 
 import styles from './RouteTabPanel.module.scss';
 
+import {usePutPlaces} from '@/hooks/Spaces/space';
+
 import BottomSlideLeft from '@/components/BottomSlide/BottomSlideLeft';
+import {handlePlaceSelection, transformSelectedPlaces} from '@/components/Route/RouteTabPanel/formatJourneyData';
 
 import ZoomInIcon from '@/assets/icons/zoomIn.svg?react';
-import {getSpaceId} from '@/utils/getSpaceId';
+import {editedPlacesState} from '@/recoil/spaces/selectPlace';
 
 import DayMove from '../DayMove/DayMove';
 import DayNavigationBar from '../DayNavigationBar/DayNavigationBar';
@@ -18,36 +22,37 @@ import DeletePlacesModal from '../DeletePlacesModal/DeletePlacesModal';
 import EmptyDate from '../EmptyDate/EmptyDate';
 import MapInTrip from '../MapInTrip/MapInTrip';
 
-import {DateItem, Journey, MapInTripProps} from '@/types/route';
+import {DateItem, Journey, MapInTripProps, PlaceList, SelectedPlace} from '@/types/route';
 
 function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
+  const navigate = useNavigate();
+  const {id} = useParams();
   const [isEditMode, setIsEditMode] = useState(false);
-  const [selectedPlaces, setSelectedPlaces] = useState<string[]>([]);
+  const [selectedPlaces, setSelectedPlaces] = useState<SelectedPlace[]>([]);
   const {isOpen, onOpen, onClose} = useDisclosure();
   const {isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose} = useDisclosure();
+  const {journeyId, placeCards} = useRecoilValue(editedPlacesState);
+  const putPlaces = usePutPlaces();
+
+  const editPlaces = async (journeyId: number, placeCards: PlaceList[]) => {
+    const placeIds = placeCards.map((item) => item.place.placeId);
+    await putPlaces.mutateAsync({spaceId: Number(id), places: [{journeyId: journeyId, placeIds: placeIds}]});
+  };
 
   const handleEditMode = () => {
     setIsEditMode(!isEditMode);
 
-    // TODO: 완료 버튼 눌렀을 때 처리
-  };
-
-  const handlePlaceSelection = (placeName: string) => {
-    if (selectedPlaces.includes(placeName)) {
-      setSelectedPlaces((prevSelectedPlaces) => prevSelectedPlaces.filter((place) => place !== placeName));
-    } else {
-      setSelectedPlaces((prevSelectedPlaces) => [...prevSelectedPlaces, placeName]);
+    // 완료 눌렀을 때
+    if (isEditMode) {
+      editPlaces(journeyId, placeCards);
     }
   };
 
   useEffect(() => {
-    console.log(selectedPlaces);
+    console.log(transformSelectedPlaces(selectedPlaces));
   }, [selectedPlaces]);
 
-  const navigate = useNavigate();
-  const spaceId = getSpaceId();
-
-  if (!journeysData.journeys || journeysData.journeys.length === 0) {
+  if (!journeysData?.journeys || journeysData?.journeys?.length === 0) {
     return <EmptyDate />;
   }
 
@@ -59,7 +64,7 @@ function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
     <div className={styles.panelContainer}>
       <div className={styles.mapContainer}>
         <MapInTrip mapRef={mapRef} center={center} journeysData={journeysData} />
-        <button className={styles.zoomInButton} onClick={() => navigate(`/trip/${spaceId}/map`)}>
+        <button className={styles.zoomInButton} onClick={() => navigate(`/trip/${id}/map`, {state: {id: id}})}>
           <ZoomInIcon />
         </button>
       </div>
@@ -72,9 +77,12 @@ function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
                 key={journey.journeyId}
                 day={index + 1}
                 date={journey.date}
+                journeyId={journey.journeyId}
                 placeList={journey.places}
                 editMode={isEditMode}
+                editPlaces={editPlaces}
                 selectedPlaces={selectedPlaces}
+                setSelectedPlaces={setSelectedPlaces}
                 handlePlaceSelection={handlePlaceSelection}
               />
             ))}
@@ -95,9 +103,21 @@ function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
       <BottomSlideLeft
         isOpen={selectedPlaces.length > 0 && isOpen}
         onClose={onClose}
-        children={<DayMove selectedPlaces={selectedPlaces} />}
+        children={
+          <DayMove
+            journeysData={journeysData}
+            selectedPlaces={selectedPlaces}
+            onClose={onClose}
+            setIsEditMode={setIsEditMode}
+          />
+        }
       />
-      <DeletePlacesModal isOpen={isModalOpen} onClose={onModalClose} placeList={selectedPlaces} />
+      <DeletePlacesModal
+        isOpen={isModalOpen}
+        onClose={onModalClose}
+        setIsEditMode={setIsEditMode}
+        placeList={transformSelectedPlaces(selectedPlaces)}
+      />
     </div>
   );
 }

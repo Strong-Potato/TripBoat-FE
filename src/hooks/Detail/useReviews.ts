@@ -1,23 +1,18 @@
 import {getReviewsRating, postReview} from '@/api/detail';
-import {useInfiniteQuery, useSuspenseQuery} from '@tanstack/react-query';
-import {useCustomMutation} from '../Votes/vote';
+import {useInfiniteQuery, useMutation, useQueryClient, useSuspenseQuery} from '@tanstack/react-query';
 import {reviewRequest} from '@/api/review';
 
 export const useGetReviewsRating = (id: number, typeId: number, title: string) => {
   return useSuspenseQuery({
-    queryKey: ['reviewsRating', id, typeId, title],
+    queryKey: [`reviewsRating_${id}`, id, typeId, title],
     queryFn: () => getReviewsRating(id, typeId, title),
     retry: false,
   });
 };
 
-export const usePostReview = () => {
-  return useCustomMutation(postReview, ['reviewsRating', 'reviews']);
-};
-
 export function useGetReviews(id: number, typeId: number, title: string) {
   return useInfiniteQuery({
-    queryKey: ['reviews'],
+    queryKey: [`reviews_${id}`],
     queryFn: ({pageParam}: {pageParam: number}) => reviewRequest.getReviews({pageParam, id, typeId, title}),
     initialPageParam: 0,
     getNextPageParam: (lastPage, _, lastPageParam) => {
@@ -28,3 +23,14 @@ export function useGetReviews(id: number, typeId: number, title: string) {
     },
   });
 }
+
+export const usePostReview = (id: number) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: postReview,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: [`reviews_${id}`]});
+      queryClient.invalidateQueries({queryKey: [`reviewsRating_${id}`]});
+    },
+  });
+};
