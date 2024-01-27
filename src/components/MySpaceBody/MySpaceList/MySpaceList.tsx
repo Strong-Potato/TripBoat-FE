@@ -7,11 +7,12 @@ import {useInfiniteScroll} from '@/hooks/useInfiniteScroll';
 
 import ObserveTarget from '@/components/Route/ObserveTarget/ObserveTarget';
 
-import defaultCity from '@/assets/icons/city_default.svg';
 import {setSpaceDate} from '@/utils/formatDate';
 
 import {Spaces} from '@/types/sidebar';
 import {MySpaceListProps} from '@/types/user';
+
+import defaultCity from '/city_default.svg';
 
 function MySpaceList({tab}: MySpaceListProps) {
   const {data: upcomingData} = useGetSpaces(true);
