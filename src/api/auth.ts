@@ -19,7 +19,26 @@ export const authRequest = {
 
   logout: () => axios.post('/api/logout', {}, {withCredentials: true}),
 
-  /* --------------------------------- SIGNUP --------------------------------- */
+  /* --------------------------------- SIGNUP FLOW --------------------------------- */
+  signup_sendEmail: (email?: string) =>
+    axios.post('/api/auth/register/send-email', {
+      email,
+    }),
+
+  signup_emailSert: (email?: string, code?: string) =>
+    axios.post('/api/auth/register/check-token', {
+      email,
+      code,
+    }),
+
+  signup_submit: (email?: string, password?: string, profile?: string, nickname?: string, token?: string) =>
+    axios.post('/api/auth/register', {
+      email,
+      password,
+      profile,
+      nickname,
+      token,
+    }),
 
   /* ------------------------------- WITHDRAWAL ------------------------------- */
   withdrawal: (password?: string) =>
