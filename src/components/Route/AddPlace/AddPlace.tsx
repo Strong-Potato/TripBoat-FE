@@ -7,11 +7,9 @@ import styles from './AddPlace.module.scss';
 
 import {AddPlaceProps} from '@/types/route';
 
-function AddPlace({journeyId}: AddPlaceProps) {
+function AddPlace({journeyId, day}: AddPlaceProps) {
   const navigate = useNavigate();
-  const {id} = useParams();
-
-  console.log(journeyId);
+  const {id: spaceId} = useParams();
 
   return (
     <>
@@ -37,7 +35,11 @@ function AddPlace({journeyId}: AddPlaceProps) {
             <p>찜 목록 검색</p>
           </div>
           <div className={styles.buttonContainer}>
-            <button onClick={() => navigate(`/trip/${id}/add/vote`, {state: {id: id, journeyId: journeyId}})}>
+            <button
+              onClick={() =>
+                navigate(`/trip/${spaceId}/add/vote`, {state: {id: spaceId, journeyId: journeyId, day: day}})
+              }
+            >
               <VoteIcon color='#62AAFF' size='2.4rem' />
             </button>
             <p>투표 불러오기</p>

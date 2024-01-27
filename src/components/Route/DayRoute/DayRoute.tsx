@@ -25,12 +25,10 @@ function DayRoute({
   selectedPlaces,
   setSelectedPlaces,
   handlePlaceSelection,
-  onEditButtonClick,
 }: DayRouteProps) {
-  const {isOpen, onClose} = useDisclosure();
+  const {isOpen, onOpen, onClose} = useDisclosure();
   const [placeCards, setPlaceCards] = useState(placeList);
   const [isOptimize, setIsOptimize] = useState(false);
-  // const [addDate, setAddDate] = useState<number>();
 
   const handleModalClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -81,7 +79,7 @@ function DayRoute({
             <span className={styles.dayTitle}>DAY {day}</span>
             <span className={styles.dayDate}>{setRouteDate(date)}</span>
           </div>
-          <button onClick={() => onEditButtonClick(journeyId)}>
+          <button onClick={onOpen}>
             <PlusIcon size='2.4rem' />
           </button>
         </header>
@@ -117,7 +115,7 @@ function DayRoute({
           </div>
         </div>
       </div>
-      <BottomSlide isOpen={isOpen} onClose={onClose} children={<AddPlace journeyId={journeyId} />} />
+      <BottomSlide isOpen={isOpen} onClose={onClose} children={<AddPlace journeyId={journeyId} day={day} />} />
       {isOptimize && (
         <div className={styles.background} onClick={handleBackgroundClick}>
           <div className={styles.container} onClick={handleModalClick}>

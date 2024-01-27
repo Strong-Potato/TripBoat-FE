@@ -52,7 +52,6 @@ export interface DayRouteProps {
     selectedPlaces: SelectedPlace[],
     setSelectedPlaces: React.Dispatch<React.SetStateAction<SelectedPlace[]>>,
   ) => void;
-  onEditButtonClick: (journeyId: number) => void;
 }
 
 export interface RouteTabPanelProps {
@@ -73,7 +72,10 @@ export interface PlaceListProps {
   id: number;
   name: string;
   category: string;
-  onSelect: (name: string) => void;
+  areaCode: string;
+  placeImageUrl: string;
+  rank: number;
+  onSelect: (name: string, id: number) => void;
 }
 
 export interface VoteCardProps {
@@ -244,4 +246,26 @@ export interface DayMoveProps {
 
 export interface AddPlaceProps {
   journeyId: number;
+  day: number;
+}
+
+export interface Vote {
+  voteId: number;
+  title: string;
+  voteStatus: string;
+}
+
+export interface Votes {
+  votes: Vote[];
+}
+
+export interface Candidate {
+  id: number;
+  placeInfo: {
+    placeId: number;
+    placeName: string;
+    category: string;
+    areaCode: string;
+    placeImageUrl: string;
+  };
 }
