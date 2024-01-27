@@ -36,26 +36,27 @@ function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: Wish
 
   useEffect(() => {
     if (isLogin) {
-      if (typeof wish === 'boolean') {
-        setIsWish(wish);
+      if (typeof wish.data === 'boolean') {
+        setIsWish(wish.data);
       }
     }
   }, []);
 
-  const postWishes = usePostWishes();
-  const deleteWishes = useDeleteWishes();
+  const postWishes = usePostWishes(placeId);
+  const deleteWishes = useDeleteWishes(placeId);
 
   const debounce = useDebounceBoolean(isWish, 1000);
 
   const handleWishClick = () => {
     if (isLogin) {
       if (!isWish) {
-        postWishes.mutate({placeId: placeId, contentTypeId: contentTypeId});
+        // 여기서 한 번 요청하고 밑에 디바운스에서 또 요청해서 주석처리 해놨습니다!
+        // postWishes.mutate({placeId: placeId, contentTypeId: contentTypeId});
 
         setIsWish(true);
         showToast('찜 목록에 저장되었습니다.');
       } else {
-        deleteWishes.mutate(placeId);
+        // deleteWishes.mutate(placeId);
 
         showToast('찜 목록에서 제거되었습니다.');
         setIsWish(false);

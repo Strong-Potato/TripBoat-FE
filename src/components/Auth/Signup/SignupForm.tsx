@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {useState} from 'react';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
@@ -11,6 +10,7 @@ import StepPassword from '@/components/Auth/Signup/Step/StepPassword';
 import StepProfile from '@/components/Auth/Signup/Step/StepProfile';
 import CustomToast from '@/components/CustomToast/CustomToast';
 
+import {authRequest} from '@/api/auth';
 import {s3Request} from '@/api/s3';
 
 import {AuthForm, SignupFormProps} from '@/types/auth';
@@ -45,13 +45,7 @@ function SignupForm({signupStep, setSignupStep}: SignupFormProps) {
       const {email, password, image, nickname} = data;
       const profile = dirtyFields.image ? await s3Request.uploadImage(image as FileList) : undefined;
 
-      const res = await axios.post('/api/auth/register', {
-        email,
-        password,
-        profile: profile.split('?')[0],
-        nickname,
-        token: code,
-      });
+      const res = await authRequest.signup_submit(email, password, profile.split('?')[0], nickname, code);
       console.log(res);
 
       if (res.data.responseCode === 204) {

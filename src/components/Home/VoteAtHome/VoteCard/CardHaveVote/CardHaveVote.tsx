@@ -61,7 +61,7 @@ function CardHaveVote({data}: PropsType) {
                       <span>{data.title}</span>
                     </p>
                   </div>
-                  <Link to={`/votes/${data.voteId}`} className={styles.button_box}>
+                  <Link to={`trip/${data.spaceInfo.spaceId}/votes/${data.voteId}`} className={styles.button_box}>
                     <button>
                       투표하기
                       <p>

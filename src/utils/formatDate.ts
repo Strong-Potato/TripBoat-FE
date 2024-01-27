@@ -1,7 +1,7 @@
 import {format} from 'date-fns';
 
 export const createDate = (date: string) => {
-  const arrayForm = date.split('-').map((el) => Number(el));
+  const arrayForm = date?.split('-').map((el) => Number(el));
 
   return new Date(arrayForm[0], arrayForm[1] - 1, arrayForm[2]);
 };
@@ -38,24 +38,14 @@ export const changeDOWFormat = (format: string) => {
 export const setSpaceDate_DOW = (start: string, end: string) => {
   const startFormat = format(createDate(start), 'M.dd(EEEEEE)');
   const endFormat = format(createDate(end), 'M.dd(EEEEEE)');
-
-  if (end) {
-    return changeDOWFormat(`${startFormat} - ${endFormat}`);
-  } else {
-    return changeDOWFormat(startFormat);
-  }
+  return end ? changeDOWFormat(`${startFormat} - ${endFormat}`) : changeDOWFormat(startFormat);
 };
 
 // ex) 2024.01.12(월) - 2024.01.14(수)
 export const setSpaceDate = (start: string, end: string) => {
   const startFormat = format(createDate(start), 'yyyy.MM.dd(EEEEEE)');
   const endFormat = format(createDate(end), 'yyyy.MM.dd(EEEEEE)');
-
-  if (end) {
-    return changeDOWFormat(`${startFormat} - ${endFormat}`);
-  } else {
-    return changeDOWFormat(startFormat);
-  }
+  return end ? changeDOWFormat(`${startFormat} - ${endFormat}`) : changeDOWFormat(startFormat);
 };
 
 // ex) 2024년 6월

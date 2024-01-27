@@ -35,9 +35,12 @@ function Contents({data, onOpen, reviewsRating}: ContentsProps) {
     useGetReviews(data.id, data.contentTypeId, data.title),
   );
 
+  console.log(reviewsData, 'rd');
+
   const reviews: any[] = [];
 
-  if (reviewsData) {
+  if (reviewsData?.pages[0].status !== 200) {
+  } else {
     reviewsData?.pages.map((data: any) => {
       data.data.reviews.map((data: any) => reviews.push(data));
     });

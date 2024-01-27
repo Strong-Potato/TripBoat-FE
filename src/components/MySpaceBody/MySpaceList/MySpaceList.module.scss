@@ -12,6 +12,7 @@
     height: 9rem;
     border: 1px solid $neutral200;
     border-radius: 16px;
+    cursor: pointer;
   }
 
   .img {
@@ -29,7 +30,7 @@
     border-radius: 16px 0px 0px 16px;
 
     &.default {
-      background-size: 70% 70%;
+      background-size: 3.2rem 3.2rem;
     }
 
     & > span {
@@ -38,7 +39,7 @@
       color: $neutral0;
     }
 
-    &::after {
+    &.dimmed::after {
       content: '';
       position: absolute;
       width: 100%;
@@ -50,13 +51,17 @@
 
   .content {
     flex: 1 1 auto;
-    padding: 20px 16px;
+    padding: 0 16px;
     min-width: 0;
 
-    &__title {
-      margin-bottom: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    justify-content: center;
 
+    &__city {
       @include typography(titleSmall);
+      color: $neutral900;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -64,6 +69,12 @@
 
     &__date {
       @include typography(bodySmall);
+      line-height: 20px;
+      color: $neutral700;
+    }
+
+    &__title {
+      @include typography(captionSmall);
       color: $neutral400;
     }
   }

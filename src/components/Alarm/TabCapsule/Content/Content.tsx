@@ -1,6 +1,6 @@
 import styles from './Content.module.scss';
 
-import DefaultProfile from '@/assets/profile_default.svg?react';
+import DefaultProfile from '@/assets/icons/profile_default.svg?react';
 import formatTimeAgo from '@/utils/formatTimeAgo';
 
 import {ContentProps} from '@/types/alarm';

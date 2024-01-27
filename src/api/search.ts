@@ -3,68 +3,77 @@ import {Dispatch} from 'react';
 
 import {translateCategoryCode, translateLocation, translateSort} from '@/utils/translateSearchData';
 
-import {DataType, Keywords, Popular, Search, SearchHotItemType, SearchItemType, SearchKeywordType} from '@/types/home';
+import {DataType, Keywords, Popular, Search, SearchHotItemType, SearchKeywordType} from '@/types/home';
 
-export async function search(
-  keyword: string,
-  location: string,
-  sort: string,
-  set: Dispatch<React.SetStateAction<SearchItemType[] | undefined>>,
-) {
+interface PramsType {
+  keyword?: string;
+  page: number;
+  size: number;
+  sort: string;
+  categoryCode?: string;
+  areaCode?: number;
+  sigunguCode?: number;
+}
+
+export async function search(keyword: string, location: string, sort: string, page: number) {
   try {
     const searchLocation = translateLocation(location);
+    const params: PramsType = {
+      keyword: keyword,
+      page: page,
+      size: 20,
+      sort: translateSort(sort),
+    };
+    if (searchLocation.areaCode !== 0) {
+      params.areaCode = searchLocation.areaCode;
+      if (searchLocation.sigunguCode !== 0) {
+        params.sigunguCode = searchLocation.sigunguCode;
+      }
+    }
     const fetchData = await axios.get('/api/places/search', {
-      params: {
-        page: 0,
-        size: 20,
-        areaCode: searchLocation.areaCode,
-        sigunguCode: searchLocation.sigunguCode,
-        keyword: keyword,
-        sort: translateSort(sort),
-      },
+      params: params,
     });
     const data: DataType<Search> = fetchData.data;
-    console.log(data.data.places);
-    set(data?.data.places);
+    return data?.data.places;
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function keywordSearch(
-  keyword: string,
-  location: string,
-  sort: string,
-  set: Dispatch<React.SetStateAction<SearchItemType[] | undefined>>,
-) {
+export async function keywordSearch(keyword: string, location: string, sort: string, page: number, size = 20) {
   try {
     const searchLocation = translateLocation(location);
     const categoryCode = translateCategoryCode(keyword);
+    const params: PramsType = {
+      page: page,
+      size: size,
+      sort: translateSort(sort),
+      categoryCode: categoryCode,
+    };
+    if (searchLocation.areaCode !== 0) {
+      params.areaCode = searchLocation.areaCode;
+      if (searchLocation.sigunguCode !== 0) {
+        params.sigunguCode = searchLocation.sigunguCode;
+      }
+    }
+
     const fetchData = await axios.get('/api/places/search', {
-      params: {
-        page: 0,
-        size: 20,
-        areaCode: searchLocation.areaCode,
-        sigunguCode: searchLocation.sigunguCode,
-        sort: translateSort(sort),
-        categoryCode: categoryCode,
-      },
+      params: params,
     });
     const data: DataType<Search> = fetchData.data;
 
-    set(data?.data.places);
+    return data?.data.places;
   } catch (error) {
     console.log(error);
   }
 }
 
 export async function getPopularItem(
-  apiURL: string,
   type: number,
   set: Dispatch<React.SetStateAction<SearchHotItemType[] | undefined>>,
 ) {
   try {
-    const fetchData = await axios.get(`${apiURL}`, {
+    const fetchData = await axios.get('/api/places/popular', {
       params: {
         size: 10,
         placeTypeId: type,

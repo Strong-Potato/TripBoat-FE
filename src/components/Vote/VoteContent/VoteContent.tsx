@@ -36,33 +36,41 @@ const VoteContent = ({onBottomSlideOpen, data, isZeroCandidates, showResults}: V
 
   return (
     <div className={styles.container}>
-      <div className={styles.container__stateBar}>
-        <div
-          className={styles.container__stateBar__state}
-          style={{color: data.voteStatus === '결정완료' ? '#979C9E' : '#2388FF'}}
-        >
-          {data.voteStatus === '결정완료' ? <Icon as={IoMdCheckmark} /> : <Icon as={GoDotFill} />}
-          {data.voteStatus}
+      <div className={styles.paddingBox}>
+        <div className={styles.stateBar}>
+          <div
+            className={styles.stateBar__state}
+            style={{color: data.voteStatus === '결정완료' ? '#979C9E' : '#2388FF'}}
+          >
+            {data.voteStatus === '결정완료' ? <Icon as={IoMdCheckmark} /> : <Icon as={GoDotFill} />}
+            {data.voteStatus}
+          </div>
+
+          {!showResults && (
+            <button
+              disabled={isCandidateSelecting}
+              onClick={() => onBottomSlideOpen(<AddCandidate />)}
+              className={styles.stateBar__addCandidate}
+            >
+              + 후보 추가({candidates.length}/15)
+            </button>
+          )}
         </div>
 
-        {!showResults && (
-          <button
-            disabled={isCandidateSelecting}
-            onClick={() => onBottomSlideOpen(<AddCandidate />)}
-            className={styles.container__stateBar__addCandidate}
-          >
-            + 후보 추가({candidates.length}/15)
-          </button>
-        )}
+        <CandidateList
+          candidates={candidates}
+          onBottomSlideOpen={onBottomSlideOpen}
+          isCandidateSelecting={isCandidateSelecting}
+        />
       </div>
 
-      <CandidateList
-        candidates={candidates}
-        onBottomSlideOpen={onBottomSlideOpen}
-        isCandidateSelecting={isCandidateSelecting}
-      />
-
-      {!isZeroCandidates && <VoteRecommendList state={data.voteStatus} isCandidateSelecting={isCandidateSelecting} />}
+      {!isZeroCandidates && (
+        <VoteRecommendList
+          state={data.voteStatus}
+          isCandidateSelecting={isCandidateSelecting}
+          categoryCode={data.candidates[0].placeInfo.category}
+        />
+      )}
 
       {isCandidateSelecting && <DeleteCandidatesButton />}
     </div>

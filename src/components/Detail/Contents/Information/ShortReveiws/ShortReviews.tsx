@@ -52,10 +52,12 @@ function ShortReviews({onOpen, reviewsRating, reviews}: ContentsShortReviewsProp
       <div className={styles.container__pointBox}>
         <GoStarFill className={styles.container__pointBox__star} />
         <span className={styles.container__pointBox__point}>{reviewsRating.rating}</span>
-        <span className={styles.container__pointBox__reviewsCount}>{`(${reviewsRating.userRatingCount})`}</span>
+        <span className={styles.container__pointBox__reviewsCount}>{`(${
+          reviewsRating.userRatingCount ? reviewsRating.userRatingCount : '리뷰 없음'
+        })`}</span>
       </div>
       <div className={styles.container__reviewsBox}>
-        {reviews &&
+        {reviews.length > 0 ? (
           reviews
             .slice(0, 2)
             .map((data, i) => (
@@ -69,7 +71,10 @@ function ShortReviews({onOpen, reviewsRating, reviews}: ContentsShortReviewsProp
                 content={data.content}
                 images={data.images}
               />
-            ))}
+            ))
+        ) : (
+          <div className={styles.container__reviewsBox__notReviews}>리뷰가 아직 없습니다.</div>
+        )}
       </div>
       <div
         className={styles.container__allBtn}

@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 export const authRequest = {
+  /* ---------------------------------- LOG IN/OUT --------------------------------- */
   login: (email: string, password: string) =>
     axios.post(
-      '/api/login', 
+      '/api/login',
       {
         email,
         password,
@@ -16,8 +17,6 @@ export const authRequest = {
       withCredentials: true,
     }),
 
-<<<<<<< Updated upstream
-=======
   logout: () => axios.post('/api/logout', {}, {withCredentials: true}),
 
   /* --------------------------------- SIGNUP FLOW --------------------------------- */
@@ -73,7 +72,6 @@ export const authRequest = {
     }),
 
   /* ------------------------------- WITHDRAWAL ------------------------------- */
->>>>>>> Stashed changes
   withdrawal: (password?: string) =>
     axios.post(
       '/api/members/sign-out',

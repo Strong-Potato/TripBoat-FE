@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useSetRecoilState} from 'recoil';
@@ -9,6 +8,7 @@ import AuthButton from '@/components/Auth/Button/AuthButton';
 import InputEmail from '@/components/Auth/Input/InputEmail';
 import CustomToast from '@/components/CustomToast/CustomToast';
 
+import {authRequest} from '@/api/auth';
 import {isModalOpenState} from '@/recoil/vote/alertModal';
 
 import ExpireAlert from '../../Alert/ExpireAlert';
@@ -23,9 +23,7 @@ function StepEmail({setSignupStep, register, watchFields: {email}, dirty, error,
 
   const onClickEmail = async () => {
     try {
-      const res = await axios.post('/api/auth/register/send-email', {
-        email,
-      });
+      const res = await authRequest.signup_sendEmail(email);
       console.log(res);
 
       if (res.data.responseCode === 202) {
