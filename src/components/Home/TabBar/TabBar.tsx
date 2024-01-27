@@ -4,8 +4,16 @@ import {Link} from 'react-router-dom';
 
 import styles from './TabBar.module.scss';
 
-function TabBar() {
+import {useGetAlarm} from '@/hooks/Notification/useNotification';
+
+import {Alarmprop} from '@/types/alarm';
+
+function TabBar({onAlarmOpen, isAlarmOpen}: Alarmprop) {
   const news = localStorage.getItem('news');
+  const {data: AlarmData} = useGetAlarm(isAlarmOpen);
+  if (AlarmData?.data.data.notificationDetail[0].isRead === false) {
+    localStorage.setItem('news', 'true');
+  }
 
   return (
     <div className={styles.container}>
@@ -13,10 +21,10 @@ function TabBar() {
         <Link to='/search'>
           <IoSearchSharp />
         </Link>
-        <Link to='/alarm' className={styles.icons__wrapper}>
+        <button onClick={onAlarmOpen} className={styles.icons__wrapper}>
           <AiOutlineBell />
           {news && <div className={styles.icons__wrapper__eclips} />}
-        </Link>
+        </button>
       </div>
     </div>
   );

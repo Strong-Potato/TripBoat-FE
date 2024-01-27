@@ -1,12 +1,12 @@
 import {Button} from '@chakra-ui/react';
 import {useEffect} from 'react';
-import {useParams} from 'react-router-dom';
-import {useRecoilState, useRecoilValue} from 'recoil';
+import {useLocation, useNavigate} from 'react-router-dom';
+import {useRecoilState} from 'recoil';
 
 import styles from './VoteMemo.module.scss';
 
 import useGetSelectedArray from '@/hooks/useGetSelectedArray';
-import {useGetVotesInfo} from '@/hooks/Votes/vote';
+import {useGetVotesInfo, usePostNewCandidate} from '@/hooks/Votes/vote';
 
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
 import AddCandidate from '@/components/Vote/VoteBottomSlideContent/AddCandidate/AddCandidate';
@@ -17,52 +17,69 @@ import {isBottomSlideOpenState} from '@/recoil/vote/bottomSlide';
 import {selectedPlaceState} from '@/recoil/vote/selectPlace';
 import {selectedTaglineState} from '@/recoil/vote/voteMemo';
 
-import {TaglineType} from '@/types/vote';
-// import { selectedPlaceState } from '@/recoil/vote/selectPlace';
+import {TaglineType, VoteInfo} from '@/types/vote';
 
 const VoteMemo = () => {
-  const {id: voteId} = useParams();
-  const {data: voteInfo} = useGetVotesInfo(Number(voteId));
-  // const navigate = useNavigate();
+  const location = useLocation();
+  const spaceId = Number(location.pathname.split('/')[2]);
+  const voteId = Number(location.pathname.split('/')[4]);
+
+  const {data: voteInfoData} = useGetVotesInfo(voteId);
+  const voteInfo = voteInfoData?.data as VoteInfo;
+  const postCandidateMutation = usePostNewCandidate();
+  const navigate = useNavigate();
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
-  // const [selectedPlaces, SetSelectedPlaces] = useRecoilState(selectedPlaceState);
-  const selectedPlaces = useRecoilValue(selectedPlaceState);
+  const [selectedPlaces, SetSelectedPlaces] = useRecoilState(selectedPlaceState);
   const {toggleItemInNewArray} = useGetSelectedArray(selectedTaglineState);
 
   const getExistingTaglines = localStorage.getItem('recoil-persist');
+  const existingTaglines: TaglineType[] = getExistingTaglines && JSON.parse(getExistingTaglines).selectedTaglineState;
 
   const setInitializeTagline = () => {
-    setSelectedTagline(selectedPlaces?.map((place) => ({id: place.id, tagline: ''})));
+    console.log('새로 세팅');
+    setSelectedTagline(selectedPlaces?.map((place) => ({id: place.id, placeTypeId: place.contentTypeId, tagline: ''})));
   };
 
   const setExistingTagline = () => {
-    const existingTaglines: TaglineType[] = getExistingTaglines && JSON.parse(getExistingTaglines).selectedTaglineState;
-
+    console.log('추가 세팅');
     const nonExistPlaceIds = selectedPlaces
       .map((place) => place.id)
       .filter((id) => !existingTaglines.some((tagline) => tagline.id === id));
 
-    nonExistPlaceIds.map((id) => ({id, tagline: ''})).forEach((tagline) => toggleItemInNewArray(tagline));
+    nonExistPlaceIds
+      .map((id) => ({
+        id,
+        placeTypeId: selectedPlaces.find((place) => place.id === id)?.contentTypeId || 0,
+        tagline: '',
+      }))
+      .forEach((tagline) => toggleItemInNewArray(tagline));
   };
 
   useEffect(() => {
-    if (getExistingTaglines) {
-      setExistingTagline();
-    } else {
+    setIsBTOpen(false);
+    if (!existingTaglines || existingTaglines.length === 0) {
       setInitializeTagline();
+    } else {
+      setExistingTagline();
     }
   }, []);
 
-  const handleAddCandidates = () => {
+  const handleAddCandidates = async () => {
     console.log('최종 내용 : ', selectedTagline);
+    const candidateInfos = selectedTagline.map(({id, ...rest}) => ({
+      placeId: id,
+      ...rest,
+    }));
+    await postCandidateMutation.mutateAsync({voteId: Number(voteId), candidateInfos: candidateInfos});
+    SetSelectedPlaces([]);
     localStorage.removeItem('recoil-persist');
-    //navigate(`/votes/${voteInfo.id}`)
+    navigate(`trip/${spaceId}/votes/${voteInfo.id}`);
   };
 
   return (
     <div className={styles.container}>
-      <VoteHeader title={voteInfo.title} onBottomSlideOpen={() => setIsBTOpen(true)} />
+      <VoteHeader title={voteInfo?.title} onBottomSlideOpen={() => setIsBTOpen(true)} />
       <MemoContent selectedPlaces={selectedPlaces} />
 
       <Button variant='CTAButton' isDisabled={selectedTagline.length === 0} onClick={handleAddCandidates}>

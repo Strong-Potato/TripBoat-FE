@@ -12,10 +12,8 @@ import {MemoItemProps} from '@/types/vote';
 
 const MemoItem = ({place, existingTagline}: MemoItemProps) => {
   const [text, setText] = useState('');
-  // const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
   const {toggleItemInNewArray, setMemoArray} = useGetSelectedArray(selectedTaglineState);
   const debouncedText = useDebounce(text, 500);
-  // const selectedPlaces = useRecoilValue(selectedPlaceState);
 
   useEffect(() => {
     if (existingTagline) {
@@ -26,6 +24,7 @@ const MemoItem = ({place, existingTagline}: MemoItemProps) => {
   const handleCheckboxChange = () => {
     toggleItemInNewArray({
       id: place.id,
+      placeTypeId: place.contentTypeId,
       tagline: debouncedText,
     });
   };
@@ -33,6 +32,7 @@ const MemoItem = ({place, existingTagline}: MemoItemProps) => {
   const handleDebouncedTextChange = useCallback(() => {
     setMemoArray({
       id: place.id,
+      placeTypeId: place.contentTypeId,
       tagline: debouncedText,
     });
   }, [debouncedText, place.id, setMemoArray]);

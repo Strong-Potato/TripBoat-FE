@@ -8,19 +8,19 @@ import CandidatesSlide from '../CandidatesSlide/CandidatesSlide';
 import MapPinActive from '../MapPins/MapPinActive';
 import MapPinCommon from '../MapPins/MapPinCommon';
 
-import {CandidatesInfo, Latlng} from '@/types/vote';
+import {CandidatesInfo, LatLng} from '@/types/vote';
 
 const CandidatesMapBody = ({candidates}: {candidates: CandidatesInfo[]}) => {
-  const [centerMarker, setCenterMarker] = useState(candidates[0].placeInfo.latlng);
+  const [centerMarker, setCenterMarker] = useState(candidates[0].placeInfo.latLng);
   const [selectedPinIndex, setSelectedPinIndex] = useState(0);
   const swiperRef = useRef<SwiperRef>(null);
 
   useEffect(() => {
-    setCenterMarker(candidates[0].placeInfo.latlng);
+    setCenterMarker(candidates[0].placeInfo.latLng);
   }, []);
 
-  const handleMapMarkerClick = (latlng: Latlng, i: number) => {
-    setCenterMarker(latlng);
+  const handleMapMarkerClick = (latLng: LatLng, i: number) => {
+    setCenterMarker(latLng);
     swiperRef.current?.swiper.slideTo(i);
     setSelectedPinIndex(i);
   };
@@ -30,12 +30,12 @@ const CandidatesMapBody = ({candidates}: {candidates: CandidatesInfo[]}) => {
       <Map className={styles.map} center={centerMarker} level={2}>
         {candidates.map((candidate, i) => (
           <CustomOverlayMap
-            key={`${candidate.placeInfo.placeName}-${candidate.placeInfo.latlng}-${i}`}
-            position={candidate.placeInfo.latlng}
+            key={`${candidate.placeInfo.placeName}-${candidate.placeInfo.latLng}-${i}`}
+            position={candidate.placeInfo.latLng}
           >
             <div
               className={`pin ${selectedPinIndex === i ? 'active' : ''}`}
-              onClick={() => handleMapMarkerClick(candidate.placeInfo.latlng, i)}
+              onClick={() => handleMapMarkerClick(candidate.placeInfo.latLng, i)}
             >
               {selectedPinIndex === i ? <MapPinActive number={i + 1} /> : <MapPinCommon number={i + 1} />}
             </div>

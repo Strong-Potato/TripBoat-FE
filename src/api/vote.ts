@@ -6,18 +6,20 @@ import {
   PostNewCandidateProps,
   PostVoteTitleProps,
   PostVotingProps,
+  VoteInfoRes,
+  VoteListInfoRes,
 } from '@/types/vote';
 
 /* ----------------------------------- G E T ---------------------------------- */
 
 //단일 보트
-export const getVoteInfo = async (voteId: number) => {
+export const getVoteInfo = async (voteId: number): Promise<VoteInfoRes> => {
   const response = await axios.get(`/api/votes/${voteId}`, {withCredentials: true});
   return response.data;
 };
 
 //보트 리스트
-export const getVoteListInfo = async (spaceId: number) => {
+export const getVoteListInfo = async (spaceId: number): Promise<VoteListInfoRes> => {
   const response = await axios.get(`/api/votes`, {params: {spaceId, voteStatusOption: 'ALL', withCredentials: true}});
   return response.data;
 };
@@ -45,6 +47,7 @@ export const postNewVote = async ({spaceId, title}: PostVoteTitleProps) => {
 export const postVoting = async ({voteId, candidateId}: PostVotingProps) => {
   try {
     const response = await axios.post('/api/votes/voting', {voteId, candidateId});
+    console.log('투표 성공', response);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -62,17 +65,17 @@ export const postNewCandidate = async ({voteId, candidateInfos}: PostNewCandidat
 /* ----------------------------------- P U T ---------------------------------- */
 
 //voteTitle 수정 PUT - api미정
-export const editVoteTitle = async ({title, voteId}: EditVoteTitleProps) => {
+export const editVoteTitle = async ({title, voteId, spaceId}: EditVoteTitleProps) => {
   try {
-    const response = await axios.put(`/api/votes/${voteId}`, {params: {title, withCredentials: true}});
+    const response = await axios.patch(`/api/votes/${voteId}`, {spaceId, title, withCredentials: true});
     return response.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-//투표 상태 결과보기로 변경
-export const changeStatusComplete = async (voteId: number) => {
+//투표 상태 결과보기/진행중 변경
+export const changeStatus = async (voteId: number) => {
   try {
     const response = await axios.put(`/api/votes/${voteId}/voteStatus`);
     return response.data;
@@ -82,9 +85,9 @@ export const changeStatusComplete = async (voteId: number) => {
 };
 
 //재투표, 리셋
-export const resetVoteStatus = async (voteId: number) => {
+export const resetShowResults = async (voteId: number) => {
   try {
-    const response = await axios.put(`/api/votes/${voteId}`);
+    const response = await axios.put(`/api/votes/${voteId}/reset`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -97,18 +100,17 @@ export const resetVoteStatus = async (voteId: number) => {
 export const deleteVote = async (voteId: number) => {
   try {
     const response = await axios.delete(`/api/votes/${voteId}/voteStatus`, {withCredentials: true});
-    console.log('투표삭제', response.data);
     return response.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-//candidate 삭제- api 미정 / candidateId:number[] 여러아이디 배열에 담음
+//candidate 삭제- api 미정 / candidateId:number[] 여러아이디 배열에 담음 -> params 빼면 에러
 export const deleteCandidates = async ({voteId, candidateIds}: DeleteCandidatesProps) => {
   try {
     const response = await axios.delete(`/api/votes/${voteId}/candidates`, {
-      params: {candidateIds, withCredentials: true},
+      data: {candidateIds},
     });
     return response.data;
   } catch (error) {
