@@ -20,6 +20,7 @@ interface WishBtnProps {
 function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: WishBtnProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [wishInitial, setWishInitial] = useState<boolean>(false);
+  const [isMount, setIsMount] = useState<boolean>(true);
 
   const cookies = new Cookies();
   const isLogin = cookies.get('isLogin');
@@ -35,12 +36,15 @@ function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: Wish
   const wish = useGetIsWish(placeId, isLogin);
 
   useEffect(() => {
+    console.log(wish.data);
+
     if (isLogin) {
-      if (typeof wish.data === 'boolean') {
+      if (typeof wish.data === 'boolean' && isMount) {
+        setIsMount(false);
         setIsWish(wish.data);
       }
     }
-  }, []);
+  }, [wish]);
 
   const postWishes = usePostWishes(placeId);
   const deleteWishes = useDeleteWishes(placeId);
@@ -75,7 +79,7 @@ function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: Wish
         deleteWishes.mutate(placeId);
       }
     }
-    console.log(debounce);
+    console.log('debounce', debounce);
   }, [debounce]);
 
   return (

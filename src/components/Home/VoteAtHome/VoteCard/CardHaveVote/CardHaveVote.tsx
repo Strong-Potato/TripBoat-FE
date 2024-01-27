@@ -58,7 +58,7 @@ function CardHaveVote({data}: PropsType) {
                         src={data.createdBy.profileImageUrl}
                         alt={`${data.title}의 사진`}
                       ></img>
-                      <span>{data.title}</span>
+                      <span className={styles.title}>{data.title}</span>
                     </p>
                   </div>
                   <Link to={`trip/${data.spaceInfo.spaceId}/votes/${data.voteId}`} className={styles.button_box}>

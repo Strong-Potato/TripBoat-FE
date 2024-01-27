@@ -101,3 +101,8 @@ export function translateCategoryName(name: string) {
   const categoryCode = categoryData.filter((data) => data.code === name)[0];
   return categoryCode.name;
 }
+
+export function translateAreaCode(areaCode: number) {
+  const location = areaData.filter((area) => area.areaCode === areaCode)[0].name;
+  return location;
+}
