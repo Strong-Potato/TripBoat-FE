@@ -144,7 +144,9 @@ function Wishes() {
       )}
       <ul className={styles.slide}>
         {filterData && filterData?.length > 0 ? (
-          filterData.map((data) => <WishItem filter={filter} data={data} categoryChange={categoryChange} />)
+          filterData.map((data) => (
+            <WishItem filter={filter} data={data} categoryChange={categoryChange} key={data.id} />
+          ))
         ) : (
           <div className={styles.nullBox}>
             <SearchNull />

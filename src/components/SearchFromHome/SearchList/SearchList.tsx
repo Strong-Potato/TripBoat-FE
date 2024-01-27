@@ -57,6 +57,7 @@ function SearchList({forSearch}: PropsType) {
     queryFn: ({pageParam = 0}) => getData(pageParam as number),
     initialPageParam: 0,
     refetchOnWindowFocus: false,
+    staleTime: 50000,
     getNextPageParam: (pageParam, allPage) => {
       if (!allPage) {
         return pageParam;
@@ -67,8 +68,6 @@ function SearchList({forSearch}: PropsType) {
 
   useEffect(() => {
     if (!isEnd && inView) {
-      console.log(1);
-
       fetchNextPage();
     }
   }, [inView]);

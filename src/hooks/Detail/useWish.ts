@@ -10,6 +10,7 @@ export const useGetIsWish = (id: number, enabled: boolean) => {
     queryKey: [`wish ${id}`],
     enabled,
     queryFn: () => getIsWish(id),
+    staleTime: 100000,
   });
 };
 
