@@ -22,7 +22,12 @@ const AddCandidate = () => {
           <VoteSearchIcon />
           <p>장소 검색</p>
         </button>
-        <button className={styles.container__buttons__item}>
+        <button
+          className={styles.container__buttons__item}
+          onClick={() => {
+            navigate(`/wishes?category=0&location=전국&sort=등록순&placeID=spaceId&tripDate=vote voteID`);
+          }}
+        >
           <VoteHeartIcon />
           <p>찜 목록 검색</p>
         </button>
