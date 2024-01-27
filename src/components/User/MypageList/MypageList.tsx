@@ -1,67 +1,61 @@
-import { useState } from "react";
-import { RiArrowRightSLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import {useState} from 'react';
+import {RiArrowRightSLine} from 'react-icons/ri';
+import {useNavigate} from 'react-router-dom';
 
-import styles from "./MypageList.module.scss";
+import styles from './MypageList.module.scss';
 
-import AlertIcon from "@/assets/icons/error-warning-line.svg?react";
+import AlertIcon from '@/assets/icons/error-warning-line.svg?react';
 
 function MypageList() {
-  const [alertOn, setAlertOn] = useState(
-    Notification.permission === "granted" ? true : false,
-  );
+  const [alertOn, setAlertOn] = useState(Notification.permission === 'granted' ? true : false);
   const navigate = useNavigate();
 
-  const onClickAlert = () => {
-    if (Notification.permission === "denied") {
+  const onClickAlert = async () => {
+    if (Notification.permission === 'denied') {
+      console.log(Notification.permission);
       return;
     }
-
-    setAlertOn(!alertOn);
+    if (alertOn) {
+      setAlertOn(false);
+      await axios.post('/api/notifications/unsubscribe');
+    } else {
+      setAlertOn(true);
+      await axios.post('/api/notifications/subscribe');
+    }
   };
 
   return (
     <ul className={styles.container}>
       <li
         onClick={() => {
-          navigate("/user/privacy");
+          navigate('/user/privacy');
         }}
       >
         <div>계정 관리</div>
-        <RiArrowRightSLine size="24" />
+        <RiArrowRightSLine size='24' />
       </li>
 
       <li className={styles.alert}>
         <div className={styles.alert__left}>
           알림
           <div className={styles.alert__left__tooltip}>
-            <button type="button">
+            <button type='button'>
               <AlertIcon />
             </button>
 
             <ul className={styles.tooltipList}>
               <li>
-                <span>
-                  구글 크롬(Chrome) 브라우저에 최적화 되어 있어 크롬 브라우저
-                  사용을 권장합니다.
-                </span>
+                <span>구글 크롬(Chrome) 브라우저에 최적화 되어 있어 크롬 브라우저 사용을 권장합니다.</span>
               </li>
               <li>
-                <span>
-                  브라우저의 알림 설정을 켜주셔야 서비스 알림을 받을 수
-                  있습니다.
-                </span>
+                <span>브라우저의 알림 설정을 켜주셔야 서비스 알림을 받을 수 있습니다.</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <button
-          onClick={onClickAlert}
-          className={`${styles.alert__button} ${
-            alertOn ? styles.on : styles.off
-          }`}
-        >
+        <button onClick={onClickAlert} className={`${styles.alert__button} ${alertOn ? styles.on : styles.off}`}>
           <div className={styles.alertState}></div>
         </button>
       </li>

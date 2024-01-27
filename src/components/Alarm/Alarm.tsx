@@ -48,7 +48,6 @@ function Alarm({isAlarmOpen, alarmClose}: AlarmProps) {
   useEffect(() => {
     if (isAlarmOpen === true) {
       localStorage.removeItem('news');
-      console.log('비움');
     }
   }, [isAlarmOpen]);
 
@@ -69,7 +68,7 @@ function Alarm({isAlarmOpen, alarmClose}: AlarmProps) {
         }}
       >
         <Back alarmClose={alarmClose} />
-        <TabCapsule />
+        <TabCapsule isAlarmOpen={isAlarmOpen} />
       </Slide>
     </div>
   );
