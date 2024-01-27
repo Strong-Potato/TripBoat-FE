@@ -15,13 +15,9 @@ function TravelList({isSideOpen}: TravelListProp) {
   const [, setIsFull] = useRecoilState(isFullMember);
   const {mutate} = usePostSpace();
   const navigate = useNavigate();
-
   const {data: spaces} = useGetSpaces(isSideOpen);
-  console.log(spaces);
-
   const handlePostSpace = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
     if (spaces!.data && spaces!.data.spaces.length >= 15) {
       setIsFull(true);
     } else {

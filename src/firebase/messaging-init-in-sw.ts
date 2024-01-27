@@ -26,7 +26,6 @@ async function requestPermission() {
   const token = await getToken(messaging, {
     vapidKey: import.meta.env.VITE_VAPID_KEY,
   });
-  console.log(token);
   if (token) {
     await sendNotificationToken({token});
     console.log('[FCM]알림 토큰을 전송했습니다');
