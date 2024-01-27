@@ -27,10 +27,10 @@ function PlaceCard({
   findCard,
 }: DraggablePlaceCardProps) {
   const [isChecked, setIsChecked] = useState(false);
-  const originalIndex = findCard(selectedId).index;
+  const originalIndex = findCard(selectedId)?.index;
   const navigate = useNavigate();
 
-  const [, drag] = useDrag(
+  const [, drag, preview] = useDrag(
     () => ({
       type: 'CARD',
       item: {selectedId, originalIndex},
@@ -49,9 +49,9 @@ function PlaceCard({
   const [, drop] = useDrop(
     () => ({
       accept: 'CARD',
-      hover({id: draggedId}: Item) {
+      hover({selectedId: draggedId}: Item) {
         if (draggedId !== selectedId) {
-          const {index: overIndex} = findCard(selectedId);
+          const {index: overIndex} = findCard(selectedId) || {};
           moveCard(draggedId, overIndex);
         }
       },
@@ -66,7 +66,7 @@ function PlaceCard({
   };
 
   return (
-    <div ref={(node) => drag(drop(node))} className={styles.cardContainer}>
+    <div ref={preview} className={styles.cardContainer}>
       <button onClick={handleSelect}>
         {editMode &&
           (isChecked ? (
@@ -87,7 +87,9 @@ function PlaceCard({
           </div>
         </div>
       </div>
-      <div className={styles.moveButton}>{editMode && <MoveIcon size='2.4rem' color='#CDCFD0' />}</div>
+      <div ref={(node) => drag(drop(node))} className={styles.moveButton}>
+        {editMode && <MoveIcon size='2.4rem' color='#CDCFD0' />}
+      </div>
     </div>
   );
 }

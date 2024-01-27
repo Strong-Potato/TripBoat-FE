@@ -150,7 +150,7 @@ export interface RouteMapSlideProps {
 }
 
 export interface Item {
-  id: number;
+  selectedId: number;
   originalIndex: number;
 }
 
