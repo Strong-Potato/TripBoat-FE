@@ -1,9 +1,10 @@
-import axios from 'axios';
 import {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
 
 import styles from './ModifyPasswordForm.module.scss';
+
+import {authRequest} from '@/api/auth';
 
 import StepNewPassword from './Step/StepNewPassword';
 import StepOldPassword from './Step/StepOldPassword';
@@ -33,11 +34,10 @@ function ModifyPasswordForm() {
   const navigate = useNavigate();
 
   const onSubmit = async () => {
+    if (Object.keys(dirtyFields).length < 2) return;
+
     try {
-      const res = axios.post('/api/auth/modify/password', {
-        token,
-        newPassword: watchFields.password,
-      });
+      const res = await authRequest.modifyPassword_submit(token, watchFields.password);
 
       console.log(res);
       navigate('/user', {replace: true});

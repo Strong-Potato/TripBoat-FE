@@ -7,11 +7,12 @@ import {useInfiniteScroll} from '@/hooks/useInfiniteScroll';
 
 import ObserveTarget from '@/components/Route/ObserveTarget/ObserveTarget';
 
-import defaultCity from '@/assets/icons/city_default.svg';
 import {setSpaceDate} from '@/utils/formatDate';
 
 import {Spaces} from '@/types/sidebar';
 import {MySpaceListProps} from '@/types/user';
+
+const defaultThumbnail = '/city_default.svg';
 
 function MySpaceList({tab}: MySpaceListProps) {
   const {data: upcomingData} = useGetSpaces(true);
@@ -33,7 +34,7 @@ function MySpaceList({tab}: MySpaceListProps) {
                 dueDate !== null && styles.dimmed
               }`}
               style={{
-                backgroundImage: `url(${thumbnail ? thumbnail : defaultCity})`,
+                backgroundImage: `url(${thumbnail ? thumbnail : defaultThumbnail})`,
               }}
             >
               <span>{dueDate !== null ? (dueDate <= 0 ? '여행중' : `D-${dueDate}`) : ''}</span>
@@ -63,7 +64,7 @@ function MySpaceList({tab}: MySpaceListProps) {
               <div
                 className={`${styles.img} ${thumbnail ? styles.city : styles.default}`}
                 style={{
-                  backgroundImage: `url(${thumbnail ? thumbnail : defaultCity})`,
+                  backgroundImage: `url(${thumbnail ? thumbnail : defaultThumbnail})`,
                 }}
               ></div>
 
