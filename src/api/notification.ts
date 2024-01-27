@@ -31,3 +31,15 @@ export const GetAlarm = async () => {
     }
   }
 };
+
+export const PostReadAlarm = async (notiId: number) => {
+  try {
+    const response = await axios.patch(`/api/notifications/${notiId}/read`, {withCredentials: true});
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log(error);
+      return error.response;
+    }
+  }
+};

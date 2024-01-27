@@ -5,15 +5,17 @@ import styles from './TabCapsule.module.scss';
 
 import {useGetAlarm} from '@/hooks/Notification/useNotification';
 
+import {PostReadAlarm} from '@/api/notification';
 import {parsingAlarmTravel} from '@/utils/parsingAlarm';
 
 import Content from './Content/Content';
 
 function TabCapsule({isAlarmOpen}: {isAlarmOpen: boolean}) {
-  const {data: Alarm} = useGetAlarm(isAlarmOpen);
-  console.log(Alarm);
   const navigate = useNavigate();
+  const {data: Alarm} = useGetAlarm(isAlarmOpen);
+  localStorage.removeItem('news');
 
+  Alarm && PostReadAlarm(Alarm?.data.data.notificationDetail[0].id);
   if (Alarm?.status === 403 || Alarm?.status === 401) {
     navigate('/auth/login', {
       replace: true,

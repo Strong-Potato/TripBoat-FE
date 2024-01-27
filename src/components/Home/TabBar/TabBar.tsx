@@ -4,10 +4,16 @@ import {Link} from 'react-router-dom';
 
 import styles from './TabBar.module.scss';
 
+import {useGetAlarm} from '@/hooks/Notification/useNotification';
+
 import {Alarmprop} from '@/types/alarm';
 
 function TabBar({onAlarmOpen}: Alarmprop) {
   const news = localStorage.getItem('news');
+  const {data: Alarm} = useGetAlarm(true);
+  if (Alarm?.data.data.notificationDetail[0].isRead === false) {
+    localStorage.setItem('news', 'true');
+  }
 
   return (
     <div className={styles.container}>
