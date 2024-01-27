@@ -42,11 +42,11 @@ export const useInfiniteScrollReviews = (
     if (data) {
       const {last} = data.pages.at(-1).data;
 
-      if (data.pages[data.pages.length - 1].data.reviews.length === 0) {
+      if (data.pages[0].status !== 200) {
+        setHasNextData(false);
+      } else if (data.pages[data.pages.length - 1].data.reviews.length === 0) {
         setHasNextData(false);
       }
-
-      console.log(data.pages, '1');
 
       if (inView && !last) {
         fetchNextPage();

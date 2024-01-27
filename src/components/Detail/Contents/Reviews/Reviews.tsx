@@ -51,10 +51,12 @@ function Reviews({onOpen, reviewsRating, reviews, hasNextData, inViewRef}: Conte
       <div className={styles.container__pointBox}>
         <GoStarFill className={styles.container__pointBox__star} />
         <span className={styles.container__pointBox__point}>{reviewsRating.rating}</span>
-        <span className={styles.container__pointBox__reviewsCount}>{`(${reviewsRating.userRatingCount})`}</span>
+        <span className={styles.container__pointBox__reviewsCount}>{`(${
+          reviewsRating.userRatingCount ? reviewsRating.userRatingCount : '리뷰 없음'
+        })`}</span>
       </div>
       <div className={styles.container__reviewsBox}>
-        {reviews &&
+        {reviews.length > 0 ? (
           reviews.map((data, i) => (
             <Review
               key={`review_${i}`}
@@ -66,7 +68,10 @@ function Reviews({onOpen, reviewsRating, reviews, hasNextData, inViewRef}: Conte
               content={data.content}
               images={data.images}
             />
-          ))}
+          ))
+        ) : (
+          <div className={styles.container__reviewsBox__notReviews}>리뷰가 아직 없습니다.</div>
+        )}
       </div>
       {hasNextData && <ObserveTarget inViewRef={inViewRef} />}
     </div>
