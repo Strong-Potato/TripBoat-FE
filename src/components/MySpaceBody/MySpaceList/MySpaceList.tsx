@@ -7,13 +7,12 @@ import {useInfiniteScroll} from '@/hooks/useInfiniteScroll';
 
 import ObserveTarget from '@/components/Route/ObserveTarget/ObserveTarget';
 
-import defaultThumbnail from '@/assets/icons/city_default.svg';
 import {setSpaceDate} from '@/utils/formatDate';
 
 import {Spaces} from '@/types/sidebar';
 import {MySpaceListProps} from '@/types/user';
 
-// const defaultThumbnail = 'https://tripvote.s3.ap-northeast-2.amazonaws.com/basic/city_default.svg';
+const defaultThumbnail = '/city_default.svg';
 
 function MySpaceList({tab}: MySpaceListProps) {
   const {data: upcomingData} = useGetSpaces(true);

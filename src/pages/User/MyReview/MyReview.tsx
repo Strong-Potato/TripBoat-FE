@@ -12,14 +12,13 @@ import ReviewImageSlider from '@/components/Detail/Contents/Review/ReviewImageSl
 import ActionList from '@/components/MyReview/ActionList/ActionList';
 import ObserveTarget from '@/components/Route/ObserveTarget/ObserveTarget';
 
-import defaultThumbnail from '@/assets/icons/city_default.svg';
 import Meatball from '@/assets/icons/meatball.svg?react';
 import Star from '@/assets/icons/star_fill.svg?react';
 import {setMyReviewDate} from '@/utils/formatDate';
 
 import {Reviews} from '@/types/myReview';
 
-// const defaultThumbnail = 'https://tripvote.s3.ap-northeast-2.amazonaws.com/basic/city_default.svg';
+const defaultThumbnail = '/city_default.svg';
 
 function MyReview() {
   const {isOpen: isBottomSlideOpen, onOpen: onBottomSlideOpen, onClose: onBottomSlideClose} = useDisclosure();

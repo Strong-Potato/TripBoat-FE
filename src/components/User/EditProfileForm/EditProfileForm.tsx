@@ -10,10 +10,11 @@ import InputImage from '@/components/Auth/Input/InputImage';
 import InputNickname from '@/components/Auth/Input/InputNickname';
 
 import {s3Request} from '@/api/s3';
-import defaultProfile from '@/assets/icons/profile_default.svg';
 
 import {AuthForm} from '@/types/auth';
 import {GetUserProp} from '@/types/sidebar';
+
+const defaultProfile = '/profile_default.svg';
 
 function EditProfileForm({data}: {data: GetUserProp | undefined}) {
   const {
