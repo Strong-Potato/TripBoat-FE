@@ -6,7 +6,7 @@ export const createDate = (date: string) => {
   return new Date(arrayForm[0], arrayForm[1] - 1, arrayForm[2]);
 };
 
-const changeDOWFormat = (format: string) => {
+export const changeDOWFormat = (format: string) => {
   let result = format;
 
   if (result.includes('Su')) {
