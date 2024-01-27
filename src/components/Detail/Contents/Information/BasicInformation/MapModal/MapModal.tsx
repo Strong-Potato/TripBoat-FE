@@ -7,7 +7,7 @@ import styles from './MapModal.module.scss';
 import BigHomeMarker from '@/assets/homeIcons/map/house_big.svg?react';
 import BigFlagMarker from '@/assets/homeIcons/map/flag_big.svg?react';
 import BigRestaurantMarker from '@/assets/homeIcons/map/restaurant_big.svg?react';
-import WishBtn from '@/components/Detail/Main/Title/TitleWishBtn/TitleWishBtn';
+import TitleWishBtn from '@/components/Detail/Main/Title/TitleWishBtn/TitleWishBtn';
 
 interface MapModalProps {
   isOpen: boolean;
@@ -56,7 +56,12 @@ function MapModal({isOpen, onClose, lat, lng, title, thumbnail, id, contentTypeI
                 {contentTypeId} {areaCode}
               </p>
             </div>
-            <WishBtn placeId={id} contentTypeId={contentTypeId} size={'2.4rem'} className={styles.footer__card__icon} />
+            <TitleWishBtn
+              placeId={id}
+              contentTypeId={contentTypeId}
+              size={'2.4rem'}
+              className={styles.footer__card__icon}
+            />
           </div>
         </DrawerFooter>
       </DrawerContent>
