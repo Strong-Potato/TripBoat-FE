@@ -14,7 +14,7 @@ interface PropsType {
 function RecommendedItem({data}: PropsType) {
   const location = areas.filter((area) => area.areaCode === data.areaCode)[0].name;
   return (
-    <Link to={`/detail/${data.id} ${data.contentTypeId}`} className={styles.container}>
+    <Link to={`/detail/${data.id} ${data.contentTypeId}?title=${data.title}`} className={styles.container}>
       <img className={styles.item_img} src={data.thumbnail} alt={`${data.title}의 사진`} />
       <div className={styles.text_box}>
         <span className={styles.item_title}>{data.title}</span>

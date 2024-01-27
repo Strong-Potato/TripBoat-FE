@@ -17,6 +17,7 @@ import ReviewBottomSlide from '../../Contents/ReviewBottomSlide/ReviewBottomSlid
 
 import {NavigationMeatballProps} from '@/types/detail';
 import {useDeleteWishes, usePostWishes} from '@/hooks/Detail/useWish';
+import {useLocation} from 'react-router-dom';
 
 const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, title}: NavigationMeatballProps) => {
   const [isWish, setIsWish] = useRecoilState(IsHeartValued);
@@ -58,6 +59,19 @@ const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, tit
       }
     } else {
       showNotLoginModal();
+    }
+  };
+
+  // 링크 복사
+  const location = useLocation();
+
+  const handleCopyClipBoard = async () => {
+    try {
+      console.log(location);
+      await navigator.clipboard.writeText(`tripvote.site${location.pathname}`);
+      showToast('링크가 복사되었습니다.');
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -123,7 +137,7 @@ const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, tit
       </button>
       <button
         onClick={() => {
-          showToast('링크가 복사되었습니다.');
+          handleCopyClipBoard();
           onClose();
           document.body.style.removeProperty('overflow');
         }}
