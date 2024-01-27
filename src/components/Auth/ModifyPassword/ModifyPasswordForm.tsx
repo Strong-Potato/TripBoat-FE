@@ -34,6 +34,8 @@ function ModifyPasswordForm() {
   const navigate = useNavigate();
 
   const onSubmit = async () => {
+    if (Object.keys(dirtyFields).length < 2) return;
+
     try {
       const res = await authRequest.modifyPassword_submit(token, watchFields.password);
 
