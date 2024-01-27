@@ -90,11 +90,23 @@ function Trip() {
         <header className={styles.header}>
           <div className={styles.titleContainer}>
             <div className={styles.titleContainer__dDayTitle}>{checkDDay(spaceData.data.dueDate)}</div>
-            <div className={styles.titleContainer__placeTitle}>
-              {spaceData.data.city ? spaceData.data.city : '여행지를 정해주세요'}
+            <div
+              className={styles.titleContainer__placeTitle}
+              style={
+                spaceData.data.city === null ? {textDecorationLine: 'underline', textDecorationThickness: '1px'} : {}
+              }
+            >
+              {spaceData.data.city ? `${spaceData.data.city} 여행` : '여행지를 정해주세요'}
             </div>
             <div className={styles.dateContainer}>
-              <span className={styles.dateContainer__dateTitle}>
+              <span
+                className={styles.dateContainer__dateTitle}
+                style={
+                  spaceData.data.endDate === null
+                    ? {textDecorationLine: 'underline', textDecorationThickness: '1px'}
+                    : {}
+                }
+              >
                 {spaceData.data.endDate
                   ? setSpaceDate(
                       spaceData.data.startDate,

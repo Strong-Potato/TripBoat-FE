@@ -1,16 +1,53 @@
 import {Button} from '@chakra-ui/react';
+import {useEffect} from 'react';
+import {MdOutlineReplay as ResetIcon} from 'react-icons/md';
+import {useLocation, useNavigate} from 'react-router-dom';
+import {useRecoilState} from 'recoil';
 
 import styles from './AddPlaceFromVote.module.scss';
 
+import {usePostPlaces} from '@/hooks/Spaces/space';
 import useGoBack from '@/hooks/useGoBack';
+import {useGetVoteListInfo} from '@/hooks/Votes/vote';
 
 import CompletedVote from '@/components/Route/AddPlace/FromVote/CompletedVote/CompletedVote';
 import InProgressVote from '@/components/Route/AddPlace/FromVote/InProgressVote/InProgressVote';
+import {SelectedPlaces} from '@/components/Route/AddPlace/FromVote/VoteCard/VoteCard';
 
 import BackIcon from '@/assets/back.svg?react';
+import {selectedPlaceFromVoteState} from '@/recoil/\bspaces/selectPlace';
+
+import {Vote} from '@/types/route';
 
 function AddPlaceFromVote() {
   const goBack = useGoBack();
+  const {state} = useLocation();
+  const {id, journeyId, day} = state;
+  const {data: voteData, refetch} = useGetVoteListInfo(Number(id));
+  const [selectedPlaces, setSelectedPlaces] = useRecoilState<SelectedPlaces[]>(selectedPlaceFromVoteState);
+  const inProgressVotes = voteData?.data?.voteResponse?.filter((vote: Vote) => vote.voteStatus === '진행 중');
+  const completedVotes = voteData?.data?.voteResponse?.filter((vote: Vote) => vote.voteStatus === '결정 완료');
+  const postPlaces = usePostPlaces();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  const addPlaces = async () => {
+    await postPlaces.mutateAsync({
+      spaceId: Number(id),
+      journeyId: Number(journeyId),
+      placeIds: selectedPlaces.flatMap((place) => place.id),
+    });
+    navigate(`/trip/${id}`, {state: {id: id}});
+  };
+
+  const resetSelected = () => {
+    window.location.reload();
+    setSelectedPlaces([]);
+    // FIXME: 초기화 시 선택한 배열 비우기
+  };
 
   return (
     <div className={styles.FromVoteContainer}>
@@ -18,12 +55,18 @@ function AddPlaceFromVote() {
         <button onClick={goBack}>
           <BackIcon />
         </button>
-        <h1>Day 1 일정 추가</h1>
+        <h1>Day {day} 일정 추가</h1>
       </nav>
-      <CompletedVote />
-      <InProgressVote />
-      <Button isDisabled={true} variant='CTAButton'>
-        장소를 선택해주세요
+      <div className={styles.resetButtonContainer}>
+        <button onClick={resetSelected}>
+          <ResetIcon size='2.2rem' color={selectedPlaces.length === 0 ? '#979C9E' : '#23272F'} />
+          <span style={{color: selectedPlaces.length === 0 ? '#979C9E' : '#23272F'}}>선택 초기화</span>
+        </button>
+      </div>
+      <CompletedVote votes={completedVotes} />
+      <InProgressVote votes={inProgressVotes} />
+      <Button isDisabled={selectedPlaces.length === 0} variant='CTAButton' onClick={addPlaces}>
+        {selectedPlaces.length === 0 ? '장소를 선택해주세요' : `${selectedPlaces.length}개 장소 일정에 추가하기`}
       </Button>
     </div>
   );

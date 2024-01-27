@@ -26,4 +26,17 @@
       color: $neutral900;
     }
   }
+
+  .resetButtonContainer {
+    position: absolute;
+    right: 20px;
+    padding-top: 8px;
+
+    button {
+      @include typography(tabLabel);
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+  }
 }

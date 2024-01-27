@@ -2,6 +2,7 @@ import {Dispatch} from 'react';
 import {SwiperRef} from 'swiper/react';
 
 export interface DraggablePlaceCardProps {
+  journeyId: number;
   selectedId: number;
   order: number;
   name: string;
@@ -10,8 +11,8 @@ export interface DraggablePlaceCardProps {
   placeId: number;
   contentTypeId: number;
   editMode: boolean;
-  selectedPlaces: string[];
-  onSelect: (name: string) => void;
+  selectedPlaces: SelectedPlace[];
+  onSelect: (journeyId: number, selectedId: number, placeId: number) => void;
   moveCard: (id: number, atIndex: number) => void;
   findCard: (id: number) => {card: PlaceList; index: number};
 }
@@ -39,10 +40,19 @@ export interface Place {
 export interface DayRouteProps {
   day: number;
   date: string;
+  journeyId: number;
   placeList: PlaceList[];
   editMode: boolean;
-  selectedPlaces: string[];
-  handlePlaceSelection: (name: string) => void;
+  editPlaces: (journeyId: number, placeCards: PlaceList[]) => void;
+  selectedPlaces: SelectedPlace[];
+  setSelectedPlaces: React.Dispatch<React.SetStateAction<SelectedPlace[]>>;
+  handlePlaceSelection: (
+    journeyId: number,
+    selectedId: number,
+    placeId: number,
+    selectedPlaces: SelectedPlace[],
+    setSelectedPlaces: React.Dispatch<React.SetStateAction<SelectedPlace[]>>,
+  ) => void;
 }
 
 export interface RouteTabPanelProps {
@@ -63,7 +73,10 @@ export interface PlaceListProps {
   id: number;
   name: string;
   category: string;
-  onSelect: (name: string) => void;
+  areaCode: string;
+  placeImageUrl: string;
+  rank: number;
+  onSelect: (name: string, id: number) => void;
 }
 
 export interface VoteCardProps {
@@ -80,28 +93,6 @@ export interface MapInTripProps {
   mapRef: React.RefObject<kakao.maps.Map>;
   center: LatLng;
   journeysData: Journeys;
-}
-
-export interface Journey {
-  journeyId: number;
-  date: string;
-  places: PlaceList[];
-}
-
-export interface PlaceList {
-  selectedId: number;
-  order: number;
-  place: {
-    title: string;
-    thumbnail: string;
-    address: string;
-    addressDetail: string;
-    latitude: number;
-    longitude: number;
-    category: string;
-    contentTypeId: number;
-    placeId: number;
-  };
 }
 
 export interface Journeys {
@@ -128,6 +119,28 @@ export interface Journeys {
   // };
 }
 
+export interface Journey {
+  journeyId: number;
+  date: string;
+  places: PlaceList[];
+}
+
+export interface PlaceList {
+  selectedId: number;
+  order: number;
+  place: {
+    title: string;
+    thumbnail: string;
+    address: string;
+    addressDetail: string;
+    latitude: number;
+    longitude: number;
+    category: string;
+    contentTypeId: number;
+    placeId: number;
+  };
+}
+
 export interface RouteMapSlideProps {
   journeys: Journey[];
   setSelectedPinIndex: Dispatch<React.SetStateAction<number>>;
@@ -138,7 +151,7 @@ export interface RouteMapSlideProps {
 }
 
 export interface Item {
-  id: number;
+  selectedId: number;
   originalIndex: number;
 }
 
@@ -206,10 +219,64 @@ export interface PlaceParams {
 
 export interface SelectPlace {
   journeyId: number;
-  placeIds: number[];
+  selectedId: number[];
 }
 
 export interface journeyParams {
   spaceId: number;
-  places: SelectPlace[];
+  places: TransformedDataItem[];
+}
+
+export interface journeyPutParams {
+  spaceId: number;
+  places: TransformedPutDataItem[];
+}
+
+export interface SelectedPlace {
+  journeyId: number;
+  selectedId: number;
+  placeId: number;
+}
+
+export interface TransformedPutDataItem {
+  journeyId: number;
+  placeIds: number[];
+}
+
+export interface TransformedDataItem {
+  journeyId: number;
+  selectedIds: number[];
+}
+
+export interface DayMoveProps {
+  journeysData: Journeys;
+  selectedPlaces: SelectedPlace[];
+  onClose: () => void;
+  setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface AddPlaceProps {
+  journeyId: number;
+  day: number;
+}
+
+export interface Vote {
+  voteId: number;
+  title: string;
+  voteStatus: string;
+}
+
+export interface Votes {
+  votes: Vote[];
+}
+
+export interface Candidate {
+  id: number;
+  placeInfo: {
+    placeId: number;
+    placeName: string;
+    category: string;
+    areaCode: string;
+    placeImageUrl: string;
+  };
 }

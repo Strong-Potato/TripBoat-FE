@@ -4,7 +4,7 @@ import ko from 'date-fns/locale/ko';
 import {useEffect, useState} from 'react';
 import DatePicker, {registerLocale} from 'react-datepicker';
 import {BsCalendarCheck as CalendarIcon} from 'react-icons/bs';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './Calendar.module.scss';
@@ -22,8 +22,13 @@ function Calendar() {
   const {id} = useParams();
   const {data: spaceData} = useGetSpace(Number(id));
   const putDates = usePutDates();
-  const [startDate, setStartDate] = useState<Date | null>(createDate(spaceData?.data?.startDate));
-  const [endDate, setEndDate] = useState<Date | null>(createDate(spaceData?.data?.endDate));
+  const navigate = useNavigate();
+  const [startDate, setStartDate] = useState<Date | null>(
+    spaceData?.data?.startDate ? createDate(spaceData.data.startDate) : null,
+  );
+  const [endDate, setEndDate] = useState<Date | null>(
+    spaceData?.data?.endDate ? createDate(spaceData.data.endDate) : null,
+  );
 
   const editDates = async () => {
     await putDates.mutateAsync({
@@ -31,6 +36,7 @@ function Calendar() {
       startDate: format(startDate!, 'yyyy-MM-dd'),
       endDate: format(endDate!, 'yyyy-MM-dd'),
     });
+    navigate(`/trip/${id}`, {state: {id: id}});
   };
 
   // TODO: 캘린더에서 날짜 바꿀 경우 Day별 일정 처리 모달 띄우기

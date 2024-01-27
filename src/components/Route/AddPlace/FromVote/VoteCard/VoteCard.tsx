@@ -1,108 +1,86 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionItem,
-  AccordionPanel,
-} from "@chakra-ui/react";
-import { useState } from "react";
-import { AiFillCaretDown as DownIcon } from "react-icons/ai";
-import { AiFillCaretUp as UpIcon } from "react-icons/ai";
+import {Accordion, AccordionButton, AccordionItem, AccordionPanel} from '@chakra-ui/react';
+import {useState} from 'react';
+import {AiFillCaretDown as DownIcon} from 'react-icons/ai';
+import {AiFillCaretUp as UpIcon} from 'react-icons/ai';
+import {useSetRecoilState} from 'recoil';
 
-import styles from "./VoteCard.module.scss";
+import styles from './VoteCard.module.scss';
 
-import PlaceList from "../PlaceList/PlaceList";
+import {useGetVotesResults} from '@/hooks/Votes/vote';
 
-import { VoteCardProps } from "@/types/route";
+import {selectedPlaceFromVoteState} from '@/recoil/\bspaces/selectPlace';
 
-function VoteCard({ id, title }: VoteCardProps) {
-  // get/:id
-  const candidates = [
-    {
-      id: 0,
-      placeId: 0,
-      placeName: "성심당",
-      category: "카페",
-      amIVoted: false,
-    },
-    {
-      id: 1,
-      placeId: 0,
-      placeName: "성심당을 위협하는 핫한 베이커리 카페",
-      category: "카페",
-      amIVoted: false,
-    },
-  ];
+import PlaceList from '../PlaceList/PlaceList';
 
-  // 임시 코드
-  console.log(id);
+import {Candidate, VoteCardProps} from '@/types/route';
 
-  const [selectedPlaces, setSelectedPlaces] = useState<string[]>([]);
+export interface SelectedPlaces {
+  id: number;
+  placeName: string;
+}
 
-  const handlePlaceSelection = (placeName: string) => {
-    if (selectedPlaces.includes(placeName)) {
-      setSelectedPlaces((prevSelectedPlaces) =>
-        prevSelectedPlaces.filter((place) => place !== placeName),
+function VoteCard({id, title}: VoteCardProps) {
+  const {data} = useGetVotesResults(true, id);
+  const [selectedPlaces, setSelectedPlaces] = useState<SelectedPlaces[]>([]);
+  const setSelectedPlacesFromVote = useSetRecoilState<SelectedPlaces[]>(selectedPlaceFromVoteState);
+
+  const handlePlaceSelection = (placeName: string, placeId: number) => {
+    const isSelected = selectedPlaces.some((place) => place.placeName === placeName);
+
+    if (isSelected) {
+      setSelectedPlaces((prevSelectedPlaces) => prevSelectedPlaces.filter((place) => place.placeName !== placeName));
+      setSelectedPlacesFromVote((prevSelectedPlacesFromVote) =>
+        prevSelectedPlacesFromVote.filter((place) => place.placeName !== placeName),
       );
     } else {
-      setSelectedPlaces((prevSelectedPlaces) => [
-        ...prevSelectedPlaces,
-        placeName,
-      ]);
+      const newSelectedPlace = {id: placeId, placeName};
+      setSelectedPlaces((prevSelectedPlaces) => [...prevSelectedPlaces, newSelectedPlace]);
+      setSelectedPlacesFromVote((prevSelectedPlacesFromVote) => [...prevSelectedPlacesFromVote, newSelectedPlace]);
     }
   };
 
   return (
     <>
       <div className={styles.container}>
-        <Accordion allowToggle w="100%" border="none">
-          <AccordionItem border="none">
-            {({ isExpanded }) => (
-              <div
-                className={
-                  isExpanded ? styles.openedContainer : styles.closedContainer
-                }
-              >
+        <Accordion allowToggle w='100%' border='none'>
+          <AccordionItem key={data?.data?.id} border='none'>
+            {({isExpanded}) => (
+              <div className={isExpanded ? styles.openedContainer : styles.closedContainer}>
                 <AccordionButton
-                  p="0"
+                  p='0'
                   _hover={{
-                    backgroundColor: "transparent",
+                    backgroundColor: 'transparent',
                   }}
                 >
-                  <div
-                    className={
-                      isExpanded ? styles.openedItem : styles.closedItem
-                    }
-                  >
+                  <div className={isExpanded ? styles.openedItem : styles.closedItem}>
                     <div className={styles.titleContainer}>
                       <h1>{title}</h1>
                     </div>
                     <div className={styles.placesContainer}>
                       {selectedPlaces.length > 0 && (
-                        <h2>{selectedPlaces.join(", ")}</h2>
+                        <h2>{selectedPlaces.map((place) => place.placeName).join(', ')}</h2>
                       )}
                     </div>
-                    {isExpanded ? (
-                      <UpIcon size="2.4rem" color="#3F444D" />
-                    ) : (
-                      <DownIcon size="2.4rem" color="#CDCFD0" />
-                    )}
+                    {isExpanded ? <UpIcon size='2.4rem' color='#3F444D' /> : <DownIcon size='2.4rem' color='#CDCFD0' />}
                   </div>
                 </AccordionButton>
-                <AccordionPanel
-                  border="none"
-                  display="flex"
-                  flexDirection="column"
-                  gap="0.2rem"
-                  p="0 12px 16px 12px"
-                >
-                  {candidates.map((candidate) => (
-                    <PlaceList
-                      id={candidate.placeId}
-                      name={candidate.placeName}
-                      category={candidate.category}
-                      onSelect={handlePlaceSelection}
-                    />
-                  ))}
+                <AccordionPanel border='none' display='flex' flexDirection='column' gap='0.2rem' p='0 12px 16px 12px'>
+                  {data?.data?.candidatesResponses?.length > 0 ? (
+                    data.data.candidatesResponses.map((candidate: Candidate, index: number) => (
+                      <PlaceList
+                        key={candidate.placeInfo.placeId}
+                        id={candidate.placeInfo.placeId}
+                        name={candidate.placeInfo.placeName}
+                        category={candidate.placeInfo.category}
+                        areaCode={candidate.placeInfo.areaCode}
+                        placeImageUrl={candidate.placeInfo.placeImageUrl}
+                        rank={index}
+                        onSelect={handlePlaceSelection}
+                      />
+                    ))
+                  ) : (
+                    <p>등록된 후보지가 없습니다</p>
+                  )}
                 </AccordionPanel>
               </div>
             )}
