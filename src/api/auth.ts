@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 export const authRequest = {
+  /* ---------------------------------- LOG IN/OUT --------------------------------- */
   login: (email: string, password: string) =>
     axios.post(
-      '/api/login', 
+      '/api/login',
       {
         email,
         password,
@@ -16,6 +17,11 @@ export const authRequest = {
       withCredentials: true,
     }),
 
+  logout: () => axios.post('/api/logout', {}, {withCredentials: true}),
+
+  /* --------------------------------- SIGNUP --------------------------------- */
+
+  /* ------------------------------- WITHDRAWAL ------------------------------- */
   withdrawal: (password?: string) =>
     axios.post(
       '/api/members/sign-out',
