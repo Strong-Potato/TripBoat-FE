@@ -62,7 +62,7 @@ const VoteRecommendList = ({state, isCandidateSelecting, categoryCode}: PropsTyp
             left: slideLocation + 'px',
           }}
         >
-          {data && data.map((data) => <VoteRecommendItem data={data} state={state} />)}
+          {data && data.map((data) => <VoteRecommendItem data={data} state={state} key={data.id} />)}
         </div>
       </div>
       {/* <Swiper slidesPerView={2} navigation={true} modules={[Navigation]} breakpoints={{400: {slidesPerView: 2.4}}}>

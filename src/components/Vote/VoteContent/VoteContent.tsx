@@ -55,33 +55,34 @@ const VoteContent = ({onBottomSlideOpen, data, isZeroCandidates}: VoteContentPro
             {data.voteStatus}
           </div>
 
-        {!showResults && (
-          <button
-            disabled={isCandidateSelecting}
-            onClick={() => onBottomSlideOpen(<AddCandidate />)}
-            className={styles.container__stateBar__addCandidate}
-          >
-            + 후보 추가({candidates?.length}/15)
-          </button>
-        )}
-      </div>
+          {!showResults && (
+            <button
+              disabled={isCandidateSelecting}
+              onClick={() => onBottomSlideOpen(<AddCandidate />)}
+              className={styles.container__stateBar__addCandidate}
+            >
+              + 후보 추가({candidates?.length}/15)
+            </button>
+          )}
+        </div>
 
-      <CandidateList
-        candidates={candidates}
-        onBottomSlideOpen={onBottomSlideOpen}
-        isCandidateSelecting={isCandidateSelecting}
-        showResults={showResults}
-      />
-
-      {!isZeroCandidates && (
-        <VoteRecommendList
-          state={data.voteStatus}
+        <CandidateList
+          candidates={candidates}
+          onBottomSlideOpen={onBottomSlideOpen}
           isCandidateSelecting={isCandidateSelecting}
-          categoryCode={data.candidates[0].placeInfo.category}
+          showResults={showResults}
         />
-      )}
 
-      {isCandidateSelecting && <DeleteCandidatesButton />}
+        {candidates && (
+          <VoteRecommendList
+            state={data.voteStatus}
+            isCandidateSelecting={isCandidateSelecting}
+            categoryCode={candidates[0].placeInfo.category}
+          />
+        )}
+
+        {isCandidateSelecting && <DeleteCandidatesButton />}
+      </div>
     </div>
   );
 };

@@ -78,7 +78,7 @@ const Vote = () => {
     } else if (showResults) {
       resetShowResults();
       setShowResults(false);
-    } else {
+    } else if (!showResults) {
       setShowResults(true);
     }
   };

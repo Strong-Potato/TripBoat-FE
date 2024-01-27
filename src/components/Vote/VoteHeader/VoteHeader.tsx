@@ -14,6 +14,7 @@ import {VoteHeaderProps} from '@/types/vote';
 const VoteHeader = ({onBottomSlideOpen, title, isZeroCandidates}: VoteHeaderProps) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const spaceId = Number(location.pathname.split('/')[2]);
   const path = location.pathname.split('/')[5];
   const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
 
@@ -47,7 +48,7 @@ const VoteHeader = ({onBottomSlideOpen, title, isZeroCandidates}: VoteHeaderProp
   return (
     <div className={styles.container}>
       <div className={styles.leftSide}>
-        <button onClick={() => navigate(-1)} className={styles.leftSide__backIcon}>
+        <button onClick={() => navigate(`/trip/${spaceId}`)} className={styles.leftSide__backIcon}>
           <MdOutlineArrowBackIosNew />
         </button>
         <p className={styles.leftSide__title}>{title}</p>
