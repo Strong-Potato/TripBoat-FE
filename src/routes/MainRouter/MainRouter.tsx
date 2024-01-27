@@ -134,7 +134,7 @@ function MainRouter() {
         }
       />
       <Route
-        path='/votes/:id'
+        path='/trip/:id/votes/:id'
         element={
           <>
             <Head title='투표' />
@@ -143,7 +143,7 @@ function MainRouter() {
         }
       />
       <Route
-        path='/votes/:id/votememo'
+        path='/trip/:id/votes/:id/votememo'
         element={
           <>
             <Head title='투표 메모' />
@@ -152,7 +152,7 @@ function MainRouter() {
         }
       />
       <Route
-        path='/votes/:id/map'
+        path='/trip/:id/votes/:id/map'
         element={
           <>
             <Head title='지도' />

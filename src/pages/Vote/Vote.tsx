@@ -1,11 +1,11 @@
 import {Button} from '@chakra-ui/react';
 import {ReactNode, useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
-import {useRecoilState, useSetRecoilState} from 'recoil';
+import {useLocation} from 'react-router-dom';
+import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 
 import styles from './Vote.module.scss';
 
-import {useGetVotesInfo} from '@/hooks/Votes/vote';
+import {useGetVotesInfo, useResetShowResults} from '@/hooks/Votes/vote';
 
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
 import AddCandidate from '@/components/Vote/VoteBottomSlideContent/AddCandidate/AddCandidate';
@@ -17,34 +17,40 @@ import VoteHeader from '@/components/Vote/VoteHeader/VoteHeader';
 import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
 import {isBottomSlideOpenState} from '@/recoil/vote/bottomSlide';
 import {selectedCandidatesState} from '@/recoil/vote/candidateList';
-import {showResultsState} from '@/recoil/vote/showResults';
+import {showResultIdsState} from '@/recoil/vote/showResults';
 
 import {VoteInfo} from '@/types/vote';
 
 const Vote = () => {
-  const {id: voteId} = useParams();
-  const data = useGetVotesInfo(Number(voteId));
-  const voteInfo = data.data?.data;
-
-  console.log('voteInfo', voteInfo);
+  const location = useLocation();
+  const voteId = Number(location.pathname.split('/')[4]);
 
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const [isCandidateSelecting, setIsCandidateSelecting] = useRecoilState(isCandidateSelectingState);
   const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
-  const [showResults, setShowResults] = useRecoilState(showResultsState);
+  const showResultIds = useRecoilValue(showResultIdsState);
+  const [showResults, setShowResults] = useState(false);
   const [bottomSlideContent, setBottomSlideContent] = useState<ReactNode | null>(null);
-
-  const isZeroCandidates = voteInfo.candidates.length === 0;
+  const {data: voteInfoData} = useGetVotesInfo(voteId);
+  const voteInfo = voteInfoData?.data;
+  const isZeroCandidates = voteInfo?.candidates.length === 0;
+  // const resultsInfoData = useGetVotesResults(showResults, Number(voteId));
+  // const resultsInfo = resultsInfoData.data?.data;
+  // const [newVoteData, setNewVoteData] = useState(voteInfoData)
+  const resetShowResultsMutation = useResetShowResults();
 
   function areAllCandidatesNotVoted(voteInfo: VoteInfo): boolean {
-    return voteInfo.candidates.every((candidate) => !candidate.amIVoted);
+    return voteInfo?.candidates.every((candidate) => !candidate.amIVote);
   }
-  const allCandidatesNotVoted = areAllCandidatesNotVoted(voteInfo);
-
-  // console.log()
+  const allCandidatesNotVoted = voteInfo && areAllCandidatesNotVoted(voteInfo);
 
   useEffect(() => {
-    if (voteInfo.voteStatus === '결정완료') {
+    const isShowResults = showResultIds.some((id) => id === voteId);
+    setShowResults(isShowResults);
+  }, [showResultIds, voteId]);
+
+  useEffect(() => {
+    if (voteInfo?.voteStatus === '결정완료') {
       setShowResults(true);
     }
     setIsCandidateSelecting(false);
@@ -59,17 +65,20 @@ const Vote = () => {
     setIsCandidateSelecting(false);
   };
 
+  const resetShowResults = async () => {
+    const res = await resetShowResultsMutation.mutateAsync(voteId);
+    setShowResults(false);
+    console.log('리셋 반응', res);
+  };
+
   const handleShowResultsClick = () => {
-    BottomSlideOpen(<AddCandidate />);
-    // if (isZeroCandidates) {
-    //   return '후보 추가하기'; 후보 추가 연결
-    // } else if (showResults) {
-    //   return '다시 투표하기'; //리셋 mutate
-    // } else {
-    //   return '결과보기'; //결과보기 api연결
-    // }
-    // setShowResults(!showResults);
-    // console.log('showResults', showResults);
+    if (isZeroCandidates) {
+      BottomSlideOpen(<AddCandidate />);
+    } else if (showResults) {
+      resetShowResults();
+    } else {
+      setShowResults(true);
+    }
   };
 
   const getButtonStatus = () => {
@@ -81,6 +90,10 @@ const Vote = () => {
       return '결과보기';
     }
   };
+
+  if (!voteInfo) {
+    return;
+  }
 
   return (
     <div className={styles.container}>
@@ -106,17 +119,16 @@ const Vote = () => {
           data={voteInfo}
           onBottomSlideOpen={BottomSlideOpen}
           isZeroCandidates={isZeroCandidates}
-          showResults={voteInfo.voteStatus === '결정완료' ? true : showResults}
+          showResults={showResults}
         />
       )}
-      {!isCandidateSelecting && voteInfo.voteStatus === 'VOTING' && (
+      {!isCandidateSelecting && voteInfo.voteStatus === '진행 중' && (
         <Button
           variant='CTAButton'
           onClick={handleShowResultsClick}
           isDisabled={!isZeroCandidates && allCandidatesNotVoted}
         >
           {getButtonStatus()}
-          {/* {showResults ? '다시 투표하기' : '결과보기'} */}
         </Button>
       )}
       <BottomSlide isOpen={isBTOpen} onClose={() => setIsBTOpen(false)} children={bottomSlideContent} />

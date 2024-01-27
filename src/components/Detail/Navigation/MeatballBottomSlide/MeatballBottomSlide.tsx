@@ -2,9 +2,12 @@ import {BiTask} from 'react-icons/bi';
 import {CiEdit} from 'react-icons/ci';
 import {FaRegHeart} from 'react-icons/fa';
 import {IoShareSocialOutline} from 'react-icons/io5';
+import {useLocation} from 'react-router-dom';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './MeatballBottomSlide.module.scss';
+
+import {useDeleteWishes, usePostWishes} from '@/hooks/Detail/useWish';
 
 import CustomToast from '@/components/CustomToast/CustomToast';
 
@@ -16,7 +19,6 @@ import RegistrationSlide from '../../BottomFixedBtn/RegistrationSlide/Registrati
 import ReviewBottomSlide from '../../Contents/ReviewBottomSlide/ReviewBottomSlide';
 
 import {NavigationMeatballProps} from '@/types/detail';
-import {useDeleteWishes, usePostWishes} from '@/hooks/Detail/useWish';
 
 const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, title}: NavigationMeatballProps) => {
   const [isWish, setIsWish] = useRecoilState(IsHeartValued);
@@ -40,8 +42,8 @@ const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, tit
   };
   const showToast = CustomToast();
 
-  const postWishes = usePostWishes();
-  const deleteWishes = useDeleteWishes();
+  const postWishes = usePostWishes(id);
+  const deleteWishes = useDeleteWishes(id);
 
   const handleHeartClick = () => {
     if (isLogin) {
@@ -58,6 +60,19 @@ const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, tit
       }
     } else {
       showNotLoginModal();
+    }
+  };
+
+  // 링크 복사
+  const location = useLocation();
+
+  const handleCopyClipBoard = async () => {
+    try {
+      console.log(location);
+      await navigator.clipboard.writeText(`tripvote.site${location.pathname}`);
+      showToast('링크가 복사되었습니다.');
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -123,7 +138,7 @@ const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, tit
       </button>
       <button
         onClick={() => {
-          showToast('링크가 복사되었습니다.');
+          handleCopyClipBoard();
           onClose();
           document.body.style.removeProperty('overflow');
         }}

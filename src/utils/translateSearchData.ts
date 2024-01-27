@@ -96,3 +96,8 @@ export function translateCategoryCode(name: string) {
   const categoryCode = categoryData.filter((data) => data.name === name)[0];
   return categoryCode.code;
 }
+
+export function translateCategoryName(name: string) {
+  const categoryCode = categoryData.filter((data) => data.code === name)[0];
+  return categoryCode.name;
+}

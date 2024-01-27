@@ -1,7 +1,8 @@
-import axios from 'axios';
 import {Link} from 'react-router-dom';
 
 import styles from './Step.module.scss';
+
+import {authRequest} from '@/api/auth';
 
 import AuthButton from '../../Button/AuthButton';
 import InputOldPassword from '../../Input/InputOldPassword';
@@ -18,9 +19,7 @@ function StepOldPassword({
 }: StepOldPasswordProps) {
   const onClickNext = async () => {
     try {
-      const res = await axios.post('/api/auth/modify/password/check', {
-        password: oldPassword,
-      });
+      const res = await authRequest.modifyPassword_check(oldPassword);
 
       setToken!(await res.data.data.token);
       setStep!('newPassword');

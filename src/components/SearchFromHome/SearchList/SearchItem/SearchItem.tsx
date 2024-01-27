@@ -24,7 +24,7 @@ function SearchItem({forSearch, data, categoryChange}: PropsType) {
   const imgSrc = data.thumbnail ? data.thumbnail : nullImg;
 
   return (
-    <Link to={`/detail/${data.id} ${data.contentTypeId}`} className={styles.container}>
+    <Link to={`/detail/${data.id} ${data.contentTypeId}?title=${data.title}`} className={styles.container}>
       <div className={styles.itemBox}>
         <img
           src={imgSrc}
