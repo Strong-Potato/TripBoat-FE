@@ -16,8 +16,7 @@ function Profile({data}: ProfileProps) {
       <div
         className={styles.image}
         style={{
-          // backgroundImage: `${data?.data.profile ? `url(${data?.data.profile})` : `url(${defaultImage})`}`,
-          backgroundImage: `url(${defaultProfile})`,
+          backgroundImage: `${data?.data.profile ? `url(${data?.data.profile})` : `url(${defaultProfile})`}`,
         }}
       >
         <button
