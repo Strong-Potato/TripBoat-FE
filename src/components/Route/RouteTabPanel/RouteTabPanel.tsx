@@ -10,10 +10,10 @@ import styles from './RouteTabPanel.module.scss';
 import {usePutPlaces} from '@/hooks/Spaces/space';
 
 import BottomSlideLeft from '@/components/BottomSlide/BottomSlideLeft';
+import {handlePlaceSelection, transformSelectedPlaces} from '@/components/Route/RouteTabPanel/formatJourneyData';
 
 import ZoomInIcon from '@/assets/icons/zoomIn.svg?react';
-import {editedPlacesState} from '@/recoil/\bspaces/selectPlace';
-import {handlePlaceSelection, transformSelectedPlaces} from '@/utils/formatJourneyData';
+import {editedPlacesState} from '@/recoil/spaces/selectPlace';
 
 import DayMove from '../DayMove/DayMove';
 import DayNavigationBar from '../DayNavigationBar/DayNavigationBar';

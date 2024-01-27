@@ -9,7 +9,7 @@ import styles from './DayRoute.module.scss';
 
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
 
-import {editedPlacesState} from '@/recoil/\bspaces/selectPlace';
+import {editedPlacesState} from '@/recoil/spaces/selectPlace';
 import {setRouteDate} from '@/utils/formatDate';
 import {findShortestPath} from '@/utils/optimizePlace';
 

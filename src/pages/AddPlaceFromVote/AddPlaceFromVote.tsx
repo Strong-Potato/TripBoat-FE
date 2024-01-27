@@ -15,7 +15,7 @@ import InProgressVote from '@/components/Route/AddPlace/FromVote/InProgressVote/
 import {SelectedPlaces} from '@/components/Route/AddPlace/FromVote/VoteCard/VoteCard';
 
 import BackIcon from '@/assets/back.svg?react';
-import {selectedPlaceFromVoteState} from '@/recoil/\bspaces/selectPlace';
+import {selectedPlaceFromVoteState} from '@/recoil/spaces/selectPlace';
 
 import {Vote} from '@/types/route';
 
