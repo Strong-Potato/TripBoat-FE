@@ -1,15 +1,14 @@
+import {Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay} from '@chakra-ui/react';
 import {useEffect, useState} from 'react';
+import {Cookies} from 'react-cookie';
 import {FaHeart, FaRegHeart} from 'react-icons/fa';
 
+import styles from './WishBtn.module.scss';
+
 import {useDeleteWishes, useGetIsWish, usePostWishes} from '@/hooks/Detail/useWish';
+import {useDebounceBoolean} from '@/hooks/useDebounce';
 
 import CustomToast from '../CustomToast/CustomToast';
-import {useDebounceBoolean} from '@/hooks/useDebounce';
-import {Cookies} from 'react-cookie';
-
-import {Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay} from '@chakra-ui/react';
-
-import styles from './WishBtn.module.scss';
 
 interface WishBtnProps {
   placeId: number;
@@ -115,7 +114,7 @@ function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: Wish
               닫기
             </button>
             <button onClick={() => {}} className={styles.buttons__action}>
-              로그인하
+              로그인하기
             </button>
           </ModalFooter>
         </ModalContent>

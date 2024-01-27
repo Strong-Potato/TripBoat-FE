@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
-import {useSearchParams} from 'react-router-dom';
+import {Cookies} from 'react-cookie';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 
 import styles from './Wishes.module.scss';
 
@@ -22,6 +23,8 @@ function Wishes() {
   const [data, setData] = useState<Wishes>();
   const [filterData, setFilterData] = useState<SearchItemType[] | undefined>();
   const [categoryChange, setCategoryChange] = useState(false);
+  const cookie = new Cookies().get('isLogin');
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [filter, setFilter] = useState({
     category: 0,
@@ -72,6 +75,9 @@ function Wishes() {
   }, [searchParams]);
 
   useEffect(() => {
+    if (!cookie) {
+      navigate('/auth/login', {replace: true});
+    }
     getUserWishes(setData);
   }, []);
 
@@ -130,17 +136,19 @@ function Wishes() {
         <WishesHeader />
       )}
       {data && <Tabs data={data?.places} wishFilter={filter} setCategoryChange={setCategoryChange} />}
-      <div className={styles.filter}>
-        <LocationFilter wishesFilter={filter} />
-        <DateFilter wishesFilter={filter} />
-      </div>
+      {data && (
+        <div className={styles.filter}>
+          <LocationFilter wishesFilter={filter} />
+          <DateFilter wishesFilter={filter} />
+        </div>
+      )}
       <ul className={styles.slide}>
         {filterData && filterData?.length > 0 ? (
           filterData.map((data) => <WishItem filter={filter} data={data} categoryChange={categoryChange} />)
         ) : (
           <div className={styles.nullBox}>
             <SearchNull />
-            <span>찜 목록이 비었습니다.</span>
+            <span>찜 목록이 비어있습니다.</span>
           </div>
         )}
       </ul>
