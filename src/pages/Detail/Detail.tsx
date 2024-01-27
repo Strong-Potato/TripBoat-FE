@@ -1,5 +1,5 @@
 import {useDisclosure} from '@chakra-ui/react';
-import {ReactNode, useEffect, useState} from 'react';
+import {ReactNode, useState} from 'react';
 import {useRecoilValue} from 'recoil';
 
 import styles from './Detail.module.scss';
