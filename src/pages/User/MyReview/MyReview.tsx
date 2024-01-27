@@ -76,7 +76,7 @@ function MyReview() {
         )}
       </ul>
 
-      {hasNextData && <ObserveTarget inViewRef={inViewRef} />}
+      {reviews && hasNextData && <ObserveTarget inViewRef={inViewRef} />}
 
       <BottomSlide
         isOpen={isBottomSlideOpen}
