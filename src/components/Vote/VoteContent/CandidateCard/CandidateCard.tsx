@@ -20,7 +20,7 @@ import VotedUserList from '../../VoteBottomSlideContent/VotedUserList/VotedUserL
 
 import {CandidateCardProps, ResultCandidatesInfo} from '@/types/vote';
 
-const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, showResults}: CandidateCardProps) => {
+const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, index, showResults}: CandidateCardProps) => {
   const navigate = useNavigate();
   // const [isVoted, setIsVoted] = useState(false);
   const [starIcon, setStarIcon] = useState(<FaRegStar />);
@@ -78,7 +78,10 @@ const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, showResults}: 
   };
 
   return (
-    <div className={`${styles.container} ${rankClassName} candidateCard ${isMapStyle ? styles.isMapStyle : ''}`}>
+    <div
+      className={`${styles.container} ${rankClassName} candidateCard ${isMapStyle ? styles.isMapStyle : ''}`}
+      key={index}
+    >
       <img className={styles.placeImg} src={imgSrc} alt={placeInfo.placeName} />
       {RankIcon && (
         <div className={styles.rankTag}>

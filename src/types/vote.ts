@@ -98,7 +98,7 @@ export interface VoteContentProps {
   onBottomSlideOpen: (content: ReactNode) => void;
   data: VoteInfo;
   showResults?: boolean;
-  isZeroCandidates: boolean;
+  // isZeroCandidates: boolean;
 }
 
 export interface VoteHeaderProps {
@@ -112,6 +112,7 @@ export interface CandidateCardProps {
   candidate: CandidatesInfo;
   showResults?: boolean;
   isMapStyle?: boolean;
+  index?: number;
 }
 
 export interface VoteMeatballProps {

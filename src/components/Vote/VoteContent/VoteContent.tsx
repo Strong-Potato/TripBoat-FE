@@ -19,7 +19,7 @@ import AddCandidate from '../VoteBottomSlideContent/AddCandidate/AddCandidate';
 
 import {VoteContentProps} from '@/types/vote';
 
-const VoteContent = ({onBottomSlideOpen, data, isZeroCandidates}: VoteContentProps) => {
+const VoteContent = ({onBottomSlideOpen, data}: VoteContentProps) => {
   const location = useLocation();
   const voteId = Number(location.pathname.split('/')[4]);
   const [candidates, setCandidates] = useState(data!.candidates);

@@ -121,7 +121,7 @@ const Vote = () => {
         <VoteContent
           data={voteInfo}
           onBottomSlideOpen={BottomSlideOpen}
-          isZeroCandidates={isZeroCandidates}
+          // isZeroCandidates={isZeroCandidates}
           // showResults={showResults}
         />
       )}
