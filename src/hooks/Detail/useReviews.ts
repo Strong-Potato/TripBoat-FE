@@ -7,6 +7,7 @@ export const useGetReviewsRating = (id: number, typeId: number, title: string) =
   return useSuspenseQuery({
     queryKey: ['reviewsRating', id, typeId, title],
     queryFn: () => getReviewsRating(id, typeId, title),
+    retry: false,
   });
 };
 

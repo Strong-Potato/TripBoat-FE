@@ -30,7 +30,9 @@ function RegistrationTripSpace({tripSelectedId, setTripSelectedId, spaces}: Regi
           <div
             className={styles.container__select}
             onClick={() => {
-              setIsDropped(!isDropped);
+              if (spaces.length > 0) {
+                setIsDropped(!isDropped);
+              }
             }}
           >
             {isSelected ? (

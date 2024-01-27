@@ -5,6 +5,8 @@ import {CustomOverlayMap, Map} from 'react-kakao-maps-sdk';
 import styles from './MapModal.module.scss';
 
 import BigHomeMarker from '@/assets/homeIcons/map/house_big.svg?react';
+import BigFlagMarker from '@/assets/homeIcons/map/flag_big.svg?react';
+import BigRestaurantMarker from '@/assets/homeIcons/map/restaurant_big.svg?react';
 import WishBtn from '@/components/WishBtn/WishBtn';
 
 interface MapModalProps {
@@ -38,7 +40,9 @@ function MapModal({isOpen, onClose, lat, lng, title, thumbnail, id, contentTypeI
         <DrawerBody className={styles.body} p='0'>
           <Map center={{lat: lat, lng: lng}} className={styles.map} level={3}>
             <CustomOverlayMap position={{lat: lat, lng: lng}}>
-              <BigHomeMarker />
+              {contentTypeId === 32 && <BigHomeMarker />}
+              {contentTypeId === 39 && <BigRestaurantMarker />}
+              {contentTypeId !== 39 && contentTypeId !== 32 && <BigFlagMarker />}
             </CustomOverlayMap>
           </Map>
         </DrawerBody>
