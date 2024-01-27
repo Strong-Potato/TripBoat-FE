@@ -89,13 +89,13 @@ function Trip() {
 
         <header className={styles.header}>
           <div className={styles.titleContainer}>
-            <div className={styles.titleContainer__dDayTitle}>{checkDDay(spaceData?.data?.dueDate)}</div>
+            <div className={styles.titleContainer__dDayTitle}>{checkDDay(spaceData.data.dueDate)}</div>
             <div className={styles.titleContainer__placeTitle}>
-              {spaceData?.data?.city ? spaceData.data.city : '여행지를 정해주세요'}
+              {spaceData.data.city ? spaceData.data.city : '여행지를 정해주세요'}
             </div>
             <div className={styles.dateContainer}>
               <span className={styles.dateContainer__dateTitle}>
-                {spaceData?.data?.endDate
+                {spaceData.data.endDate
                   ? setSpaceDate(
                       spaceData.data.startDate,
                       spaceData.data.startDate === spaceData.data.endDate ? '' : spaceData.data.endDate,
@@ -110,7 +110,7 @@ function Trip() {
           <div className={styles.userContainer}>
             <button className={styles.avatarContainer} onClick={onFriendListOpen}>
               <AvatarGroup className={styles.avatarContainer__group} spacing='-8px' max={3} variant='spaceAvatar'>
-                {users?.map((user: Member) => (
+                {users.map((user: Member) => (
                   <Avatar
                     w='2.6rem'
                     h='2.6rem'
@@ -121,7 +121,7 @@ function Trip() {
                   />
                 ))}
               </AvatarGroup>
-              {users?.length > 3 && <span>외 {users?.length - 3}명</span>}
+              {users.length > 3 && <span>외 {users.length - 3}명</span>}
             </button>
             <button className={styles.addPersonButton} onClick={onInviteOpen}>
               <PlusIcon />
