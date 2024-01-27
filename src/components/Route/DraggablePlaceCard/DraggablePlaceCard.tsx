@@ -61,7 +61,6 @@ function PlaceCard({
 
   const handleSelect = () => {
     setIsChecked(!isChecked);
-    // TODO: place id 넘기기
     onSelect(journeyId, selectedId, placeId);
   };
 

@@ -1,6 +1,13 @@
 import axios from 'axios';
 
-import {ExitSpaceParams, journeyParams, PlaceParams, SpaceDateParams, SpaceRegionParams} from '@/types/route';
+import {
+  ExitSpaceParams,
+  journeyParams,
+  journeyPutParams,
+  PlaceParams,
+  SpaceDateParams,
+  SpaceRegionParams,
+} from '@/types/route';
 
 export const spacesRequest = {
   getUpcoming: async () => {
@@ -89,7 +96,7 @@ export const postPlaces = async ({spaceId, journeyId, placeIds}: PlaceParams) =>
 };
 
 // [PUT] 일정 수정
-export const putPlaces = async ({spaceId, places}: journeyParams) => {
+export const putPlaces = async ({spaceId, places}: journeyPutParams) => {
   try {
     const response = await axios.put(`/api/spaces/${spaceId}/places`, {places: places}, {withCredentials: true});
     console.log('[SUCCESS]', response);

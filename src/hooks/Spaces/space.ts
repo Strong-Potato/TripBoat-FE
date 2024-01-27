@@ -9,6 +9,7 @@ import {
   postPlaces,
   putDates,
   putExitSpace,
+  putPlaces,
   putRegions,
 } from '@/api/spaces';
 
@@ -59,7 +60,7 @@ export const usePostPlaces = () => {
 export const usePutPlaces = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: putDates,
+    mutationFn: putPlaces,
     onSuccess: () => {
       return queryClient.invalidateQueries({queryKey: ['spaces', 'places']});
     },

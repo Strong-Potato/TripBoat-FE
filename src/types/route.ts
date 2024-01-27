@@ -43,6 +43,7 @@ export interface DayRouteProps {
   journeyId: number;
   placeList: PlaceList[];
   editMode: boolean;
+  editPlaces: (journeyId: number, placeCards: PlaceList[]) => void;
   selectedPlaces: SelectedPlace[];
   setSelectedPlaces: React.Dispatch<React.SetStateAction<SelectedPlace[]>>;
   handlePlaceSelection: (
@@ -226,10 +227,20 @@ export interface journeyParams {
   places: TransformedDataItem[];
 }
 
+export interface journeyPutParams {
+  spaceId: number;
+  places: TransformedPutDataItem[];
+}
+
 export interface SelectedPlace {
   journeyId: number;
   selectedId: number;
   placeId: number;
+}
+
+export interface TransformedPutDataItem {
+  journeyId: number;
+  placeIds: number[];
 }
 
 export interface TransformedDataItem {

@@ -3,12 +3,15 @@ import update from 'immutability-helper';
 import {useCallback, useEffect, useState} from 'react';
 import {useDrop} from 'react-dnd';
 import {AiOutlinePlus as PlusIcon} from 'react-icons/ai';
+import {useSetRecoilState} from 'recoil';
 
 import styles from './DayRoute.module.scss';
 
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
 
+import {editedPlacesState} from '@/recoil/\bspaces/selectPlace';
 import {setRouteDate} from '@/utils/formatDate';
+import {findShortestPath} from '@/utils/optimizePlace';
 
 import AddPlace from '../AddPlace/AddPlace';
 import DraggablePlaceCard from '../DraggablePlaceCard/DraggablePlaceCard';
@@ -21,6 +24,7 @@ function DayRoute({
   date,
   placeList,
   editMode,
+  editPlaces,
   journeyId,
   selectedPlaces,
   setSelectedPlaces,
@@ -29,6 +33,7 @@ function DayRoute({
   const {isOpen, onOpen, onClose} = useDisclosure();
   const [placeCards, setPlaceCards] = useState(placeList);
   const [isOptimize, setIsOptimize] = useState(false);
+  const setEditedPlaces = useSetRecoilState(editedPlacesState);
 
   const handleModalClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -67,9 +72,15 @@ function DayRoute({
 
   const [, drop] = useDrop(() => ({accept: 'CARD'}));
 
+  const handleConfirmClick = () => {
+    setPlaceCards(findShortestPath(placeCards));
+    setIsOptimize(false);
+    editPlaces(journeyId, findShortestPath(placeCards));
+  };
+
   useEffect(() => {
-    console.log('placeList', placeList);
-  }, [placeList]);
+    setEditedPlaces({journeyId: journeyId, placeCards: placeCards});
+  }, [journeyId, placeCards]);
 
   return (
     <>
@@ -84,7 +95,14 @@ function DayRoute({
           </button>
         </header>
         <div>
-          <button className={styles.optimizationButton} onClick={() => setIsOptimize(true)}>
+          <button
+            className={styles.optimizationButton}
+            style={{
+              color: placeCards.length > 2 ? '#2388FF' : '#979C9E',
+              cursor: placeCards.length > 2 ? 'pointer' : 'default',
+            }}
+            onClick={() => setIsOptimize(placeCards.length > 2)}
+          >
             루트 최적화
           </button>
           <div ref={drop} className={styles.placeListContainer}>
@@ -124,7 +142,7 @@ function DayRoute({
               <p className={styles.wrapperText__body}>
                 일정 내 첫 번째 장소를 기준으로
                 <br />
-                N일차 일정이 최소 동선으로 재정렬 됩니다.
+                {day}일차 일정이 최소 동선으로 재정렬 됩니다.
               </p>
             </div>
             <div className={styles.wrapperButton}>
@@ -136,13 +154,7 @@ function DayRoute({
               >
                 취소
               </button>
-              <button
-                className={styles.wrapperButton__accept}
-                onClick={() => {
-                  // setPlaceCards(findShortestPath(placeList));
-                  setIsOptimize(false);
-                }}
-              >
+              <button className={styles.wrapperButton__accept} onClick={handleConfirmClick}>
                 확인
               </button>
             </div>
