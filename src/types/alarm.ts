@@ -19,4 +19,5 @@ export type BackProps = {
 
 export interface Alarmprop {
   onAlarmOpen: () => void;
+  isAlarmOpen: boolean;
 }

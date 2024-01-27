@@ -40,7 +40,7 @@ function Home() {
   return (
     <>
       <div className={styles.container}>
-        <TabBar onAlarmOpen={onAlarmOpen} />
+        <TabBar onAlarmOpen={onAlarmOpen} isAlarmOpen={isAlarmOpen} />
         <VoteAtHome />
         <SearchBarAtHome />
         <div className={styles.column_4px}>

@@ -4,7 +4,7 @@ import {GetAlarm} from '@/api/notification';
 
 function useGetAlarm(enabled: boolean) {
   return useQuery({
-    queryKey: ['Alarm'],
+    queryKey: ['AlarmData'],
     queryFn: GetAlarm,
     enabled,
     retry: 0,
