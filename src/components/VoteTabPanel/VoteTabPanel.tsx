@@ -34,8 +34,6 @@ const VoteTabPanel = () => {
     }
   }, [viewResultVoteIdsData]);
 
-  console.log('voteListAllData', voteListAllData);
-  console.log('viewResultVoteIdsData', viewResultVoteIdsData);
   return (
     <div className={styles.container}>
       <Tabs variant='voteFilter' onChange={(index) => setActiveTabIndex(index)}>

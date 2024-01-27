@@ -15,7 +15,6 @@ const MemoItem = ({place, existingTagline}: MemoItemProps) => {
   const {toggleItemInNewArray, setMemoArray} = useGetSelectedArray(selectedTaglineState);
   const debouncedText = useDebounce(text, 500);
 
-  console.log('setMemoArray', setMemoArray);
   useEffect(() => {
     if (existingTagline) {
       setText(existingTagline.tagline);
