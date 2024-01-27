@@ -1,7 +1,7 @@
 import {initializeApp} from 'firebase/app';
 import {getMessaging, getToken} from 'firebase/messaging';
 
-import {sendNotificationToken} from '@/api/notification';
+import {GetAlarmState, PostSubscribe, sendNotificationToken} from '@/api/notification';
 
 export const firebaseConfig = initializeApp({
   apiKey: import.meta.env.VITE_API_KEY,
@@ -22,14 +22,17 @@ async function requestPermission() {
     return;
   }
   console.log('[FCM]알림 권한 허용');
-
-  const token = await getToken(messaging, {
-    vapidKey: import.meta.env.VITE_VAPID_KEY,
-  });
-  if (token) {
-    await sendNotificationToken({token});
-    console.log('[FCM]알림 토큰을 전송했습니다');
-  } else console.log('[FCM]알림 토큰을 얻지 못했습니다');
+  const alarmState = await GetAlarmState();
+  if (alarmState) {
+    const token = await getToken(messaging, {
+      vapidKey: import.meta.env.VITE_VAPID_KEY,
+    });
+    if (token) {
+      await sendNotificationToken({token});
+      await PostSubscribe();
+      console.log('[FCM]알림 토큰을 전송했습니다');
+    } else console.log('[FCM]알림 토큰을 얻지 못했습니다');
+  }
 }
 
 requestPermission();
