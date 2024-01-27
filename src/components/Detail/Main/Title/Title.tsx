@@ -4,7 +4,7 @@ import {IoShareSocialOutline} from 'react-icons/io5';
 import styles from './Title.module.scss';
 
 import CustomToast from '@/components/CustomToast/CustomToast';
-import WishBtn from '@/components/WishBtn/WishBtn';
+import TitleWishBtn from './TitleWishBtn/TitleWishBtn';
 
 import {translateCategoryToStr} from '@/utils/translateSearchData';
 import {useLocation} from 'react-router-dom';
@@ -47,7 +47,7 @@ function Title({id, contentTypeId, title, rating, reviewsCount}: TitleProps) {
         })`}</span>
       </div>
       <div className={styles.container__positionAbsoluteIcons}>
-        <WishBtn placeId={id} contentTypeId={contentTypeId} size={'2.4rem'} />
+        <TitleWishBtn placeId={id} contentTypeId={contentTypeId} size={'2.4rem'} />
         <IoShareSocialOutline fontSize='2.4rem' cursor='pointer' onClick={() => handleCopyClipBoard()} />
       </div>
     </div>

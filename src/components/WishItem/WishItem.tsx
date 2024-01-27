@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import styles from './WishItem.module.scss';
 
 import SelectButton from '@/components/ButtonsInAddingCandidate/SelectButton/SelectButton';
-import WishBtn from '@/components/WishBtn/WishBtn';
+import WishBtn from '@/components/Detail/Main/Title/TitleWishBtn/TitleWishBtn';
 
 import nullImg from '@/assets/homeIcons/search/nullImg.svg';
 import areas from '@/utils/areas.json';
