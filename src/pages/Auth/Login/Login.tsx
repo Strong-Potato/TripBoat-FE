@@ -13,13 +13,14 @@ import Logo from '@/assets/logo.svg?react';
 
 function Login() {
   const navigate = useNavigate();
-  const {isFetching, isSuccess} = useGetMyInfo(true);
-
-  if (isSuccess) {
-    navigate('/', {replace: true});
-  }
+  const {data, isFetching} = useGetMyInfo(true);
 
   if (isFetching) return <div></div>;
+
+  if (data?.status === 200) {
+    console.error('User was already logged in');
+    navigate('/');
+  }
 
   const onClickKakao = async () => {
     try {
