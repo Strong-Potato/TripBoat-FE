@@ -37,7 +37,7 @@ export const useGetVoteListInfo = (spaceId: number) => {
 //결과보기 GET
 export const useGetVotesResults = (enabled: boolean, voteId: number) => {
   return useQuery({
-    queryKey: ['vote', voteId],
+    queryKey: ['voteResults', voteId],
     queryFn: () => getVoteResults(voteId),
     retry: 2,
     enabled,

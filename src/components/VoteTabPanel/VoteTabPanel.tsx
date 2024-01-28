@@ -1,7 +1,7 @@
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react';
 import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {useRecoilState} from 'recoil';
+import {useSetRecoilState} from 'recoil';
 
 import styles from './VoteTabPanel.module.scss';
 
@@ -21,21 +21,19 @@ const VoteTabPanel = () => {
   const {data: voteListAllData} = useGetVoteListInfo(Number(spaceId));
   const voteListData: VoteListInfo[] | undefined = voteListAllData?.data.voteResponse;
   const viewResultVoteIdsData: number[] | undefined = voteListAllData?.data.viewResultVoteIds.voteIds;
-  const [showResultIds, setShowResultIds] = useRecoilState(showResultIdsState);
+  const setShowResultIds = useSetRecoilState(showResultIdsState);
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const inProgressVotes = voteListData?.filter((vote) => vote.voteStatus === '진행 중');
   const completeVotes = voteListData?.filter((vote) => vote.voteStatus === '결정완료');
 
   const getVotesCount = (vote: VoteListInfo[] | undefined) => `총 ${vote ? vote.length : '0'}개`;
+  const tabPanelData = [voteListData, inProgressVotes, completeVotes];
 
   useEffect(() => {
     if (viewResultVoteIdsData) {
       setShowResultIds(viewResultVoteIdsData);
     }
   }, [viewResultVoteIdsData]);
-
-  console.log('showResultIds', showResultIds);
-  console.log('viewResultVoteIdsData', viewResultVoteIdsData);
 
   return (
     <div className={styles.container}>
@@ -51,27 +49,11 @@ const VoteTabPanel = () => {
           </p>
         </div>
         <TabPanels className={styles.content}>
-          <TabPanel className={styles.content__tabPanel}>
-            {voteListData ? (
-              voteListData.map((vote) => <TabsVoteCard data={vote} key={vote.voteId} />)
-            ) : (
-              <VoteTabPanelEmpty />
-            )}
-          </TabPanel>
-          <TabPanel>
-            {inProgressVotes ? (
-              inProgressVotes?.map((vote) => <TabsVoteCard data={vote} key={vote.voteId} />)
-            ) : (
-              <VoteTabPanelEmpty />
-            )}
-          </TabPanel>
-          <TabPanel>
-            {completeVotes ? (
-              completeVotes?.map((vote) => <TabsVoteCard data={vote} key={vote.voteId} />)
-            ) : (
-              <VoteTabPanelEmpty />
-            )}
-          </TabPanel>
+          {tabPanelData.map((votes, index) => (
+            <TabPanel key={index} className={styles.content__tabPanel}>
+              {votes ? votes.map((vote) => <TabsVoteCard data={vote} key={vote.voteId} />) : <VoteTabPanelEmpty />}
+            </TabPanel>
+          ))}
         </TabPanels>
       </Tabs>
       <CreateVoteModalButton />

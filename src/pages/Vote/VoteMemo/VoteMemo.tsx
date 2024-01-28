@@ -26,7 +26,7 @@ const VoteMemo = () => {
 
   const {data: voteInfoData} = useGetVotesInfo(voteId);
   const voteInfo = voteInfoData?.data as VoteInfo;
-  const postCandidateMutation = usePostNewCandidate();
+  const {isPending, mutateAsync: postCandidateMutateAsync} = usePostNewCandidate();
   const navigate = useNavigate();
   const [isBTOpen, setIsBTOpen] = useRecoilState(isBottomSlideOpenState);
   const [selectedTagline, setSelectedTagline] = useRecoilState(selectedTaglineState);
@@ -37,12 +37,10 @@ const VoteMemo = () => {
   const existingTaglines: TaglineType[] = getExistingTaglines && JSON.parse(getExistingTaglines).selectedTaglineState;
 
   const setInitializeTagline = () => {
-    console.log('새로 세팅');
     setSelectedTagline(selectedPlaces?.map((place) => ({id: place.id, placeTypeId: place.contentTypeId, tagline: ''})));
   };
 
   const setExistingTagline = () => {
-    console.log('추가 세팅');
     const nonExistPlaceIds = selectedPlaces
       .map((place) => place.id)
       .filter((id) => !existingTaglines.some((tagline) => tagline.id === id));
@@ -66,12 +64,11 @@ const VoteMemo = () => {
   }, []);
 
   const handleAddCandidates = async () => {
-    console.log('최종 내용 : ', selectedTagline);
     const candidateInfos = selectedTagline.map(({id, ...rest}) => ({
       placeId: id,
       ...rest,
     }));
-    await postCandidateMutation.mutateAsync({voteId: Number(voteId), candidateInfos: candidateInfos});
+    await postCandidateMutateAsync({voteId: Number(voteId), candidateInfos: candidateInfos});
     SetSelectedPlaces([]);
     localStorage.removeItem('recoil-persist');
     navigate(`/trip/${spaceId}/votes/${voteInfo.id}`);
@@ -82,7 +79,12 @@ const VoteMemo = () => {
       <VoteHeader title={voteInfo?.title} onBottomSlideOpen={() => setIsBTOpen(true)} />
       <MemoContent selectedPlaces={selectedPlaces} />
 
-      <Button variant='CTAButton' isDisabled={selectedTagline.length === 0} onClick={handleAddCandidates}>
+      <Button
+        variant='CTAButton'
+        isLoading={isPending}
+        isDisabled={selectedTagline.length === 0}
+        onClick={handleAddCandidates}
+      >
         {selectedTagline.length}개 후보 등록하기
       </Button>
 

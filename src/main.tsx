@@ -2,6 +2,7 @@ import {ChakraProvider} from '@chakra-ui/react';
 import ReactDOM from 'react-dom/client';
 import {HelmetProvider} from 'react-helmet-async';
 import {RecoilRoot} from 'recoil';
+import '../recoilconfig.ts';
 
 import App from './App.tsx';
 import {customTheme} from './chakra/chakraCustomTheme.ts';

@@ -10,8 +10,3 @@ export const showResultIdsState = atom<number[]>({
   key: 'showResultIdsState',
   default: [],
 });
-
-export const isVotedState = atom({
-  key: 'isVotedState',
-  default: false,
-});

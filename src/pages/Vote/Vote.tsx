@@ -29,14 +29,13 @@ const Vote = () => {
   const [isCandidateSelecting, setIsCandidateSelecting] = useRecoilState(isCandidateSelectingState);
   const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
   const showResultIds = useRecoilValue(showResultIdsState);
-  // const [showResults, setShowResults] = useState(false);
   const [showResults, setShowResults] = useRecoilState(isShowResultsState(voteId));
   const [bottomSlideContent, setBottomSlideContent] = useState<ReactNode | null>(null);
   const {data: voteInfoData} = useGetVotesInfo(voteId);
   const voteInfo = voteInfoData?.data;
   const isZeroCandidates = voteInfo?.candidates?.length === 0;
 
-  const resetShowResultsMutation = useResetShowResults();
+  const {mutateAsync: resetShowResultsMutateAsync} = useResetShowResults();
 
   function areAllCandidatesNotVoted(voteInfo: VoteInfo | undefined): boolean {
     return voteInfo?.candidates?.every((candidate) => !candidate.amIVote) ?? true;
@@ -46,9 +45,8 @@ const Vote = () => {
   useEffect(() => {
     const isShowResults = showResultIds.some((id) => id === voteId);
     setShowResults(isShowResults);
+    setIsBTOpen(false);
   }, []);
-
-  console.log('Vote페이지 showResultIds', showResultIds);
 
   useEffect(() => {
     if (voteInfo?.voteStatus === '결정완료') {
@@ -67,9 +65,8 @@ const Vote = () => {
   };
 
   const resetShowResults = async () => {
-    const res = await resetShowResultsMutation.mutateAsync(voteId);
+    await resetShowResultsMutateAsync(voteId);
     setShowResults(false);
-    console.log('리셋 반응', res);
   };
 
   const handleShowResultsClick = () => {
@@ -97,7 +94,6 @@ const Vote = () => {
     return;
   }
 
-  console.log('allCandidatesNotVoted', allCandidatesNotVoted);
   return (
     <div className={styles.container}>
       <VoteHeader
@@ -115,16 +111,7 @@ const Vote = () => {
         }
       />
 
-      {isZeroCandidates ? (
-        <VoteContentEmpty />
-      ) : (
-        <VoteContent
-          data={voteInfo}
-          onBottomSlideOpen={BottomSlideOpen}
-          // isZeroCandidates={isZeroCandidates}
-          // showResults={showResults}
-        />
-      )}
+      {isZeroCandidates ? <VoteContentEmpty /> : <VoteContent data={voteInfo} onBottomSlideOpen={BottomSlideOpen} />}
       {!isCandidateSelecting && voteInfo.voteStatus === '진행 중' && (
         <Button
           variant='CTAButton'

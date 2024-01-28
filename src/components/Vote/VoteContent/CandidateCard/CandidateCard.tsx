@@ -1,17 +1,20 @@
 import {useEffect, useState} from 'react';
 import {FaRegStar, FaStar} from 'react-icons/fa';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import {useRecoilValue} from 'recoil';
 
 import styles from './CandidateCard.module.scss';
 
 import {usePostVoting} from '@/hooks/Votes/vote';
 
+import CustomToast from '@/components/CustomToast/CustomToast';
+
 import nullImg from '@/assets/homeIcons/search/nullImg.svg';
 import FirstIcon from '@/assets/voteIcons/rank_1.svg?react';
 import SecondIcon from '@/assets/voteIcons/rank_2.svg?react';
 import ThirdIcon from '@/assets/voteIcons/rank_3.svg?react';
 import AddDayIcon from '@/assets/voteIcons/vote_addDay.svg?react';
+import {journeyState} from '@/recoil/vote/addToJourney';
 import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
 import {translateAreaCode, translateCategoryName} from '@/utils/translateSearchData';
 
@@ -22,13 +25,18 @@ import {CandidateCardProps, ResultCandidatesInfo} from '@/types/vote';
 
 const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, index, showResults}: CandidateCardProps) => {
   const navigate = useNavigate();
-  // const [isVoted, setIsVoted] = useState(false);
+  const location = useLocation();
+  const spaceId = Number(location.pathname.split('/')[2]);
+
   const [starIcon, setStarIcon] = useState(<FaRegStar />);
   const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
+  const journeyAtom = useRecoilValue(journeyState);
   const {id: voteId} = useParams();
-  const votingMutation = usePostVoting();
+  const {mutateAsync: votingMutateAsync} = usePostVoting();
+  const showToast = CustomToast();
   const placeInfo = candidate.placeInfo;
   const imgSrc = placeInfo.placeImageUrl ? placeInfo.placeImageUrl : nullImg;
+  const votedMembers = candidate.votedMemberProfiles;
 
   useEffect(() => {
     if (candidate.amIVote) {
@@ -70,10 +78,18 @@ const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, index, showRes
   const RankIcon = candidate.rank && getRankIcon(candidate.rank);
 
   const onVoteBoxClick = async () => {
-    if (showResults && onBottomSlideOpen) {
-      onBottomSlideOpen(<VotedUserList />);
+    if (showResults && onBottomSlideOpen && votedMembers) {
+      onBottomSlideOpen(<VotedUserList votedMembers={votedMembers} />);
     } else {
-      await votingMutation.mutateAsync({voteId: Number(voteId), candidateId: candidate.id});
+      await votingMutateAsync({voteId: Number(voteId), candidateId: candidate.id});
+    }
+  };
+
+  const handleOpenAddToJourney = () => {
+    if (journeyAtom && onBottomSlideOpen) {
+      onBottomSlideOpen(<AddToJourney placeId={placeInfo.placeId} />);
+    } else if (journeyAtom) {
+      showToast('날짜를 정하면 일정에 추가할 수 있어요.', true, '바로가기', () => navigate(`/trip/${spaceId}`));
     }
   };
 
@@ -105,14 +121,8 @@ const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, index, showRes
             {translateAreaCode(parseInt(placeInfo.areaCode))}
           </div>
 
-          {/* 일정 담기
-          날짜를 담고 있어야 함
-          없 : 토스트
-          있 : 바텀시트 -> 일정 추가api -> 시트close, 완료 토스트
-          */}
-
           {showResults && onBottomSlideOpen && (
-            <button onClick={() => onBottomSlideOpen(<AddToJourney />)} className={styles.main__contextBox__addDay}>
+            <button onClick={handleOpenAddToJourney} className={styles.main__contextBox__addDay}>
               <AddDayIcon /> 일정에 담기
             </button>
           )}
