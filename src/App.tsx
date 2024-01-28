@@ -43,6 +43,7 @@ function App() {
             speed='1'
             loop
             autoplay
+            style={{width: '64px', height: '64px'}}
           ></dotlottie-player>
           <p style={{marginBottom: '30px', fontSize: '14px', fontWeight: 'bold'}}>
             {quotes[Math.floor(Math.random() * quotes.length)]}
