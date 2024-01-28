@@ -1,6 +1,6 @@
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 
-import {GetAlarm, GetAlarmState, PostSubscribe, PostUnsubscribe} from '@/api/notification';
+import {GetAlarm, PostSubscribe, PostUnsubscribe} from '@/api/notification';
 
 function useGetAlarm(enabled: boolean) {
   return useQuery({
@@ -11,20 +11,12 @@ function useGetAlarm(enabled: boolean) {
   });
 }
 
-function useGetAlarmState() {
-  return useQuery({
-    queryKey: ['AlarmState'],
-    queryFn: GetAlarmState,
-    retry: 0,
-  });
-}
-
 function usePostSubscribe() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: PostSubscribe,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['AlarmState']});
+      queryClient.invalidateQueries({queryKey: ['myinfo']});
     },
   });
 }
@@ -34,9 +26,9 @@ function usePostUnsubscribe() {
   return useMutation({
     mutationFn: PostUnsubscribe,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['AlarmState']});
+      queryClient.invalidateQueries({queryKey: ['myinfo']});
     },
   });
 }
 
-export {useGetAlarm, useGetAlarmState, usePostSubscribe, usePostUnsubscribe};
+export {useGetAlarm, usePostSubscribe, usePostUnsubscribe};

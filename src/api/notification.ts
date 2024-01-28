@@ -35,18 +35,6 @@ export const PostReadAlarm = async (notiId: number) => {
   }
 };
 
-export const GetAlarmState = async () => {
-  try {
-    const response = await axios.get(`/api/members/notification`, {withCredentials: true}); // 엔드포인트 확인
-    return response; // 반환 값 확인 ( boolean이어야 함.)
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log(error);
-      return error.response;
-    }
-  }
-};
-
 export const PostSubscribe = async () => {
   try {
     const response = await axios.post(`/api/notifications/subscribe`, {withCredentials: true});

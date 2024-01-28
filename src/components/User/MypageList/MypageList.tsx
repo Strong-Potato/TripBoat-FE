@@ -1,27 +1,29 @@
 import {useEffect, useState} from 'react';
 import {RiArrowRightSLine} from 'react-icons/ri';
 import {useNavigate} from 'react-router-dom';
+import {useRecoilValue} from 'recoil';
 
 import styles from './MypageList.module.scss';
 
-import {useGetAlarmState, usePostSubscribe, usePostUnsubscribe} from '@/hooks/Notification/useNotification';
+import {usePostSubscribe, usePostUnsubscribe} from '@/hooks/Notification/useNotification';
 
 import AlertIcon from '@/assets/icons/error-warning-line.svg?react';
+import {Subcribe} from '@/recoil/user/user';
 
 function MypageList() {
   const navigate = useNavigate();
   const [alertOn, setAlertOn] = useState(true);
-  const {data: AlarmState} = useGetAlarmState();
   const {mutate: subscribe} = usePostSubscribe();
   const {mutate: unsubscribe} = usePostUnsubscribe();
+  const isSubscribe = useRecoilValue(Subcribe);
 
   useEffect(() => {
-    if (AlarmState) {
+    if (isSubscribe) {
       setAlertOn(true);
     } else {
       setAlertOn(false);
     }
-  }, []);
+  }, [isSubscribe]);
 
   const onClickAlert = async () => {
     if (Notification.permission === 'denied') {
@@ -29,10 +31,10 @@ function MypageList() {
     }
     if (alertOn) {
       setAlertOn(false);
-      subscribe();
+      unsubscribe();
     } else {
       setAlertOn(true);
-      unsubscribe();
+      subscribe();
     }
   };
 
