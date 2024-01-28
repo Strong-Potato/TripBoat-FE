@@ -4,13 +4,14 @@ import {useNavigate} from 'react-router-dom';
 
 import styles from './SignupForm.module.scss';
 
+import {useSignup} from '@/hooks/Auth/auth';
+
 import StepEmail from '@/components/Auth/Signup/Step/StepEmail';
 import StepEmailSert from '@/components/Auth/Signup/Step/StepEmailSert';
 import StepPassword from '@/components/Auth/Signup/Step/StepPassword';
 import StepProfile from '@/components/Auth/Signup/Step/StepProfile';
 import CustomToast from '@/components/CustomToast/CustomToast';
 
-import {authRequest} from '@/api/auth';
 import {s3Request} from '@/api/s3';
 
 import {AuthForm, SignupFormProps} from '@/types/auth';
@@ -37,6 +38,7 @@ function SignupForm({signupStep, setSignupStep}: SignupFormProps) {
   const [code, setCode] = useState<string>('');
   const showToast = CustomToast();
   const navigate = useNavigate();
+  const signup = useSignup();
 
   const onSubmit: SubmitHandler<AuthForm> = async (data) => {
     if (Object.keys(dirtyFields).length < 5) return;
@@ -45,8 +47,13 @@ function SignupForm({signupStep, setSignupStep}: SignupFormProps) {
       const {email, password, image, nickname} = data;
       const profile = dirtyFields.image ? await s3Request.uploadImage(image as FileList) : undefined;
 
-      const res = await authRequest.signup_submit(email, password, profile?.split('?')[0], nickname, code);
-      console.log(res);
+      const res = await signup.mutateAsync({
+        email,
+        password,
+        profile: profile?.split('?')[0],
+        nickname,
+        token: code,
+      });
 
       if (res.data.responseCode === 204) {
         showToast('만료된 토큰입니다. 다시 인증해주세요.');

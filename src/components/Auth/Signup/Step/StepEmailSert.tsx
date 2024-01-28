@@ -2,11 +2,11 @@ import {useEffect, useState} from 'react';
 
 import styles from './Step.module.scss';
 
+import {useSignupEmailSert} from '@/hooks/Auth/auth';
+
 import AuthButton from '@/components/Auth/Button/AuthButton';
 import InputEmailSert from '@/components/Auth/Input/InputEmailSert';
 import CustomToast from '@/components/CustomToast/CustomToast';
-
-import {authRequest} from '@/api/auth';
 
 import {StepEmailSertProps} from '@/types/auth';
 
@@ -20,6 +20,7 @@ function StepEmailSert({
 }: StepEmailSertProps) {
   const [due, setDue] = useState<number>(300);
   const showToast = CustomToast();
+  const sertEmail = useSignupEmailSert();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -35,8 +36,7 @@ function StepEmailSert({
 
   const onClickEmailSert = async () => {
     try {
-      const res = await authRequest.signup_emailSert(email, emailSert);
-      console.log(res);
+      const res = await sertEmail.mutateAsync({email, code: emailSert});
 
       if (res.data.responseCode === 203) {
         showToast('인증코드가 일치하지 않습니다.');
