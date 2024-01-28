@@ -30,12 +30,13 @@ export interface CandidatesInfo {
   createdBy: UserInfo;
   tagline: string;
   amIVote: boolean;
-  //임시
+  rank?: number;
   votedMemberProfiles?: UserInfo[];
   voteCount?: number;
 }
-interface ResultCandidatesInfo extends CandidatesInfo {
-  votedMemberProfiles?: UserInfo[];
+export interface ResultCandidatesInfo extends CandidatesInfo {
+  rank: number;
+  votedMemberProfiles: UserInfo[] | undefined;
   voteCount: number;
 }
 
@@ -44,7 +45,7 @@ export interface VoteListInfo {
   title: string;
   voteStatus: string;
   createdBy: UserInfo;
-  votedMemberProfiles: UserInfo[];
+  votedMemberProfiles: UserInfo[] | undefined;
 }
 
 export interface VoteInfo {
@@ -53,16 +54,14 @@ export interface VoteInfo {
   voteStatus: string;
   createdBy: UserInfo;
   candidates: CandidatesInfo[];
-  //
-  votedMemberProfiles?: UserInfo[]; //빠짐
 }
 
 export interface VoteResultInfo {
   id: number;
   title: string;
   voteStatus: string;
-  createdBy: UserInfo; // 이름 통일 요청
-  candidates: ResultCandidatesInfo[];
+  createdBy: UserInfo;
+  candidatesResponses: ResultCandidatesInfo[];
 }
 
 ////////////////INFO//////////////////
@@ -79,9 +78,15 @@ export interface VoteListInfoRes {
   data: {
     voteResponse: VoteListInfo[];
     viewResultVoteIds: {
-      voteIds: number[];
+      voteIds: number[] | undefined;
     };
   };
+}
+
+export interface VoteResultInfoRes {
+  status: number;
+  message: string;
+  data: VoteResultInfo;
 }
 
 export interface VoteBottomButtonProps {
@@ -91,9 +96,9 @@ export interface VoteBottomButtonProps {
 
 export interface VoteContentProps {
   onBottomSlideOpen: (content: ReactNode) => void;
-  data: VoteResultInfo | VoteInfo;
-  showResults: boolean;
-  isZeroCandidates: boolean;
+  data: VoteInfo;
+  showResults?: boolean;
+  // isZeroCandidates: boolean;
 }
 
 export interface VoteHeaderProps {
@@ -105,8 +110,9 @@ export interface VoteHeaderProps {
 export interface CandidateCardProps {
   onBottomSlideOpen?: (content: ReactNode) => void | undefined;
   candidate: CandidatesInfo;
-  index: number;
+  showResults?: boolean;
   isMapStyle?: boolean;
+  index?: number;
 }
 
 export interface VoteMeatballProps {
@@ -128,7 +134,7 @@ export interface AlertModalProps {
 export interface CandidateListProps {
   candidates: CandidatesInfo[];
   onBottomSlideOpen: (content: ReactNode) => void;
-
+  showResults: boolean;
   isCandidateSelecting: boolean;
 }
 

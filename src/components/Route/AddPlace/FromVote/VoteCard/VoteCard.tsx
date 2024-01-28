@@ -65,7 +65,7 @@ function VoteCard({id, title}: VoteCardProps) {
                   </div>
                 </AccordionButton>
                 <AccordionPanel border='none' display='flex' flexDirection='column' gap='0.2rem' p='0 12px 16px 12px'>
-                  {data?.data?.candidatesResponses?.length > 0 ? (
+                  {data && data?.data?.candidatesResponses?.length > 0 ? (
                     data.data.candidatesResponses.map((candidate: Candidate, index: number) => (
                       <PlaceList
                         key={candidate.placeInfo.placeId}

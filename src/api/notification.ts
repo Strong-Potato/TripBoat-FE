@@ -11,15 +11,6 @@ export const sendNotificationToken = async (token: Token) => {
   }
 };
 
-export const GetNotification = async () => {
-  try {
-    const response = await axios.get('/api/notifications');
-    return response.data.data;
-  } catch (error) {
-    console.log('[notification]알림내용을 가져오지 못했습니다');
-  }
-};
-
 export const GetAlarm = async () => {
   try {
     const response = await axios.get('/api/notifications', {withCredentials: true});
@@ -35,6 +26,30 @@ export const GetAlarm = async () => {
 export const PostReadAlarm = async (notiId: number) => {
   try {
     const response = await axios.patch(`/api/notifications/${notiId}/read`, {withCredentials: true});
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log(error);
+      return error.response;
+    }
+  }
+};
+
+export const PostSubscribe = async () => {
+  try {
+    const response = await axios.post(`/api/notifications/subscribe`, {withCredentials: true});
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log(error);
+      return error.response;
+    }
+  }
+};
+
+export const PostUnsubscribe = async () => {
+  try {
+    const response = await axios.post(`/api/notifications/unsubscribe`, {withCredentials: true});
     return response;
   } catch (error) {
     if (axios.isAxiosError(error)) {

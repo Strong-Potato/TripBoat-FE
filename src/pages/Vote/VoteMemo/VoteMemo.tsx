@@ -74,7 +74,7 @@ const VoteMemo = () => {
     await postCandidateMutation.mutateAsync({voteId: Number(voteId), candidateInfos: candidateInfos});
     SetSelectedPlaces([]);
     localStorage.removeItem('recoil-persist');
-    navigate(`trip/${spaceId}/votes/${voteInfo.id}`);
+    navigate(`/trip/${spaceId}/votes/${voteInfo.id}`);
   };
 
   return (

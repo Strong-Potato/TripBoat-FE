@@ -1,6 +1,6 @@
-import {useQuery} from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 
-import {GetAlarm} from '@/api/notification';
+import {GetAlarm, PostSubscribe, PostUnsubscribe} from '@/api/notification';
 
 function useGetAlarm(enabled: boolean) {
   return useQuery({
@@ -11,4 +11,24 @@ function useGetAlarm(enabled: boolean) {
   });
 }
 
-export {useGetAlarm};
+function usePostSubscribe() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: PostSubscribe,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['myinfo']});
+    },
+  });
+}
+
+function usePostUnsubscribe() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: PostUnsubscribe,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['myinfo']});
+    },
+  });
+}
+
+export {useGetAlarm, usePostSubscribe, usePostUnsubscribe};

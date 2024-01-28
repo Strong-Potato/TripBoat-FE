@@ -1,5 +1,5 @@
 import {useDisclosure} from '@chakra-ui/react';
-import {useRef} from 'react';
+import {ReactNode, useRef, useState} from 'react';
 
 import styles from './MyReview.module.scss';
 
@@ -23,8 +23,22 @@ const defaultThumbnail = '/city_default.svg';
 function MyReview() {
   const {isOpen: isBottomSlideOpen, onOpen: onBottomSlideOpen, onClose: onBottomSlideClose} = useDisclosure();
   const [reviews, hasNextData, inViewRef] = useInfiniteScroll(useGetMyReview);
+  const [bottomSlideContent, setBottomSlideContent] = useState<ReactNode | null>(null);
 
   const clickedReviewId = useRef<number | undefined>();
+
+  function convertStringToDate(dateString: string) {
+    // "yyyy-mm-dd" 형식의 문자열에서 연도, 월, 일 추출
+    const parts = dateString.split('-');
+    const year = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1; // 월은 0부터 시작하므로 1을 빼줍니다.
+    const day = parseInt(parts[2], 10);
+
+    // Date 객체 생성
+    const dateObject = new Date(year, month, day);
+
+    return dateObject;
+  }
 
   return (
     <div className={styles.container}>
@@ -53,6 +67,19 @@ function MyReview() {
                   className={styles.myreview__header__meatball}
                   onClick={() => {
                     clickedReviewId.current = place.id;
+                    console.log(page.rating);
+                    setBottomSlideContent(
+                      <ActionList
+                        onBottomSlideOpen={onBottomSlideOpen}
+                        setBottomSlideContent={setBottomSlideContent}
+                        onBottomSlideClose={onBottomSlideClose}
+                        reviewId={id}
+                        starCountProps={rating}
+                        textProps={content}
+                        timeProps={convertStringToDate(visitedAt)}
+                        imageUrlsProps={images}
+                      />,
+                    );
                     onBottomSlideOpen();
                   }}
                 >
@@ -79,11 +106,7 @@ function MyReview() {
 
       {reviews && hasNextData && <ObserveTarget inViewRef={inViewRef} />}
 
-      <BottomSlide
-        isOpen={isBottomSlideOpen}
-        onClose={onBottomSlideClose}
-        children={<ActionList reviewId={clickedReviewId} />}
-      />
+      <BottomSlide isOpen={isBottomSlideOpen} onClose={onBottomSlideClose} children={bottomSlideContent} />
     </div>
   );
 }
