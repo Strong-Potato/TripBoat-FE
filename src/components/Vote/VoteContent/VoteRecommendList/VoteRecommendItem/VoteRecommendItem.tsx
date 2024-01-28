@@ -1,3 +1,4 @@
+import {Button} from '@chakra-ui/react';
 import {AiOutlineDownload} from 'react-icons/ai';
 import {BiTask} from 'react-icons/bi';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
@@ -12,6 +13,7 @@ import AddToJourney from '@/components/Vote/VoteBottomSlideContent/AddToJourney/
 
 import nullImg from '@/assets/nullImg.png';
 import {journeyState} from '@/recoil/vote/addToJourney';
+import {isShowResultsState} from '@/recoil/vote/showResults';
 import areas from '@/utils/areas.json';
 import titleCaseChange from '@/utils/titleCaseChange';
 import {translateCategoryToStr} from '@/utils/translateSearchData';
@@ -25,7 +27,8 @@ const VoteRecommendItem = ({state, data, onBottomSlideOpen}: VoteRecommendItemPr
   const spaceId = Number(locations.pathname.split('/')[2]);
   const voteId = Number(locations.pathname.split('/')[4]);
   const journeyAtom = useRecoilValue(journeyState(spaceId));
-  const {mutateAsync: postCandidateMutateAsync} = usePostNewCandidate();
+  const showResults = useRecoilValue(isShowResultsState(voteId));
+  const {isPending, mutateAsync: postCandidateMutateAsync} = usePostNewCandidate();
   const location = areas.filter((area) => area.areaCode === data.location.areaCode)[0].name;
   const category = translateCategoryToStr(data.contentTypeId);
   const title = titleCaseChange(data.title);
@@ -58,16 +61,16 @@ const VoteRecommendItem = ({state, data, onBottomSlideOpen}: VoteRecommendItemPr
         <img src={imgSrc} alt={`${data.title}의 사진`} style={{padding: data.thumbnail ? 0 : '40px'}} />
       </Link>
 
-      {state === '결정완료' ? (
-        <button onClick={handleAddToJourney}>
+      {state === '결정완료' || showResults ? (
+        <Button onClick={handleAddToJourney} className={styles.addButton}>
           <AiOutlineDownload />
           <span>일정에 담기</span>
-        </button>
+        </Button>
       ) : (
-        <button onClick={handleAddToCandidates}>
+        <Button onClick={handleAddToCandidates} className={styles.addButton} isLoading={isPending}>
           <BiTask />
           <span>후보에 추가</span>
-        </button>
+        </Button>
       )}
 
       <div>
