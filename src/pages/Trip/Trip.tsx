@@ -52,7 +52,7 @@ function Trip() {
   const [center, setCenter] = useState<LatLng>(getMapCenter(journeysData.data));
   const navigate = useNavigate();
   const users = spaceData?.data?.members;
-  const SetJourneyAtom = useSetRecoilState(journeyState);
+  const SetJourneyAtom = useSetRecoilState(journeyState(Number(id)));
 
   if (journeysData) {
     SetJourneyAtom(journeysData.data);

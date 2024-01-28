@@ -9,7 +9,7 @@ import {usePostVoting} from '@/hooks/Votes/vote';
 
 import CustomToast from '@/components/CustomToast/CustomToast';
 
-import nullImg from '@/assets/homeIcons/search/nullImg.svg';
+import nullImg from '@/assets/nullImg.png';
 import FirstIcon from '@/assets/voteIcons/rank_1.svg?react';
 import SecondIcon from '@/assets/voteIcons/rank_2.svg?react';
 import ThirdIcon from '@/assets/voteIcons/rank_3.svg?react';
@@ -32,7 +32,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, index}: Candid
   const [starIcon, setStarIcon] = useState(<FaRegStar />);
   const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
   const showResults = useRecoilValue(isShowResultsState(voteId));
-  const journeyAtom = useRecoilValue(journeyState);
+  const journeyAtom = useRecoilValue(journeyState(spaceId));
   const {mutateAsync: votingMutateAsync} = usePostVoting();
   const showToast = CustomToast();
   const placeInfo = candidate.placeInfo;

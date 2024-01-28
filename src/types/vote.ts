@@ -186,23 +186,20 @@ export interface PostNewCandidateProps {
     tagline: string;
   }[];
 }
-/////
 
-// export interface SearchItemType {
-//   id: number;
-//   contentTypeId: number;
-//   title: string;
-//   thumbnail: string;
-//   location: SearchItemLocationType;
-//   category: string;
-// }
-// export interface SearchItemLocationType {
-//   address: string;
-//   addressDetail: string;
-//   phone: string;
-//   areaCode: number;
-//   sigunguCode: number;
-//   zipCode: number;
-//   latitude: number;
-//   longitude: number;
-// }
+export interface CandidatesMapBodyProps {
+  candidates: CandidatesInfo[];
+}
+
+export interface VoteRecommendListProps {
+  state: string;
+  isCandidateSelecting: boolean;
+  categoryCode: string;
+  onBottomSlideOpen: (content: ReactNode) => void;
+}
+
+export interface VoteRecommendItemProps {
+  state: string;
+  data: SearchItemType;
+  onBottomSlideOpen: (content: ReactNode) => void;
+}
