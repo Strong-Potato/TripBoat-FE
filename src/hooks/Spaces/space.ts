@@ -40,7 +40,7 @@ export const useGetRecentSpace = () => {
 // [GET] 여행 일정 조회
 export const useGetJourneys = (spaceId: number) => {
   return useQuery({
-    queryKey: ['spaces', spaceId, 'journeys'],
+    queryKey: ['spaces', spaceId, 'journey', 'places'],
     queryFn: () => getJourneys(spaceId),
   });
 };
@@ -53,7 +53,7 @@ export const usePostPlaces = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['spaces']});
       queryClient.invalidateQueries({queryKey: ['journey']});
-      // queryClient.invalidateQueries({queryKey: ['places']});
+      queryClient.invalidateQueries({queryKey: ['places']});
     },
   });
 };
@@ -66,7 +66,7 @@ export const usePutPlaces = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['spaces']});
       queryClient.invalidateQueries({queryKey: ['journey']});
-      // queryClient.invalidateQueries({queryKey: ['places']});
+      queryClient.invalidateQueries({queryKey: ['places']});
     },
   });
 };
@@ -115,7 +115,7 @@ export const useDeletePlaces = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['spaces']});
       queryClient.invalidateQueries({queryKey: ['journey']});
-      // queryClient.invalidateQueries({queryKey: ['places']});
+      queryClient.invalidateQueries({queryKey: ['places']});
     },
   });
 };
