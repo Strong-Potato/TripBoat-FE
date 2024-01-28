@@ -120,7 +120,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, index}: Candid
 
           <div className={styles.main__contextBox__category}>
             {translateCategoryName(placeInfo.category)}
-            {'ꞏ'}
+            {'・'}
             {translateAreaCode(parseInt(placeInfo.areaCode))}
           </div>
 

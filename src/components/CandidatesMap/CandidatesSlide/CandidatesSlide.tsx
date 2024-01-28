@@ -30,7 +30,7 @@ const CandidatesSlide = ({candidates, setSelectedPinIndex, setCenterMarker, swip
         breakpoints={{400: {slidesPerView: 1.2}}}
       >
         {candidates.map((candidate, i) => (
-          <SwiperSlide key={`${candidate.id}-${i}`}>
+          <SwiperSlide key={`${candidate.id}-${i}`} style={{minWidth: '34rem'}}>
             <CandidateCard isMapStyle={true} candidate={candidate} index={i + 1} />
           </SwiperSlide>
         ))}

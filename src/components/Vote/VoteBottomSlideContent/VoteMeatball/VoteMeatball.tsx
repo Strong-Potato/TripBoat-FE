@@ -24,8 +24,9 @@ import {AlertModalProps, VoteMeatballProps} from '@/types/vote';
 
 const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: VoteMeatballProps) => {
   const location = useLocation();
+  const spaceId = Number(location.pathname.split('/')[2]);
   const voteId = Number(location.pathname.split('/')[4]);
-  const setShowResults = useSetRecoilState(isShowResultsState(voteId));
+  const [showResults, setShowResults] = useRecoilState(isShowResultsState(voteId));
   const navigate = useNavigate();
   const setIsCreateModalOpen = useSetRecoilState(isCreateModalOpenState);
   const setIsBTOpen = useSetRecoilState(isBottomSlideOpenState);
@@ -55,7 +56,7 @@ const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: V
 
   const handleDeleteVote = async () => {
     await deleteVoteMutation.mutateAsync(Number(voteId));
-    navigate('/trip/2');
+    navigate(`/trip/${spaceId}`);
     setIsModalOpen(false);
   };
 
@@ -98,7 +99,7 @@ const VoteMeatball = ({state, title, isZeroCandidates, allCandidatesNotVoted}: V
         <p>투표 제목 수정</p>
       </button>
 
-      <button disabled={isZeroCandidates || state === '결정완료'} onClick={changeToCandidateSelecting}>
+      <button disabled={isZeroCandidates || state === '결정완료' || showResults} onClick={changeToCandidateSelecting}>
         <TrashIcon />
         <p>후보 삭제</p>
       </button>
