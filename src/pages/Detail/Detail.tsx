@@ -106,6 +106,7 @@ function Detail() {
             false,
           )
         }
+        placeId={placeInfo.id}
       />
       <BottomSlideDetail
         isOpen={isOpen}
