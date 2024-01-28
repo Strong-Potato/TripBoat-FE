@@ -107,12 +107,12 @@ function DayRoute({
           </button>
           <div ref={drop} className={styles.placeListContainer}>
             {placeCards.length ? (
-              placeCards.map((place) => (
+              placeCards.map((place, index) => (
                 <DraggablePlaceCard
                   key={place.selectedId}
                   journeyId={journeyId}
                   selectedId={place.selectedId}
-                  order={place.order}
+                  order={placeList[index].order}
                   name={place.place.title}
                   category={place.place.category}
                   address={`${place.place.address} ${place.place.addressDetail}`}
