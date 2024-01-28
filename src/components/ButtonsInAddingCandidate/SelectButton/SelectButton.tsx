@@ -5,7 +5,7 @@ import styles from './SelectButton.module.scss';
 
 import useGetSelectedArray from '@/hooks/useGetSelectedArray';
 
-import {selectedPlaceState, selectedTripPlaceState} from '@/recoil/vote/selectPlace';
+import {selectedPlaceState, selectedTripPlaceState, selectedTripSearchPlaceState} from '@/recoil/vote/selectPlace';
 
 import {SearchItemType} from '@/types/home';
 
@@ -22,7 +22,9 @@ const SelectButton = ({data}: Propstype) => {
   const selectedPlaces = useRecoilValue(selectedPlaceState);
   const selectedTripPlaces = useRecoilValue(selectedTripPlaceState);
   const setRecoil = useSetRecoilState(selectedTripPlaceState);
+  const setSearchRecoil = useSetRecoilState(selectedTripSearchPlaceState);
   const {toggleItemInNewArray} = useGetSelectedArray(selectedPlaceState);
+  const pathname = location.pathname;
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     console.log(selectedTripPlaces);
@@ -32,19 +34,35 @@ const SelectButton = ({data}: Propstype) => {
     if (isInVote) {
       toggleItemInNewArray(data);
     } else {
-      setRecoil((currentArray) => {
-        const index = currentArray.findIndex((item) => item === data.id);
+      if (pathname === '/wishes/bring') {
+        setRecoil((currentArray) => {
+          const index = currentArray.findIndex((item) => item === data.id);
 
-        if (index !== -1) {
-          const newArray = [...currentArray.slice(0, index), ...currentArray.slice(index + 1)];
-          console.log('newArray:', newArray);
-          return newArray;
-        } else {
-          const newArray = [...currentArray, data.id];
-          console.log('newArray:', newArray);
-          return newArray;
-        }
-      });
+          if (index !== -1) {
+            const newArray = [...currentArray.slice(0, index), ...currentArray.slice(index + 1)];
+            console.log('newArray:', newArray);
+            return newArray;
+          } else {
+            const newArray = [...currentArray, data.id];
+            console.log('newArray:', newArray);
+            return newArray;
+          }
+        });
+      } else {
+        setSearchRecoil((currentArray) => {
+          const index = currentArray.findIndex((item) => item.placeId === data.id);
+
+          if (index !== -1) {
+            const newArray = [...currentArray.slice(0, index), ...currentArray.slice(index + 1)];
+            console.log('newArray:', newArray);
+            return newArray;
+          } else {
+            const newArray = [...currentArray, {placeId: data.id, contentTypeId: data.contentTypeId}];
+            console.log('newArray:', newArray);
+            return newArray;
+          }
+        });
+      }
     }
   };
 
