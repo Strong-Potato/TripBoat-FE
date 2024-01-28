@@ -212,6 +212,15 @@ export interface ExitSpaceParams {
   spaceId: number;
 }
 
+export interface SearchPlaceParams {
+  spaceId: number;
+  journeyId: number;
+  places: {
+    placeId: number;
+    contentTypeId: number;
+  }[];
+}
+
 export interface PlaceParams {
   spaceId: number;
   journeyId: number;
