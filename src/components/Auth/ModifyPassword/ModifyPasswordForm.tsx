@@ -4,6 +4,8 @@ import {useNavigate} from 'react-router-dom';
 
 import styles from './ModifyPasswordForm.module.scss';
 
+import CustomToast from '@/components/CustomToast/CustomToast';
+
 import {authRequest} from '@/api/auth';
 
 import StepNewPassword from './Step/StepNewPassword';
@@ -27,6 +29,7 @@ function ModifyPasswordForm() {
     },
   });
   const watchFields = watch();
+  const showToast = CustomToast();
 
   // steps : oldPassword, newPassword
   const [step, setStep] = useState('oldPassword');
@@ -40,6 +43,7 @@ function ModifyPasswordForm() {
       const res = await authRequest.modifyPassword_submit(token, watchFields.password);
 
       console.log(res);
+      showToast('비밀번호가 변경되었습니다.');
       navigate('/user', {replace: true});
     } catch (error) {
       console.log(error);
