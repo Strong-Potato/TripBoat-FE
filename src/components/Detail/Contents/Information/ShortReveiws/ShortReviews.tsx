@@ -6,19 +6,21 @@ import styles from './ShortReviews.module.scss';
 
 import Review from '@/components/Detail/Contents/Review/Review';
 
-import {IsLoginState, TabIndexState, TabYPosition} from '@/recoil/detail/detail';
+import {TabIndexState, TabYPosition} from '@/recoil/detail/detail';
 import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
 
 import {ContentsShortReviewsProps} from '@/types/detail';
 import {useNavigate} from 'react-router-dom';
+import {Cookies} from 'react-cookie';
 
 function ShortReviews({onOpen, reviewsRating, reviews}: ContentsShortReviewsProps) {
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
-  const isLogin = useRecoilValue(IsLoginState);
   const setTabIndex = useSetRecoilState(TabIndexState);
   const tabPosition = useRecoilValue(TabYPosition);
 
+  const cookies = new Cookies();
+  const isLogin = cookies.get('isLogin');
   const navigate = useNavigate();
 
   const notLoginContent = {
