@@ -1,6 +1,6 @@
 import {useDisclosure} from '@chakra-ui/react';
-import {ReactNode, useState} from 'react';
-import {useSetRecoilState} from 'recoil';
+import {ReactNode, useEffect, useState} from 'react';
+import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './ReviewBottomSlide.module.scss';
 
@@ -18,12 +18,15 @@ import {ReviewBottomSlideProps} from '@/types/detail';
 
 import {usePostReview} from '@/hooks/Detail/useReviews';
 import {s3Request} from '@/api/s3';
+import CustomToast from '@/components/CustomToast/CustomToast';
+import {isReviewStartState} from '@/recoil/detail/detail';
 
 function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: ReviewBottomSlideProps) {
   const [isValuedInput, setIsValuedInput] = useState<boolean>(false);
   const [isValuedCount, setIsValuedCount] = useState<boolean>(false);
   const [isValuedDate, setIsValuedDate] = useState<boolean>(false);
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [isReviewStart, setIsReviewStart] = useRecoilState<boolean>(isReviewStartState);
 
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
@@ -33,6 +36,8 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
   const [time, setTime] = useState<Date>(new Date());
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [imageFileList, setImageFileList] = useState<File[]>();
+
+  const toast = CustomToast();
 
   const checkBeforeExit = {
     title: '잠깐!',
@@ -47,9 +52,20 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
     },
   };
 
+  useEffect(() => {
+    if (isValuedCount || isValuedInput || isValuedDate) {
+      setIsReviewStart(true);
+    }
+    return () => setIsReviewStart(false);
+  }, [isValuedCount, isValuedDate, isValuedInput]);
+
   const showCheckBeforeExitModal = () => {
-    setIsModalOpen(true);
-    setModalContent({...checkBeforeExit});
+    if (isReviewStart) {
+      setIsModalOpen(true);
+      setModalContent({...checkBeforeExit});
+    } else {
+      slideOnClose();
+    }
   };
 
   const postReview = usePostReview(placeId);
@@ -74,6 +90,7 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
       visitedAt: `${time.getFullYear()}-${('00' + (time.getMonth() + 1).toString()).slice(-2)}-01`,
     });
     slideOnClose();
+    toast('리뷰가 작성되었습니다.');
     document.body.style.removeProperty('overflow');
   };
 

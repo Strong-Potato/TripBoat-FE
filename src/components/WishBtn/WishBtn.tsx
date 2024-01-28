@@ -9,6 +9,9 @@ import {useDeleteWishes, useGetIsWish, usePostWishes} from '@/hooks/Detail/useWi
 import {useDebounceBoolean} from '@/hooks/useDebounce';
 
 import CustomToast from '../CustomToast/CustomToast';
+import {useNavigate} from 'react-router-dom';
+import {modalContentState} from '@/recoil/vote/alertModal';
+import {useSetRecoilState} from 'recoil';
 
 interface WishBtnProps {
   placeId: number;
@@ -21,12 +24,22 @@ function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: Wish
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [wishInitial, setWishInitial] = useState<boolean>(false);
   const [isMount, setIsMount] = useState<boolean>(true);
+  const setModalContent = useSetRecoilState(modalContentState);
 
   const cookies = new Cookies();
   const isLogin = cookies.get('isLogin');
+  const navigate = useNavigate();
 
+  const notLoginContent = {
+    title: '로그인이 필요한 기능입니다.',
+    subText: '로그인하고 모든 서비스를 이용해 보세요! ',
+    cancelText: '닫기',
+    actionButton: '로그인하기',
+    isSmallSize: true,
+  };
   const showNotLoginModal = () => {
     setIsModalOpen(true);
+    setModalContent({...notLoginContent});
   };
 
   const showToast = CustomToast();
@@ -120,7 +133,13 @@ function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: Wish
             <button onClick={() => setIsModalOpen(false)} className={styles.buttons__cancel}>
               닫기
             </button>
-            <button onClick={() => {}} className={styles.buttons__action}>
+            <button
+              onClick={() => {
+                navigate('/auth/login');
+                document.body.style.removeProperty('overflow');
+              }}
+              className={styles.buttons__action}
+            >
               로그인하기
             </button>
           </ModalFooter>

@@ -73,6 +73,7 @@ function Detail() {
       />
       <Main
         id={placeInfo.id}
+        areaCode={placeInfo.location.areaCode}
         contentTypeId={placeInfo.contentTypeId}
         images={placeInfo.gallery}
         title={placeInfo.title}

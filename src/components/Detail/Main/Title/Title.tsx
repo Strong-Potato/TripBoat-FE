@@ -6,21 +6,23 @@ import styles from './Title.module.scss';
 import CustomToast from '@/components/CustomToast/CustomToast';
 import TitleWishBtn from './TitleWishBtn/TitleWishBtn';
 
-import {translateCategoryToStr} from '@/utils/translateSearchData';
+import {translateAreaCode, translateCategoryToStr} from '@/utils/translateSearchData';
 import {useLocation} from 'react-router-dom';
 
 interface TitleProps {
   id: number;
+  areaCode: number;
   contentTypeId: number;
   title: string;
   rating: number;
   reviewsCount: number;
 }
 
-function Title({id, contentTypeId, title, rating, reviewsCount}: TitleProps) {
+function Title({id, areaCode, contentTypeId, title, rating, reviewsCount}: TitleProps) {
   const showToast = CustomToast();
 
   const categoryStr = translateCategoryToStr(contentTypeId);
+  const areaStr = translateAreaCode(areaCode);
 
   // 링크 복사
   const location = useLocation();
@@ -38,7 +40,9 @@ function Title({id, contentTypeId, title, rating, reviewsCount}: TitleProps) {
   return (
     <div className={styles.container}>
       <h2 className={styles.container__header}>{title}</h2>
-      <p className={styles.container__category}>{categoryStr}</p>
+      <p className={styles.container__category}>
+        {categoryStr}·{areaStr}
+      </p>
       <div className={styles.container__alignCenter}>
         <GoStarFill className={styles.container__alignCenter__star} />
         <span className={styles.container__alignCenter__point}>{rating}</span>
