@@ -10,6 +10,7 @@ import {IsLoginState, TabIndexState, TabYPosition} from '@/recoil/detail/detail'
 import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
 
 import {ContentsShortReviewsProps} from '@/types/detail';
+import {useNavigate} from 'react-router-dom';
 
 function ShortReviews({onOpen, reviewsRating, reviews}: ContentsShortReviewsProps) {
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
@@ -18,12 +19,18 @@ function ShortReviews({onOpen, reviewsRating, reviews}: ContentsShortReviewsProp
   const setTabIndex = useSetRecoilState(TabIndexState);
   const tabPosition = useRecoilValue(TabYPosition);
 
+  const navigate = useNavigate();
+
   const notLoginContent = {
     title: '로그인이 필요한 기능입니다.',
     subText: '로그인하고 모든 서비스를 이용해 보세요! ',
     cancelText: '닫기',
     actionButton: '로그인하기',
     isSmallSize: true,
+    onClickAction: () => {
+      setIsModalOpen(false);
+      navigate('/auth/login');
+    },
   };
 
   const showNotLoginModal = () => {
