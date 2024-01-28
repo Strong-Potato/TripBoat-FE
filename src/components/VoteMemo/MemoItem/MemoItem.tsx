@@ -7,6 +7,7 @@ import {useDebounce} from '@/hooks/useDebounce';
 import useGetSelectedArray from '@/hooks/useGetSelectedArray';
 
 import {selectedTaglineState} from '@/recoil/vote/voteMemo';
+import titleCaseChange from '@/utils/titleCaseChange';
 
 import {MemoItemProps} from '@/types/vote';
 
@@ -14,6 +15,7 @@ const MemoItem = ({place, existingTagline}: MemoItemProps) => {
   const [text, setText] = useState('');
   const {toggleItemInNewArray, setMemoArray} = useGetSelectedArray(selectedTaglineState);
   const debouncedText = useDebounce(text, 500);
+  const title = titleCaseChange(place.title);
 
   useEffect(() => {
     if (existingTagline) {
@@ -57,7 +59,7 @@ const MemoItem = ({place, existingTagline}: MemoItemProps) => {
             <img src={place.thumbnail} alt={place.title} />
           </div>
           <div className={styles.candidateBox__text}>
-            <p className={styles.candidateBox__text__name}>{place.title}</p>
+            <p className={styles.candidateBox__text__name}>{title}</p>
             <span className={styles.candidateBox__text__category}>
               {place.contentTypeId}
               {'ꞏ'}

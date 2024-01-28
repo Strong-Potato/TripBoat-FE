@@ -20,7 +20,7 @@ function AddPlace({journeyId, day}: AddPlaceProps) {
             <button
               onClick={() => {
                 navigate(
-                  `/search?keyword=없음&category=0&map=false&location=전국&sort=등록순&hot=false&placeID=여기에넣어줘요&tripDate=여기에넣어줘요`,
+                  `/search?keyword=없음&category=0&map=false&location=전국&sort=등록순&hot=false&placeID=${spaceId}&tripDate=trip ${journeyId}`,
                 );
               }}
             >
@@ -29,7 +29,13 @@ function AddPlace({journeyId, day}: AddPlaceProps) {
             <p>장소 검색</p>
           </div>
           <div className={styles.buttonContainer}>
-            <button>
+            <button
+              onClick={() => {
+                navigate(
+                  `/wishes/bring?category=0&location=전국&sort=등록순&placeID=${spaceId}&tripDate=trip ${journeyId}`,
+                );
+              }}
+            >
               <WishIcon color='#FF85B1' size='2.4rem' />
             </button>
             <p>찜 목록 검색</p>

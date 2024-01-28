@@ -3,20 +3,20 @@
 .container {
   position: relative;
 
-  height: 2.4rem;
-
-  display: flex;
-  align-items: center;
-
-  padding: 4px 8px;
-
-  cursor: pointer;
-
   @include typography(button);
-
-  .icon {
-    width: 2.4rem;
+  .button {
     height: 2.4rem;
+
+    display: flex;
+    align-items: center;
+
+    padding: 4px 8px;
+
+    cursor: pointer;
+    .icon {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
   }
 
   .modal {
@@ -30,8 +30,6 @@
     flex-direction: column;
     justify-content: space-between;
 
-    padding: 20px 32px;
-
     border-radius: 16px;
 
     background-color: $neutral0;
@@ -42,6 +40,10 @@
 
     overflow: hidden;
 
-    transition: 0.5s all;
+    box-sizing: border-box;
+
+    transition:
+      0.5s opacity,
+      0.5s height;
   }
 }

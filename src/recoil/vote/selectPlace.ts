@@ -8,3 +8,9 @@ export const selectedPlaceState = atom<SearchItemType[]>({
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
+
+export const selectedTripPlaceState = atom<number[]>({
+  key: 'selectedTripPlaceState',
+  default: [],
+  effects_UNSTABLE: [persistAtom],
+});
