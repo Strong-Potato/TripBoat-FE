@@ -16,7 +16,7 @@ export const selectedTripPlaceState = atom<number[]>({
 });
 
 export const selectedTripSearchPlaceState = atom<{placeId: number; contentTypeId: number}[]>({
-  key: 'selectedTripPlaceState',
+  key: 'selectedTripSearchPlaceState',
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
