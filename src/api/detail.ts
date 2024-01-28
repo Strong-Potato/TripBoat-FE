@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {MySpaces, placeInfoData, PlacesNearby, PostReview, ReviewsRating, Wishes} from '@/types/detail';
+import {MySpaces, PatchMyReview, placeInfoData, PlacesNearby, PostReview, ReviewsRating, Wishes} from '@/types/detail';
 
 // --------------------------- GET ---------------------------
 
@@ -118,6 +118,36 @@ export const deleteWishes = async (id: number) => {
   try {
     const response = await axios.delete(`/api/wishes/${id}`);
     console.log('axios delete success', response);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteMyReviews = async (id: number) => {
+  try {
+    const response = await axios.delete(`/api/reviews/${id}`, {
+      withCredentials: true,
+    });
+    console.log('axios delete success', response);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// --------------------------- PATCH ---------------------------
+
+export const patchMyReview = async ({reviewId, rating, content, images, visitedAt}: PatchMyReview) => {
+  try {
+    const response = await axios.patch(
+      '/api/reviews',
+      {reviewId, rating, content, images, visitedAt},
+      {
+        withCredentials: true,
+      },
+    );
+    console.log('axios 포스트 성공', response);
     return response.data;
   } catch (error) {
     console.error(error);

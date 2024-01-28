@@ -1,7 +1,14 @@
-import {MutableRefObject} from 'react';
+import {ReactNode} from 'react';
 
 export interface ActionListProps {
-  reviewId: MutableRefObject<number | undefined>;
+  setBottomSlideContent: React.Dispatch<React.SetStateAction<ReactNode | null>>;
+  reviewId: number;
+  onBottomSlideOpen: () => void;
+  onBottomSlideClose: () => void;
+  starCountProps: number;
+  textProps: string;
+  timeProps: Date;
+  imageUrlsProps: string[];
 }
 
 export interface Reviews {

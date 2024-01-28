@@ -69,17 +69,16 @@ const VoteContent = ({onBottomSlideOpen, data}: VoteContentProps) => {
           isCandidateSelecting={isCandidateSelecting}
           showResults={showResults}
         />
-
-        {candidates && (
-          <VoteRecommendList
-            state={data.voteStatus}
-            isCandidateSelecting={isCandidateSelecting}
-            categoryCode={candidates[0].placeInfo.category}
-          />
-        )}
-
-        {isCandidateSelecting && <DeleteCandidatesButton />}
       </div>
+      {candidates && (
+        <VoteRecommendList
+          state={data.voteStatus}
+          isCandidateSelecting={isCandidateSelecting}
+          categoryCode={candidates[0].placeInfo.category}
+        />
+      )}
+
+      {isCandidateSelecting && <DeleteCandidatesButton />}
     </div>
   );
 };

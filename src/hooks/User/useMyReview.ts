@@ -1,6 +1,7 @@
-import {useInfiniteQuery} from '@tanstack/react-query';
+import {useInfiniteQuery, useMutation, useQueryClient} from '@tanstack/react-query';
 
 import {reviewRequest} from '@/api/review';
+import {deleteMyReviews, patchMyReview} from '@/api/detail';
 
 export function useGetMyReview() {
   return useInfiniteQuery({
@@ -15,3 +16,23 @@ export function useGetMyReview() {
     },
   });
 }
+
+export const useDeleteMyReview = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteMyReviews,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: [`myReview`]});
+    },
+  });
+};
+
+export const usePatchMyReview = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: patchMyReview,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: [`myReview`]});
+    },
+  });
+};

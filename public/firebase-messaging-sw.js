@@ -92,7 +92,6 @@ self.addEventListener('push', function (e) {
   const resultData = e.data.json().notification;
   const resultDataString = typeof resultData === 'string' ? resultData : JSON.stringify(resultData);
   const parsedResultData = parseNestedJson(resultDataString);
-  console.log(parsedResultData);
 
   const notificationTitle = 'TRIPVOTE';
   const notificationOptions = {

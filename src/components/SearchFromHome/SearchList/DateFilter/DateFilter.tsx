@@ -40,10 +40,15 @@ function DateFilter({forSearch = undefined, wishesFilter = undefined}: PropsType
   }, [forSearch?.sort]);
 
   return (
-    <div className={styles.container} onClick={handleModal}>
-      <BsFilterLeft className={styles.icon} />
-      <span style={{userSelect: 'none', whiteSpace: 'none'}}>{sort}</span>
-      <div className={styles.modal} style={{height: click ? '136px' : 0, opacity: click ? 1 : 0}}>
+    <div className={styles.container}>
+      <p className={styles.button} onClick={handleModal}>
+        <BsFilterLeft className={styles.icon} />
+        <span style={{userSelect: 'none', whiteSpace: 'none'}}>{sort}</span>
+      </p>
+      <div
+        className={styles.modal}
+        style={{height: click ? '136px' : 0, opacity: click ? 1 : 0, padding: click ? '20px 32px' : 0}}
+      >
         {filterData.map((data) => (
           <span
             style={{opacity: click ? 1 : 0, whiteSpace: 'none'}}

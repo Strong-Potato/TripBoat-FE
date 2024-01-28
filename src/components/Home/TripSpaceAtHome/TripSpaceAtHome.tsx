@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import {Cookies} from 'react-cookie';
 
 import styles from './TripSpaceAtHome.module.scss';
 
@@ -17,13 +18,13 @@ function TripSpaceAtHome() {
   const [data, setData] = useState<TripSpaceData[]>();
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
+  const cookie = new Cookies().get('isLogin');
 
   useEffect(() => {
-    getHomeTripSpace(setData);
+    if (cookie) {
+      getHomeTripSpace(setData);
+    }
   }, []);
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   return (
     <div className={styles.container}>

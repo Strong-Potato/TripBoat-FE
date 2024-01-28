@@ -1,27 +1,40 @@
-import axios from 'axios';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {RiArrowRightSLine} from 'react-icons/ri';
 import {useNavigate} from 'react-router-dom';
+import {useRecoilValue} from 'recoil';
 
 import styles from './MypageList.module.scss';
 
+import {usePostSubscribe, usePostUnsubscribe} from '@/hooks/Notification/useNotification';
+
 import AlertIcon from '@/assets/icons/error-warning-line.svg?react';
+import {Subcribe} from '@/recoil/user/user';
 
 function MypageList() {
-  const [alertOn, setAlertOn] = useState(Notification.permission === 'granted' ? true : false);
   const navigate = useNavigate();
+  const [alertOn, setAlertOn] = useState(true);
+  const {mutate: subscribe} = usePostSubscribe();
+  const {mutate: unsubscribe} = usePostUnsubscribe();
+  const isSubscribe = useRecoilValue(Subcribe);
+
+  useEffect(() => {
+    if (isSubscribe) {
+      setAlertOn(true);
+    } else {
+      setAlertOn(false);
+    }
+  }, [isSubscribe]);
 
   const onClickAlert = async () => {
     if (Notification.permission === 'denied') {
-      console.log(Notification.permission);
       return;
     }
     if (alertOn) {
       setAlertOn(false);
-      await axios.post('/api/notifications/unsubscribe');
+      unsubscribe();
     } else {
       setAlertOn(true);
-      await axios.post('/api/notifications/subscribe');
+      subscribe();
     }
   };
 
