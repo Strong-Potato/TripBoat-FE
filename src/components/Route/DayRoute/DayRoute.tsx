@@ -80,7 +80,7 @@ function DayRoute({
 
   useEffect(() => {
     setEditedPlaces({journeyId: journeyId, placeCards: placeCards});
-  }, [journeyId, placeCards]);
+  }, [journeyId, placeCards, placeList]);
 
   return (
     <>
