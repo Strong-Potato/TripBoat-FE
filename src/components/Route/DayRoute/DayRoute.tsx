@@ -8,6 +8,7 @@ import {useSetRecoilState} from 'recoil';
 import styles from './DayRoute.module.scss';
 
 import BottomSlide from '@/components/BottomSlide/BottomSlide';
+import CustomToast from '@/components/CustomToast/CustomToast';
 
 import {editedPlacesState} from '@/recoil/spaces/selectPlace';
 import {setRouteDate} from '@/utils/formatDate';
@@ -34,6 +35,7 @@ function DayRoute({
   const [placeCards, setPlaceCards] = useState(placeList);
   const [isOptimize, setIsOptimize] = useState(false);
   const setEditedPlaces = useSetRecoilState(editedPlacesState);
+  const showToast = CustomToast();
 
   const handleModalClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -76,6 +78,7 @@ function DayRoute({
     setPlaceCards(findShortestPath(placeCards));
     setIsOptimize(false);
     editPlaces(journeyId, findShortestPath(placeCards));
+    showToast('일정이 최적화되었습니다.');
   };
 
   useEffect(() => {
