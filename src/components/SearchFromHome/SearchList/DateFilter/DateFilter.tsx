@@ -50,15 +50,15 @@ function DateFilter({forSearch = undefined, wishesFilter = undefined}: PropsType
         style={{height: click ? '136px' : 0, opacity: click ? 1 : 0, padding: click ? '20px 32px' : 0}}
       >
         {filterData.map((data) => (
-          <span
-            style={{opacity: click ? 1 : 0, whiteSpace: 'none'}}
+          <p
+            style={{opacity: click ? 1 : 0, whiteSpace: 'none', cursor: 'pointer'}}
             onClick={() => {
               selectSort(data);
             }}
             key={data}
           >
             {data}
-          </span>
+          </p>
         ))}
       </div>
     </div>
