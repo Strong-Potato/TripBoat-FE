@@ -45,7 +45,7 @@ function SignupForm({signupStep, setSignupStep}: SignupFormProps) {
       const {email, password, image, nickname} = data;
       const profile = dirtyFields.image ? await s3Request.uploadImage(image as FileList) : undefined;
 
-      const res = await authRequest.signup_submit(email, password, profile.split('?')[0], nickname, code);
+      const res = await authRequest.signup_submit(email, password, profile?.split('?')[0], nickname, code);
       console.log(res);
 
       if (res.data.responseCode === 204) {

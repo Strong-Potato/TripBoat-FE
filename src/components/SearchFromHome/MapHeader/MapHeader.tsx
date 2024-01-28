@@ -17,7 +17,7 @@ function MapHeader({forSearch, setForSearch}: PropsType) {
 
   function offMap() {
     if (forSearch.placeID !== 'undefined') {
-      history.back();
+      navigate(`/trip/${forSearch.placeID}`);
     } else {
       const before = forSearch;
       before.map = 'false';

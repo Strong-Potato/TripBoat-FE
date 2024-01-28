@@ -3,6 +3,7 @@
 .container {
   @include slide_button_container;
   .slide_box {
+    padding: 0 20px;
     @include slide_list_container;
     gap: 8px;
 

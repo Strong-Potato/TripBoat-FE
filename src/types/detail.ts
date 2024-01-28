@@ -102,6 +102,7 @@ export interface starsWrapperProps {
 
 export interface BottomFixedBtnProps {
   onOpen: () => void;
+  placeId: number;
 }
 
 export interface RegistrationSlideProps {

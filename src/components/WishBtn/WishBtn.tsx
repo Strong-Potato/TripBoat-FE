@@ -135,6 +135,7 @@ function WishBtn({placeId, contentTypeId, size = '2.4rem', className = ''}: Wish
             </button>
             <button
               onClick={() => {
+                setIsModalOpen(false);
                 navigate('/auth/login');
                 document.body.style.removeProperty('overflow');
               }}

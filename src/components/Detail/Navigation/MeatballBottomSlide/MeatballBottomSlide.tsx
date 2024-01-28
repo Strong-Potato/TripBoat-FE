@@ -36,6 +36,7 @@ const MeatballBottomSlide = ({onBottomSlideOpen, onClose, id, contentTypeId, tit
     actionButton: '로그인하기',
     isSmallSize: true,
     onClickAction: () => {
+      setIsModalOpen(false);
       navigate('/auth/login');
     },
   };

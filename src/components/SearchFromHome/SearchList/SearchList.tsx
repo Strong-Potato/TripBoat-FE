@@ -134,7 +134,9 @@ function SearchList({forSearch}: PropsType) {
                 <span>검색 결과가 없습니다.</span>
               </div>
             )}
-            {filterData && filterData?.length > 0 && !isEnd && <ObserveTarget inViewRef={inViewRef} />}
+            {filterData && filterData?.length > 0 && !isEnd && forSearch.category === 0 && (
+              <ObserveTarget inViewRef={inViewRef} />
+            )}
           </ul>
           {forSearch.placeID !== 'undefined' ? (
             <AddToCandidateButton />

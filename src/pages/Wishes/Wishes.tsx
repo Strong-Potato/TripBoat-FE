@@ -11,7 +11,7 @@ import Tabs from '@/components/SearchFromHome/SearchList/Tabs/Tabs';
 import WishesHeader from '@/components/WishItem/WishesHeader/WishesHeader';
 
 import {getUserWishes} from '@/api/wishes';
-import SearchNull from '@/assets/homeIcons/search/searchNull.svg?react';
+import SearchNull from '@/assets/homeIcons/search/favoriteNull.svg?react';
 import {translateLocation} from '@/utils/translateSearchData';
 
 import WishItem from '../../components/WishItem/WishItem';

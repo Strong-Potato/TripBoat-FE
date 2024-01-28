@@ -20,7 +20,15 @@ import {AlertModalProps} from '@/types/vote';
  * 
  * 자세한 사용은 VoteMeatball.tsx 참고
  */
-const AlertModal = ({title, subText, cancelText, actionButton, isSmallSize, onClickAction}: AlertModalProps) => {
+const AlertModal = ({
+  title,
+  subText,
+  cancelText,
+  actionButton,
+  isSmallSize,
+  onClickAction,
+  onClickCancelAction,
+}: AlertModalProps) => {
   const [isModalOpen, setIsModalOpen] = useRecoilState(isModalOpenState);
 
   return (
@@ -33,7 +41,13 @@ const AlertModal = ({title, subText, cancelText, actionButton, isSmallSize, onCl
         </ModalBody>
 
         <ModalFooter>
-          <button onClick={() => setIsModalOpen(false)} className={styles.buttons__cancel}>
+          <button
+            onClick={() => {
+              setIsModalOpen(false);
+              onClickCancelAction && onClickCancelAction();
+            }}
+            className={styles.buttons__cancel}
+          >
             {cancelText ? cancelText : '취소'}
           </button>
           <button onClick={onClickAction} className={styles.buttons__action}>
