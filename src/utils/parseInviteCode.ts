@@ -7,7 +7,7 @@ export function parseInviteCode(inviteCode: string): InviteCode | null {
     const decoded = jwtDecode<InviteCode>(inviteCode);
     return decoded;
   } catch (error) {
-    console.error('JWT 디코딩 중 에러 발생:', error);
+    console.log('[친구초대]잘못된 토큰 형식입니다.', error);
     return null;
   }
 }
