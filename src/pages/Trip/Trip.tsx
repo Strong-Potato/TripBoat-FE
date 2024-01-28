@@ -14,6 +14,7 @@ import {AiOutlineBell as AlarmIcon} from 'react-icons/ai';
 import {AiOutlineMenu as MenuIcon} from 'react-icons/ai';
 import {FiPlus as PlusIcon} from 'react-icons/fi';
 import {useNavigate, useParams} from 'react-router-dom';
+import {useSetRecoilState} from 'recoil';
 
 import styles from './Trip.module.scss';
 
@@ -28,6 +29,7 @@ import FriendList from '@/components/TripSpace/FriendList/FriendList';
 import InviteFriends from '@/components/TripSpace/InviteFriends/InviteFriends';
 import VoteTabPanel from '@/components/VoteTabPanel/VoteTabPanel';
 
+import {journeyState} from '@/recoil/vote/addToJourney';
 import {checkDDay} from '@/utils/checkDday';
 import {setSpaceDate} from '@/utils/formatDate';
 import {getMapCenter} from '@/utils/getMapCenter';
@@ -50,6 +52,11 @@ function Trip() {
   const [center, setCenter] = useState<LatLng>(getMapCenter(journeysData.data));
   const navigate = useNavigate();
   const users = spaceData?.data?.members;
+  const SetJourneyAtom = useSetRecoilState(journeyState);
+
+  if (journeysData) {
+    SetJourneyAtom(journeysData.data);
+  }
 
   useEffect(() => {
     console.log('아임센터', center);
