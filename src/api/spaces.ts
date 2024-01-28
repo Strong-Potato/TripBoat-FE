@@ -56,7 +56,10 @@ export const getSpace = async (spaceId: number) => {
     const response = await axios.get(`/api/spaces/${spaceId}`, {withCredentials: true});
     return response.data;
   } catch (error) {
-    console.log(error);
+    if (axios.isAxiosError(error)) {
+      console.log(error);
+      return error.response;
+    }
   }
 };
 

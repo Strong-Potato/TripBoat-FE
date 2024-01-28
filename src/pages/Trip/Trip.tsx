@@ -57,17 +57,12 @@ function Trip() {
   const SetJourneyAtom = useSetRecoilState(journeyState(Number(id)));
 
   if (journeysData) {
-    SetJourneyAtom(journeysData.data);
+    SetJourneyAtom(journeysData?.data);
   }
 
-  if (!spaceData?.data) {
+  if (spaceData?.status === 403) {
     console.log('로그인 안 했음');
-    navigate('/trip');
-  }
-
-  if (spaceData?.data) {
-    console.log(spaceData?.data);
-    console.log(journeysData?.data);
+    navigate('/auth/login');
   }
 
   useEffect(() => {
@@ -75,6 +70,8 @@ function Trip() {
     map?.relayout();
     setCenter(getMapCenter(journeysData?.data));
     setLevel(1);
+
+    console.log(selectedTabIndex);
   }, [selectedTabIndex]);
 
   return (
