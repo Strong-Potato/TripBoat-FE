@@ -6,6 +6,8 @@ import {
   lostPassword_emailSert,
   lostPassword_sendEmail,
   lostPassword_submit,
+  modifyPassword_check,
+  modifyPassword_submit,
   signup_emailSert,
   signup_sendEmail,
   signup_submit,
@@ -151,6 +153,43 @@ export const useFindPasswordEmailSert = () => {
       const resCode = data.data.responseCode;
 
       if (resCode === 203) {
+        console.error('인증코드 불일치', data);
+        return;
+      }
+      console.log('이메일 인증 성공', data);
+    },
+    onError: (err) => {
+      console.error(err);
+    },
+  });
+};
+
+/* ----------------------------- MODIFY PASSWORD ---------------------------- */
+export const useModifyPassword = () => {
+  return useMutation({
+    mutationFn: modifyPassword_submit,
+    onSuccess: (data) => {
+      const resCode = data.data.responseCode;
+
+      if (resCode === 207) {
+        console.error('기존 비밀번호 입력', data);
+        return;
+      }
+      console.log('비밀번호 변경 성공', data);
+    },
+    onError: (err) => {
+      console.error(err);
+    },
+  });
+};
+
+export const useModifyPasswordCheck = () => {
+  return useMutation({
+    mutationFn: modifyPassword_check,
+    onSuccess: (data) => {
+      const resCode = data.data.responseCode;
+
+      if (resCode === 206) {
         console.error('인증코드 불일치', data);
         return;
       }

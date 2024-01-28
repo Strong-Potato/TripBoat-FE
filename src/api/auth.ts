@@ -137,3 +137,15 @@ export const lostPassword_submit = ({email, newPassword, token}: AuthForm) =>
     newPassword,
     token,
   });
+
+/* ----------------------------- MODIFY PASSWORD ---------------------------- */
+export const modifyPassword_check = ({password}: AuthForm) =>
+  axios.post('/api/auth/modify/password/check', {
+    password,
+  });
+
+export const modifyPassword_submit = ({token, newPassword}: AuthForm) =>
+  axios.post('/api/auth/modify/password', {
+    token,
+    newPassword,
+  });
