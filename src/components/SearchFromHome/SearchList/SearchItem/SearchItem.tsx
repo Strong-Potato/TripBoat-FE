@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import {Link, useSearchParams} from 'react-router-dom';
 
 import styles from './SearchItem.module.scss';
 
@@ -22,9 +22,18 @@ function SearchItem({forSearch, data, categoryChange}: PropsType) {
   const location = areas.filter((area) => area.areaCode === data.location.areaCode)[0].name;
   const category = translateCategoryToStr(data.contentTypeId);
   const imgSrc = data.thumbnail ? data.thumbnail : nullImg;
+  const [searchPrams] = useSearchParams();
+  const tripId = searchPrams.get('placeID');
+  const journyId = searchPrams.get('tripDate')?.split(' ')[1];
+  const path = searchPrams.get('tripDate')?.split(' ')[0];
+  const detailLink =
+    path === 'trip'
+      ? `/detail/${data.id} ${data.contentTypeId}?title=${data.title}&tripId=${tripId}&journyId=${journyId}`
+      : `/detail/${data.id} ${data.contentTypeId}?title=${data.title}`;
+  console.log(path);
 
   return (
-    <Link to={`/detail/${data.id} ${data.contentTypeId}?title=${data.title}`} className={styles.container}>
+    <Link to={detailLink} className={styles.container}>
       <div className={styles.itemBox}>
         <img
           src={imgSrc}
