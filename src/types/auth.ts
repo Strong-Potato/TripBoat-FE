@@ -20,6 +20,9 @@ export interface AuthForm {
   oldPassword?: string;
   image?: FileList | undefined;
   nickname?: string;
+  profile?: string;
+  code?: string;
+  token?: string;
 }
 
 export interface InputEmailProps {

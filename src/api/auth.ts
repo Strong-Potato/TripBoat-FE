@@ -1,16 +1,24 @@
 import axios from 'axios';
 
+import {AuthForm} from '@/types/auth';
+
 export const authRequest = {
   /* ---------------------------------- LOG IN/OUT --------------------------------- */
-  login: (email: string, password: string) =>
-    axios.post(
-      '/api/login',
-      {
-        email,
-        password,
-      },
-      {withCredentials: true},
-    ),
+  login: async (email: string, password: string) => {
+    try {
+      const res = await axios.post(
+        '/api/login',
+        {
+          email,
+          password,
+        },
+        {withCredentials: true},
+      );
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 
   logout: () => axios.post('/api/logout', {}, {withCredentials: true}),
 
@@ -76,3 +84,37 @@ export const authRequest = {
       {withCredentials: true},
     ),
 };
+
+/* ---------------------------------- LOG IN/OUT --------------------------------- */
+export const login = ({email, password}: AuthForm) =>
+  axios.post(
+    '/api/login',
+    {
+      email,
+      password,
+    },
+    {withCredentials: true},
+  );
+
+export const logout = () => axios.post('/api/logout', {}, {withCredentials: true});
+
+/* --------------------------------- SIGNUP FLOW --------------------------------- */
+export const signup_sendEmail = ({email}: AuthForm) =>
+  axios.post('/api/auth/register/send-email', {
+    email,
+  });
+
+export const signup_emailSert = ({email, code}: AuthForm) =>
+  axios.post('/api/auth/register/check-token', {
+    email,
+    code,
+  });
+
+export const signup_submit = ({email, password, profile, nickname, token}: AuthForm) =>
+  axios.post('/api/auth/register', {
+    email,
+    password,
+    profile,
+    nickname,
+    token,
+  });
