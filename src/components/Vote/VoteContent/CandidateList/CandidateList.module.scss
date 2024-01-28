@@ -22,12 +22,12 @@
 
       margin-top: 16px;
       &__text {
-        height: 2.2rem;
+        min-height: 2.2rem;
         @include typography(bodySmall);
         color: $neutral900;
         background-color: $neutral100;
 
-        padding: 0 16px;
+        padding: 0 12px;
         border-radius: 8px;
       }
     }
