@@ -106,7 +106,12 @@ function MyReview() {
 
       {reviews && hasNextData && <ObserveTarget inViewRef={inViewRef} />}
 
-      <BottomSlide isOpen={isBottomSlideOpen} onClose={onBottomSlideClose} children={bottomSlideContent} />
+      <BottomSlide
+        isOpen={isBottomSlideOpen}
+        onClose={onBottomSlideClose}
+        children={bottomSlideContent}
+        isCloseBtn={false}
+      />
     </div>
   );
 }
