@@ -1,5 +1,4 @@
 import {Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react';
-import {useEffect} from 'react';
 import {AiOutlineBell as AlarmIcon} from 'react-icons/ai';
 import {AiOutlineMenu as MenuIcon} from 'react-icons/ai';
 import {FiPlus as PlusIcon} from 'react-icons/fi';
@@ -23,23 +22,16 @@ function CheckTrip() {
   const {mutate} = usePostSpace();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(recentSpaceData);
+  if (recentSpaceData?.status === 403 || recentSpaceData?.status === 401) {
     // 비로그인 유저
-    if (recentSpaceData.status === 401) {
-      goLogin();
-    }
-
+    goLogin();
+  } else if (recentSpaceData?.responseCode === 404) {
     // 유효한 여행 스페이스 없는 유저
-    if (recentSpaceData.responseCode === 404) {
-      setIsModal(true);
-    }
-
+    setIsModal(true);
+  } else if (recentSpaceData?.data?.id) {
     // 최근 방문 스페이스 있는 유저
-    if (recentSpaceData.data) {
-      navigate(`/trip/${recentSpaceData.data.id}`, {state: {id: recentSpaceData.data.id}});
-    }
-  }, [recentSpaceData]);
+    navigate(`/trip/${recentSpaceData.data.id}`, {state: {id: recentSpaceData.data.id}});
+  }
 
   const makeNewSpace = () => {
     setIsModal(false);
