@@ -2,9 +2,10 @@ import {Button} from '@chakra-ui/react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 
-import {usePostPlaces} from '@/hooks/Spaces/space';
+import {usePostPlaces, usePostSearchPlaces} from '@/hooks/Spaces/space';
 
-import {selectedPlaceState, selectedTripPlaceState} from '@/recoil/vote/selectPlace';
+import {activeTabIndexState} from '@/recoil/spaces/trip';
+import {selectedPlaceState, selectedTripPlaceState, selectedTripSearchPlaceState} from '@/recoil/vote/selectPlace';
 
 //prop이나 params로 trip or vote 판별, onClick에 삼항연산자로 함수 넣기
 const AddToCandidateButton = () => {
@@ -18,9 +19,17 @@ const AddToCandidateButton = () => {
   const voteId = voteIdArray[1];
   const selectedPlaces = useRecoilValue(selectedPlaceState);
   const selectedTripPlaces = useRecoilValue(selectedTripPlaceState);
+  const selectedTripSearchPlace = useRecoilValue(selectedTripSearchPlaceState);
   const setTripRecoil = useSetRecoilState(selectedTripPlaceState);
-  const counts = isInVote ? selectedPlaces.length : selectedTripPlaces.length;
+  const setTripSearchRecoil = useSetRecoilState(selectedTripSearchPlaceState);
   const postPlaces = usePostPlaces();
+  const path = location.pathname;
+  const setSelectedTabIndex = useSetRecoilState(activeTabIndexState);
+  const counts = isInVote
+    ? selectedPlaces.length
+    : path === '/wishes/bring'
+      ? selectedTripPlaces.length
+      : selectedTripSearchPlace.length;
 
   const addPlaces = async () => {
     await postPlaces.mutateAsync({
@@ -28,8 +37,22 @@ const AddToCandidateButton = () => {
       journeyId: Number(voteId),
       placeIds: selectedTripPlaces,
     });
-    navigate(`/trip/${spaceId}`, {state: {id: spaceId}});
+    setSelectedTabIndex(1);
     setTripRecoil([]);
+    navigate(`/trip/${spaceId}`, {state: {id: spaceId}});
+  };
+
+  const postSearchPlaces = usePostSearchPlaces();
+
+  const addSearchPlaces = async () => {
+    await postSearchPlaces.mutateAsync({
+      spaceId: Number(spaceId),
+      journeyId: Number(voteId),
+      places: selectedTripSearchPlace,
+    });
+    navigate(`/trip/${spaceId}`, {state: {id: spaceId}});
+    setTripSearchRecoil([]);
+    setSelectedTabIndex(1);
   };
 
   const handleAddCandidates = () => {
@@ -37,7 +60,11 @@ const AddToCandidateButton = () => {
     if (isInVote) {
       navigate(`/trip/${spaceId}/votes/${voteId}/votememo`, {replace: true});
     } else {
-      addPlaces();
+      if (path === '/wishes/bring') {
+        addPlaces();
+      } else {
+        addSearchPlaces();
+      }
     }
   };
   return (
