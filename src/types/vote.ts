@@ -110,7 +110,6 @@ export interface VoteHeaderProps {
 export interface CandidateCardProps {
   onBottomSlideOpen?: (content: ReactNode) => void | undefined;
   candidate: CandidatesInfo;
-  showResults?: boolean;
   isMapStyle?: boolean;
   index?: number;
 }
@@ -134,7 +133,6 @@ export interface AlertModalProps {
 export interface CandidateListProps {
   candidates: CandidatesInfo[];
   onBottomSlideOpen: (content: ReactNode) => void;
-  showResults: boolean;
   isCandidateSelecting: boolean;
 }
 

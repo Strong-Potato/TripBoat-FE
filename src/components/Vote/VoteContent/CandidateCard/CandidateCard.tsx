@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {FaRegStar, FaStar} from 'react-icons/fa';
-import {useLocation, useNavigate, useParams} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {useRecoilValue} from 'recoil';
 
 import styles from './CandidateCard.module.scss';
@@ -16,6 +16,7 @@ import ThirdIcon from '@/assets/voteIcons/rank_3.svg?react';
 import AddDayIcon from '@/assets/voteIcons/vote_addDay.svg?react';
 import {journeyState} from '@/recoil/vote/addToJourney';
 import {isCandidateSelectingState} from '@/recoil/vote/alertModal';
+import {isShowResultsState} from '@/recoil/vote/showResults';
 import {translateAreaCode, translateCategoryName} from '@/utils/translateSearchData';
 
 import AddToJourney from '../../VoteBottomSlideContent/AddToJourney/AddToJourney';
@@ -23,20 +24,22 @@ import VotedUserList from '../../VoteBottomSlideContent/VotedUserList/VotedUserL
 
 import {CandidateCardProps, ResultCandidatesInfo} from '@/types/vote';
 
-const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, index, showResults}: CandidateCardProps) => {
+const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, index}: CandidateCardProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const spaceId = Number(location.pathname.split('/')[2]);
-
+  const voteId = Number(location.pathname.split('/')[4]);
   const [starIcon, setStarIcon] = useState(<FaRegStar />);
   const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
+  const showResults = useRecoilValue(isShowResultsState(voteId));
   const journeyAtom = useRecoilValue(journeyState);
-  const {id: voteId} = useParams();
   const {mutateAsync: votingMutateAsync} = usePostVoting();
   const showToast = CustomToast();
   const placeInfo = candidate.placeInfo;
   const imgSrc = placeInfo.placeImageUrl ? placeInfo.placeImageUrl : nullImg;
   const votedMembers = candidate.votedMemberProfiles;
+
+  console.log('showResults', showResults);
 
   useEffect(() => {
     if (candidate.amIVote) {

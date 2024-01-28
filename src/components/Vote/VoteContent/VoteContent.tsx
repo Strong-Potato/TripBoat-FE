@@ -67,7 +67,6 @@ const VoteContent = ({onBottomSlideOpen, data}: VoteContentProps) => {
           candidates={candidates}
           onBottomSlideOpen={onBottomSlideOpen}
           isCandidateSelecting={isCandidateSelecting}
-          showResults={showResults}
         />
       </div>
       {candidates && (

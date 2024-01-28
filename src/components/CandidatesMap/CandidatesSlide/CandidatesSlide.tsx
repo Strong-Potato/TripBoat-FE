@@ -1,5 +1,4 @@
 import {useLocation} from 'react-router-dom';
-import {useRecoilValue} from 'recoil';
 import {Swiper, SwiperClass, SwiperSlide} from 'swiper/react';
 import 'swiper/scss';
 import 'swiper/scss/navigation';
@@ -8,14 +7,12 @@ import styles from './CandidatesSlide.module.scss';
 
 import CandidateCard from '@/components/Vote/VoteContent/CandidateCard/CandidateCard';
 
-import {isShowResultsState} from '@/recoil/vote/showResults';
-
 import {CandidatesSlideProps} from '@/types/vote';
 
 const CandidatesSlide = ({candidates, setSelectedPinIndex, setCenterMarker, swiperRef}: CandidatesSlideProps) => {
   const location = useLocation();
   const voteId = Number(location.pathname.split('/')[4]);
-  const showResults = useRecoilValue(isShowResultsState(voteId));
+  // const showResults = useRecoilValue(isShowResultsState(voteId));
 
   const handleSlideChange = (swiper: SwiperClass) => {
     const activeCandidate = candidates[swiper.activeIndex];
@@ -23,7 +20,7 @@ const CandidatesSlide = ({candidates, setSelectedPinIndex, setCenterMarker, swip
     setSelectedPinIndex(swiper.activeIndex);
   };
 
-  console.log('showResults', showResults);
+  // console.log('showResults', showResults);
 
   return (
     <div className={styles.container}>
@@ -37,7 +34,7 @@ const CandidatesSlide = ({candidates, setSelectedPinIndex, setCenterMarker, swip
       >
         {candidates.map((candidate, i) => (
           <SwiperSlide key={`${candidate.id}-${i}`}>
-            <CandidateCard isMapStyle={true} candidate={candidate} index={i + 1} showResults={showResults} />
+            <CandidateCard isMapStyle={true} candidate={candidate} index={i + 1} />
           </SwiperSlide>
         ))}
       </Swiper>
