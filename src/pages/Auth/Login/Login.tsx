@@ -23,7 +23,9 @@ function Login() {
   return (
     <div className={styles.container}>
       <h1 aria-hidden='true'>
-        <Logo />
+        <Link to='/'>
+          <Logo />
+        </Link>
       </h1>
 
       <LoginForm />
