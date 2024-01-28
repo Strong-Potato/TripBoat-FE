@@ -66,7 +66,7 @@ export function parsingAlarmTravel(notificationDetails: NotificationDetails[]) {
           // eslint-disable-next-line no-case-declarations
           const oldDates = spaceEventInfo?.oldDates || '날짜 미정';
           // eslint-disable-next-line no-case-declarations
-          const newDates = spaceEventInfo?.changDate || '날짜 미정';
+          const newDates = spaceEventInfo?.changeDate || '날짜 미정';
           notificationData.title = `여행날짜가 [${oldDates}]에서 [${newDates}]으로 변경되었습니다.`;
           break;
         default:

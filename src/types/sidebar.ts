@@ -9,6 +9,7 @@ export interface UserDatas {
   profile: string;
   provider: string;
   email: string;
+  isSubscribe: boolean;
 }
 
 export type GetUpcomingProp = {
