@@ -3,7 +3,7 @@ import update from 'immutability-helper';
 import {useCallback, useEffect, useState} from 'react';
 import {useDrop} from 'react-dnd';
 import {AiOutlinePlus as PlusIcon} from 'react-icons/ai';
-import {useSetRecoilState} from 'recoil';
+import {useRecoilValue, useSetRecoilState} from 'recoil';
 
 import styles from './DayRoute.module.scss';
 
@@ -11,6 +11,7 @@ import BottomSlide from '@/components/BottomSlide/BottomSlide';
 import CustomToast from '@/components/CustomToast/CustomToast';
 
 import {editedPlacesState} from '@/recoil/spaces/selectPlace';
+import {isPassedState} from '@/recoil/spaces/trip';
 import {setRouteDate} from '@/utils/formatDate';
 import {findShortestPath} from '@/utils/optimizePlace';
 
@@ -36,6 +37,7 @@ function DayRoute({
   const [isOptimize, setIsOptimize] = useState(false);
   const setEditedPlaces = useSetRecoilState(editedPlacesState);
   const showToast = CustomToast();
+  const isPassed = useRecoilValue(isPassedState);
 
   const handleModalClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -93,15 +95,17 @@ function DayRoute({
             <span className={styles.dayTitle}>DAY {day}</span>
             <span className={styles.dayDate}>{setRouteDate(date)}</span>
           </div>
-          <button onClick={onOpen}>
-            <PlusIcon size='2.4rem' />
-          </button>
+          {!isPassed && (
+            <button onClick={onOpen}>
+              <PlusIcon size='2.4rem' />
+            </button>
+          )}
         </header>
         <div>
           <button
             className={styles.optimizationButton}
             style={{
-              color: placeCards?.length > 2 ? '#2388FF' : '#979C9E',
+              color: placeCards?.length > 2 && !isPassed ? '#2388FF' : '#979C9E',
               cursor: placeCards?.length > 2 ? 'pointer' : 'default',
             }}
             onClick={() => setIsOptimize(placeCards?.length > 2)}
@@ -109,35 +113,33 @@ function DayRoute({
             루트 최적화
           </button>
           <div ref={drop} className={styles.placeListContainer}>
-            {placeCards?.length ? (
-              placeCards?.map((place, index) => (
-                <DraggablePlaceCard
-                  key={place.selectedId}
-                  journeyId={journeyId}
-                  selectedId={place.selectedId}
-                  order={placeList[index]?.order}
-                  name={place.place.title}
-                  category={place.place.category}
-                  address={`${place.place.address} ${place.place.addressDetail}`}
-                  contentTypeId={place.place.contentTypeId}
-                  placeId={place.place.placeId}
-                  editMode={editMode}
-                  selectedPlaces={selectedPlaces}
-                  onSelect={(journeyId, selectedId, placeId) =>
-                    handlePlaceSelection(journeyId, selectedId, placeId, selectedPlaces, setSelectedPlaces)
-                  }
-                  moveCard={moveCard}
-                  findCard={findCard}
-                />
-              ))
-            ) : (
-              <EmptyRoute />
-            )}
+            {placeCards?.length
+              ? placeCards?.map((place, index) => (
+                  <DraggablePlaceCard
+                    key={place.selectedId}
+                    journeyId={journeyId}
+                    selectedId={place.selectedId}
+                    order={placeList[index]?.order}
+                    name={place.place.title}
+                    category={place.place.category}
+                    address={`${place.place.address} ${place.place.addressDetail}`}
+                    contentTypeId={place.place.contentTypeId}
+                    placeId={place.place.placeId}
+                    editMode={editMode}
+                    selectedPlaces={selectedPlaces}
+                    onSelect={(journeyId, selectedId, placeId) =>
+                      handlePlaceSelection(journeyId, selectedId, placeId, selectedPlaces, setSelectedPlaces)
+                    }
+                    moveCard={moveCard}
+                    findCard={findCard}
+                  />
+                ))
+              : !isPassed && <EmptyRoute />}
           </div>
         </div>
       </div>
       <BottomSlide isOpen={isOpen} onClose={onClose} children={<AddPlace journeyId={journeyId} day={day} />} />
-      {isOptimize && (
+      {isOptimize && !isPassed && (
         <div className={styles.background} onClick={handleBackgroundClick}>
           <div className={styles.container} onClick={handleModalClick}>
             <div className={styles.wrapperText}>

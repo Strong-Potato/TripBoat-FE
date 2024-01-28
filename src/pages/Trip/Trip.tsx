@@ -29,7 +29,7 @@ import FriendList from '@/components/TripSpace/FriendList/FriendList';
 import InviteFriends from '@/components/TripSpace/InviteFriends/InviteFriends';
 import VoteTabPanel from '@/components/VoteTabPanel/VoteTabPanel';
 
-import {activeTabIndexState} from '@/recoil/spaces/trip';
+import {activeTabIndexState, isPassedState} from '@/recoil/spaces/trip';
 import {journeyState} from '@/recoil/vote/addToJourney';
 import {checkDDay} from '@/utils/checkDday';
 import {setSpaceDate} from '@/utils/formatDate';
@@ -55,6 +55,13 @@ function Trip() {
   const navigate = useNavigate();
   const users = spaceData?.data?.members;
   const SetJourneyAtom = useSetRecoilState(journeyState(Number(id)));
+  const [isPassed, setIsPassed] = useRecoilState(isPassedState);
+
+  if (spaceData) {
+    setIsPassed(spaceData?.data?.dueDate < 0);
+  }
+
+  console.log(isPassed);
 
   if (journeysData) {
     SetJourneyAtom(journeysData?.data);
@@ -70,26 +77,31 @@ function Trip() {
     map?.relayout();
     setCenter(getMapCenter(journeysData?.data));
     setLevel(1);
-
-    console.log(selectedTabIndex);
   }, [selectedTabIndex]);
 
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.iconTab}>
-          <button onClick={onAlarmOpen} className={styles.iconTab__wrapper}>
-            <AlarmIcon size='24px' color='white' />
-            {news && <div className={styles.iconTab__wrapper__eclips} />}
-          </button>
-          <button onClick={onSlideBarOpen}>
-            <MenuIcon size='24px' color='white' />
-          </button>
-        </div>
+      <div className={styles.container} style={isPassed ? {backgroundColor: '#979C9E'} : {backgroundColor: '#62AAFF'}}>
+        {!isPassed && (
+          <div className={styles.iconTab}>
+            <button onClick={onAlarmOpen} className={styles.iconTab__wrapper}>
+              <AlarmIcon size='24px' color='white' />
+              {news && <div className={styles.iconTab__wrapper__eclips} />}
+            </button>
+            <button onClick={onSlideBarOpen}>
+              <MenuIcon size='24px' color='white' />
+            </button>
+          </div>
+        )}
 
         <header className={styles.header}>
           <div className={styles.titleContainer}>
-            <div className={styles.titleContainer__dDayTitle}>{checkDDay(spaceData?.data?.dueDate)}</div>
+            <div
+              className={styles.titleContainer__dDayTitle}
+              style={isPassed ? {color: '#D4E8FF'} : {color: '#FFFFFF'}}
+            >
+              {checkDDay(spaceData?.data?.dueDate)}
+            </div>
             <div
               className={styles.titleContainer__placeTitle}
               style={
@@ -114,9 +126,11 @@ function Trip() {
                     )
                   : '날짜를 정해주세요'}
               </span>
-              <button className={styles.dateContainer__editButton} onClick={onBottomSlideOpen}>
-                편집
-              </button>
+              {!isPassed && (
+                <button className={styles.dateContainer__editButton} onClick={onBottomSlideOpen}>
+                  편집
+                </button>
+              )}
             </div>
           </div>
           <div className={styles.userContainer}>
@@ -135,10 +149,12 @@ function Trip() {
               </AvatarGroup>
               {users?.length > 3 && <span>외 {users?.length - 3}명</span>}
             </button>
-            <button className={styles.addPersonButton} onClick={onInviteOpen}>
-              <PlusIcon />
-              <span>일행추가</span>
-            </button>
+            {!isPassed && (
+              <button className={styles.addPersonButton} onClick={onInviteOpen}>
+                <PlusIcon />
+                <span>일행추가</span>
+              </button>
+            )}
           </div>
         </header>
 
