@@ -23,7 +23,7 @@ function UserPrivacy() {
     authRequest.logout();
 
     // remove query cache for logout
-    queryClient.removeQueries({queryKey: ['myInfo']});
+    queryClient.clear();
     navigate('/');
   };
 
