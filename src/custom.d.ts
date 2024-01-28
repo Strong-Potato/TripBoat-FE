@@ -6,7 +6,7 @@ declare namespace JSX {
       speed?: string;
       loop?: boolean;
       autoplay?: boolean;
-      style?: string;
+      style?: {width: string; height: string};
     };
   }
 }
