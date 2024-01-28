@@ -281,3 +281,20 @@ export interface PostReview {
   images: string[];
   visitedAt: string;
 }
+
+export interface PatchMyReview {
+  reviewId: number;
+  rating: number;
+  content: string;
+  images: string[];
+  visitedAt: string;
+}
+
+export interface EditReviewBottomSlideProps {
+  reviewId: number;
+  slideOnClose: () => void;
+  starCountProps: number;
+  textProps: string;
+  timeProps: Date;
+  imageUrlsProps: string[];
+}
