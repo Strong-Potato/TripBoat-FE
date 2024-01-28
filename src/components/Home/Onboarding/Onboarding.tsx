@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {Cookies} from 'react-cookie';
 import {useNavigate} from 'react-router-dom';
 
 import styles from './Onboarding.module.scss';
@@ -16,6 +17,7 @@ interface PropsType {
 function Onboarding({set}: PropsType) {
   const [isVote, setIsVote] = useState(false);
   const navigate = useNavigate();
+  const cookie = new Cookies().get('isLogin');
 
   const data = [
     {
@@ -89,7 +91,11 @@ function Onboarding({set}: PropsType) {
           className={styles.modal__voteButton}
           onClick={() => {
             vote();
-            navigate('/vote');
+            if (cookie) {
+              navigate('/trip');
+            } else {
+              navigate('/auth/login');
+            }
           }}
           style={{
             height: isVote ? '6.4rem' : 0,
