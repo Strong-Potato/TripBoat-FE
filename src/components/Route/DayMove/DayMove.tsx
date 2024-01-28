@@ -1,15 +1,12 @@
 import {useState} from 'react';
 import {RiCheckboxCircleFill as SelectedIcon} from 'react-icons/ri';
-import {useNavigate, useParams} from 'react-router-dom';
-import {useSetRecoilState} from 'recoil';
+import {useParams} from 'react-router-dom';
 
 import styles from './DayMove.module.scss';
 
 import {useDeletePlaces, usePostPlaces} from '@/hooks/Spaces/space';
 
 import {transformSelectedPlaces} from '@/components/Route/RouteTabPanel/formatJourneyData';
-
-import {activeTabIndexState} from '@/recoil/spaces/trip';
 
 import {DayMoveProps} from '@/types/route';
 
@@ -19,8 +16,6 @@ function DayMove({journeysData, selectedPlaces, onClose, setIsEditMode}: DayMove
   const {id} = useParams();
   const deletePlaces = useDeletePlaces();
   const postPlaces = usePostPlaces();
-  const navigate = useNavigate();
-  const setSelectedTabIndex = useSetRecoilState(activeTabIndexState);
 
   const handleSelect = async (index: number) => {
     const updatedSelectedDays = [...selectedDays];
