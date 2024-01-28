@@ -36,7 +36,7 @@
 - Back-end : TourAPI, Java Springboot3
 - 버전 및 이슈관리 : Github, Github Issues, Github Project
 - 협업 툴 : Discord, Notion, Slack
-- 서비스 배포 환경 : Vercel. Github CI
+- 서비스 배포 환경 : Vercel, Github Action
 - 디자인 : [Figma](https://www.figma.com/file/ypTLv92s72sihUApnxjP5C/%EA%B0%95%EC%9E%90%EB%B0%AD-%ED%94%BC%EA%B7%B8%EB%A7%88?type=design&node-id=40%3A3&mode=design&t=uYBOpmiZcAjXWHWQ-1)
 <br>
 
@@ -44,13 +44,12 @@
 
 ### React, SCSS
 
-- React
+- React(Vite)
     - 컴포넌트화를 통해 추후 유지보수와 재사용성을 고려했습니다.
-    - 유저 배너, 상단과 하단 배너 등 중복되어 사용되는 부분이 많아 컴포넌트화를 통해 리소스 절약이 가능했습니다.
-- styled-component
-    - props를 이용한 조건부 스타일링을 활용하여 상황에 알맞은 스타일을 적용시킬 수 있었습니다.
-    - 빌드될 때 고유한 클래스 이름이 부여되어 네이밍 컨벤션을 정하는 비용을 절약할 수 있었습니다.
-    - S dot naming을 통해 일반 컴포넌트와 스타일드 컴포넌트를 쉽게 구별하도록 했습니다.
+    - 커스텀 훅과 유틸 함수를 사용하여 일관된 데이터를 사용할 수 있도록 노력했습니다.
+- SCSS
+    - module.scss를 사용해서 className의 네이밍 컨벤션을 정하는 비용을 절약할 수 있었습니다.
+    - BEM 방법론을 도입하여 컴포넌트 구조를 좀 더 쉽게 파악할 수 있도록 했습니다.
     
 ### Recoil
 
@@ -58,101 +57,50 @@
 - Redux가 아닌 Recoil을 채택한 이유
     - Recoil은 React만을 위한 라이브러리로, 사용법도 기존의 useState 훅을 사용하는 방식과 유사해 학습비용을 낮출 수 있었습니다.
     - 또한 Redux보다 훨씬 적은 코드라인으로 작동 가능하다는 장점이 있었습니다.
-- 로그인과 최초 프로필 설정 시 유저 정보를 atom에 저장하여 필요한 컴포넌트에서 구독하는 방식으로 사용했습니다.
 
 ### eslint, prettier
 
 - 정해진 규칙에 따라 자동적으로 코드 스타일을 정리해 코드의 일관성을 유지하고자 했습니다.
 - 코드 품질 관리는 eslint에, 코드 포맷팅은 prettier에 일임해 사용했습니다.
-- airbnb의 코딩 컨벤션을 참고해 사용했고, 예외 규칙은 팀원들과 협의했습니다.
 - 협업 시 매번 컨벤션을 신경 쓸 필요 없이 빠르게 개발하는 데에 목적을 두었습니다.
 
 ### MSW
 
+- 기획, 디자인이 완료되어 렌더링에 필요한 데이터를 명세를 통해 정하고, 이를 바탕으로 API를 mocking하여 사용할 수 있었습니다.
+- BackEnd에서 API를 제공해주는 시점 전에도 미리 API 연결을 통해 미리 화면을 구성하여 작업을 진행할 수 있었습니다.
 
 
 ### Jest
 
-
+- 유틸 함수를 테스트하여 일관된 데이터가 도출 되는지 확인하여, 변칙적인 상황을 줄였습니다. 
 
 ### 브랜치 전략
 
-- Git-flow 전략을 기반으로 main, develop 브랜치와 feature 보조 브랜치를 운용했습니다.
+- Git-flow 전략을 기반으로 main, dev 브랜치로 버전을 관리하였고, Git issue를 통해 브랜치를 생성하여 이슈단위로 기능을 개발했습니다.
 - main, develop, Feat 브랜치로 나누어 개발을 하였습니다.
     - **main** 브랜치는 배포 단계에서만 사용하는 브랜치입니다.
     - **develop** 브랜치는 개발 단계에서 git-flow의 master 역할을 하는 브랜치입니다.
-    - **Feat** 브랜치는 기능 단위로 독립적인 개발 환경을 위하여 사용하고 merge 후 각 브랜치를 삭제해주었습니다.
-
+    - **Feat** 브랜치는 기능 단위로 독립적인 개발 환경을 위하여 사용하고 PR merge 후 각 브랜치를 자동 삭제해주었습니다.
+-  Github actions에 CI를 적용하여 빌드 및 시작에 오류가 없는지 테스트하고 그 결과를 PR 상태에 반영했습니다.
 <br>
 
 ## 3. 프로젝트 구조
 
 ```
-├── README.md
-├── .eslintrc.js
-├── .gitignore
-├── .prettierrc.json
-├── package-lock.json
-├── package.json
-│
-├── public
-│    └── index.html
-└── src
-     ├── App.jsx
-     ├── index.jsx
-     ├── api
-     │     └── mandarinAPI.js
-     ├── asset
-     │     ├── fonts
-     │     ├── css_sprites.png
-     │     ├── logo-404.svg
-     │     └── logo-home.svg
-     │          .
-     │          .
-     │          .
-     ├── atoms
-     │     ├── LoginData.js
-     │     └── LoginState.js
-     ├── common
-     │     ├── alert
-     │     │     ├── Alert.jsx
-     │     │     └── Alert.Style.jsx
-     │     ├── button
-     │     ├── comment
-     │     ├── inputBox
-     │     ├── post
-     │     ├── postModal
-     │     ├── product
-     │     ├── tabMenu
-     │     ├── topBanner
-     │     └── userBanner
-     ├── pages
-     │     ├── addProduct
-     │     │     ├── AddProduct.jsx
-     │     │     └── AddProduct.Style.jsx
-     │     ├── chatList
-     │     ├── chatRoom
-     │     ├── emailLogin
-     │     ├── followerList
-     │     ├── followingList
-     │     ├── home
-     │     ├── join
-     │     ├── page404
-     │     ├── postDetail
-     │     ├── postEdit
-     │     ├── postUpload
-     │     ├── productEdit
-     │     ├── profile
-     │     ├── profileEdit
-     │     ├── profileSetting
-     │     ├── search
-     │     ├── snsLogin
-     │     └── splash
-     ├── routes
-     │     ├── privateRoutes.jsx
-     │     └── privateRoutesRev.jsx  
-     └── styles
-           └── Globalstyled.jsx
+📦src
+ ┣ 📂api
+ ┣ 📂assets
+ ┣ 📂chakra
+ ┣ 📂components
+ ┣ 📂firebase
+ ┣ 📂hooks
+ ┣ 📂mocks
+ ┣ 📂pages
+ ┣ 📂recoil
+ ┣ 📂routes
+ ┣ 📂sass
+ ┣ 📂types
+ ┗ 📂utils
 ```
 
 <br>
