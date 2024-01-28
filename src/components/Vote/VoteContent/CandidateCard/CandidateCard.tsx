@@ -36,6 +36,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, index, showRes
   const showToast = CustomToast();
   const placeInfo = candidate.placeInfo;
   const imgSrc = placeInfo.placeImageUrl ? placeInfo.placeImageUrl : nullImg;
+  const votedMembers = candidate.votedMemberProfiles;
 
   useEffect(() => {
     if (candidate.amIVote) {
@@ -77,8 +78,8 @@ const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, index, showRes
   const RankIcon = candidate.rank && getRankIcon(candidate.rank);
 
   const onVoteBoxClick = async () => {
-    if (showResults && onBottomSlideOpen) {
-      onBottomSlideOpen(<VotedUserList />);
+    if (showResults && onBottomSlideOpen && votedMembers) {
+      onBottomSlideOpen(<VotedUserList votedMembers={votedMembers} />);
     } else {
       await votingMutateAsync({voteId: Number(voteId), candidateId: candidate.id});
     }

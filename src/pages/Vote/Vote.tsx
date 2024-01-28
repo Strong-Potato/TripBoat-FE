@@ -45,6 +45,7 @@ const Vote = () => {
   useEffect(() => {
     const isShowResults = showResultIds.some((id) => id === voteId);
     setShowResults(isShowResults);
+    setIsBTOpen(false);
   }, []);
 
   useEffect(() => {

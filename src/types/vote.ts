@@ -3,7 +3,7 @@ import {SwiperRef} from 'swiper/react';
 
 import {SearchItemType} from './home';
 
-interface UserInfo {
+export interface UserInfo {
   id: number;
   nickName?: string;
   profileImageUrl: string;
