@@ -4,9 +4,10 @@ import {useSetRecoilState} from 'recoil';
 
 import styles from './Step.module.scss';
 
+import {useFindPasswordSendEmail} from '@/hooks/Auth/auth';
+
 import CustomToast from '@/components/CustomToast/CustomToast';
 
-import {authRequest} from '@/api/auth';
 import {isModalOpenState} from '@/recoil/vote/alertModal';
 
 import ExpireAlert from '../../Alert/ExpireAlert';
@@ -20,11 +21,11 @@ function StepEmail({setFindPasswordStep, register, watchFields: {email}, dirty, 
   const showToast = CustomToast();
   const [expire, setExpire] = useState(0);
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
+  const sendEmail = useFindPasswordSendEmail();
 
   const onClickEmail = async () => {
     try {
-      const res = await authRequest.lostPassword_sendEmail(email);
-      console.log(res);
+      const res = await sendEmail.mutateAsync({email});
 
       if (res.data.responseCode === 404) {
         showToast('해당 사용자가 존재하지 않습니다.');

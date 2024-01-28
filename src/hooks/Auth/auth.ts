@@ -1,6 +1,15 @@
 import {useMutation} from '@tanstack/react-query';
 
-import {login, logout, signup_emailSert, signup_sendEmail, signup_submit} from '@/api/auth';
+import {
+  login,
+  logout,
+  lostPassword_emailSert,
+  lostPassword_sendEmail,
+  lostPassword_submit,
+  signup_emailSert,
+  signup_sendEmail,
+  signup_submit,
+} from '@/api/auth';
 
 /* ---------------------------------- LOG IN/OUT --------------------------------- */
 export const useLogin = () => {
@@ -82,7 +91,70 @@ export const useSignupEmailSert = () => {
         console.error('인증코드 불일치', data);
         return;
       }
-      console.log(data);
+      console.log('이메일 인증 성공', data);
+    },
+    onError: (err) => {
+      console.error(err);
+    },
+  });
+};
+
+/* ------------------------------ FIND PASSWORD ----------------------------- */
+export const useFindPassword = () => {
+  return useMutation({
+    mutationFn: lostPassword_submit,
+    onSuccess: (data) => {
+      const resCode = data.data.responseCode;
+
+      if (resCode === 204 || resCode === 205) {
+        console.error('토큰 에러', data);
+        return;
+      }
+      if (resCode === 207) {
+        console.error('기존 비밀번호 입력', data);
+        return;
+      }
+      console.log('비밀번호 변경 성공', data);
+    },
+    onError: (err) => {
+      console.error(err);
+    },
+  });
+};
+
+export const useFindPasswordSendEmail = () => {
+  return useMutation({
+    mutationFn: lostPassword_sendEmail,
+    onSuccess: (data) => {
+      const resCode = data.data.responseCode;
+
+      if (resCode === 404) {
+        console.error('존재하지 않는 유저', data);
+        return;
+      }
+      if (resCode === 202) {
+        console.error('요청 횟수 초과', data);
+        return;
+      }
+      console.log('이메일 요청 성공', data);
+    },
+    onError: (err) => {
+      console.error(err);
+    },
+  });
+};
+
+export const useFindPasswordEmailSert = () => {
+  return useMutation({
+    mutationFn: lostPassword_emailSert,
+    onSuccess: (data) => {
+      const resCode = data.data.responseCode;
+
+      if (resCode === 203) {
+        console.error('인증코드 불일치', data);
+        return;
+      }
+      console.log('이메일 인증 성공', data);
     },
     onError: (err) => {
       console.error(err);

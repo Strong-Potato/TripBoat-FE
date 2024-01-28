@@ -118,3 +118,22 @@ export const signup_submit = ({email, password, profile, nickname, token}: AuthF
     nickname,
     token,
   });
+
+/* ------------------------------ FIND PASSWORD ----------------------------- */
+export const lostPassword_sendEmail = ({email}: AuthForm) =>
+  axios.post('/api/auth/modify/lost-password/send-email', {
+    email,
+  });
+
+export const lostPassword_emailSert = ({email, code}: AuthForm) =>
+  axios.post('/api/auth/modify/lost-password/check-token', {
+    email,
+    code,
+  });
+
+export const lostPassword_submit = ({email, newPassword, token}: AuthForm) =>
+  axios.post('/api/auth/modify/lost-password', {
+    email,
+    newPassword,
+    token,
+  });
