@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
 
 import styles from './Login.module.scss';
@@ -7,7 +6,6 @@ import {useGetMyInfo} from '@/hooks/User/useUser';
 
 import LoginForm from '@/components/Auth/Login/LoginForm';
 
-import {authRequest} from '@/api/auth';
 import KakaoIcon from '@/assets/kakao/kakao_path.svg?react';
 import Logo from '@/assets/logo.svg?react';
 
@@ -21,17 +19,6 @@ function Login() {
     console.error('User was already logged in');
     navigate('/');
   }
-
-  const onClickKakao = async () => {
-    try {
-      const res = await authRequest.login_kakao();
-      console.log('login_kakao response', res);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.log(error);
-      }
-    }
-  };
 
   return (
     <div className={styles.container}>
@@ -54,11 +41,13 @@ function Login() {
           <div className={styles.row_bar}></div>
         </h2>
 
-        <button type='button' className={styles.snsLogin__btn} onClick={onClickKakao}>
-          <KakaoIcon />
-          <span className={styles.kakao_text}>카카오 로그인</span>
-          <span className={styles.kakao_space} aria-hidden></span>
-        </button>
+        <Link to='https://api.tripvote.site/oauth2/authorization/kakao'>
+          <button type='button' className={styles.snsLogin__btn}>
+            <KakaoIcon />
+            <span className={styles.kakao_text}>카카오 로그인</span>
+            <span className={styles.kakao_space} aria-hidden></span>
+          </button>
+        </Link>
       </section>
 
       <section className={styles.toHome}>

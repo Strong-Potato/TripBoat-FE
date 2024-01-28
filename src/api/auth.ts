@@ -12,11 +12,6 @@ export const authRequest = {
       {withCredentials: true},
     ),
 
-  login_kakao: () =>
-    axios.get('https://api.tripvote.site/oauth2/authorization/kakao', {
-      withCredentials: true,
-    }),
-
   logout: () => axios.post('/api/logout', {}, {withCredentials: true}),
 
   /* --------------------------------- SIGNUP FLOW --------------------------------- */
