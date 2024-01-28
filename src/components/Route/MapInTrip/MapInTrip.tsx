@@ -17,7 +17,7 @@ function MapInTrip({mapRef, center, journeysData}: MapInTripProps) {
     <Map className={styles.mapInTripContainer} center={center} level={1} ref={mapRef}>
       <Polyline path={linePath} strokeWeight={3} strokeColor='#3F444D' strokeOpacity={10} strokeStyle='dashed' />
       {linePath?.map((item, index) => (
-        <CustomOverlayMap key={journeysData?.journeys[index]?.journeyId} position={item}>
+        <CustomOverlayMap key={journeysData?.journeys[0]?.places[index]?.selectedId} position={item}>
           <div>
             <MapPinCommon number={index + 1} />
           </div>

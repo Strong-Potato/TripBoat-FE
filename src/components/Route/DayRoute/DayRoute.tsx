@@ -98,21 +98,21 @@ function DayRoute({
           <button
             className={styles.optimizationButton}
             style={{
-              color: placeCards.length > 2 ? '#2388FF' : '#979C9E',
-              cursor: placeCards.length > 2 ? 'pointer' : 'default',
+              color: placeCards?.length > 2 ? '#2388FF' : '#979C9E',
+              cursor: placeCards?.length > 2 ? 'pointer' : 'default',
             }}
-            onClick={() => setIsOptimize(placeCards.length > 2)}
+            onClick={() => setIsOptimize(placeCards?.length > 2)}
           >
             루트 최적화
           </button>
           <div ref={drop} className={styles.placeListContainer}>
-            {placeCards.length ? (
-              placeCards.map((place, index) => (
+            {placeCards?.length ? (
+              placeCards?.map((place, index) => (
                 <DraggablePlaceCard
                   key={place.selectedId}
                   journeyId={journeyId}
                   selectedId={place.selectedId}
-                  order={placeList[index].order}
+                  order={placeList[index]?.order}
                   name={place.place.title}
                   category={place.place.category}
                   address={`${place.place.address} ${place.place.addressDetail}`}
