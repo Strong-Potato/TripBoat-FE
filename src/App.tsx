@@ -1,5 +1,5 @@
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {Suspense, useEffect} from 'react';
+import {Suspense} from 'react';
 import {CookiesProvider} from 'react-cookie';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
@@ -24,11 +24,6 @@ function App() {
     '카카오톡으로 친구와 가족들을 여행에 초대해보세요',
     '요즘 인기 있는 장소를 검색해보세요',
   ];
-
-  useEffect(() => {
-    document.body.style.removeProperty('overflow');
-  });
-
   return (
     <Suspense
       fallback={

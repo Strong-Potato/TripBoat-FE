@@ -27,6 +27,7 @@ function BottomFixedBtn({onOpen}: BottomFixedBtnProps) {
       navigate('/auth/login');
     },
   };
+
   const showNotLoginModal = () => {
     setIsModalOpen(true);
     setModalContent({...notLoginContent});

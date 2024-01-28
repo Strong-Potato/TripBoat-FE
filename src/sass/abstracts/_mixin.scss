@@ -1,6 +1,6 @@
 //재사용 가능한 스타일 믹스인을 정의합니다.
-@use "./variables";
-@use "sass:map";
+@use './variables';
+@use 'sass:map';
 
 @mixin typography($name) {
   font-size: map-get(variables.$typography-font-size-map, $name);
@@ -32,8 +32,6 @@
   position: relative;
 
   display: flex;
-
-  padding: 0 20px;
 
   transition: all 0.5s;
 }
