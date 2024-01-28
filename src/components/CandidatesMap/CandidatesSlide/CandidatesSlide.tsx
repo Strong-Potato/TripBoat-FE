@@ -1,4 +1,3 @@
-import {useLocation} from 'react-router-dom';
 import {Swiper, SwiperClass, SwiperSlide} from 'swiper/react';
 import 'swiper/scss';
 import 'swiper/scss/navigation';
@@ -10,8 +9,8 @@ import CandidateCard from '@/components/Vote/VoteContent/CandidateCard/Candidate
 import {CandidatesSlideProps} from '@/types/vote';
 
 const CandidatesSlide = ({candidates, setSelectedPinIndex, setCenterMarker, swiperRef}: CandidatesSlideProps) => {
-  const location = useLocation();
-  const voteId = Number(location.pathname.split('/')[4]);
+  // const location = useLocation();
+  // const voteId = Number(location.pathname.split('/')[4]);
   // const showResults = useRecoilValue(isShowResultsState(voteId));
 
   const handleSlideChange = (swiper: SwiperClass) => {
@@ -19,8 +18,6 @@ const CandidatesSlide = ({candidates, setSelectedPinIndex, setCenterMarker, swip
     setCenterMarker(activeCandidate.placeInfo.latLng);
     setSelectedPinIndex(swiper.activeIndex);
   };
-
-  // console.log('showResults', showResults);
 
   return (
     <div className={styles.container}>

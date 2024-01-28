@@ -14,14 +14,9 @@ import {translateCategoryName} from '@/utils/translateSearchData';
 import VoteRecommendItem from './VoteRecommendItem/VoteRecommendItem';
 
 import {SearchItemType} from '@/types/home';
+import {VoteRecommendListProps} from '@/types/vote';
 
-interface PropsType {
-  state: string;
-  isCandidateSelecting: boolean;
-  categoryCode: string;
-}
-
-const VoteRecommendList = ({state, isCandidateSelecting, categoryCode}: PropsType) => {
+const VoteRecommendList = ({state, isCandidateSelecting, onBottomSlideOpen, categoryCode}: VoteRecommendListProps) => {
   const [data, setData] = useState<SearchItemType[] | undefined>();
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
@@ -59,7 +54,10 @@ const VoteRecommendList = ({state, isCandidateSelecting, categoryCode}: PropsTyp
             left: slideLocation + 'px',
           }}
         >
-          {data && data.map((data) => <VoteRecommendItem data={data} state={state} key={data.id} />)}
+          {data &&
+            data.map((data) => (
+              <VoteRecommendItem data={data} state={state} key={data.id} onBottomSlideOpen={onBottomSlideOpen} />
+            ))}
         </div>
       </div>
     </div>

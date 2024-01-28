@@ -29,7 +29,7 @@ const CandidatesMap = () => {
     } else {
       setCandidates(voteInfo.candidates);
     }
-  }, [resultsInfo, showResults]);
+  }, []);
 
   if (!voteInfo) {
     return;

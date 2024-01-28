@@ -17,6 +17,7 @@ export interface LatLng {
 export interface PlaceInfo {
   placeId: number;
   placeName: string;
+  contentTypeId: number;
   category: string;
   areaCode: string;
   placeImageUrl: string;
@@ -98,7 +99,6 @@ export interface VoteContentProps {
   onBottomSlideOpen: (content: ReactNode) => void;
   data: VoteInfo;
   showResults?: boolean;
-  // isZeroCandidates: boolean;
 }
 
 export interface VoteHeaderProps {
@@ -188,7 +188,7 @@ export interface PostNewCandidateProps {
 }
 
 export interface CandidatesMapBodyProps {
-  candidates: CandidatesInfo[];
+  candidates: CandidatesInfo[] | ResultCandidatesInfo[];
 }
 
 export interface VoteRecommendListProps {

@@ -39,8 +39,6 @@ const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, index}: Candid
   const imgSrc = placeInfo.placeImageUrl ? placeInfo.placeImageUrl : nullImg;
   const votedMembers = candidate.votedMemberProfiles;
 
-  console.log('showResults', showResults);
-
   useEffect(() => {
     if (candidate.amIVote) {
       setStarIcon(<FaStar style={{color: '#fee500'}} />);
@@ -112,7 +110,9 @@ const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, index}: Candid
         <div className={styles.main__contextBox}>
           <button
             className={styles.main__contextBox__name}
-            onClick={() => navigate(`/detail/${candidate.id}`)}
+            onClick={() =>
+              navigate(`/detail/${placeInfo.placeId} ${placeInfo.contentTypeId}?title=${placeInfo.placeName}`)
+            }
             disabled={isCandidateSelecting}
           >
             {placeInfo.placeName.length >= 10 ? placeInfo.placeName.slice(0, 10) + ' ⋯' : placeInfo.placeName}
