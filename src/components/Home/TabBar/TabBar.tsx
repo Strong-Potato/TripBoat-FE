@@ -11,7 +11,8 @@ import {Alarmprop} from '@/types/alarm';
 function TabBar({onAlarmOpen, isAlarmOpen}: Alarmprop) {
   const news = localStorage.getItem('news');
   const {data: AlarmData} = useGetAlarm(isAlarmOpen);
-  if (AlarmData?.data.data.notificationDetail[0].isRead === false) {
+
+  if (AlarmData?.data.data.notificationDetail[0]) {
     localStorage.setItem('news', 'true');
   }
 
