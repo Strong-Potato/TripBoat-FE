@@ -28,11 +28,7 @@ export interface InformationProps {
 function Information({data, onOpen, reviewsRating, reviews}: InformationProps) {
   return (
     <div>
-      <Link
-        className={styles.linkContainer}
-        to={`https://www.yanolja.com/search/${data.title}?keyword=${data.title}`}
-        target='_blank'
-      >
+      <Link className={styles.linkContainer} to={`https://www.yanolja.com/search/${data.title}`} target='_blank'>
         <Yanolja />
         <div className={styles.linkContainer__text}>
           <span className={styles.linkContainer__text__sale}>할인가</span>

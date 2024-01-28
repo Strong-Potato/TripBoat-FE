@@ -1,5 +1,5 @@
 import {useDisclosure} from '@chakra-ui/react';
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
@@ -20,10 +20,16 @@ interface ImageSwiperProps {
 function ImageSwiper({images}: ImageSwiperProps) {
   const [imageIndex, setImageIndex] = useState<number>(0);
   const {isOpen, onOpen, onClose} = useDisclosure();
+  const swiperRef = useRef<any>(null);
+
+  useEffect(() => {
+    swiperRef.current?.swiper.slideTo(imageIndex);
+  }, [imageIndex]);
 
   return (
     <>
       <Swiper
+        ref={swiperRef}
         pagination={{
           type: 'fraction',
         }}
