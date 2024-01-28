@@ -13,7 +13,7 @@ export const authRequest = {
     ),
 
   login_kakao: () =>
-    axios.post('/api/oauth2/authorization/kakao', null, {
+    axios.post('https://api.tripvote.site/oauth2/authorization/kakao', null, {
       withCredentials: true,
     }),
 
@@ -52,10 +52,10 @@ export const authRequest = {
       code,
     }),
 
-  lostPassword_submit: (email?: string, password?: string, token?: string) =>
+  lostPassword_submit: (email?: string, newPassword?: string, token?: string) =>
     axios.post('/api/auth/modify/lost-password', {
       email,
-      password,
+      newPassword,
       token,
     }),
 
@@ -65,10 +65,10 @@ export const authRequest = {
       password,
     }),
 
-  modifyPassword_submit: (token?: string, password?: string) =>
+  modifyPassword_submit: (token?: string, newPassword?: string) =>
     axios.post('/api/auth/modify/password', {
       token,
-      password,
+      newPassword,
     }),
 
   /* ------------------------------- WITHDRAWAL ------------------------------- */
