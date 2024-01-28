@@ -1,12 +1,15 @@
 import {useState} from 'react';
 import {RiCheckboxCircleFill as SelectedIcon} from 'react-icons/ri';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useSetRecoilState} from 'recoil';
 
 import styles from './DayMove.module.scss';
 
 import {useDeletePlaces, usePostPlaces} from '@/hooks/Spaces/space';
 
 import {transformSelectedPlaces} from '@/components/Route/RouteTabPanel/formatJourneyData';
+
+import {activeTabIndexState} from '@/recoil/spaces/trip';
 
 import {DayMoveProps} from '@/types/route';
 
@@ -16,19 +19,15 @@ function DayMove({journeysData, selectedPlaces, onClose, setIsEditMode}: DayMove
   const {id} = useParams();
   const deletePlaces = useDeletePlaces();
   const postPlaces = usePostPlaces();
+  const navigate = useNavigate();
+  const setSelectedTabIndex = useSetRecoilState(activeTabIndexState);
 
   const handleSelect = async (index: number) => {
     const updatedSelectedDays = [...selectedDays];
     updatedSelectedDays[index] = !updatedSelectedDays[index];
     setSelectedDays(updatedSelectedDays);
 
-    // TODO: 선택된 장소 카드 선택한 날짜 동선으로 이동
     const journeysId = journeysData?.journeys?.[index]?.journeyId;
-    console.log('지우겠다', transformSelectedPlaces(selectedPlaces));
-    console.log('추가하겠다.', {
-      journeyId: journeysId,
-      placeIds: selectedPlaces.flatMap((place) => place.placeId),
-    });
 
     await deletePlaces.mutateAsync({spaceId: Number(id), places: transformSelectedPlaces(selectedPlaces)});
     await postPlaces.mutateAsync({
@@ -37,10 +36,10 @@ function DayMove({journeysData, selectedPlaces, onClose, setIsEditMode}: DayMove
       placeIds: selectedPlaces.flatMap((place) => place.placeId),
     });
 
-    setTimeout(() => {
-      onClose();
-      setIsEditMode(false);
-    }, 300);
+    // FIXME: 페이지에 잔류하면서 보여지는 데이터 갱신
+    window.location.reload();
+    onClose();
+    setIsEditMode(false);
   };
 
   return (
