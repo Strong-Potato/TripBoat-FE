@@ -44,8 +44,6 @@ function SearchFromHome() {
       querystring.hot
     ) {
       if (!querystring.placeID && !querystring.tripDate) {
-        console.log(1);
-
         setForSearch({
           keyword: querystring.keyword === '없음' ? '' : querystring.keyword,
           category: parseInt(querystring.category),
@@ -58,8 +56,6 @@ function SearchFromHome() {
         });
       }
       if (querystring.placeID && !querystring.tripDate) {
-        console.log(2);
-
         setForSearch({
           keyword: querystring.keyword === '없음' ? '' : querystring.keyword,
           category: parseInt(querystring.category),
@@ -72,8 +68,6 @@ function SearchFromHome() {
         });
       }
       if (querystring.placeID && querystring.tripDate) {
-        console.log(3);
-
         setForSearch({
           keyword: querystring.keyword === '없음' ? '' : querystring.keyword,
           category: parseInt(querystring.category),
