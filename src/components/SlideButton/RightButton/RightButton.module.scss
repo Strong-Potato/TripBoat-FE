@@ -1,9 +1,10 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   right: 10px;
 
   transform: translate(-10px, -50%);
+  z-index: 30000;
 
   &__icon {
     position: absolute;

@@ -17,7 +17,7 @@ function SlideButton({
   return (
     <div
       className={styles.container}
-      style={{display: window.innerWidth < 450 || itemWidth * itemNumber < 450 ? 'none' : 'block'}}
+      style={{display: window.innerWidth < 450 || itemWidth * itemNumber + 40 < 450 ? 'none' : 'block'}}
     >
       <LeftButton
         slideLocation={slideLocation}

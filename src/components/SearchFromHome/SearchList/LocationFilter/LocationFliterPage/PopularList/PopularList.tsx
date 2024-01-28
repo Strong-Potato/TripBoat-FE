@@ -49,13 +49,12 @@ function PopularList({pick, setPick, setArea, setSigungu}: PropsType) {
       setSigungu('전주시');
     }
   }
-
   return (
     <div className={styles.container}>
       <SlideButton
         slideLocation={slideLocation}
         setSlideLocation={setSlideLocation}
-        itemWidth={58}
+        itemWidth={60}
         flexGap={8}
         itemNumber={locations.length}
         slideSize={size}
