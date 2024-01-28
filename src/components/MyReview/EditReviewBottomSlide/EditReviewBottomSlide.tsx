@@ -18,6 +18,7 @@ import {EditReviewBottomSlideProps} from '@/types/detail';
 
 import {s3Request} from '@/api/s3';
 import {usePatchMyReview} from '@/hooks/User/useMyReview';
+import CustomToast from '@/components/CustomToast/CustomToast';
 
 function EditReviewBottomSlide({
   reviewId,
@@ -35,6 +36,8 @@ function EditReviewBottomSlide({
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
 
+  const toast = CustomToast();
+
   const [starCount, setStarCount] = useState<number>(starCountProps);
   const [text, setText] = useState<string>(textProps);
   const [time, setTime] = useState<Date>(timeProps);
@@ -43,7 +46,7 @@ function EditReviewBottomSlide({
 
   const checkBeforeExit = {
     title: '잠깐!',
-    subText: '지금 나가면 작성내용이 전부 삭제돼요',
+    subText: '지금 나가면 수정내용이 전부 삭제돼요',
     cancelText: '마저 작성할게요',
     actionButton: '나갈래요',
     isSmallSize: true,
@@ -63,23 +66,23 @@ function EditReviewBottomSlide({
 
   const handlePatchMyReview = async () => {
     setIsDisabled(true);
-    if (imageFileList) {
-      const presignedUrls = await s3Request.uploadImages(imageFileList as File[]);
 
-      if (imageFileList) {
-        presignedUrls.map((url: string, i: number) => {
-          presignedUrls[i] = url.split('?')[0];
-        });
-      }
-      setImageUrls(presignedUrls);
+    const presignedUrls = await s3Request.uploadImages(imageFileList as File[]);
+
+    if (imageFileList) {
+      presignedUrls.map((url: string, i: number) => {
+        presignedUrls[i] = url.split('?')[0];
+      });
     }
+
     await patchMyReview.mutateAsync({
       reviewId,
       rating: starCount,
       content: text,
-      images: imageUrls,
+      images: imageFileList ? presignedUrls : imageUrls,
       visitedAt: `${time.getFullYear()}-${('00' + (time.getMonth() + 1).toString()).slice(-2)}-01`,
     });
+    toast('리뷰가 수정되었습니다.');
     slideOnClose();
     document.body.style.removeProperty('overflow');
   };
@@ -102,7 +105,7 @@ function EditReviewBottomSlide({
           }}
           className={styles.container__top__icon}
         >
-          <CloseIcon width='2rem' height='2rem' />
+          <CloseIcon width='2rem' height='2rem' onClick={slideOnClose} />
         </button>
         <div className={styles.container__top__title}>리뷰 수정</div>
       </div>

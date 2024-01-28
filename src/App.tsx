@@ -24,7 +24,6 @@ function App() {
     '카카오톡으로 친구와 가족들을 여행에 초대해보세요',
     '요즘 인기 있는 장소를 검색해보세요',
   ];
-
   return (
     <Suspense
       fallback={

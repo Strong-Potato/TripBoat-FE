@@ -98,7 +98,7 @@ function MyReview() {
 
               <p className={styles.myreview__content}>{content}</p>
 
-              {images && <ReviewImageSlider images={images} />}
+              <div style={{padding: '0 20px'}}>{images && <ReviewImageSlider images={images} />}</div>
             </li>
           )),
         )}
@@ -106,7 +106,12 @@ function MyReview() {
 
       {reviews && hasNextData && <ObserveTarget inViewRef={inViewRef} />}
 
-      <BottomSlide isOpen={isBottomSlideOpen} onClose={onBottomSlideClose} children={bottomSlideContent} />
+      <BottomSlide
+        isOpen={isBottomSlideOpen}
+        onClose={onBottomSlideClose}
+        children={bottomSlideContent}
+        isCloseBtn={false}
+      />
     </div>
   );
 }

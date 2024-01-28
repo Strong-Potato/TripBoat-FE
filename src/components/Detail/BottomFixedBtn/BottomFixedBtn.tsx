@@ -23,9 +23,11 @@ function BottomFixedBtn({onOpen}: BottomFixedBtnProps) {
     actionButton: '로그인하기',
     isSmallSize: true,
     onClickAction: () => {
+      setIsModalOpen(false);
       navigate('/auth/login');
     },
   };
+
   const showNotLoginModal = () => {
     setIsModalOpen(true);
     setModalContent({...notLoginContent});

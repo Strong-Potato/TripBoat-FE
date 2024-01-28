@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .slideIndex {
   @include typography(button);
@@ -19,6 +19,7 @@
     height: 50rem;
     img {
       position: absolute;
+      width: 100%;
       top: 50%;
       transform: translateY(-50%);
     }

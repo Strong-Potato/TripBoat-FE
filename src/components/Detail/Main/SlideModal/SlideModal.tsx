@@ -8,15 +8,12 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { Thumbs } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+} from '@chakra-ui/react';
+import {useEffect, useState} from 'react';
+import {Thumbs} from 'swiper/modules';
+import {Swiper, SwiperSlide} from 'swiper/react';
 
-// Import Swiper styles
-// import "swiper/css";
-// import "swiper/css/thumbs";
-import styles from "./SlideModal.module.scss";
+import styles from './SlideModal.module.scss';
 
 interface SlideModalProps {
   isOpen: boolean;
@@ -26,13 +23,7 @@ interface SlideModalProps {
   setImageIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function SlideModal({
-  isOpen,
-  onClose,
-  images,
-  imageIndex,
-  setImageIndex,
-}: SlideModalProps) {
+function SlideModal({isOpen, onClose, images, imageIndex, setImageIndex}: SlideModalProps) {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>();
   const [swiperIndex, setSwiperIndex] = useState(0);
 
@@ -41,27 +32,21 @@ function SlideModal({
   }, [imageIndex]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="imageModal">
+    <Modal isOpen={isOpen} onClose={onClose} size='imageModal'>
       <ModalOverlay onClick={onClose} />
       <ModalContent>
         <ModalHeader>
-          <ModalCloseButton
-            fontSize="2rem"
-            top="16px"
-            left="20px"
-            color="#fff"
-          />
+          <ModalCloseButton fontSize='2rem' top='16px' left='20px' color='#fff' />
           <span className={styles.slideIndex}>
             {swiperIndex + 1}/{images.length}
           </span>
         </ModalHeader>
-        <ModalBody p="0">
+        <ModalBody p='0'>
           <Swiper
             initialSlide={imageIndex}
             spaceBetween={10}
             thumbs={{
-              swiper:
-                thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
+              swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
             }}
             // onSlideChange={(swiper) => console.log(swiper.activeIndex)}
             modules={[Thumbs]}
@@ -83,7 +68,7 @@ function SlideModal({
           <Swiper
             onSwiper={setThumbsSwiper}
             spaceBetween={8}
-            slidesPerView={"auto"}
+            slidesPerView={'auto'}
             watchSlidesProgress={true}
             modules={[Thumbs]}
             className={styles.bottomSlide}
@@ -92,11 +77,7 @@ function SlideModal({
               images.map((image, i) => (
                 <SwiperSlide
                   key={`bottomSlide_${i}`}
-                  className={
-                    i === swiperIndex
-                      ? styles.swiperSlideActive
-                      : styles.swiperSlide
-                  }
+                  className={i === swiperIndex ? styles.swiperSlideActive : styles.swiperSlide}
                 >
                   <img src={image} />
                 </SwiperSlide>

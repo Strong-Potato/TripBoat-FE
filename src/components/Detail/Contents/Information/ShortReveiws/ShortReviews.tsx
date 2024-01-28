@@ -6,17 +6,22 @@ import styles from './ShortReviews.module.scss';
 
 import Review from '@/components/Detail/Contents/Review/Review';
 
-import {IsLoginState, TabIndexState, TabYPosition} from '@/recoil/detail/detail';
+import {TabIndexState, TabYPosition} from '@/recoil/detail/detail';
 import {isModalOpenState, modalContentState} from '@/recoil/vote/alertModal';
 
 import {ContentsShortReviewsProps} from '@/types/detail';
+import {useNavigate} from 'react-router-dom';
+import {Cookies} from 'react-cookie';
 
 function ShortReviews({onOpen, reviewsRating, reviews}: ContentsShortReviewsProps) {
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
-  const isLogin = useRecoilValue(IsLoginState);
   const setTabIndex = useSetRecoilState(TabIndexState);
   const tabPosition = useRecoilValue(TabYPosition);
+
+  const cookies = new Cookies();
+  const isLogin = cookies.get('isLogin');
+  const navigate = useNavigate();
 
   const notLoginContent = {
     title: '로그인이 필요한 기능입니다.',
@@ -24,6 +29,10 @@ function ShortReviews({onOpen, reviewsRating, reviews}: ContentsShortReviewsProp
     cancelText: '닫기',
     actionButton: '로그인하기',
     isSmallSize: true,
+    onClickAction: () => {
+      setIsModalOpen(false);
+      navigate('/auth/login');
+    },
   };
 
   const showNotLoginModal = () => {
