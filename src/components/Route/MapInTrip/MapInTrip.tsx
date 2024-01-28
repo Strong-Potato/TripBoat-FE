@@ -8,7 +8,7 @@ import {MapInTripProps} from '@/types/route';
 
 function MapInTrip({mapRef, center, journeysData}: MapInTripProps) {
   // TODO: active day 동선 보여주기
-  const linePath = journeysData.journeys[0].places.map((place) => ({
+  const linePath = journeysData?.journeys[0]?.places?.map((place) => ({
     lat: place.place.latitude,
     lng: place.place.longitude,
   }));
@@ -16,8 +16,8 @@ function MapInTrip({mapRef, center, journeysData}: MapInTripProps) {
   return (
     <Map className={styles.mapInTripContainer} center={center} level={1} ref={mapRef}>
       <Polyline path={linePath} strokeWeight={3} strokeColor='#3F444D' strokeOpacity={10} strokeStyle='dashed' />
-      {linePath.map((item, index) => (
-        <CustomOverlayMap position={item}>
+      {linePath?.map((item, index) => (
+        <CustomOverlayMap key={journeysData?.journeys[0]?.places[index]?.selectedId} position={item}>
           <div>
             <MapPinCommon number={index + 1} />
           </div>

@@ -20,32 +20,27 @@ const RouteMapBody = ({journeys}: Journeys) => {
   const [selectedPinIndex, setSelectedPinIndex] = useState(0);
   const swiperRef = useRef<SwiperRef>(null);
 
-  const latlngs = journeys[activeDay].places.map((place) => ({
-    lat: place.place.latitude,
-    lng: place.place.longitude,
+  const latlngs = journeys[activeDay]?.places?.map((place) => ({
+    lat: place?.place?.latitude,
+    lng: place?.place?.longitude,
   }));
 
   const handleMapMarkerClick = (latlng: LatLng, i: number) => {
     setCenterMarker(latlng);
-    swiperRef.current?.swiper.slideTo(i);
+    swiperRef.current?.swiper?.slideTo(i);
     setSelectedPinIndex(i);
   };
 
   const handleDayChange = (day: number) => {
     setActiveDay(day);
-    handleMapMarkerClick(latlngs[0], 0);
+    if (journeys[activeDay].places.length !== 0) {
+      handleMapMarkerClick(latlngs[0], 0);
+    }
   };
 
   useEffect(() => {
-    setCenterMarker({
-      lat: journeys[0].places[0].place.latitude,
-      lng: journeys[0].places[0].place.longitude,
-    });
-  }, []);
-
-  useEffect(() => {
-    console.log(selectedPinIndex);
-  }, [selectedPinIndex]);
+    handleDayChange(activeDay);
+  }, [activeDay]);
 
   return (
     <div className={styles.container}>
@@ -56,7 +51,7 @@ const RouteMapBody = ({journeys}: Journeys) => {
             <CustomOverlayMap key={`${place.place.title}-${latlngs[i]}-${i}`} position={latlngs[i]}>
               <div
                 className={`pin ${selectedPinIndex === i ? 'active' : ''}`}
-                onClick={() => handleMapMarkerClick({lat: place.place.latitude, lng: place.place.latitude}, i)}
+                onClick={() => handleMapMarkerClick({lat: place?.place?.latitude, lng: place?.place?.latitude}, i)}
               >
                 {selectedPinIndex === i ? <MapPinActive number={i + 1} /> : <MapPinCommon number={i + 1} />}
               </div>

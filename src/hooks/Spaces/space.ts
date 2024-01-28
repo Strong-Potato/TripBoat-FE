@@ -1,4 +1,4 @@
-import {useMutation, useQueryClient, useSuspenseQuery} from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 
 import {
   deletePlaces,
@@ -15,7 +15,7 @@ import {
 
 // [GET] 지역 리스트 조회
 export const useGetRegions = () => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ['spaces', 'city'],
     queryFn: () => getRegions(),
   });
@@ -23,7 +23,7 @@ export const useGetRegions = () => {
 
 // [GET] 단일 여행 스페이스 조회
 export const useGetSpace = (spaceId: number) => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ['spaces', spaceId],
     queryFn: () => getSpace(spaceId),
   });
@@ -31,7 +31,7 @@ export const useGetSpace = (spaceId: number) => {
 
 // [GET] 최근 여행 스페이스 조회
 export const useGetRecentSpace = () => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ['spaces', 'recent'],
     queryFn: () => getRecentSpace(),
   });
@@ -39,8 +39,8 @@ export const useGetRecentSpace = () => {
 
 // [GET] 여행 일정 조회
 export const useGetJourneys = (spaceId: number) => {
-  return useSuspenseQuery({
-    queryKey: ['spaces', spaceId, 'journeys'],
+  return useQuery({
+    queryKey: ['spaces', spaceId, 'journey', 'places'],
     queryFn: () => getJourneys(spaceId),
   });
 };
@@ -51,7 +51,9 @@ export const usePostPlaces = () => {
   return useMutation({
     mutationFn: postPlaces,
     onSuccess: () => {
-      return queryClient.invalidateQueries({queryKey: ['spaces', 'places']});
+      queryClient.invalidateQueries({queryKey: ['spaces']});
+      queryClient.invalidateQueries({queryKey: ['journey']});
+      queryClient.invalidateQueries({queryKey: ['places']});
     },
   });
 };
@@ -62,7 +64,9 @@ export const usePutPlaces = () => {
   return useMutation({
     mutationFn: putPlaces,
     onSuccess: () => {
-      return queryClient.invalidateQueries({queryKey: ['spaces', 'places']});
+      queryClient.invalidateQueries({queryKey: ['spaces']});
+      queryClient.invalidateQueries({queryKey: ['journey']});
+      queryClient.invalidateQueries({queryKey: ['places']});
     },
   });
 };
@@ -73,7 +77,8 @@ export const usePutRegions = () => {
   return useMutation({
     mutationFn: putRegions,
     onSuccess: () => {
-      return queryClient.invalidateQueries({queryKey: ['spaces', 'region']});
+      queryClient.invalidateQueries({queryKey: ['spaces']});
+      queryClient.invalidateQueries({queryKey: ['region']});
     },
   });
 };
@@ -84,7 +89,8 @@ export const usePutDates = () => {
   return useMutation({
     mutationFn: putDates,
     onSuccess: () => {
-      return queryClient.invalidateQueries({queryKey: ['spaces', 'date']});
+      queryClient.invalidateQueries({queryKey: ['spaces']});
+      queryClient.invalidateQueries({queryKey: ['date']});
     },
   });
 };
@@ -95,7 +101,8 @@ export const usePutExitSpace = () => {
   return useMutation({
     mutationFn: putExitSpace,
     onSuccess: () => {
-      return queryClient.invalidateQueries({queryKey: ['spaces', 'exit']});
+      queryClient.invalidateQueries({queryKey: ['spaces']});
+      queryClient.invalidateQueries({queryKey: ['exit']});
     },
   });
 };
@@ -106,7 +113,9 @@ export const useDeletePlaces = () => {
   return useMutation({
     mutationFn: deletePlaces,
     onSuccess: () => {
-      return queryClient.invalidateQueries({queryKey: ['spaces', 'places']});
+      queryClient.invalidateQueries({queryKey: ['spaces']});
+      queryClient.invalidateQueries({queryKey: ['journey']});
+      queryClient.invalidateQueries({queryKey: ['places']});
     },
   });
 };
