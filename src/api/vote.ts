@@ -36,7 +36,6 @@ export const getVoteResults = async (voteId: number): Promise<VoteResultInfoRes>
 export const postNewVote = async ({spaceId, title}: PostVoteTitleProps) => {
   try {
     const response = await axios.post('/api/votes', {spaceId, title});
-    console.log('axios 포스트 성공', response.data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -47,7 +46,6 @@ export const postNewVote = async ({spaceId, title}: PostVoteTitleProps) => {
 export const postVoting = async ({voteId, candidateId}: PostVotingProps) => {
   try {
     const response = await axios.post('/api/votes/voting', {voteId, candidateId});
-    console.log('투표 성공', response);
     return response.data;
   } catch (error) {
     console.error(error);

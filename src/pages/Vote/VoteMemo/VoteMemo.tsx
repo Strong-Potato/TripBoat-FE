@@ -37,12 +37,10 @@ const VoteMemo = () => {
   const existingTaglines: TaglineType[] = getExistingTaglines && JSON.parse(getExistingTaglines).selectedTaglineState;
 
   const setInitializeTagline = () => {
-    console.log('새로 세팅');
     setSelectedTagline(selectedPlaces?.map((place) => ({id: place.id, placeTypeId: place.contentTypeId, tagline: ''})));
   };
 
   const setExistingTagline = () => {
-    console.log('추가 세팅');
     const nonExistPlaceIds = selectedPlaces
       .map((place) => place.id)
       .filter((id) => !existingTaglines.some((tagline) => tagline.id === id));
@@ -66,7 +64,6 @@ const VoteMemo = () => {
   }, []);
 
   const handleAddCandidates = async () => {
-    console.log('최종 내용 : ', selectedTagline);
     const candidateInfos = selectedTagline.map(({id, ...rest}) => ({
       placeId: id,
       ...rest,

@@ -28,9 +28,6 @@ const VoteContent = ({onBottomSlideOpen, data}: VoteContentProps) => {
   const resultsInfoData = useGetVotesResults(showResults, Number(voteId));
   const resultsInfo = resultsInfoData.data?.data;
 
-  console.log('보트 컨텐트 showResults', showResults);
-  console.log('resultsInfo', resultsInfo);
-
   useEffect(() => {
     if (resultsInfo && showResults) {
       setCandidates(resultsInfo!.candidatesResponses);

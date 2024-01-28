@@ -28,8 +28,8 @@ const CreateVoteModal = ({isEditMode, existingTitle}: CreateVoteModalProps) => {
   const voteId = Number(location.pathname.split('/')[4]);
 
   const [inputValue, setInputValue] = useState('');
-  const postNewVoteMutation = usePostNewVote();
-  const editTitleMutation = useEditVoteTitle();
+  const {mutateAsync: postNewVoteMutateAsync} = usePostNewVote();
+  const {mutateAsync: editTitleMutateAsync} = useEditVoteTitle();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,14 +44,13 @@ const CreateVoteModal = ({isEditMode, existingTitle}: CreateVoteModalProps) => {
   };
 
   const handleCreateVote = async (inputValue: string) => {
-    const res = await postNewVoteMutation.mutateAsync({spaceId, title: inputValue});
+    const res = await postNewVoteMutateAsync({spaceId, title: inputValue});
     newClose();
-    console.log('만들기~~', res);
     navigate(`/trip/${spaceId}${res.data}`);
   };
 
   const handleEditVoteTitle = async (inputValue: string) => {
-    await editTitleMutation.mutate({voteId, spaceId, title: inputValue});
+    await editTitleMutateAsync({voteId, spaceId, title: inputValue});
     setIsCreateModalOpen(false);
   };
 

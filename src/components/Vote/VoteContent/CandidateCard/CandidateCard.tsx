@@ -22,11 +22,10 @@ import {CandidateCardProps, ResultCandidatesInfo} from '@/types/vote';
 
 const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, index, showResults}: CandidateCardProps) => {
   const navigate = useNavigate();
-  // const [isVoted, setIsVoted] = useState(false);
   const [starIcon, setStarIcon] = useState(<FaRegStar />);
   const isCandidateSelecting = useRecoilValue(isCandidateSelectingState);
   const {id: voteId} = useParams();
-  const votingMutation = usePostVoting();
+  const {mutateAsync: votingMutateAsync} = usePostVoting();
   const placeInfo = candidate.placeInfo;
   const imgSrc = placeInfo.placeImageUrl ? placeInfo.placeImageUrl : nullImg;
 
@@ -73,7 +72,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, index, showRes
     if (showResults && onBottomSlideOpen) {
       onBottomSlideOpen(<VotedUserList />);
     } else {
-      await votingMutation.mutateAsync({voteId: Number(voteId), candidateId: candidate.id});
+      await votingMutateAsync({voteId: Number(voteId), candidateId: candidate.id});
     }
   };
 
@@ -106,7 +105,7 @@ const CandidateCard = ({onBottomSlideOpen, candidate, isMapStyle, index, showRes
           </div>
 
           {/* 일정 담기
-          날짜를 담고 있어야 함
+          날짜유무 -> 스페이스아이디로 검색?
           없 : 토스트
           있 : 바텀시트 -> 일정 추가api -> 시트close, 완료 토스트
           */}
