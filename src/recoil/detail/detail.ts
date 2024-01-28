@@ -44,3 +44,8 @@ export const TabYPosition = atom<number>({
   key: 'TabYPosition',
   default: 0,
 });
+
+export const isReviewStartState = atom<boolean>({
+  key: 'isReviewStartState',
+  default: false,
+});
