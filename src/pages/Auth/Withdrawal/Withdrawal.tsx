@@ -113,6 +113,7 @@ function Withdrawal() {
           actionButton='탈퇴하기'
           isSmallSize={true}
           onClickAction={signout}
+          onClickCancelAction={() => navigate('/user/privacy')}
         />
       </main>
     </div>

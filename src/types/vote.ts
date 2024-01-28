@@ -128,6 +128,7 @@ export interface AlertModalProps {
   actionButton: string;
   isSmallSize: boolean;
   onClickAction?: () => void;
+  onClickCancelAction?: () => void;
 }
 
 export interface CandidateListProps {
