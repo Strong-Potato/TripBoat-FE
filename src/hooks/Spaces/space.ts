@@ -1,4 +1,4 @@
-import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient, useSuspenseQuery} from '@tanstack/react-query';
 
 import {
   deletePlaces,
@@ -7,6 +7,7 @@ import {
   getRegions,
   getSpace,
   postPlaces,
+  postSearchPlaces,
   putDates,
   putExitSpace,
   putPlaces,
@@ -15,7 +16,7 @@ import {
 
 // [GET] 지역 리스트 조회
 export const useGetRegions = () => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['spaces', 'city'],
     queryFn: () => getRegions(),
   });
@@ -54,6 +55,20 @@ export const usePostPlaces = () => {
       queryClient.invalidateQueries({queryKey: ['spaces']});
       queryClient.invalidateQueries({queryKey: ['journey']});
       queryClient.invalidateQueries({queryKey: ['places']});
+    },
+  });
+};
+
+// [POST] 일정 추가
+export const usePostSearchPlaces = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: postSearchPlaces,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['spaces']});
+      queryClient.invalidateQueries({queryKey: ['journey']});
+      queryClient.invalidateQueries({queryKey: ['places']});
+      queryClient.invalidateQueries({queryKey: ['search']});
     },
   });
 };

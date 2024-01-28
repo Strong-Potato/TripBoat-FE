@@ -24,7 +24,7 @@ import MapInTrip from '../MapInTrip/MapInTrip';
 
 import {DateItem, Journey, MapInTripProps, PlaceList, SelectedPlace} from '@/types/route';
 
-function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
+function RouteTabPanel({mapRef, center, level, journeysData}: MapInTripProps) {
   const navigate = useNavigate();
   const {id} = useParams();
   const [isEditMode, setIsEditMode] = useState(false);
@@ -63,7 +63,7 @@ function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
   return (
     <div className={styles.panelContainer}>
       <div className={styles.mapContainer}>
-        <MapInTrip mapRef={mapRef} center={center} journeysData={journeysData} />
+        <MapInTrip mapRef={mapRef} center={center} level={level} journeysData={journeysData} />
         <button className={styles.zoomInButton} onClick={() => navigate(`/trip/${id}/map`, {state: {id: id}})}>
           <ZoomInIcon />
         </button>

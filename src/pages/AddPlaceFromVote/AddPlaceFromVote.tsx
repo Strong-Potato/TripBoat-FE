@@ -1,8 +1,7 @@
 import {Button} from '@chakra-ui/react';
-import {useEffect} from 'react';
 import {MdOutlineReplay as ResetIcon} from 'react-icons/md';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {useRecoilState} from 'recoil';
+import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './AddPlaceFromVote.module.scss';
 
@@ -16,6 +15,7 @@ import {SelectedPlaces} from '@/components/Route/AddPlace/FromVote/VoteCard/Vote
 
 import BackIcon from '@/assets/back.svg?react';
 import {selectedPlaceFromVoteState} from '@/recoil/spaces/selectPlace';
+import {activeTabIndexState} from '@/recoil/spaces/trip';
 
 import {Vote} from '@/types/route';
 
@@ -23,16 +23,13 @@ function AddPlaceFromVote() {
   const goBack = useGoBack();
   const {state} = useLocation();
   const {id, journeyId, day} = state;
-  const {data: voteData, refetch} = useGetVoteListInfo(Number(id));
+  const {data: voteData} = useGetVoteListInfo(Number(id));
   const [selectedPlaces, setSelectedPlaces] = useRecoilState<SelectedPlaces[]>(selectedPlaceFromVoteState);
   const inProgressVotes = voteData?.data?.voteResponse?.filter((vote: Vote) => vote.voteStatus === '진행 중');
   const completedVotes = voteData?.data?.voteResponse?.filter((vote: Vote) => vote.voteStatus === '결정 완료');
   const postPlaces = usePostPlaces();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    refetch();
-  }, []);
+  const setSelectedTabIndex = useSetRecoilState(activeTabIndexState);
 
   const addPlaces = async () => {
     await postPlaces.mutateAsync({
@@ -41,6 +38,7 @@ function AddPlaceFromVote() {
       placeIds: selectedPlaces.flatMap((place) => place.id),
     });
     navigate(`/trip/${id}`, {state: {id: id}});
+    setSelectedTabIndex(1);
   };
 
   const resetSelected = () => {

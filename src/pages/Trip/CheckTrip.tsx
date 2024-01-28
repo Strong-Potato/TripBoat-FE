@@ -1,4 +1,5 @@
 import {Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react';
+import {useEffect} from 'react';
 import {AiOutlineBell as AlarmIcon} from 'react-icons/ai';
 import {AiOutlineMenu as MenuIcon} from 'react-icons/ai';
 import {FiPlus as PlusIcon} from 'react-icons/fi';
@@ -13,6 +14,7 @@ import useGoLogin from '@/hooks/useGoLogin';
 
 import AlertModal from '@/components/AlertModal/AlertModal';
 
+import {activeTabIndexState} from '@/recoil/spaces/trip';
 import {isModalOpenState} from '@/recoil/vote/alertModal';
 
 function CheckTrip() {
@@ -21,17 +23,21 @@ function CheckTrip() {
   const setIsModal = useSetRecoilState(isModalOpenState);
   const {mutate} = usePostSpace();
   const navigate = useNavigate();
+  const setSelectedTabIndex = useSetRecoilState(activeTabIndexState);
 
-  if (recentSpaceData?.status === 403 || recentSpaceData?.status === 401) {
-    // 비로그인 유저
-    goLogin();
-  } else if (recentSpaceData?.responseCode === 404) {
-    // 유효한 여행 스페이스 없는 유저
-    setIsModal(true);
-  } else if (recentSpaceData?.data?.id) {
-    // 최근 방문 스페이스 있는 유저
-    navigate(`/trip/${recentSpaceData.data.id}`, {state: {id: recentSpaceData.data.id}});
-  }
+  useEffect(() => {
+    if (recentSpaceData?.status === 403 || recentSpaceData?.status === 401) {
+      // 비로그인 유저
+      goLogin();
+    } else if (recentSpaceData?.responseCode === 404) {
+      // 유효한 여행 스페이스 없는 유저
+      setIsModal(true);
+    } else if (recentSpaceData?.data?.id) {
+      // 최근 방문 스페이스 있는 유저
+      navigate(`/trip/${recentSpaceData?.data?.id}`, {state: {id: recentSpaceData?.data?.id}});
+      setSelectedTabIndex(0);
+    }
+  }, [recentSpaceData]);
 
   const makeNewSpace = () => {
     setIsModal(false);

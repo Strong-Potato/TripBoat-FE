@@ -92,6 +92,7 @@ export interface LatLng {
 export interface MapInTripProps {
   mapRef: React.RefObject<kakao.maps.Map>;
   center: LatLng;
+  level: number;
   journeysData: Journeys;
 }
 
@@ -209,6 +210,15 @@ export interface Members {
 
 export interface ExitSpaceParams {
   spaceId: number;
+}
+
+export interface SearchPlaceParams {
+  spaceId: number;
+  journeyId: number;
+  places: {
+    placeId: number;
+    contentTypeId: number;
+  }[];
 }
 
 export interface PlaceParams {

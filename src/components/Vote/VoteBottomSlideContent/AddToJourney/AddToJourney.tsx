@@ -10,6 +10,7 @@ import {usePostPlaces} from '@/hooks/Spaces/space';
 
 import CustomToast from '@/components/CustomToast/CustomToast';
 
+import {activeTabIndexState} from '@/recoil/spaces/trip';
 import {journeyState} from '@/recoil/vote/addToJourney';
 import {isBottomSlideOpenState} from '@/recoil/vote/bottomSlide';
 const AddToJourney = ({placeId}: {placeId: number}) => {
@@ -23,6 +24,7 @@ const AddToJourney = ({placeId}: {placeId: number}) => {
   const {mutateAsync: addToJourneyMutateAsync} = usePostPlaces();
   const [journeyId, SetJourneyId] = useState(journeyAtom.journeys?.[1]?.journeyId);
   const showToast = CustomToast();
+  const setSelectedTabIndex = useSetRecoilState(activeTabIndexState);
 
   const handleSelect = (index: number) => {
     const updatedSelectedDays = [...selectedDays];
@@ -34,12 +36,17 @@ const AddToJourney = ({placeId}: {placeId: number}) => {
     SetJourneyId(newJourneyId);
   };
 
+  const handleGoBackToJourney = () => {
+    navigate(`/trip/${spaceId}`);
+    setSelectedTabIndex(1);
+  };
+
   //중복 선택 불가 추가
   const handleAddToJourney = async () => {
     const res = await addToJourneyMutateAsync({spaceId, journeyId, placeIds: [placeId]});
     setIsBTOpen(false);
     console.log('일정추가 res', res);
-    showToast('일정에 추가가 완료되었습니다.', true, '바로가기', () => navigate(`/trip/${spaceId}`));
+    showToast('일정에 추가가 완료되었습니다.', true, '바로가기', handleGoBackToJourney);
   };
 
   return (

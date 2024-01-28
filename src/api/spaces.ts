@@ -5,6 +5,7 @@ import {
   journeyParams,
   journeyPutParams,
   PlaceParams,
+  SearchPlaceParams,
   SpaceDateParams,
   SpaceRegionParams,
 } from '@/types/route';
@@ -56,7 +57,10 @@ export const getSpace = async (spaceId: number) => {
     const response = await axios.get(`/api/spaces/${spaceId}`, {withCredentials: true});
     return response.data;
   } catch (error) {
-    console.log(error);
+    if (axios.isAxiosError(error)) {
+      console.log(error);
+      return error.response;
+    }
   }
 };
 
@@ -89,6 +93,21 @@ export const postPlaces = async ({spaceId, journeyId, placeIds}: PlaceParams) =>
     const response = await axios.post(
       `/api/spaces/${spaceId}/places`,
       {journeyId: journeyId, placeIds: placeIds},
+      {withCredentials: true},
+    );
+    console.log('[SUCCESS]', response);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// [POST] 장소 검색 일정 추가
+export const postSearchPlaces = async ({spaceId, journeyId, places}: SearchPlaceParams) => {
+  try {
+    const response = await axios.post(
+      `/api/spaces/${spaceId}/places/search`,
+      {journeyId: journeyId, places: places},
       {withCredentials: true},
     );
     console.log('[SUCCESS]', response);

@@ -28,7 +28,7 @@ function RegionSearch() {
   const [selectedRegions, setSelectedRegions] = useState<string[]>(prevRegion ? prevRegion : []);
   const [filteredRegions, setFilteredRegions] = useState<Region[]>(regions);
 
-  if (spaceData.responseCode === 404) {
+  if (spaceData?.responseCode === 404) {
     setSelectedRegions([]);
   }
 
@@ -45,10 +45,10 @@ function RegionSearch() {
   };
 
   const handleRegionSelect = (regionName: string) => {
-    if (selectedRegions.includes(regionName)) {
-      setSelectedRegions((prevSelectedRegions) => prevSelectedRegions.filter((name) => name !== regionName));
+    if (selectedRegions?.includes(regionName)) {
+      setSelectedRegions((prevSelectedRegions) => prevSelectedRegions?.filter((name) => name !== regionName));
     } else {
-      if (selectedRegions.length < 4) {
+      if (selectedRegions?.length < 4) {
         setSelectedRegions((prevSelectedRegions) => [...prevSelectedRegions, regionName]);
       } else {
         showToast('최대 4개 도시까지 선택 가능합니다.', false, '');
@@ -73,9 +73,9 @@ function RegionSearch() {
         />
       </header>
       <div className={isInputFocused || regionValue ? styles.regionListsContainer__focus : styles.regionListsContainer}>
-        {filteredRegions.length ? (
+        {filteredRegions?.length ? (
           <>
-            {filteredRegions.map((region) => (
+            {filteredRegions?.map((region) => (
               <RegionList
                 key={region.cityName}
                 name={region.cityName}
@@ -89,9 +89,9 @@ function RegionSearch() {
           <NoSearchResult />
         )}
       </div>
-      <div className={selectedRegions.length ? styles.regionChoiceContainer : ''}>
+      <div className={selectedRegions?.length ? styles.regionChoiceContainer : ''}>
         <div className={styles.tagContainer}>
-          {selectedRegions.map((region) => (
+          {selectedRegions?.map((region) => (
             <RegionTagItem
               key={region}
               label={region}
@@ -101,8 +101,8 @@ function RegionSearch() {
             />
           ))}
         </div>
-        <Button isDisabled={!selectedRegions.length} zIndex='3' variant='CTAButton' onClick={editRegions}>
-          {selectedRegions.length ? `${selectedRegions.length}개 선택 완료` : '도시를 선택해주세요'}
+        <Button isDisabled={!selectedRegions?.length} zIndex='3' variant='CTAButton' onClick={editRegions}>
+          {selectedRegions?.length ? `${selectedRegions.length}개 선택 완료` : '도시를 선택해주세요'}
         </Button>
       </div>
     </div>

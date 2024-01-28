@@ -14,7 +14,7 @@ import {AiOutlineBell as AlarmIcon} from 'react-icons/ai';
 import {AiOutlineMenu as MenuIcon} from 'react-icons/ai';
 import {FiPlus as PlusIcon} from 'react-icons/fi';
 import {useNavigate, useParams} from 'react-router-dom';
-import {useSetRecoilState} from 'recoil';
+import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import styles from './Trip.module.scss';
 
@@ -29,6 +29,7 @@ import FriendList from '@/components/TripSpace/FriendList/FriendList';
 import InviteFriends from '@/components/TripSpace/InviteFriends/InviteFriends';
 import VoteTabPanel from '@/components/VoteTabPanel/VoteTabPanel';
 
+import {activeTabIndexState} from '@/recoil/spaces/trip';
 import {journeyState} from '@/recoil/vote/addToJourney';
 import {checkDDay} from '@/utils/checkDday';
 import {setSpaceDate} from '@/utils/formatDate';
@@ -39,7 +40,7 @@ import {Member} from '@/types/sidebar';
 
 function Trip() {
   const news = localStorage.getItem('news');
-  const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+  const [selectedTabIndex, setSelectedTabIndex] = useRecoilState(activeTabIndexState);
   const {isOpen: isBottomSlideOpen, onOpen: onBottomSlideOpen, onClose: onBottomSlideClose} = useDisclosure();
   const {isOpen: isSlideBarOpen, onOpen: onSlideBarOpen, onClose: onSlideBarClose} = useDisclosure();
   const {isOpen: isInviteOpen, onOpen: onInviteOpen, onClose: onInviteClose} = useDisclosure();
@@ -50,32 +51,28 @@ function Trip() {
   const {data: journeysData} = useGetJourneys(Number(id));
   const mapRef = useRef<kakao.maps.Map>(null);
   const [center, setCenter] = useState<LatLng>(getMapCenter(journeysData?.data));
+  const [level, setLevel] = useState<number>(1);
   const navigate = useNavigate();
   const users = spaceData?.data?.members;
   const SetJourneyAtom = useSetRecoilState(journeyState(Number(id)));
 
   if (journeysData) {
-    SetJourneyAtom(journeysData.data);
+    SetJourneyAtom(journeysData?.data);
   }
 
-  if (!spaceData?.data) {
+  if (spaceData?.status === 403) {
     console.log('로그인 안 했음');
-    navigate('/trip');
-  }
-
-  if (spaceData?.data) {
-    console.log(spaceData?.data);
-    console.log(journeysData?.data);
+    navigate('/auth/login');
   }
 
   useEffect(() => {
     const map = mapRef.current;
+    map?.relayout();
+    setCenter(getMapCenter(journeysData?.data));
+    setLevel(1);
 
-    if (map) {
-      map.relayout();
-      setCenter(getMapCenter(journeysData.data));
-    }
-  }, [selectedTabIndex, journeysData]);
+    console.log(selectedTabIndex);
+  }, [selectedTabIndex]);
 
   return (
     <>
@@ -168,7 +165,7 @@ function Trip() {
                 <VoteTabPanel />
               </TabPanel>
               <TabPanel className={styles.contents__tabContent}>
-                <RouteTabPanel mapRef={mapRef} center={center} journeysData={journeysData?.data} />
+                <RouteTabPanel mapRef={mapRef} center={center} level={level} journeysData={journeysData?.data} />
               </TabPanel>
             </TabPanels>
           </Tabs>
