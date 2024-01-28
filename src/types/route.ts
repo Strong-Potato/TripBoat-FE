@@ -92,6 +92,7 @@ export interface LatLng {
 export interface MapInTripProps {
   mapRef: React.RefObject<kakao.maps.Map>;
   center: LatLng;
+  level: number;
   journeysData: Journeys;
 }
 
