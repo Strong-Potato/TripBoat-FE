@@ -30,7 +30,6 @@ function SearchItem({forSearch, data, categoryChange}: PropsType) {
     path === 'trip'
       ? `/detail/${data.id} ${data.contentTypeId}?title=${data.title}&tripId=${tripId}&journyId=${journyId}`
       : `/detail/${data.id} ${data.contentTypeId}?title=${data.title}`;
-  console.log(path);
 
   return (
     <Link to={detailLink} className={styles.container}>

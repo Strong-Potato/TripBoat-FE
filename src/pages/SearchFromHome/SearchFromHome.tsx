@@ -82,10 +82,6 @@ function SearchFromHome() {
     }
   }, [searchParams]);
 
-  useEffect(() => {
-    console.log(forSearch);
-  }, [forSearch]);
-
   return (
     <div
       className={styles.container}

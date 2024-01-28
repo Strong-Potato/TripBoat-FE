@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import {Link, useSearchParams} from 'react-router-dom';
 
 import styles from './HotItem.module.scss';
 
@@ -18,9 +18,17 @@ function HotItem({data}: PropsData) {
   const category = translateCategoryToStr(data.contentTypeId);
   const title = titleCaseChange(data.title);
   const imgSrc = data.thumbnail ? data.thumbnail : nullImg;
+  const [searchPrams] = useSearchParams();
+  const tripId = searchPrams.get('placeID');
+  const journyId = searchPrams.get('tripDate')?.split(' ')[1];
+  const path = searchPrams.get('tripDate')?.split(' ')[0];
+  const detailLink =
+    path === 'trip'
+      ? `/detail/${data.id} ${data.contentTypeId}?title=${data.title}&tripId=${tripId}&journyId=${journyId}`
+      : `/detail/${data.id} ${data.contentTypeId}?title=${data.title}`;
 
   return (
-    <Link to={`/detail/${data.id} ${data.contentTypeId}?title=${data.title}`} className={styles.container}>
+    <Link to={detailLink} className={styles.container}>
       <img src={imgSrc} alt={`${data.title}의 사진`} style={{padding: data.thumbnail ? 0 : '30px'}} />
       <p className={styles.text_box}>
         <span className={styles.title}>{title}</span>
