@@ -21,7 +21,11 @@ function TripSpaceItem({data}: PropsData) {
     <div
       className={styles.container}
       onClick={() => {
-        navigate(`trip/${data.id}`, {state: {id: data.id}});
+        if (data.startDate) {
+          navigate(`trip/${data.id}`, {state: {id: data.id}});
+        } else {
+          navigate(`trip/${data.id}/selectDate`, {state: {id: data.id}});
+        }
       }}
     >
       <div className={styles.img_box} style={{padding: data.thumbnail ? 'none' : '26px 12px 32px 20px'}}>
