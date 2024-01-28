@@ -14,10 +14,10 @@ import {ForSearchType, SearchItemType} from '@/types/home';
 interface PropsType {
   forSearch: ForSearchType;
   data: SearchItemType;
-  categoryChange: boolean;
+  categoryChange?: boolean;
 }
 
-function SearchItem({forSearch, data, categoryChange}: PropsType) {
+function SearchItem({forSearch, data, categoryChange = undefined}: PropsType) {
   const title = titleCaseChange(data.title);
   const location = areas.filter((area) => area.areaCode === data.location.areaCode)[0].name;
   const category = translateCategoryToStr(data.contentTypeId);
