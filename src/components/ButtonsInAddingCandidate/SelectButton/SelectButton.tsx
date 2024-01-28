@@ -32,7 +32,19 @@ const SelectButton = ({data}: Propstype) => {
     if (isInVote) {
       toggleItemInNewArray(data);
     } else {
-      setRecoil((prev) => [...prev, data.id]);
+      setRecoil((currentArray) => {
+        const index = currentArray.findIndex((item) => item === data.id);
+
+        if (index !== -1) {
+          const newArray = [...currentArray.slice(0, index), ...currentArray.slice(index + 1)];
+          console.log('newArray:', newArray);
+          return newArray;
+        } else {
+          const newArray = [...currentArray, data.id];
+          console.log('newArray:', newArray);
+          return newArray;
+        }
+      });
     }
   };
 
