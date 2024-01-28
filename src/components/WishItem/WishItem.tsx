@@ -3,12 +3,13 @@ import {Link} from 'react-router-dom';
 import styles from './WishItem.module.scss';
 
 import SelectButton from '@/components/ButtonsInAddingCandidate/SelectButton/SelectButton';
-import WishBtn from '@/components/Detail/Main/Title/TitleWishBtn/TitleWishBtn';
 
 import nullImg from '@/assets/homeIcons/search/nullImg.svg';
 import areas from '@/utils/areas.json';
 import titleCaseChange from '@/utils/titleCaseChange';
 import {translateCategoryToStr} from '@/utils/translateSearchData';
+
+import WishBtn from '../WishBtn/WishBtn';
 
 import {SearchItemType} from '@/types/home';
 import {WishFilterType} from '@/types/wish';

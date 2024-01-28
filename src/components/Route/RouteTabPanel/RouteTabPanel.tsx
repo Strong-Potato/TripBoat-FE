@@ -56,7 +56,7 @@ function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
     return <EmptyDate />;
   }
 
-  const dateList: DateItem[] = journeysData.journeys.map((journey: Journey) => ({
+  const dateList: DateItem[] = journeysData?.journeys?.map((journey: Journey) => ({
     date: journey.date,
   }));
 
@@ -71,7 +71,7 @@ function RouteTabPanel({mapRef, center, journeysData}: MapInTripProps) {
       <div className={styles.routeContainer}>
         <DayNavigationBar dateList={dateList} editMode={isEditMode} handleEditMode={handleEditMode} />
         <div className={styles.journeysContainer}>
-          {journeysData.journeys &&
+          {journeysData?.journeys &&
             journeysData.journeys.map((journey: Journey, index: number) => (
               <DayRoute
                 key={journey.journeyId}

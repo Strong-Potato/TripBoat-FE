@@ -31,9 +31,11 @@ function TabCapsule({isAlarmOpen}: {isAlarmOpen: boolean}) {
   }, [AlarmData]);
 
   useEffect(() => {
-    localStorage.removeItem('news');
-    PostReadAlarm(AlarmData?.data.data.notificationDetail[0].id);
-  }, []);
+    if (AlarmData?.data.data.notificationDetail[0]) {
+      localStorage.removeItem('news');
+      PostReadAlarm(AlarmData?.data.data.notificationDetail[0].id);
+    }
+  }, [AlarmData?.data.data.notificationDetail]);
 
   return (
     <Tabs isFitted variant='unstyled'>

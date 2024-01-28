@@ -8,6 +8,7 @@ import BigHomeMarker from '@/assets/homeIcons/map/house_big.svg?react';
 import BigFlagMarker from '@/assets/homeIcons/map/flag_big.svg?react';
 import BigRestaurantMarker from '@/assets/homeIcons/map/restaurant_big.svg?react';
 import TitleWishBtn from '@/components/Detail/Main/Title/TitleWishBtn/TitleWishBtn';
+import {translateAreaCode, translateCategoryToStr} from '@/utils/translateSearchData';
 
 interface MapModalProps {
   isOpen: boolean;
@@ -22,6 +23,9 @@ interface MapModalProps {
 }
 
 function MapModal({isOpen, onClose, lat, lng, title, thumbnail, id, contentTypeId, areaCode}: MapModalProps) {
+  const categoryStr = translateCategoryToStr(contentTypeId);
+  const areaStr = translateAreaCode(areaCode);
+
   return (
     <Drawer
       isOpen={isOpen}
@@ -53,7 +57,7 @@ function MapModal({isOpen, onClose, lat, lng, title, thumbnail, id, contentTypeI
             <div className={styles.footer__card__textWrapper}>
               <p className={styles.footer__card__textWrapper__name}>{title}</p>
               <p className={styles.footer__card__textWrapper__category}>
-                {contentTypeId} {areaCode}
+                {categoryStr}·{areaStr}
               </p>
             </div>
             <TitleWishBtn

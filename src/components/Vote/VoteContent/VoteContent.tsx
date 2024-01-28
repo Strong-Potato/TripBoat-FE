@@ -74,7 +74,7 @@ const VoteContent = ({onBottomSlideOpen, data}: VoteContentProps) => {
           state={data.voteStatus}
           isCandidateSelecting={isCandidateSelecting}
           onBottomSlideOpen={onBottomSlideOpen}
-          categoryCode={candidates[0].placeInfo.category}
+          categoryCode={candidates[candidates.length - 1].placeInfo.category}
         />
       )}
 

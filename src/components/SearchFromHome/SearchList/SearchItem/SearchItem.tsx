@@ -31,12 +31,12 @@ function SearchItem({forSearch, data, categoryChange}: PropsType) {
           alt={`${data.title}의 사진`}
           style={{opacity: categoryChange ? 0 : 1, padding: data.thumbnail ? 0 : '12px'}}
         />
-        <p className={styles.text} style={{opacity: categoryChange ? 0 : 1}}>
+        <div className={styles.text} style={{opacity: categoryChange ? 0 : 1}}>
           <span className={styles.title}>{title}</span>
           <span className={styles.info}>
             {category}·{location}
           </span>
-        </p>
+        </div>
       </div>
       {forSearch.placeID !== 'undefined' && <SelectButton data={data} />}
     </Link>
