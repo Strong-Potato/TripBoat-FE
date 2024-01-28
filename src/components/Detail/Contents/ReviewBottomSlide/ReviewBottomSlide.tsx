@@ -18,6 +18,7 @@ import {ReviewBottomSlideProps} from '@/types/detail';
 
 import {usePostReview} from '@/hooks/Detail/useReviews';
 import {s3Request} from '@/api/s3';
+import CustomToast from '@/components/CustomToast/CustomToast';
 
 function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: ReviewBottomSlideProps) {
   const [isValuedInput, setIsValuedInput] = useState<boolean>(false);
@@ -33,6 +34,8 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
   const [time, setTime] = useState<Date>(new Date());
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [imageFileList, setImageFileList] = useState<File[]>();
+
+  const toast = CustomToast();
 
   const checkBeforeExit = {
     title: '잠깐!',
@@ -74,6 +77,7 @@ function ReviewBottomSlide({placeId, contentTypeId, title, slideOnClose}: Review
       visitedAt: `${time.getFullYear()}-${('00' + (time.getMonth() + 1).toString()).slice(-2)}-01`,
     });
     slideOnClose();
+    toast('리뷰가 작성되었습니다.');
     document.body.style.removeProperty('overflow');
   };
 
