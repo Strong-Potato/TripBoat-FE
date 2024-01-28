@@ -1,4 +1,4 @@
-import {MutableRefObject, ReactNode} from 'react';
+import {ReactNode} from 'react';
 
 export interface ActionListProps {
   setBottomSlideContent: React.Dispatch<React.SetStateAction<ReactNode | null>>;
