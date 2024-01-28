@@ -13,7 +13,7 @@ export const authRequest = {
     ),
 
   login_kakao: () =>
-    axios.post('https://api.tripvote.site/oauth2/authorization/kakao', null, {
+    axios.get('https://api.tripvote.site/oauth2/authorization/kakao', {
       withCredentials: true,
     }),
 
