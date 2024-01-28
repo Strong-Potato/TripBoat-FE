@@ -8,6 +8,7 @@ import useGetSelectedArray from '@/hooks/useGetSelectedArray';
 
 import {selectedTaglineState} from '@/recoil/vote/voteMemo';
 import titleCaseChange from '@/utils/titleCaseChange';
+import {translateAreaCode, translateCategoryName} from '@/utils/translateSearchData';
 
 import {MemoItemProps} from '@/types/vote';
 
@@ -61,9 +62,9 @@ const MemoItem = ({place, existingTagline}: MemoItemProps) => {
           <div className={styles.candidateBox__text}>
             <p className={styles.candidateBox__text__name}>{title}</p>
             <span className={styles.candidateBox__text__category}>
-              {place.contentTypeId}
-              {'ꞏ'}
-              {place.location.areaCode}
+              {translateCategoryName(place.category)}
+              {'・'}
+              {translateAreaCode(place.location.areaCode)}
             </span>
           </div>
         </label>
