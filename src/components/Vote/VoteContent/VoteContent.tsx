@@ -67,13 +67,13 @@ const VoteContent = ({onBottomSlideOpen, data}: VoteContentProps) => {
           candidates={candidates}
           onBottomSlideOpen={onBottomSlideOpen}
           isCandidateSelecting={isCandidateSelecting}
-          showResults={showResults}
         />
       </div>
       {candidates && (
         <VoteRecommendList
           state={data.voteStatus}
           isCandidateSelecting={isCandidateSelecting}
+          onBottomSlideOpen={onBottomSlideOpen}
           categoryCode={candidates[candidates.length - 1].placeInfo.category}
         />
       )}

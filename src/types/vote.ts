@@ -17,6 +17,7 @@ export interface LatLng {
 export interface PlaceInfo {
   placeId: number;
   placeName: string;
+  contentTypeId: number;
   category: string;
   areaCode: string;
   placeImageUrl: string;
@@ -98,7 +99,6 @@ export interface VoteContentProps {
   onBottomSlideOpen: (content: ReactNode) => void;
   data: VoteInfo;
   showResults?: boolean;
-  // isZeroCandidates: boolean;
 }
 
 export interface VoteHeaderProps {
@@ -110,7 +110,6 @@ export interface VoteHeaderProps {
 export interface CandidateCardProps {
   onBottomSlideOpen?: (content: ReactNode) => void | undefined;
   candidate: CandidatesInfo;
-  showResults?: boolean;
   isMapStyle?: boolean;
   index?: number;
 }
@@ -134,7 +133,6 @@ export interface AlertModalProps {
 export interface CandidateListProps {
   candidates: CandidatesInfo[];
   onBottomSlideOpen: (content: ReactNode) => void;
-  showResults: boolean;
   isCandidateSelecting: boolean;
 }
 
@@ -188,23 +186,20 @@ export interface PostNewCandidateProps {
     tagline: string;
   }[];
 }
-/////
 
-// export interface SearchItemType {
-//   id: number;
-//   contentTypeId: number;
-//   title: string;
-//   thumbnail: string;
-//   location: SearchItemLocationType;
-//   category: string;
-// }
-// export interface SearchItemLocationType {
-//   address: string;
-//   addressDetail: string;
-//   phone: string;
-//   areaCode: number;
-//   sigunguCode: number;
-//   zipCode: number;
-//   latitude: number;
-//   longitude: number;
-// }
+export interface CandidatesMapBodyProps {
+  candidates: CandidatesInfo[] | ResultCandidatesInfo[];
+}
+
+export interface VoteRecommendListProps {
+  state: string;
+  isCandidateSelecting: boolean;
+  categoryCode: string;
+  onBottomSlideOpen: (content: ReactNode) => void;
+}
+
+export interface VoteRecommendItemProps {
+  state: string;
+  data: SearchItemType;
+  onBottomSlideOpen: (content: ReactNode) => void;
+}

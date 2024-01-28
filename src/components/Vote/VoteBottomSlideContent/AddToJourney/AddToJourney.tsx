@@ -16,7 +16,7 @@ const AddToJourney = ({placeId}: {placeId: number}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const spaceId = Number(location.pathname.split('/')[2]);
-  const journeyAtom = useRecoilValue(journeyState);
+  const journeyAtom = useRecoilValue(journeyState(spaceId));
   const setIsBTOpen = useSetRecoilState(isBottomSlideOpenState);
   const days = journeyAtom.journeys.length;
   const [selectedDays, setSelectedDays] = useState(Array(days).fill(false));

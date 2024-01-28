@@ -45,10 +45,18 @@ const VoteHeader = ({onBottomSlideOpen, title, isZeroCandidates}: VoteHeaderProp
     }
   };
 
+  const handleBackClick = () => {
+    if (path === 'map') {
+      navigate(-1);
+    } else {
+      navigate(`/trip/${spaceId}`);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.leftSide}>
-        <button onClick={() => navigate(`/trip/${spaceId}`)} className={styles.leftSide__backIcon}>
+        <button onClick={handleBackClick} className={styles.leftSide__backIcon}>
           <MdOutlineArrowBackIosNew />
         </button>
         <p className={styles.leftSide__title}>{title}</p>

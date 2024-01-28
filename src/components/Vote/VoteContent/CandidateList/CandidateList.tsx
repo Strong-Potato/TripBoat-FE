@@ -12,7 +12,7 @@ import VoteContentEmpty from '../VoteContentEmpty/VoteContentEmpty';
 
 import {CandidateListProps} from '@/types/vote';
 
-const CandidateList = ({candidates, onBottomSlideOpen, showResults, isCandidateSelecting}: CandidateListProps) => {
+const CandidateList = ({candidates, onBottomSlideOpen, isCandidateSelecting}: CandidateListProps) => {
   const setSelectedCandidates = useSetRecoilState(selectedCandidatesState);
   const {addItemInNewSet} = useGetSelectedSet(setSelectedCandidates);
 
@@ -33,7 +33,7 @@ const CandidateList = ({candidates, onBottomSlideOpen, showResults, isCandidateS
             )}
             <div className={styles.candidateBox}>
               <label htmlFor={`${i}checkbox`}>
-                <CandidateCard onBottomSlideOpen={onBottomSlideOpen} candidate={candidate} showResults={showResults} />
+                <CandidateCard onBottomSlideOpen={onBottomSlideOpen} candidate={candidate} />
               </label>
               {candidate.tagline && (
                 <div className={styles.candidateBox__memo}>
