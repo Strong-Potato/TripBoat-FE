@@ -18,6 +18,7 @@ import {EditReviewBottomSlideProps} from '@/types/detail';
 
 import {s3Request} from '@/api/s3';
 import {usePatchMyReview} from '@/hooks/User/useMyReview';
+import CustomToast from '@/components/CustomToast/CustomToast';
 
 function EditReviewBottomSlide({
   reviewId,
@@ -34,6 +35,8 @@ function EditReviewBottomSlide({
 
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const setModalContent = useSetRecoilState(modalContentState);
+
+  const toast = CustomToast();
 
   const [starCount, setStarCount] = useState<number>(starCountProps);
   const [text, setText] = useState<string>(textProps);
@@ -80,6 +83,7 @@ function EditReviewBottomSlide({
       images: imageUrls,
       visitedAt: `${time.getFullYear()}-${('00' + (time.getMonth() + 1).toString()).slice(-2)}-01`,
     });
+    toast('리뷰가 수정되었습니다.');
     slideOnClose();
     document.body.style.removeProperty('overflow');
   };
