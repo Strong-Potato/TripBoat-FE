@@ -52,6 +52,7 @@ export type spaceInfo = {
 
 export interface TravelListProp {
   isSideOpen: boolean;
+  sideClose: () => void;
 }
 
 export type SideBarProps = {

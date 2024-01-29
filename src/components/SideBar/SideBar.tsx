@@ -79,7 +79,7 @@ function SideBar({isSideOpen, sideClose}: SideBarProps) {
               </div>
             </section>
             <Divider />
-            <TravelList isSideOpen={isSideOpen} />
+            <TravelList isSideOpen={isSideOpen} sideClose={sideClose} />
           </div>
         </Slide>
       </div>
