@@ -24,7 +24,7 @@ function Others({data}: OthersProps) {
     },
   } = useGetPlacesNearby(
     0,
-    5,
+    7,
     data.location.areaCode,
     data.location.sigunguCode,
     data.contentTypeId,
