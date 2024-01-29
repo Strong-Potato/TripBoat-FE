@@ -19,6 +19,7 @@ interface PropsType {
 function CardHaveVote({data}: PropsType) {
   const [slideLocation, setSlideLocation] = useState<number>(0);
   const [componentRef, size] = useComponentSize();
+  const counts = data.voteResponse.length;
   return (
     <div className={styles.container}>
       <SlideButton
@@ -45,7 +46,7 @@ function CardHaveVote({data}: PropsType) {
               : '날짜 미정';
 
             return (
-              <div className={styles.vote_box} key={data.voteId}>
+              <div className={styles.vote_box} key={data.voteId} style={{width: counts === 1 ? '100%' : '30.8rem'}}>
                 <div className={styles.contents}>
                   <div className={styles.text_box}>
                     <p className={styles.vote_title}>

@@ -1,7 +1,6 @@
 @use '@/sass' as *;
 
 .container {
-  width: 14rem;
   min-height: 5.6rem;
 
   display: flex;
@@ -14,5 +13,5 @@
 
   color: $neutral900;
 
-  @include typography(button);
+  @include typography(subTitle);
 }
