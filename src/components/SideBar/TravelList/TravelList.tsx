@@ -11,7 +11,7 @@ import {setSpaceDate} from '@/utils/formatDate';
 
 import {TravelListProp} from '@/types/sidebar';
 
-function TravelList({isSideOpen}: TravelListProp) {
+function TravelList({isSideOpen, sideClose}: TravelListProp) {
   const [, setIsFull] = useRecoilState(isFullMember);
   const {mutate} = usePostSpace();
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ function TravelList({isSideOpen}: TravelListProp) {
         onSuccess: (data) => {
           if (data) {
             navigate(`/trip/${data.data.id}`);
+            sideClose;
           }
         },
       });
@@ -45,7 +46,13 @@ function TravelList({isSideOpen}: TravelListProp) {
         <ul className={styles.travelSpaceList__items}>
           {spaces.data.spaces.map((item, index) => (
             <li key={index}>
-              <button className={styles.travelSpaceList__items__item} onClick={() => navigate(`/trip/${item.id}`)}>
+              <button
+                className={styles.travelSpaceList__items__item}
+                onClick={() => {
+                  navigate(`/trip/${item.id}`);
+                  sideClose;
+                }}
+              >
                 <p className={styles.travelSpaceList__items__item__name}>{item.city ? item.city : `여행지 미정`}</p>
                 <p className={styles.travelSpaceList__items__item__date}>
                   {item.startDate && item.endDate ? setSpaceDate(item.startDate, item.endDate) : '날짜 미정'}
