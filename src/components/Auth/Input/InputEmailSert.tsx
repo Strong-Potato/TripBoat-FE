@@ -1,9 +1,10 @@
-import axios from 'axios';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useSetRecoilState} from 'recoil';
 
 import styles from './Input.module.scss';
+
+import {useFindPasswordSendEmail, useSignupSendEmail} from '@/hooks/Auth/auth';
 
 import CustomToast from '@/components/CustomToast/CustomToast';
 
@@ -19,15 +20,13 @@ function InputEmailSert({register, email, due, setDue, type}: InputEmailSertProp
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const showToast = CustomToast();
   const navigate = useNavigate();
-  const sendEmailPath =
-    type === 'signup' ? '/api/auth/register/send-email' : '/api/auth/modify/lost-password/send-email';
+  const sendForSignup = useSignupSendEmail();
+  const sendForPassword = useFindPasswordSendEmail();
 
   const onClickResert = async () => {
     try {
-      const res = await axios.post(sendEmailPath, {
-        email,
-      });
-      console.log(res);
+      const res =
+        type === 'signup' ? await sendForSignup.mutateAsync({email}) : await sendForPassword.mutateAsync({email});
 
       if (res.data.responseCode === 202) {
         setExpire(await res.data.data.expire);
