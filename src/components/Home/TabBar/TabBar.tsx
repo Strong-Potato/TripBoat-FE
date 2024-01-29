@@ -1,10 +1,11 @@
 import {AiOutlineBell} from 'react-icons/ai';
-import {IoSearchSharp} from 'react-icons/io5';
 import {Link} from 'react-router-dom';
 
 import styles from './TabBar.module.scss';
 
 import {useGetAlarm} from '@/hooks/Notification/useNotification';
+
+import SearchIcon from '@/assets/homeIcons/home/searchIcon.svg?react';
 
 import {Alarmprop} from '@/types/alarm';
 
@@ -20,7 +21,7 @@ function TabBar({onAlarmOpen, isAlarmOpen}: Alarmprop) {
     <div className={styles.container}>
       <div className={styles.icons}>
         <Link to='/search'>
-          <IoSearchSharp />
+          <SearchIcon style={{textAlign: 'center', paddingTop: '2px', width: '24px'}} />
         </Link>
         <button onClick={onAlarmOpen} className={styles.icons__wrapper}>
           <AiOutlineBell />
