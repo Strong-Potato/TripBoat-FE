@@ -11,6 +11,7 @@ import {
   signup_emailSert,
   signup_sendEmail,
   signup_submit,
+  withdrawal,
 } from '@/api/auth';
 
 /* ---------------------------------- LOG IN/OUT --------------------------------- */
@@ -194,6 +195,26 @@ export const useModifyPasswordCheck = () => {
         return;
       }
       console.log('이메일 인증 성공', data);
+    },
+    onError: (err) => {
+      console.error(err);
+    },
+  });
+};
+
+/* ------------------------------- WITHDRAWAL ------------------------------- */
+
+export const useSignout = () => {
+  return useMutation({
+    mutationFn: withdrawal,
+    onSuccess: (data) => {
+      const resCode = data.data.responseCode;
+
+      if (resCode === 206) {
+        console.error('비밀번호 불일치', data);
+        return;
+      }
+      console.log('회원 탈퇴 성공', data);
     },
     onError: (err) => {
       console.error(err);
