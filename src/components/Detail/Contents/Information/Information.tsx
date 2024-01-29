@@ -6,6 +6,7 @@ import Yanolja from '@/assets/logo_yanolja.svg?react';
 import styles from './Information.module.scss';
 import {AiOutlineRight} from 'react-icons/ai';
 import {Link} from 'react-router-dom';
+import Others from './Others/Others';
 
 export interface InformationProps {
   data: placeInfoDataPlace;
@@ -47,7 +48,7 @@ function Information({data, onOpen, reviewsRating, reviews}: InformationProps) {
         contentTypeId={data.contentTypeId}
       />
       <ShortReviews onOpen={onOpen} reviewsRating={reviewsRating} reviews={reviews} />
-      {/* <Others data={data} /> */}
+      <Others data={data} />
     </div>
   );
 }
