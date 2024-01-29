@@ -4,9 +4,10 @@ import {useNavigate} from 'react-router-dom';
 
 import styles from './LoginForm.module.scss';
 
+import {useLogin} from '@/hooks/Auth/auth';
+
 import AuthButton from '@/components/Auth/Button/AuthButton';
 
-import {authRequest} from '@/api/auth';
 import validationForm from '@/utils/inputValidation';
 
 import InputEmail from './LoginInput/InputEmail';
@@ -29,6 +30,7 @@ function LoginForm() {
 
   const navigate = useNavigate();
   const [validationError, setValidationError] = useState<boolean>(false);
+  const login = useLogin();
 
   const showError = (email: string, password: string) => {
     const isValid = validationForm.email.test(email) && validationForm.password.test(password);
@@ -43,24 +45,18 @@ function LoginForm() {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const {email, password} = getValues();
 
     if (showError(email as string, password as string)) return;
 
-    try {
-      const res = await authRequest.login(email as string, password as string);
-      console.log('login response', res);
+    const res = await login.mutateAsync({email, password});
 
-      if (res.data.responseCode === 401) {
-        setValidationError(true);
-        return;
-      }
-
-      navigate('/', {replace: true});
-    } catch (error) {
-      console.log(error);
+    if (res.data.responseCode === 401) {
+      setValidationError(true);
+      return;
     }
+
+    navigate('/', {replace: true});
   };
 
   return (

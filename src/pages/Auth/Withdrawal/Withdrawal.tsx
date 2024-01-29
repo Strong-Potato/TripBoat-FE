@@ -4,6 +4,7 @@ import {useSetRecoilState} from 'recoil';
 
 import styles from './Withdrawal.module.scss';
 
+import {useSignout} from '@/hooks/Auth/auth';
 import {useGetMyInfo} from '@/hooks/User/useUser';
 
 import AlertModal from '@/components/AlertModal/AlertModal';
@@ -11,7 +12,6 @@ import AuthButton from '@/components/Auth/Button/AuthButton';
 import Header from '@/components/Auth/Header/Header';
 import CustomToast from '@/components/CustomToast/CustomToast';
 
-import {authRequest} from '@/api/auth';
 import {isModalOpenState} from '@/recoil/vote/alertModal';
 
 import {AuthForm} from '@/types/auth';
@@ -34,6 +34,7 @@ function Withdrawal() {
   const setIsModalOpen = useSetRecoilState(isModalOpenState);
   const showToast = CustomToast();
   const navigate = useNavigate();
+  const withdrawal = useSignout();
 
   const showFailedSignout = () => {
     showToast('비밀번호가 일치하지 않습니다.');
@@ -43,10 +44,9 @@ function Withdrawal() {
 
   const signout = async () => {
     try {
-      const res =
-        data?.data.provider === 'NONE' ? await authRequest.withdrawal(password) : await authRequest.withdrawal();
+      const provider = data?.data.provider;
 
-      console.log('signout response', res);
+      const res = provider === 'NONE' ? await withdrawal.mutateAsync({password}) : await withdrawal.mutateAsync({});
 
       if (res.data.responseCode === 206) {
         showFailedSignout();

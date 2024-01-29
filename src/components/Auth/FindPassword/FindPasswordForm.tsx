@@ -4,9 +4,9 @@ import {useNavigate} from 'react-router-dom';
 
 import styles from './FindPasswordForm.module.scss';
 
-import CustomToast from '@/components/CustomToast/CustomToast';
+import {useFindPassword} from '@/hooks/Auth/auth';
 
-import {authRequest} from '@/api/auth';
+import CustomToast from '@/components/CustomToast/CustomToast';
 
 import StepEmail from './Step/StepEmail';
 import StepEmailSert from './Step/StepEmailSert';
@@ -34,7 +34,7 @@ function FindPasswordForm() {
 
   const [findPasswordStep, setFindPasswordStep] = useState<string>('email');
   const [code, setCode] = useState<string>('');
-
+  const findPassword = useFindPassword();
   const navigate = useNavigate();
   const showToast = CustomToast();
 
@@ -44,8 +44,12 @@ function FindPasswordForm() {
 
     try {
       const {email, password} = data;
-      const res = await authRequest.lostPassword_submit(email, password, code);
-      console.log(res);
+
+      const res = await findPassword.mutateAsync({
+        email,
+        newPassword: password,
+        token: code,
+      });
 
       if (res.data.responseCode === 204) {
         showToast('만료된 토큰입니다. 다시 인증해주세요.');

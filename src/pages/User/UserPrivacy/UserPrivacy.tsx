@@ -3,16 +3,16 @@ import {Link, useNavigate} from 'react-router-dom';
 
 import styles from './UserPrivacy.module.scss';
 
+import {useLogout} from '@/hooks/Auth/auth';
 import {useGetMyInfo} from '@/hooks/User/useUser';
 
 import Header from '@/components/Auth/Header/Header';
-
-import {authRequest} from '@/api/auth';
 
 function UserPrivacy() {
   const navigate = useNavigate();
   const {data, error, isFetching} = useGetMyInfo(true);
   const queryClient = useQueryClient();
+  const logout = useLogout();
 
   if (isFetching) {
     return <div></div>;
@@ -20,7 +20,7 @@ function UserPrivacy() {
   if (error) navigate('/auth/login');
 
   const clickLogout = async () => {
-    authRequest.logout();
+    logout.mutate();
 
     // remove query cache for logout
     queryClient.clear();

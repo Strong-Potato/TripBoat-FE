@@ -2,7 +2,9 @@ import {Link} from 'react-router-dom';
 
 import styles from './Step.module.scss';
 
-import {authRequest} from '@/api/auth';
+import {useModifyPasswordCheck} from '@/hooks/Auth/auth';
+
+import CustomToast from '@/components/CustomToast/CustomToast';
 
 import AuthButton from '../../Button/AuthButton';
 import InputOldPassword from '../../Input/InputOldPassword';
@@ -17,9 +19,19 @@ function StepOldPassword({
   setToken,
   watchFields: {oldPassword},
 }: StepOldPasswordProps) {
+  const passwordCheck = useModifyPasswordCheck();
+  const showToast = CustomToast();
+
   const onClickNext = async () => {
     try {
-      const res = await authRequest.modifyPassword_check(oldPassword);
+      const res = await passwordCheck.mutateAsync({
+        password: oldPassword,
+      });
+
+      if (res.data.responseCode === 206) {
+        showToast('비밀번호가 일치하지 않습니다.');
+        return;
+      }
 
       setToken!(await res.data.data.token);
       setStep!('newPassword');

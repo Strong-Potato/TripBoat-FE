@@ -18,8 +18,12 @@ export interface AuthForm {
   password?: string;
   passwordConfirm?: string;
   oldPassword?: string;
+  newPassword?: string;
   image?: FileList | undefined;
   nickname?: string;
+  profile?: string;
+  code?: string;
+  token?: string;
 }
 
 export interface InputEmailProps {
