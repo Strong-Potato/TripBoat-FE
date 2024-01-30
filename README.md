@@ -181,20 +181,58 @@
 
 ## 6. 신경 쓴 부분
 
--
-- 
+- React-Query
+    - 의존적 쿼리 키 : 쿼리 키를 사용해서 데이터 가져오기 요청을 최적화했습니다. 쿼리 키가 변경될 때 마다 새롭게 데이터를 업데이트를 할 수 있어 불필요한 재요청을 방지할 수 있습니다.
+    - 로딩, 에러 처리 : 데이터가 도착하기 전 상태를 자동으로 감지하여 수동으로 코드를 적용하지 않았습니다. 또한 에러를 자동으로 감지하기 때문에 에러 바운더리를 정해 컴포넌트 렌더링 최적화를 위해 노력했습니다.
+- Proxy
+    - 프록시 서버를 사용하여 개발 환경 및 배포 환경에서 발생하는 CORS 문제를 해결했습니다.
+    - 보안과 개발자 경험을 향상시키기 위해 노력했습니다.
 
 <br>
 
-## 7. 페이지별 기능
+## 7. 시연영상
 
-
+[![Video Label](https://i.ytimg.com/vi/bfKGZHpvXsc/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA_JSsy52DV0U5jdfOjhp5_iYFVvw)](https://www.youtube.com/watch?v=bfKGZHpvXsc)
 
 <br>
 
 ## 8. 트러블 슈팅
 
+###  남궁종민
 
+
+
+<br>
+
+### 박성후
+
+
+
+<br>
+
+### 박은영
+
+
+
+<br>
+
+### 백상원
+
+
+
+<br>
+
+### 정서현
+
+
+
+<br>
+
+### 진정민
+
+
+
+<br>
 
 <br>
 
