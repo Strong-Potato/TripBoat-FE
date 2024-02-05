@@ -1,6 +1,7 @@
 # ⛵️ 함께 할때 더 좋은 여행 일정 서비스 TRIPVOTE
 
-![1 표지](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/acbebd6f-1cb7-4e98-8804-1c0dcce509cb)
+![강자밭 최종발표_표지](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/aa756e0b-b2c2-439a-9f4a-1069da84a723)
+
 
 
 - 배포 URL : https://tripvote.site
@@ -10,6 +11,22 @@
 <br>
 
 ## 프로젝트 소개
+![강자밭 최종발표_page-0004](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/cae4c280-b640-4de0-b3f3-46b319db667a)
+![강자밭 최종발표_page-0005](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/d66f8f76-29ac-443c-8be9-aea8d0879e22)
+![강자밭 최종발표_page-0006](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/3f437739-c654-45d2-b991-86d2449a899f)
+![강자밭 최종발표_page-0007](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/a88046a1-0f9d-4ffa-9f81-836ce602b2a0)
+![강자밭 최종발표_page-0009](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/1fc80c7e-fed5-4da6-8bb3-9cf2ebdd2ea8)
+![강자밭 최종발표_page-0010](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/4d5e6f09-9b10-4c81-8ad2-993a6ba1387f)
+![강자밭 최종발표_page-0011](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/86333637-a66c-4cd7-ad72-f0661db70ea5)
+![강자밭 최종발표_page-0012](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/2b0c9280-bc69-4bc2-894e-4aaa569c6663)
+![강자밭 최종발표_page-0013](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/fa804b91-60a2-409a-ba30-aeae14708ab8)
+![강자밭 최종발표_page-0014](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/33cb9fcc-b7e5-4638-8e80-b44504199640)
+![강자밭 최종발표_page-0015](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/51437825-6b19-446d-8f3e-24cbf762766f)
+![강자밭 최종발표_page-0016](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/1e727bef-65a4-4000-ba09-6863f66d2178)
+![강자밭 최종발표_page-0017](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/dd32913f-0af2-4562-b065-2e5c10e25fbf)
+![강자밭 최종발표_page-0018](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/1eb6305d-a82c-411a-b884-1ab3df4dcd39)
+![강자밭 최종발표_page-0019](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/2e7bed2f-ccba-466e-b24c-bf5b6bc767a8)
+
 
 - TRIPVOTE는 일행과 함께 여행일정을 만들어 갈 수 있는 서비스입니다.
 - 여행 스페이스를 만들고 투표와 일정을 등록할 수 있습니다.
@@ -17,6 +34,21 @@
 - 일행과 함께 투표에 참여하여 일정을 정해볼 수 있습니다.
 
 <br>
+
+## 기획 및 협업
+![강자밭 최종발표_page-0021](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/4bd1dbe9-45aa-41a1-a633-fa5981871d92)
+![강자밭 최종발표_page-0022](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/c540a1d9-e854-4690-a254-4231777496a0)
+![강자밭 최종발표_page-0023](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/193773cc-86f4-4dec-a67f-77c317b384cf)
+![강자밭 최종발표_page-0024](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/3d5600e9-4997-48ad-b862-42d9c28d3d91)
+![강자밭 최종발표_page-0025](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/d85f5c36-a867-4eb1-8669-6d07fdfa6964)
+![강자밭 최종발표_page-0026](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/b3962145-27b8-4c96-bca6-e0ae6354dbcb)
+![강자밭 최종발표_page-0027](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/d23dc516-f5c1-4556-8388-bd67c7c07787)
+![강자밭 최종발표_page-0028](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/4c7d5247-2823-45f4-a26e-a2d6d37e1931)
+![강자밭 최종발표_page-0029](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/c84e09e2-9916-4dbf-9d35-3f691c9c5a70)
+![강자밭 최종발표_page-0047](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/08a5e23b-a642-4c9f-93f9-f269bedf7c11)
+![강자밭 최종발표_page-0048](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/a81d0828-d1e5-4e3f-b50a-5fd7801bf625)
+![강자밭 최종발표_page-0049](https://github.com/Strong-Potato/TripVote-FE/assets/120024673/b5498402-26f1-4791-bd64-55144f5bb477)
+
 
 ## 팀원 구성
 
@@ -195,103 +227,4 @@
 [![Video Label](https://i.ytimg.com/vi/bfKGZHpvXsc/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA_JSsy52DV0U5jdfOjhp5_iYFVvw)](https://www.youtube.com/watch?v=bfKGZHpvXsc)
 
 <br>
-
-## 8. 트러블 슈팅
-
-###  남궁종민
-
-
-
-<br>
-
-### 박성후
-
-- Service Worker
-    - 파이어베이스에서 제공하는 자바스크립트 FCM을 사용하기 위해 애플리케이션에서 백그라운드에서 실행되는 스크립트를 사용했었지만, 포그라운드에서 onMessage를 수신하지 못하는 현상을 마주했습니다. 이는 PWA가 아닌 순수 웹의 한계였음을 깨닫고 이후 PWA를 공부 후 프로젝트에 적용해보기로 했습니다.
-- 카카오 API
-    - 일행 추가 로직을 정리하면서 분기처리 및 예외 처리의 중요성을 깨달았습니다.
-    - 복합적인 기능을 구현하기 위해 상황을 단순화하는 과정을 거치고 꼼꼼하게 예외처리를 하여 기능을 성공적으로 구현할 수 있었습니다.
-    - 카카오 로직 변경 과정
-
-
-
-| <img width="500" alt="스크린샷 2024-01-30 오후 5 31 41" src="https://github.com/Strong-Potato/TripVote-FE/assets/120024673/bc4c7693-b384-4579-b7fd-9c2229454a28"> | <img width="500" alt="스크린샷 2024-01-30 오후 5 31 53" src="https://github.com/Strong-Potato/TripVote-FE/assets/120024673/b9c4dc50-b745-45b6-85c2-83a6c0c52db1"> |
-|------------------------|------------------------|
-
-<br>
-
-### 박은영
-
-
-
-<br>
-
-### 백상원
-
-
-
-<br>
-
-### 정서현
-
-
-
-<br>
-
-### 진정민
-
-
-
-<br>
-
-<br>
-
-## 9. 개선 목표
-
-- **목표**
-    
-- **2024-00-00 성능 개선 내용**
-    
-    
-<br>
-
-## 10. 프로젝트 후기
-
-###  남궁종민
-
-
-
-<br>
-
-### 박성후
-
-- UXUI 다지이너 1, PM 5, BE 5, FE 6 명이 모인 프로젝트를 통해 어떤 점을 조심하고 더 잘 할 수 있을지 생각해 보았습니다. 다양한 역할의 팀원들과 함께하며 소통의 부재가 일정 지연으로 이어질 수 있음을 깨달았고, 기획과 기술 검증에 충분한 시간을 할애하지 않은 점이 문제였다고 느꼈습니다. 이를 개선하기 위해 소통 창구를 단순화하고 트렐로와 같은 도구를 활용하는 것이 좋겠다고 생각했습니다.
-개인적으로는 개발에 대한 열정을 재확인하고, 리더로서의 소통 능력과 상황 파악 능력의 중요성을 인식하게 되었습니다. 의지가 강한 팀원들과 함께 프로젝트를 완성해 나갈 수 있었던 것은 큰 행운이었으며, 이러한 경험을 통해 부딪히고 문제를 해결하는 능력을 키울 수 있는 좋은 기회가 되었습니다.
-
-<br>
-
-### 박은영
-
-
-
-<br>
-
-### 백상원
-
-
-
-<br>
-
-### 정서현
-
-
-
-<br>
-
-### 진정민
-
-
-
-<br>
-
 
