@@ -11,13 +11,14 @@ import {ForSearchType} from '@/types/home';
 interface PropsType {
   forSearch: ForSearchType;
   setForSearch: React.Dispatch<React.SetStateAction<ForSearchType>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface InputBarType extends HTMLInputElement {
   focus: () => void;
 }
 
-function SearchBar({forSearch, setForSearch}: PropsType) {
+function SearchBar({forSearch, setForSearch, setIsLoading}: PropsType) {
   const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
   const inputBar = useRef<InputBarType | null>(null);
@@ -34,6 +35,7 @@ function SearchBar({forSearch, setForSearch}: PropsType) {
   }
 
   function search() {
+    setIsLoading(true);
     navigate(
       `/search?keyword=${inputValue}&category=0&map=false&location=${forSearch.location}&sort=등록순&hot=false&placeID=${forSearch.placeID}&tripDate=${forSearch.tripDate}`,
     );

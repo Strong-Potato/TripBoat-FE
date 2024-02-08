@@ -20,6 +20,7 @@ function SearchFromHome() {
     tripDate: 'undefined',
   });
   const [searchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(true);
   const vh = window.innerHeight;
 
   useEffect(() => {
@@ -95,9 +96,13 @@ function SearchFromHome() {
       {forSearch.map === 'true' ? (
         <MapHeader forSearch={forSearch} setForSearch={setForSearch} />
       ) : (
-        <SearchBar forSearch={forSearch} setForSearch={setForSearch} />
+        <SearchBar forSearch={forSearch} setForSearch={setForSearch} setIsLoading={setIsLoading} />
       )}
-      {forSearch.keyword === '' ? <SearchHome forSearch={forSearch} /> : <SearchList forSearch={forSearch} />}
+      {forSearch.keyword === '' ? (
+        <SearchHome forSearch={forSearch} />
+      ) : (
+        <SearchList isLoading={isLoading} setIsLoading={setIsLoading} forSearch={forSearch} />
+      )}
     </div>
   );
 }

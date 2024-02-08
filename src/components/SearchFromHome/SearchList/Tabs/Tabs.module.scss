@@ -1,4 +1,4 @@
-@use "@/sass" as *;
+@use '@/sass' as *;
 
 .container {
   color: $neutral300;
@@ -6,6 +6,7 @@
   @include slide_button_container;
 
   .tabs {
+    padding: 0 20px;
     @include slide_list_container;
   }
 }
