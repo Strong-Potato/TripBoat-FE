@@ -36,10 +36,6 @@ function SearchList({forSearch, isLoading, setIsLoading}: PropsType) {
   });
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(isLoading);
-  }, [isLoading]);
-
   async function getData(page: number) {
     if (forSearch.hot === 'true') {
       const fetchData = await keywordSearch(forSearch.keyword, forSearch.location, forSearch.sort, page + 1);
