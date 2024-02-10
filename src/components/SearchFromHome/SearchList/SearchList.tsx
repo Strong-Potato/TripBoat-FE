@@ -22,9 +22,11 @@ import {ForSearchType, SearchItemType} from '@/types/home';
 
 interface PropsType {
   forSearch: ForSearchType;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function SearchList({forSearch}: PropsType) {
+function SearchList({forSearch, isLoading, setIsLoading}: PropsType) {
   const [filterData, setFilterData] = useState<SearchItemType[] | undefined>();
   const [isEnd, setIsEnd] = useState(false);
   const [categoryChange, setCategoryChange] = useState(false);
@@ -41,12 +43,19 @@ function SearchList({forSearch}: PropsType) {
         setIsEnd(true);
         return [];
       }
+      if (isLoading) {
+        setIsLoading(false);
+      }
       return fetchData;
     } else {
       const fetchData = await search(forSearch.keyword, forSearch.location, forSearch.sort, page + 1);
       if (fetchData?.length === 0) {
         setIsEnd(true);
         return [];
+      }
+      if (isLoading) {
+        console.log(1);
+        setIsLoading(false);
       }
       return fetchData;
     }
@@ -112,6 +121,11 @@ function SearchList({forSearch}: PropsType) {
         paddingTop: forSearch.placeID !== 'undefinde' ? '24px' : 0,
       }}
     >
+      {isLoading && (
+        <div className={styles.spinner}>
+          <img src='/Lottie.gif' />
+        </div>
+      )}
       {forSearch.hot === 'false' && (
         <Tabs data={data?.pages.flat()} forSearch={forSearch} setCategoryChange={setCategoryChange} />
       )}
