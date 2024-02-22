@@ -102,29 +102,27 @@ function Trip() {
             >
               {checkDDay(spaceData?.data?.dueDate)}
             </div>
-            <div
-              className={styles.titleContainer__placeTitle}
-              style={
-                spaceData?.data?.city === null ? {textDecorationLine: 'underline', textDecorationThickness: '1px'} : {}
-              }
-            >
-              {spaceData?.data?.city ? `${spaceData.data.city} 여행` : '여행지를 정해주세요'}
+            <div className={styles.titleContainer__placeTitle}>
+              {spaceData?.data?.city ? (
+                `${spaceData.data.city} 여행`
+              ) : (
+                <button onClick={() => navigate(`/trip/${id}/selectRegion`, {state: {id: id}})}>
+                  여행지를 정해주세요
+                </button>
+              )}
             </div>
             <div className={styles.dateContainer}>
-              <span
-                className={styles.dateContainer__dateTitle}
-                style={
-                  spaceData?.data?.endDate === null
-                    ? {textDecorationLine: 'underline', textDecorationThickness: '1px'}
-                    : {}
-                }
-              >
-                {spaceData?.data?.endDate
-                  ? setSpaceDate(
-                      spaceData.data.startDate,
-                      spaceData.data.startDate === spaceData.data.endDate ? '' : spaceData.data.endDate,
-                    )
-                  : '날짜를 정해주세요'}
+              <span className={styles.dateContainer__dateTitle}>
+                {spaceData?.data?.endDate ? (
+                  setSpaceDate(
+                    spaceData.data.startDate,
+                    spaceData.data.startDate === spaceData.data.endDate ? '' : spaceData.data.endDate,
+                  )
+                ) : (
+                  <button onClick={() => navigate(`/trip/${id}/selectDate`, {state: {id: id}})}>
+                    날짜를 정해주세요
+                  </button>
+                )}
               </span>
               {!isPassed && (
                 <button className={styles.dateContainer__editButton} onClick={onBottomSlideOpen}>
