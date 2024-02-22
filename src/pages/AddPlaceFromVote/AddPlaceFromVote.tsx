@@ -20,7 +20,7 @@ import {activeTabIndexState} from '@/recoil/spaces/trip';
 import {Vote} from '@/types/route';
 
 function AddPlaceFromVote() {
-  const goBack = useGoBack();
+  const navigateBack = useGoBack();
   const {state} = useLocation();
   const {id, journeyId, day} = state;
   const {data: voteData} = useGetVoteListInfo(Number(id));
@@ -31,12 +31,18 @@ function AddPlaceFromVote() {
   const navigate = useNavigate();
   const setSelectedTabIndex = useSetRecoilState(activeTabIndexState);
 
+  const goBack = () => {
+    navigateBack();
+    setSelectedPlaces([]);
+  };
+
   const addPlaces = async () => {
     await postPlaces.mutateAsync({
       spaceId: Number(id),
       journeyId: Number(journeyId),
       placeIds: selectedPlaces.flatMap((place) => place.id),
     });
+    setSelectedPlaces([]);
     navigate(`/trip/${id}`, {state: {id: id}});
     setSelectedTabIndex(1);
   };
