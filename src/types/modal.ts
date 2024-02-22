@@ -14,3 +14,10 @@ export interface DeletePlacesModalProps {
   setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
   placeList: TransformedDataItem[];
 }
+
+export type ReduceDatesModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  startDate: Date;
+  endDate: Date;
+};
