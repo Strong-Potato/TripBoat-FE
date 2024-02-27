@@ -13,9 +13,10 @@ import {ForSearchType, SearchKeywordType} from '@/types/home';
 
 interface PropsType {
   forSearch: ForSearchType;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function SearchKeyword({forSearch}: PropsType) {
+function SearchKeyword({forSearch, setIsLoading}: PropsType) {
   const [data, setData] = useState<SearchKeywordType[] | undefined>();
   const [listWidth, setListWidth] = useState<number>(0);
   const [slideLocation, setSlideLocation] = useState<number>(0);
@@ -68,8 +69,7 @@ function SearchKeyword({forSearch}: PropsType) {
             <p
               key={keyword.name + i}
               onClick={() => {
-                console.log(forSearch);
-
+                setIsLoading(true);
                 navigate(
                   `/search?keyword=${keyword.name}&category=0&map=false&location=전국&sort=등록순&hot=true&placeID=${forSearch.placeID}&tripDate=${forSearch.tripDate}`,
                 );
@@ -79,7 +79,7 @@ function SearchKeyword({forSearch}: PropsType) {
             </p>
           ))
         ) : (
-          <p>.</p>
+          <p>인기 키워드가 존재하지 않습니다</p>
         )}
       </div>
     </div>

@@ -10,14 +10,15 @@ import {ForSearchType} from '@/types/home';
 
 interface PropsType {
   forSearch: ForSearchType;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function SearchHome({forSearch}: PropsType) {
+function SearchHome({forSearch, setIsLoading}: PropsType) {
   return (
     <div className={styles.lists_box}>
       <div className={styles.column_4px}>
         <p className={styles.title}>인기 검색 키워드</p>
-        <SearchKeyword forSearch={forSearch} />
+        <SearchKeyword forSearch={forSearch} setIsLoading={setIsLoading} />
       </div>
       {forSearch.placeID !== 'undefined' ? (
         <div className={styles.column_8px}>

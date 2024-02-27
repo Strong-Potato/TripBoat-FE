@@ -41,6 +41,9 @@ function SearchList({forSearch, isLoading, setIsLoading}: PropsType) {
       const fetchData = await keywordSearch(forSearch.keyword, forSearch.location, forSearch.sort, page + 1);
       if (fetchData?.length === 0) {
         setIsEnd(true);
+        if (isLoading) {
+          setIsLoading(false);
+        }
         return [];
       }
       if (isLoading) {
@@ -51,6 +54,9 @@ function SearchList({forSearch, isLoading, setIsLoading}: PropsType) {
       const fetchData = await search(forSearch.keyword, forSearch.location, forSearch.sort, page + 1);
       if (fetchData?.length === 0) {
         setIsEnd(true);
+        if (isLoading) {
+          setIsLoading(false);
+        }
         return [];
       }
       if (isLoading) {
