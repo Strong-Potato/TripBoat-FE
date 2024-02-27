@@ -99,7 +99,7 @@ function SearchFromHome() {
         <SearchBar forSearch={forSearch} setForSearch={setForSearch} setIsLoading={setIsLoading} />
       )}
       {forSearch.keyword === '' ? (
-        <SearchHome forSearch={forSearch} />
+        <SearchHome forSearch={forSearch} setIsLoading={setIsLoading} />
       ) : (
         <SearchList isLoading={isLoading} setIsLoading={setIsLoading} forSearch={forSearch} />
       )}

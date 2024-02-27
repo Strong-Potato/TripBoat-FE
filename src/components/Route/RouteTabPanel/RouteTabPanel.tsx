@@ -69,7 +69,7 @@ function RouteTabPanel({mapRef, center, level, journeysData}: MapInTripProps) {
         </button>
       </div>
       <div className={styles.routeContainer}>
-        <DayNavigationBar dateList={dateList} editMode={isEditMode} handleEditMode={handleEditMode} />
+        {dateList && <DayNavigationBar dateList={dateList} editMode={isEditMode} handleEditMode={handleEditMode} />}
         <div className={styles.journeysContainer}>
           {journeysData?.journeys &&
             journeysData.journeys.map((journey: Journey, index: number) => (
