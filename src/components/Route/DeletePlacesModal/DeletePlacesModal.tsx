@@ -13,7 +13,7 @@ function DeletePlacesModal({isOpen, onClose, setIsEditMode, placeList}: DeletePl
     await deletePlaces.mutateAsync({spaceId: Number(id), places: placeList});
 
     // FIXME: 페이지에 잔류하면서 보여지는 데이터 갱신
-    window.location.reload();
+    // window.location.reload();
     onClose();
     setIsEditMode(false);
   };

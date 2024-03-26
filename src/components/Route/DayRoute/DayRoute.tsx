@@ -84,6 +84,11 @@ function DayRoute({
   };
 
   useEffect(() => {
+    console.log('실시간 카드 리스트', placeList);
+    setPlaceCards(placeList);
+  }, [placeList]);
+
+  useEffect(() => {
     setEditedPlaces({journeyId: journeyId, placeCards: placeCards});
   }, [journeyId, placeCards]);
 
