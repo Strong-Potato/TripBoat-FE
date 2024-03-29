@@ -1,21 +1,23 @@
 import {Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay} from '@chakra-ui/react';
-import {useParams} from 'react-router-dom';
+import {format} from 'date-fns';
+import {useNavigate, useParams} from 'react-router-dom';
 
-import {useDeletePlaces} from '@/hooks/Spaces/space';
+import {usePutDates} from '@/hooks/Spaces/space';
 
-import {DeletePlacesModalProps} from '@/types/modal';
+import {ReduceDatesModalProps} from '@/types/modal';
 
-function DeletePlacesModal({isOpen, onClose, setIsEditMode, placeList}: DeletePlacesModalProps) {
+function ReduceDatesModal({isOpen, onClose, startDate, endDate}: ReduceDatesModalProps) {
   const {id} = useParams();
-  const deletePlaces = useDeletePlaces();
+  const putDates = usePutDates();
+  const navigate = useNavigate();
 
-  const deleteJourneys = async () => {
-    await deletePlaces.mutateAsync({spaceId: Number(id), places: placeList});
-
-    // FIXME: 페이지에 잔류하면서 보여지는 데이터 갱신
-    // window.location.reload();
-    onClose();
-    setIsEditMode(false);
+  const updateDates = async () => {
+    await putDates.mutateAsync({
+      spaceId: Number(id),
+      startDate: format(startDate!, 'yyyy-MM-dd'),
+      endDate: format(endDate!, 'yyyy-MM-dd'),
+    });
+    navigate(`/trip/${id}`, {state: {id: id}});
   };
 
   return (
@@ -31,31 +33,40 @@ function DeletePlacesModal({isOpen, onClose, setIsEditMode, placeList}: DeletePl
         p='32px'
       >
         <ModalHeader fontSize='subTitle' fontWeight='subTitle' lineHeight='subTitle' color='neutral.900' p='0'>
-          선택된 항목을 삭제하시겠습니까?
+          줄어든 여행일 만큼 일정이 삭제됩니다.
         </ModalHeader>
-        <ModalBody fontSize='tabLabel' fontWeight='tabLabel' lineHeight='tabLabel' color='neutral.400' p='0'>
-          <p></p>
+        <ModalBody
+          fontSize='tabLabel'
+          fontWeight='tabLabel'
+          lineHeight='tabLabel'
+          color='neutral.400'
+          p='0'
+          textAlign='center'
+        >
+          여행일을 더 짧게 변경하실 경우
+          <br />
+          변경 날짜에 맞춰 후반 일정이 삭제됩니다.
         </ModalBody>
         <ModalFooter display='flex' gap='8rem' p='0' mt='1.2rem'>
           <Button
+            onClick={onClose}
             variant='none'
             fontSize='button'
             fontWeight='button'
             lineHeight='button'
             color='neutral.400'
-            onClick={onClose}
           >
             취소
           </Button>
           <Button
-            onClick={deleteJourneys}
+            onClick={updateDates}
             variant='none'
             fontSize='button'
             fontWeight='button'
             lineHeight='button'
             color='primary.400'
           >
-            삭제하기
+            확인
           </Button>
         </ModalFooter>
       </ModalContent>
@@ -63,4 +74,4 @@ function DeletePlacesModal({isOpen, onClose, setIsEditMode, placeList}: DeletePl
   );
 }
 
-export default DeletePlacesModal;
+export default ReduceDatesModal;
